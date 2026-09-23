@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카오스폰즈 — 카드 시스템</title>
+    <link rel="stylesheet" href="ProjectC_style.css"> <!-- 카오스폰즈 전용 CSS 연결 -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head>
+<body>
+<div class="page-shell">
+
+    <!-- 히어로 / 내비게이션 -->
+    <header class="hero-section" id="overview">
+        <nav class="top-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 공통 메뉴 마운트 -->
+            <a href="../main.html" class="top-nav-logo">DEVFORGE</a>
+            <div class="top-nav-links">
+                <a href="ProjectC_Main.html">메인</a>
+                <a href="#attr">카드 속성</a>
+                <a href="#keyword">키워드</a>
+                <a href="#pile">더미 규칙</a>
+                <a href="#position">포지션</a>
+            </div>
+        </nav>
+
+        <section class="hero-card image-panel" style="--image: url('images/world/hero-main.jpg');">
+            <div class="image-overlay"></div>
+            <div class="hero-content">
+                <p class="eyebrow">PROJECT C · ChaosPons · Card System</p>
+                <h1>카드 시스템</h1>
+                <p class="hero-desc">
+                    카오스폰즈의 핵심 전투 요소 — 카드 속성, 등급, 키워드, 더미 규칙, 포지션을 정리한 레퍼런스 페이지.
+                </p>
+                <div class="hero-meta">
+                    <span>⚔️ 검</span>
+                    <span>🔮 지팡이</span>
+                    <span>✨ 성배</span>
+                    <span>🌀 펜타클</span>
+                    <span>최대 덱 40장</span>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <main>
+
+        <!-- 전투 기본 규칙 -->
+        <section id="rule" class="section-block">
+            <div class="section-heading">
+                <p class="eyebrow">Combat Rules</p>
+                <h2>전투 기본 규칙</h2>
+            </div>
+            <table class="rule-table">
+                <tr><th>항목</th><th>규칙</th></tr>
+                <tr><td>초기 손패</td><td>전투 시작 시 8장 드로우</td></tr>
+                <tr><td>매 턴 드로우</td><td>캐릭터 수 × 2장 (유물·버프에 의해 변동 가능)</td></tr>
+                <tr><td>기본 행동력(AP)</td><td>6 (유물·버프·상태 이상에 의해 증감 가능)</td></tr>
+                <tr><td>최대 덱 구성</td><td>40장 (기본)</td></tr>
+                <tr><td>손패 최대치</td><td>20장 (초과 시 버린 카드로 이동)</td></tr>
+                <tr><td>덱 소진 시</td><td>버린 카드 더미 전체를 덱으로 이동 후 셔플 → 남은 수 드로우</td></tr>
+                <tr><td>턴 종료</td><td>남은 AP는 다음 턴으로 이월되지 않음 (기본 규칙)</td></tr>
+                <tr><td>전투 승리</td><td>모든 적 HP 0 이하 → 보상 획득 → 탐사 지속</td></tr>
+                <tr><td>전투 패배</td><td>모든 아군 HP 0 이하 → 탐사 실패</td></tr>
+                <tr><td>도주</td><td>도주 카드/스킬 사용 시 즉시 종료, 승리 보상 미지급</td></tr>
+            </table>
+        </section>
+
+        <!-- 카드 더미 4종 -->
+        <section id="pile" class="section-block">
+            <div class="section-heading">
+                <p class="eyebrow">Card Piles</p>
+                <h2>카드 더미 (4종)</h2>
+                <p>전투 중 모든 카드는 덱·손패·버린 카드·제외 더미 중 하나에 속한다.</p>
+            </div>
+            <div class="pile-grid">
+                <div class="pile-card">
+                    <span class="pile-icon">🃏</span>
+                    <div class="pile-name">덱 (Deck)</div>
+                    <div class="pile-desc">현재 가지고 있는 모든 카드. 매 턴마다 손으로 (캐릭터 수 × 2)장을 가져온다. 카드 수가 0이 되면 버린 카드를 덱으로 전부 이동 후 셔플하여 남은 수를 뽑는다.</div>
+                </div>
+                <div class="pile-card">
+                    <span class="pile-icon">✋</span>
+                    <div class="pile-name">손패 (Hand)</div>
+                    <div class="pile-desc">현재 턴에 사용 가능한 카드. 카드 사용 시 효과 처리 후 버린 카드 또는 제외 더미로 이동. 턴 종료 시 손에 남은 카드는 규칙에 따라 처리된다.</div>
+                </div>
+                <div class="pile-card">
+                    <span class="pile-icon">🗑️</span>
+                    <div class="pile-name">버린 카드 (Discard)</div>
+                    <div class="pile-desc">이번 전투에서 사용하거나 턴 종료 시 버려진 카드. 덱이 소진되면 전부 덱으로 이동하여 재활용된다.</div>
+                </div>
+                <div class="pile-card">
+                    <span class="pile-icon">🚫</span>
+                    <div class="pile-name">제외 (Exile)</div>
+                    <div class="pile-desc">현재 전투에서 제외된 카드. 제외된 카드는 현재 전투에서 다시 사용할 수 없다. 제외 키워드·휘발·일회용 카드가 이 더미로 이동한다.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 카드 속성 4종 -->
+        <section id="attr" class="section-block">
+            <div class="section-heading">
+                <p class="eyebrow">Card Attributes</p>
+                <h2>카드 속성 (4종)</h2>
+                <p>각 카드는 4가지 속성 중 하나를 가지며, 동일 속성 카드를 조합하면 강력한 시너지를 만들 수 있다.</p>
+            </div>
+
+            <div class="attr-grid">
+                <!-- 검 -->
+                <div class="attr-card" style="--attr-color:#e05050;">
+                    <span class="attr-icon">⚔️</span>
+                    <div class="attr-name">검</div>
+                    <div class="attr-en">Sword</div>
+                    <div class="attr-desc">
+                        물리 공격 계열 카드.<br><br>
+                        단일/광역 피해, 방어력 감소 등 물리 계열 효과 중심.
+                        적의 체력을 직접적으로 삭감하는 데 특화되어 있으며,
+                        공격 포지션 캐릭터와의 시너지가 높다.
+                    </div>
+                    <div class="attr-tags">
+                        <span class="attr-tag">물리 피해</span>
+                        <span class="attr-tag">방어력 감소</span>
+                        <span class="attr-tag">단일/광역</span>
+                    </div>
+                </div>
+
+                <!-- 지팡이 -->
+                <div class="attr-card" style="--attr-color:#9b5de5;">
+                    <span class="attr-icon">🔮</span>
+                    <div class="attr-name">지팡이</div>
+                    <div class="attr-en">Wand</div>
+                    <div class="attr-desc">
+                        마법 공격 계열 카드.<br><br>
+                        마법 피해, 저항력 감소, 상태이상 부여 등 마법 계열 효과 중심.
+                        물리 저항이 높은 적에게 유효하며,
+                        다양한 디버프와 조합하여 복합적인 전략을 구사할 수 있다.
+                    </div>
+                    <div class="attr-tags">
+                        <span class="attr-tag">마법 피해</span>
+                        <span class="attr-tag">저항력 감소</span>
+                        <span class="attr-tag">상태이상 부여</span>
+                    </div>
+                </div>
+
+                <!-- 성배 -->
+                <div class="attr-card" style="--attr-color:#00c8a0;">
+                    <span class="attr-icon">✨</span>
+                    <div class="attr-name">성배</div>
+                    <div class="attr-en">Cup</div>
+                    <div class="attr-desc">
+                        회복/버프 계열 카드.<br><br>
+                        체력 회복, 강화(버프), 디버프 제거 등 지원 효과 중심.
+                        지원 포지션 캐릭터와 함께 사용 시 파티 전체의 생존력을
+                        크게 향상시킨다.
+                    </div>
+                    <div class="attr-tags">
+                        <span class="attr-tag">체력 회복</span>
+                        <span class="attr-tag">버프 부여</span>
+                        <span class="attr-tag">디버프 제거</span>
+                    </div>
+                </div>
+
+                <!-- 펜타클 -->
+                <div class="attr-card" style="--attr-color:#f5c842;">
+                    <span class="attr-icon">🌀</span>
+                    <div class="attr-name">펜타클</div>
+                    <div class="attr-en">Pentacle</div>
+                    <div class="attr-desc">
+                        코스트 회복/자원 운영 계열 카드.<br><br>
+                        드로우, 행동력(AP) 회복·증가, 코스트 조정 등 운영 효과 중심.
+                        전략 포지션 캐릭터의 핵심 속성으로 덱 순환과
+                        턴 효율을 극대화한다.
+                    </div>
+                    <div class="attr-tags">
+                        <span class="attr-tag">드로우</span>
+                        <span class="attr-tag">AP 회복</span>
+                        <span class="attr-tag">코스트 조정</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 카드 등급 -->
+            <div class="section-heading" style="margin-top:3rem;">
+                <p class="eyebrow">Card Rarity</p>
+                <h2>카드 등급 (4종)</h2>
+            </div>
+            <table class="rarity-table">
+                <tr>
+                    <th>등급</th>
+                    <th>영어명</th>
+                    <th>색상</th>
+                    <th>설명</th>
+                </tr>
+                <tr>
+                    <td><span class="rarity-badge" style="background:rgba(180,180,180,0.15);color:#c0c0c0;border:1px solid #808080;">일반</span></td>
+                    <td>Common</td>
+                    <td style="color:#c0c0c0;">은색</td>
+                    <td>기본 카드. 낮은 비용과 단순한 효과. 덱의 뼈대를 구성한다.</td>
+                </tr>
+                <tr>
+                    <td><span class="rarity-badge" style="background:rgba(255,140,0,0.15);color:#ff8c00;border:1px solid #ff8c00;">희귀</span></td>
+                    <td>Rare</td>
+                    <td style="color:#ff8c00;">주황색</td>
+                    <td>향상된 효과 또는 추가 부가효과를 지님. 덱 방향성을 강화한다.</td>
+                </tr>
+                <tr>
+                    <td><span class="rarity-badge" style="background:rgba(155,93,229,0.15);color:#9b5de5;border:1px solid #9b5de5;">특수</span></td>
+                    <td>Epic</td>
+                    <td style="color:#9b5de5;">보라색</td>
+                    <td>조건부 발동, 복합 효과 등 전략적 카드. 빌드의 핵심이 된다.</td>
+                </tr>
+                <tr>
+                    <td><span class="rarity-badge" style="background:rgba(245,200,66,0.15);color:#f5c842;border:1px solid #f5c842;">전설</span></td>
+                    <td>Legendary</td>
+                    <td style="color:#f5c842;">금색</td>
+                    <td>강력한 고유 효과. 일부 캐릭터 전용 카드 포함. 획득 확률 최저.</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- 카드 키워드 -->
+        <section id="keyword" class="section-block">
+            <div class="section-heading">
+                <p class="eyebrow">Card Keywords</p>
+                <h2>카드 키워드</h2>
+                <p>카드 키워드는 특수 조건·유지 방식·효과 트리거를 정의한다.<br>전투 중 카드의 동작 규칙을 결정하며, 일부는 유물 또는 상태 이상과 연동된다.</p>
+            </div>
+
+            <div class="keyword-grid">
+
+                <div class="keyword-card">
+                    <div class="keyword-name">유지</div>
+                    <div class="keyword-desc">턴이 끝나도 버리지 않고 손에 유지한다.</div>
+                    <div class="keyword-note">※ 휘발과 동시에 적용되지 않는다.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">휘발</div>
+                    <div class="keyword-desc">카드를 사용하거나, 턴 종료 시 손에 남아 있으면 자동으로 제외(Exile)된다.</div>
+                    <div class="keyword-note">※ 유지와 배타 관계. 동시 적용 불가.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">제외</div>
+                    <div class="keyword-desc">카드를 사용하거나 버려질 경우 버린 카드(Discard)로 가지 않고 제외(Exile)로 이동한다.</div>
+                    <div class="keyword-note">※ 덱 내 수량 제한(2~4장 이하) 권장.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">우위</div>
+                    <div class="keyword-desc">스테이지 시작 시 반드시 첫 턴에 해당 카드가 손에 들어온다.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">선택</div>
+                    <div class="keyword-desc">카드 사용 시, 카드에 명시된 여러 효과 중 하나를 선택하여 발동한다.</div>
+                    <div class="keyword-note">※ 확인(덱 공개) → 선택(효과 선택) → 결정(보너스) 순으로 처리.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">사용불가</div>
+                    <div class="keyword-desc">직접 사용할 수 없으며, 턴 종료 시 손패 처리 규칙에 따라 버려지거나 제외된다.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">복사</div>
+                    <div class="keyword-desc">이번 전투 중 일시적으로 해당 카드를 손에 1장 복사해 추가한다.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">처치</div>
+                    <div class="keyword-desc">해당 카드로 대상을 처치 시 효과가 발동된다. 처치 판정은 "마지막으로 HP를 0 이하로 만든 자"를 처치자로 본다.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">비용 X</div>
+                    <div class="keyword-desc">남은 행동력을 모두 소모하며, 소모한 행동력(X)만큼 효과를 적용한다.</div>
+                    <div class="keyword-note">※ X=0이면 효과도 0으로 처리된다.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">확인</div>
+                    <div class="keyword-desc">덱 상단에서 X장 카드를 확인 후 원하는 카드를 선택하여 손으로 가져온다.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">결정</div>
+                    <div class="keyword-desc">'확인'으로 해당 카드를 뽑았을 경우 추가 효과가 발동된다.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">랜덤</div>
+                    <div class="keyword-desc">사용 시, 필드 내 살아있는 개체 중 자동 선택한다.</div>
+                    <div class="keyword-note">※ 대상이 없으면 효과 없이 버림/제외 처리.</div>
+                </div>
+
+                <div class="keyword-card">
+                    <div class="keyword-name">도발 무시</div>
+                    <div class="keyword-desc">'도발' 상태와 관계없이 원하는 적을 지정할 수 있다.</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 포지션 -->
+        <section id="position" class="section-block">
+            <div class="section-heading">
+                <p class="eyebrow">Character Position</p>
+                <h2>캐릭터 포지션 (4종)</h2>
+                <p>각 캐릭터는 포지션을 가지며 카드 속성·스탯 성장·전투 행동 패턴에 영향을 준다.</p>
+            </div>
+
+            <div class="position-grid">
+                <div class="position-card" style="--pos-color:#e05050;">
+                    <span class="position-icon">⚔️</span>
+                    <div class="position-name">공격 (Attack)</div>
+                    <div class="position-desc">
+                        적에게 강력한 피해를 주는 포지션.<br>
+                        검과 마법을 통해 단시간에 적을 제압하지만, 방어나 회복 능력이 부족해 다른 포지션의 지원이 필요하다.
+                        빠른 결정과 공격 타이밍이 중요하다.
+                    </div>
+                </div>
+                <div class="position-card" style="--pos-color:#5080e0;">
+                    <span class="position-icon">🛡️</span>
+                    <div class="position-name">방어 (Defense)</div>
+                    <div class="position-desc">
+                        아군을 대신해 피해를 받는 포지션.<br>
+                        높은 체력과 방어력을 바탕으로 도발과 보호 스킬을 사용해 팀의 생존을 책임진다. 안정적인 운영에 핵심적인 역할을 한다.
+                    </div>
+                </div>
+                <div class="position-card" style="--pos-color:#00c8a0;">
+                    <span class="position-icon">✨</span>
+                    <div class="position-name">지원 (Support)</div>
+                    <div class="position-desc">
+                        회복과 강화, 디버프 제거 등 아군을 보조하는 포지션.<br>
+                        공격력은 낮지만 팀 전체의 유지력과 안정성을 크게 높이며, 적의 위협을 줄이고 전투 흐름을 유리하게 만든다.
+                    </div>
+                </div>
+                <div class="position-card" style="--pos-color:#f5c842;">
+                    <span class="position-icon">🌀</span>
+                    <div class="position-name">전략 (Strategy)</div>
+                    <div class="position-desc">
+                        전투의 흐름을 조절하고 변수 창출에 특화된 포지션.<br>
+                        카드 드로우, 코스트 조절, 적의 행동 교란 등으로 전장을 지배하며 효율적인 턴 운영을 돕는다.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>카오스폰즈 (ChaosPons) — 카드 시스템 레퍼런스 · DEVFORGE Studio</p>
+    </footer>
+</div>
+
+
+    <script src="ProjectC_script.js"></script> <!-- 카오스폰즈 전용 JS 연결 -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body>
+</html>

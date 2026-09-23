@@ -1,0 +1,197 @@
+.preview-icon-sprite /* 숨김 아이콘 모음 */
+{ /* 규칙 시작 */
+    height: 0; /* 화면 높이 제거 */
+    overflow: hidden; /* 아이콘 원본 숨김 */
+    pointer-events: none; /* 입력 차단 */
+    position: absolute; /* 문서 흐름 제외 */
+    width: 0; /* 화면 너비 제거 */
+} /* 규칙 끝 */
+
+.preview-device-picker /* 헤더 기기 선택기 */
+{ /* 규칙 시작 */
+    --preview-control-bg: #111d34; /* 선택기 배경색 */
+    --preview-control-line: rgba(24, 232, 225, 0.62); /* 선택기 테두리색 */
+    --preview-control-muted: #94a5c1; /* 보조 글자색 */
+    --preview-control-text: #e9f2ff; /* 기본 글자색 */
+    --preview-control-cyan: #18e8e1; /* 강조 글자색 */
+    font-family: "Segoe UI", "Malgun Gothic", sans-serif; /* 선택기 글꼴 */
+    min-width: 176px; /* 선택기 최소 너비 */
+    position: relative; /* 목록 배치 기준 */
+    z-index: 180; /* 사이트 메뉴 위 표시 */
+} /* 규칙 끝 */
+
+.preview-device-picker[hidden] /* 숨김 선택기 */
+{ /* 규칙 시작 */
+    display: none; /* 선택기 숨김 */
+} /* 규칙 끝 */
+
+.preview-device-trigger /* 대표 기기 버튼 */
+{ /* 규칙 시작 */
+    align-items: center; /* 내용 세로 정렬 */
+    background: rgba(17, 29, 52, 0.88); /* 버튼 배경 */
+    border: 1px solid var(--preview-control-line); /* 버튼 테두리 */
+    border-radius: 3px; /* 사이트 버튼 모서리 */
+    color: var(--preview-control-text); /* 버튼 글자색 */
+    cursor: pointer; /* 선택 커서 */
+    display: grid; /* 버튼 격자 */
+    gap: 9px; /* 버튼 내용 간격 */
+    grid-template-columns: 20px minmax(0, 1fr) 14px; /* 아이콘 문구 화살표 */
+    min-height: 40px; /* 사이트 버튼 높이 */
+    padding: 0 11px; /* 버튼 안쪽 여백 */
+    text-align: left; /* 문구 왼쪽 정렬 */
+    width: 100%; /* 선택기 너비 채움 */
+} /* 규칙 끝 */
+
+.site-device-picker > summary::-webkit-details-marker /* 실제 페이지 기본 화살표 */
+{ /* 규칙 시작 */
+    display: none; /* 기본 화살표 숨김 */
+} /* 규칙 끝 */
+
+.site-device-picker > summary::marker /* 실제 페이지 기본 표시 */
+{ /* 규칙 시작 */
+    content: ""; /* 기본 표시 제거 */
+} /* 규칙 끝 */
+
+.preview-device-icon /* 기기 아이콘 */
+{ /* 규칙 시작 */
+    fill: none; /* 내부 채움 제거 */
+    height: 20px; /* 아이콘 높이 */
+    stroke: currentColor; /* 현재 글자색 선 */
+    stroke-linecap: round; /* 선 끝 둥글게 */
+    stroke-linejoin: round; /* 선 연결 둥글게 */
+    stroke-width: 1.8; /* 아이콘 선 굵기 */
+    width: 20px; /* 아이콘 너비 */
+} /* 규칙 끝 */
+
+.preview-device-current-icons /* 대표 아이콘 영역 */
+{ /* 규칙 시작 */
+    display: grid; /* 아이콘 겹침 배치 */
+    place-items: center; /* 아이콘 가운데 정렬 */
+} /* 규칙 끝 */
+
+.preview-device-current-icons .preview-device-icon /* 대표 아이콘 후보 */
+{ /* 규칙 시작 */
+    display: none; /* 비선택 아이콘 숨김 */
+    grid-area: 1 / 1; /* 같은 위치 겹침 */
+} /* 규칙 끝 */
+
+.preview-device-trigger[data-preview-current-device="desktop"] [data-preview-current-icon="desktop"], /* PC 대표 아이콘 */
+.preview-device-trigger[data-preview-current-device="tablet"] [data-preview-current-icon="tablet"], /* 태블릿 대표 아이콘 */
+.preview-device-trigger[data-preview-current-device="mobile"] [data-preview-current-icon="mobile"], /* 모바일 대표 아이콘 */
+.preview-device-trigger[data-preview-current-device="fit"] [data-preview-current-icon="fit"] /* 맞춤 대표 아이콘 */
+{ /* 규칙 시작 */
+    display: block; /* 현재 아이콘 표시 */
+} /* 규칙 끝 */
+
+.preview-device-chevron /* 펼침 화살표 */
+{ /* 규칙 시작 */
+    fill: none; /* 내부 채움 제거 */
+    height: 14px; /* 화살표 높이 */
+    stroke: currentColor; /* 현재 글자색 선 */
+    stroke-linecap: round; /* 선 끝 둥글게 */
+    stroke-linejoin: round; /* 선 연결 둥글게 */
+    stroke-width: 1.8; /* 화살표 선 굵기 */
+    transition: transform 160ms ease; /* 회전 전환 */
+    width: 14px; /* 화살표 너비 */
+} /* 규칙 끝 */
+
+.preview-device-picker.is-open .preview-device-chevron, /* 미리보기 열린 화살표 */
+.site-device-picker[open] .preview-device-chevron /* 실제 페이지 열린 화살표 */
+{ /* 규칙 시작 */
+    transform: rotate(180deg); /* 화살표 위 방향 */
+} /* 규칙 끝 */
+
+.preview-device-menu /* 기기 선택 목록 */
+{ /* 규칙 시작 */
+    background: rgba(7, 14, 28, 0.99); /* 목록 배경 */
+    border: 1px solid var(--preview-control-line); /* 목록 테두리 */
+    border-radius: 6px; /* 목록 모서리 */
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.52); /* 목록 그림자 */
+    display: grid; /* 항목 세로 배치 */
+    gap: 4px; /* 항목 간격 */
+    min-width: 190px; /* 목록 최소 너비 */
+    padding: 6px; /* 목록 안쪽 여백 */
+    position: absolute; /* 버튼 아래 배치 */
+    right: 0; /* 오른쪽 정렬 */
+    top: calc(100% + 8px); /* 버튼 아래 간격 */
+    z-index: 190; /* 사이트 내용 위 표시 */
+} /* 규칙 끝 */
+
+.preview-device-menu[hidden] /* 숨김 기기 목록 */
+{ /* 규칙 시작 */
+    display: none; /* 목록 숨김 */
+} /* 규칙 끝 */
+
+.preview-device-menu button, /* 미리보기 기기 선택 항목 */
+.preview-device-menu a /* 실제 페이지 기기 선택 항목 */
+{ /* 규칙 시작 */
+    align-items: center; /* 항목 세로 정렬 */
+    background: transparent; /* 항목 기본 배경 */
+    border: 1px solid transparent; /* 항목 기본 테두리 */
+    border-radius: 4px; /* 항목 모서리 */
+    color: var(--preview-control-muted); /* 항목 글자색 */
+    cursor: pointer; /* 선택 커서 */
+    display: grid; /* 항목 격자 */
+    font: inherit; /* 선택기 글꼴 상속 */
+    gap: 10px; /* 항목 내용 간격 */
+    grid-template-columns: 22px minmax(0, 1fr) auto; /* 아이콘 문구 확인 */
+    min-height: 42px; /* 터치 높이 */
+    padding: 0 10px; /* 항목 안쪽 여백 */
+    text-align: left; /* 문구 왼쪽 정렬 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    white-space: nowrap; /* 문구 줄바꿈 차단 */
+    width: 100%; /* 목록 너비 채움 */
+} /* 규칙 끝 */
+
+.preview-device-menu button[aria-checked="true"]::after, /* 미리보기 선택 확인 */
+.preview-device-menu a[aria-checked="true"]::after /* 실제 페이지 선택 확인 */
+{ /* 규칙 시작 */
+    color: var(--preview-control-cyan); /* 확인 표시 색상 */
+    content: "✓"; /* 확인 표시 */
+    font-weight: 900; /* 확인 표시 굵기 */
+} /* 규칙 끝 */
+
+.preview-device-trigger:hover, /* 대표 버튼 마우스 */
+.preview-device-trigger:focus-visible, /* 대표 버튼 초점 */
+.preview-device-menu button:hover, /* 선택 항목 마우스 */
+.preview-device-menu button:focus-visible, /* 선택 항목 초점 */
+.preview-device-menu button.is-active, /* 선택 항목 활성 */
+.preview-device-menu a:hover, /* 실제 항목 마우스 */
+.preview-device-menu a:focus-visible /* 실제 항목 초점 */
+{ /* 규칙 시작 */
+    background: rgba(24, 232, 225, 0.1); /* 선택 배경 */
+    border-color: var(--preview-control-cyan); /* 선택 테두리 */
+    color: var(--preview-control-cyan); /* 선택 글자색 */
+    outline: none; /* 기본 초점선 제거 */
+} /* 규칙 끝 */
+
+@media (max-width: 959px) /* 태블릿과 모바일 헤더 */
+{ /* 구간 시작 */
+    .preview-device-picker /* 좁은 화면 선택기 */
+    { /* 규칙 시작 */
+        min-width: 42px; /* 아이콘 버튼 너비 */
+        width: 42px; /* 아이콘 버튼 고정 */
+    } /* 규칙 끝 */
+
+    .preview-device-trigger /* 좁은 화면 대표 버튼 */
+    { /* 규칙 시작 */
+        gap: 0; /* 숨김 요소 간격 제거 */
+        grid-template-columns: 1fr; /* 아이콘 한 열 */
+        padding: 0; /* 좌우 여백 제거 */
+        place-items: center; /* 아이콘 가운데 정렬 */
+    } /* 규칙 끝 */
+
+    .preview-device-trigger [data-preview-device-label], /* 좁은 화면 대표 문구 */
+    .preview-device-chevron /* 좁은 화면 화살표 */
+    { /* 규칙 시작 */
+        display: none; /* 보조 내용 숨김 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (prefers-reduced-motion: reduce) /* 움직임 축소 환경 */
+{ /* 구간 시작 */
+    .preview-device-chevron /* 펼침 화살표 */
+    { /* 규칙 시작 */
+        transition-duration: 0.01ms; /* 전환 움직임 축소 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */

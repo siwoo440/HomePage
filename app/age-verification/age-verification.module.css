@@ -1,0 +1,205 @@
+.shell /* 전체 화면 */
+{ /* 화면 시작 */
+    min-height: 100vh; /* 최소 화면 높이 */
+    display: grid; /* 중앙 배치 방식 */
+    place-items: center; /* 중앙 정렬 */
+    padding: 2rem 1rem; /* 바깥 여백 */
+    background: radial-gradient(circle at top, color-mix(in srgb, var(--pl-orange) 16%, var(--pl-canvas)) 0%, var(--pl-surface) 58%, var(--pl-panel) 100%); /* 밝은 배경 */
+    color: var(--pl-ink); /* 기본 글자색 */
+} /* 화면 끝 */
+
+.card /* 확인 카드 */
+{ /* 카드 시작 */
+    width: min(100%, 34rem); /* 카드 너비 */
+    padding: clamp(1.5rem, 5vw, 3rem); /* 카드 안쪽 여백 */
+    border: 1px solid var(--pl-border-strong); /* 카드 테두리 */
+    border-radius: var(--pl-radius-large); /* 카드 모서리 */
+    background: rgb(255 255 255 / 96%); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-medium); /* 카드 그림자 */
+} /* 카드 끝 */
+
+.brand /* 브랜드 링크 */
+{ /* 브랜드 시작 */
+    color: var(--pl-violet); /* 브랜드 색상 */
+    font-size: 1.35rem; /* 브랜드 크기 */
+    font-weight: 900; /* 브랜드 굵기 */
+    letter-spacing: 0.18em; /* 브랜드 간격 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 브랜드 끝 */
+
+.eyebrow /* 화면 분류 */
+{ /* 분류 시작 */
+    margin: 2rem 0 0.8rem; /* 분류 여백 */
+    color: var(--pl-muted); /* 분류 글자색 */
+    font-size: 0.875rem; /* 분류 크기 */
+    letter-spacing: 0.12em; /* 분류 간격 */
+} /* 분류 끝 */
+
+.badge /* 성인 표시 */
+{ /* 표시 시작 */
+    width: 4.25rem; /* 표시 너비 */
+    height: 4.25rem; /* 표시 높이 */
+    display: grid; /* 표시 배치 */
+    place-items: center; /* 표시 정렬 */
+    margin-bottom: 1.25rem; /* 표시 아래 여백 */
+    border: 2px solid var(--pl-orange); /* 표시 테두리 */
+    border-radius: 50%; /* 원형 모양 */
+    color: var(--pl-orange); /* 표시 글자색 */
+    font-size: 1.35rem; /* 표시 크기 */
+    font-weight: 900; /* 표시 굵기 */
+} /* 표시 끝 */
+
+.card h1 /* 화면 제목 */
+{ /* 제목 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-ink); /* 제목 글자색 */
+    font-size: clamp(1.8rem, 6vw, 2.6rem); /* 제목 크기 */
+    line-height: 1.2; /* 제목 줄 간격 */
+} /* 제목 끝 */
+
+.description /* 연령 안내 */
+{ /* 안내 시작 */
+    margin: 1rem 0 0; /* 안내 여백 */
+    color: var(--pl-muted); /* 안내 글자색 */
+    font-size: 1rem; /* 안내 크기 */
+    line-height: 1.7; /* 안내 줄 간격 */
+} /* 안내 끝 */
+
+.notice /* 개발 모드 안내 */
+{ /* 알림 시작 */
+    margin: 1rem 0 0; /* 알림 여백 */
+    padding: 0.9rem 1rem; /* 알림 안쪽 여백 */
+    border-left: 3px solid var(--pl-orange); /* 알림 강조선 */
+    background: color-mix(in srgb, var(--pl-orange) 12%, var(--pl-canvas)); /* 알림 배경 */
+    color: var(--pl-ink); /* 알림 글자색 */
+    font-size: 0.875rem; /* 알림 크기 */
+    line-height: 1.6; /* 알림 줄 간격 */
+} /* 알림 끝 */
+
+.form /* 입력 양식 */
+{ /* 양식 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 1rem; /* 입력 간격 */
+    margin-top: 1.5rem; /* 양식 위 여백 */
+} /* 양식 끝 */
+
+.label /* 입력 이름 */
+{ /* 이름 시작 */
+    color: var(--pl-ink); /* 이름 글자색 */
+    font-size: 0.95rem; /* 이름 크기 */
+    font-weight: 700; /* 이름 굵기 */
+} /* 이름 끝 */
+
+.input /* 날짜 입력 */
+{ /* 입력 시작 */
+    width: 100%; /* 입력 너비 */
+    min-height: 3.25rem; /* 입력 높이 */
+    padding: 0 1rem; /* 입력 안쪽 여백 */
+    border: 1px solid var(--pl-border); /* 입력 테두리 */
+    border-radius: var(--pl-radius-small); /* 입력 모서리 */
+    background: var(--pl-canvas); /* 입력 배경 */
+    color: var(--pl-ink); /* 입력 글자색 */
+    color-scheme: light; /* 밝은 입력 모드 */
+    font: inherit; /* 본문 글꼴 */
+} /* 입력 끝 */
+
+.input:focus /* 날짜 초점 */
+{ /* 초점 시작 */
+    outline: var(--pl-focus-ring); /* 초점 테두리 */
+    outline-offset: 2px; /* 초점 간격 */
+} /* 초점 끝 */
+
+.checkboxLabel /* 동의 영역 */
+{ /* 동의 시작 */
+    display: flex; /* 가로 배치 */
+    gap: 0.7rem; /* 요소 간격 */
+    align-items: flex-start; /* 위쪽 정렬 */
+    color: var(--pl-muted); /* 동의 글자색 */
+    font-size: 0.9rem; /* 동의 크기 */
+    line-height: 1.55; /* 동의 줄 간격 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 동의 끝 */
+
+.checkboxLabel input /* 동의 입력 */
+{ /* 동의 입력 시작 */
+    width: 1.1rem; /* 입력 너비 */
+    height: 1.1rem; /* 입력 높이 */
+    margin-top: 0.18rem; /* 입력 위 여백 */
+    accent-color: var(--pl-violet); /* 입력 강조색 */
+} /* 동의 입력 끝 */
+
+.message /* 결과 안내 */
+{ /* 결과 시작 */
+    margin: 0; /* 결과 여백 제거 */
+    padding: 0.8rem 1rem; /* 결과 안쪽 여백 */
+    border-radius: var(--pl-radius-small); /* 결과 모서리 */
+    background: color-mix(in srgb, var(--pl-danger) 12%, var(--pl-canvas)); /* 결과 배경 */
+    color: var(--pl-danger); /* 결과 글자색 */
+    font-size: 0.9rem; /* 결과 크기 */
+    line-height: 1.5; /* 결과 줄 간격 */
+} /* 결과 끝 */
+
+.submit /* 제출 버튼 */
+{ /* 제출 시작 */
+    min-height: 3.25rem; /* 제출 높이 */
+    border: 1px solid var(--pl-violet); /* 제출 테두리 */
+    border-radius: var(--pl-radius-small); /* 제출 모서리 */
+    background: var(--pl-violet); /* 제출 배경 */
+    color: var(--pl-canvas); /* 제출 글자색 */
+    font: inherit; /* 본문 글꼴 */
+    font-weight: 900; /* 제출 굵기 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 제출 끝 */
+
+.submit:hover:not(:disabled) /* 제출 버튼 올림 */
+{ /* 올림 시작 */
+    background: color-mix(in srgb, var(--pl-violet) 82%, var(--pl-ink)); /* 올림 배경 */
+} /* 올림 끝 */
+
+.submit:focus-visible /* 제출 버튼 초점 */
+{ /* 버튼 초점 시작 */
+    outline: var(--pl-focus-ring); /* 초점 테두리 */
+    outline-offset: 3px; /* 초점 간격 */
+} /* 버튼 초점 끝 */
+
+.submit:disabled /* 제출 버튼 비활성 */
+{ /* 비활성 시작 */
+    cursor: wait; /* 대기 커서 */
+    opacity: 0.65; /* 비활성 투명도 */
+} /* 비활성 끝 */
+
+.privacy /* 개인정보 안내 */
+{ /* 개인정보 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted); /* 안내 글자색 */
+    font-size: 0.8rem; /* 안내 크기 */
+    text-align: center; /* 가운데 정렬 */
+} /* 개인정보 끝 */
+
+.backLink /* 복귀 링크 */
+{ /* 복귀 시작 */
+    display: inline-block; /* 여백 적용 */
+    margin-top: 1.5rem; /* 위쪽 여백 */
+    color: var(--pl-violet); /* 복귀 글자색 */
+    font-size: 0.9rem; /* 복귀 크기 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 복귀 끝 */
+
+.backLink:hover /* 복귀 링크 올림 */
+{ /* 복귀 올림 시작 */
+    color: var(--pl-ink); /* 복귀 올림색 */
+} /* 복귀 올림 끝 */
+
+@media (max-width: 36rem) /* 모바일 화면 */
+{ /* 모바일 시작 */
+    .shell /* 모바일 화면 */
+    { /* 모바일 화면 시작 */
+        place-items: start center; /* 모바일 정렬 */
+        padding-top: 1rem; /* 모바일 위 여백 */
+    } /* 모바일 화면 끝 */
+
+    .card /* 모바일 카드 */
+    { /* 모바일 카드 시작 */
+        border-radius: var(--pl-radius-medium); /* 모바일 모서리 */
+    } /* 모바일 카드 끝 */
+} /* 모바일 끝 */

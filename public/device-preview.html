@@ -1,0 +1,67 @@
+<!DOCTYPE html> <!-- HTML5 문서 -->
+<html lang="ko"> <!-- 한국어 문서 -->
+<head> <!-- 문서 정보 시작 -->
+    <meta charset="UTF-8"> <!-- 한글 인코딩 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
+    <meta name="robots" content="noindex, nofollow"> <!-- 검색 노출 차단 -->
+    <title>기기 미리보기 · DEVFORGE</title> <!-- 브라우저 제목 -->
+    <link rel="stylesheet" href="/device-preview.css"> <!-- 미리보기 스타일 -->
+</head> <!-- 문서 정보 끝 -->
+<body> <!-- 화면 본문 시작 -->
+        <svg class="preview-icon-sprite" aria-hidden="true" focusable="false"> <!-- 기기 아이콘 모음 -->
+            <symbol id="preview-icon-desktop" viewBox="0 0 24 24"> <!-- 모니터 아이콘 -->
+                <rect x="3" y="4" width="18" height="13" rx="2"></rect> <!-- 모니터 화면 -->
+                <path d="M8 21h8M12 17v4"></path> <!-- 모니터 받침 -->
+            </symbol> <!-- 모니터 아이콘 끝 -->
+            <symbol id="preview-icon-tablet" viewBox="0 0 24 24"> <!-- 태블릿 아이콘 -->
+                <rect x="2" y="5" width="20" height="14" rx="2"></rect> <!-- 태블릿 화면 -->
+                <circle cx="18.5" cy="12" r="0.8"></circle> <!-- 태블릿 버튼 -->
+            </symbol> <!-- 태블릿 아이콘 끝 -->
+            <symbol id="preview-icon-mobile" viewBox="0 0 24 24"> <!-- 모바일 아이콘 -->
+                <rect x="7" y="2" width="10" height="20" rx="2"></rect> <!-- 모바일 화면 -->
+                <path d="M10 5h4M11 19h2"></path> <!-- 모바일 표시선 -->
+            </symbol> <!-- 모바일 아이콘 끝 -->
+            <symbol id="preview-icon-fit" viewBox="0 0 24 24"> <!-- 화면 맞춤 아이콘 -->
+                <path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"></path> <!-- 사각 프레임 -->
+            </symbol> <!-- 화면 맞춤 아이콘 끝 -->
+        </svg> <!-- 기기 아이콘 모음 끝 -->
+        <div class="preview-device-picker" data-preview-device-picker data-preview-control hidden> <!-- 기기 선택기 -->
+            <button class="preview-device-trigger" type="button" data-preview-device-trigger data-preview-current-device="desktop" aria-haspopup="menu" aria-expanded="false" aria-controls="preview-device-menu"> <!-- 대표 기기 버튼 -->
+                <span class="preview-device-current-icons" aria-hidden="true"> <!-- 대표 기기 아이콘 -->
+                    <svg class="preview-device-icon" data-preview-current-icon="desktop"><use href="#preview-icon-desktop"></use></svg> <!-- 대표 모니터 아이콘 -->
+                    <svg class="preview-device-icon" data-preview-current-icon="tablet"><use href="#preview-icon-tablet"></use></svg> <!-- 대표 태블릿 아이콘 -->
+                    <svg class="preview-device-icon" data-preview-current-icon="mobile"><use href="#preview-icon-mobile"></use></svg> <!-- 대표 모바일 아이콘 -->
+                    <svg class="preview-device-icon" data-preview-current-icon="fit"><use href="#preview-icon-fit"></use></svg> <!-- 대표 맞춤 아이콘 -->
+                </span> <!-- 대표 기기 아이콘 끝 -->
+                <span data-preview-device-label>PC</span> <!-- 대표 기기 문구 -->
+                <svg class="preview-device-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"></path></svg> <!-- 펼침 화살표 -->
+            </button> <!-- 대표 기기 버튼 끝 -->
+            <div class="preview-device-menu" id="preview-device-menu" data-preview-device-menu role="menu" aria-label="미리보기 기기 선택" hidden> <!-- 기기 선택 목록 -->
+                <button type="button" data-preview-device="desktop" role="menuitemradio" aria-checked="true"> <!-- PC 선택 -->
+                    <svg class="preview-device-icon" aria-hidden="true"><use href="#preview-icon-desktop"></use></svg> <!-- 모니터 아이콘 -->
+                    <span>PC</span> <!-- PC 문구 -->
+                </button> <!-- PC 선택 끝 -->
+                <button type="button" data-preview-device="tablet" role="menuitemradio" aria-checked="false"> <!-- 태블릿 선택 -->
+                    <svg class="preview-device-icon" aria-hidden="true"><use href="#preview-icon-tablet"></use></svg> <!-- 태블릿 아이콘 -->
+                    <span>태블릿 가로</span> <!-- 태블릿 문구 -->
+                </button> <!-- 태블릿 선택 끝 -->
+                <button type="button" data-preview-device="mobile" role="menuitemradio" aria-checked="false"> <!-- 모바일 선택 -->
+                    <svg class="preview-device-icon" aria-hidden="true"><use href="#preview-icon-mobile"></use></svg> <!-- 모바일 아이콘 -->
+                    <span>모바일</span> <!-- 모바일 문구 -->
+                </button> <!-- 모바일 선택 끝 -->
+                <button type="button" data-preview-device="fit" role="menuitemradio" aria-checked="false"> <!-- 화면 맞춤 선택 -->
+                    <svg class="preview-device-icon" aria-hidden="true"><use href="#preview-icon-fit"></use></svg> <!-- 화면 맞춤 아이콘 -->
+                    <span>화면 맞춤</span> <!-- 화면 맞춤 문구 -->
+                </button> <!-- 화면 맞춤 선택 끝 -->
+            </div> <!-- 기기 선택 목록 끝 -->
+        </div> <!-- 기기 선택기 끝 -->
+    <p class="preview-error" data-preview-error role="alert" hidden></p> <!-- 프레임 오류 안내 -->
+    <main class="preview-stage" aria-label="페이지 기기 미리보기"> <!-- 미리보기 무대 -->
+        <div class="preview-shell" data-preview-shell> <!-- 프레임 외곽 -->
+            <div class="preview-camera" aria-hidden="true"></div> <!-- 기기 카메라 장식 -->
+            <iframe data-preview-frame title="선택한 DEVFORGE 페이지 미리보기" src="/main.html" width="1440" height="900" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe> <!-- 실제 페이지 프레임 -->
+        </div> <!-- 프레임 외곽 끝 -->
+    </main> <!-- 미리보기 무대 끝 -->
+    <script type="module" src="/device-preview.mjs"></script> <!-- 미리보기 기능 -->
+</body> <!-- 화면 본문 끝 -->
+</html> <!-- HTML 문서 끝 -->

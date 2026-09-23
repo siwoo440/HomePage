@@ -1,0 +1,3604 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 문서 기본 메타 정보 설정 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEVFORGE — 인디 게임 스튜디오</title>
+
+    <!-- 구글 폰트 로드 (Orbitron: 타이틀용, Noto Sans KR: 본문용) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           CSS 변수 정의 (테마 색상 및 공통 값)
+        ============================================ */
+        :root
+        {
+            --bg-primary: #070b14;       /* 메인 배경색 (딥 다크 네이비) */
+            --bg-secondary: #0d1526;     /* 보조 배경색 */
+            --bg-card: #111827;          /* 카드 배경색 */
+            --accent-cyan: #00f5d4;      /* 주요 강조색 (사이언) */
+            --accent-purple: #b048ff;    /* 보조 강조색 (퍼플) */
+            --accent-orange: #ff6b35;    /* 포인트 강조색 (오렌지) */
+            --text-primary: #e8edf5;     /* 본문 텍스트 색 */
+            --text-muted: #5a6a8a;       /* 보조 텍스트 색 */
+            --border-color: #1e2d45;     /* 테두리 색 */
+            --glow-cyan: 0 0 20px rgba(0, 245, 212, 0.4);    /* 사이언 글로우 효과 */
+            --glow-purple: 0 0 20px rgba(176, 72, 255, 0.4); /* 퍼플 글로우 효과 */
+        }
+
+        /* ============================================
+           기본 리셋 및 전역 스타일
+        ============================================ */
+        *, *::before, *::after
+        {
+            margin: 0;          /* 기본 마진 초기화 */
+            padding: 0;         /* 기본 패딩 초기화 */
+            box-sizing: border-box; /* 박스 사이징 통일 */
+        }
+
+        html
+        {
+            scroll-behavior: smooth; /* 부드러운 스크롤 적용 */
+        }
+
+        body
+        {
+            background-color: var(--bg-primary); /* 배경색 설정 */
+            color: var(--text-primary);           /* 기본 글자색 설정 */
+            font-family: 'Noto Sans KR', sans-serif; /* 기본 폰트 설정 */
+            overflow-x: hidden; /* 가로 스크롤 방지 */
+        }
+
+        /* ============================================
+           배경 파티클 캔버스
+        ============================================ */
+        #particles-canvas
+        {
+            position: fixed;    /* 화면 고정 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;         /* 가장 아래 레이어 */
+            pointer-events: none; /* 마우스 이벤트 무시 */
+        }
+
+        /* ============================================
+           네비게이션 바
+        ============================================ */
+        .navbar
+        {
+            position: fixed;    /* 상단 고정 */
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;       /* 높은 레이어 */
+            padding: 0 5%;      /* 좌우 패딩 */
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(7, 11, 20, 0.85); /* 반투명 배경 */
+            backdrop-filter: blur(20px);        /* 블러 효과 */
+            border-bottom: 1px solid var(--border-color); /* 하단 테두리 */
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo
+        {
+            font-family: 'Orbitron', sans-serif; /* 로고 폰트 */
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 3px; /* 글자 간격 */
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); /* 그라디언트 */
+            -webkit-background-clip: text;   /* 텍스트에 그라디언트 적용 */
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-menu
+        {
+            display: flex;      /* 가로 배치 */
+            gap: 2.5rem;        /* 메뉴 간격 */
+            list-style: none;   /* 목록 스타일 제거 */
+        }
+
+        .nav-menu a
+        {
+            color: var(--text-muted); /* 기본 색상 */
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase; /* 대문자 변환 */
+            transition: color 0.3s;    /* 색상 전환 */
+            position: relative;
+        }
+
+        .nav-menu a::after
+        {
+            content: '';            /* 가상 요소 */
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;               /* 초기 너비 0 */
+            height: 1px;
+            background: var(--accent-cyan); /* 밑줄 색상 */
+            transition: width 0.3s ease;    /* 너비 전환 */
+        }
+
+        .nav-menu a:hover
+        {
+            color: var(--accent-cyan); /* 호버 시 색상 변경 */
+        }
+
+        .nav-menu a:hover::after
+        {
+            width: 100%; /* 호버 시 밑줄 확장 */
+        }
+
+        .nav-actions
+        {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .news-shortcut /* 모바일 개발 뉴스 링크 */
+        { /* 바로가기 설정 시작 */
+            display: none; /* 데스크톱 중복 링크 숨김 */
+            text-decoration: none; /* 링크 밑줄 제거 */
+        } /* 바로가기 설정 끝 */
+
+        .btn-nav
+        {
+            padding: 0.5rem 1.2rem;
+            border: 1px solid var(--accent-cyan); /* 테두리 버튼 */
+            background: transparent;
+            color: var(--accent-cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-nav:hover
+        {
+            background: var(--accent-cyan); /* 호버 시 배경 채움 */
+            color: var(--bg-primary);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .member-login-link /* 회원 로그인 버튼 */
+        { /* 로그인 설정 시작 */
+            background: rgba(0, 245, 212, 0.08); /* 연한 강조 배경 */
+            text-decoration: none; /* 링크 밑줄 제거 */
+        } /* 로그인 설정 끝 */
+
+        /* ============================================
+           히어로 섹션
+        ============================================ */
+        .hero
+        {
+            position: relative;
+            min-height: 50vh;   /* 화면 높이 절반 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1;
+            padding-top: 4rem;   /* 네비게이션 높이 보정 + 시각적 중앙 이동 */
+            padding-bottom: 2rem;
+            box-sizing: border-box;
+        }
+
+        .hero-bg
+        {
+            position: absolute; /* 절대 위치 */
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(0, 245, 212, 0.08) 0%, transparent 60%), /* 왼쪽 사이언 빛 */
+                radial-gradient(ellipse at 80% 20%, rgba(176, 72, 255, 0.08) 0%, transparent 60%); /* 오른쪽 퍼플 빛 */
+        }
+
+        .hero-grid
+        {
+            position: absolute; /* 그리드 배경 */
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 245, 212, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 212, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px; /* 그리드 간격 */
+        }
+
+        .hero-content
+        {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInUp 1s ease forwards; /* 등장 애니메이션 */
+        }
+
+        .hero-title
+        {
+            font-family: 'Orbitron', sans-serif; /* 타이틀 폰트 */
+            font-size: clamp(1.5rem, 4vw, 3.5rem); /* 절반으로 축소 */
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 0.25rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .hero-title .line1
+        {
+            display: block;
+            color: var(--text-primary);
+        }
+
+        .hero-title .line2
+        {
+            display: block;
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%); /* 그라디언트 텍스트 */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle
+        {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0.75rem auto;
+            max-width: 400px;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* 주요 액션 버튼 (그라디언트 채움) */
+        .btn-primary
+        {
+            padding: 0.9rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); /* 그라디언트 버튼 */
+            border: none;
+            color: var(--bg-primary);           /* 어두운 글자색 */
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); /* 사선 꼭짓점 */
+        }
+
+        .btn-primary:hover
+        {
+            transform: translateY(-2px);        /* 호버 시 위로 이동 */
+            box-shadow: 0 10px 30px rgba(0, 245, 212, 0.3);
+        }
+
+        /* 보조 액션 버튼 (아웃라인 스타일) */
+        .btn-secondary
+        {
+            padding: 0.9rem 2.5rem;
+            background: transparent;
+            border: 1px solid var(--border-color); /* 아웃라인 테두리 */
+            color: var(--text-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%); /* 사선 꼭짓점 */
+        }
+
+        .btn-secondary:hover
+        {
+            border-color: var(--accent-purple); /* 호버 시 퍼플 테두리 */
+            color: var(--accent-purple);
+        }
+
+        /* ============================================
+           공통 섹션 스타일
+        ============================================ */
+        .section
+        {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 5%;    /* 상하 패딩 */
+        }
+
+        .section-header
+        {
+            margin-bottom: 3rem;
+        }
+
+        .section-tag
+        {
+            font-family: 'Share Tech Mono', monospace; /* 모노스페이스 폰트 */
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title
+        {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+
+        .section-title span
+        {
+            color: var(--accent-cyan); /* 강조 텍스트 */
+        }
+
+        .section-heading-row /* 제목과 이동 버튼 묶음 */
+        { /* 제목 행 시작 */
+            display: flex; /* 가로 배치 */
+            align-items: flex-end; /* 아래쪽 정렬 */
+            justify-content: space-between; /* 양쪽 정렬 */
+            gap: 1.5rem; /* 요소 간격 */
+        } /* 제목 행 끝 */
+
+        .section-detail-link /* 상세 페이지 이동 버튼 */
+        { /* 이동 버튼 시작 */
+            display: inline-flex; /* 버튼형 배치 */
+            align-items: center; /* 세로 중앙 정렬 */
+            justify-content: center; /* 가로 중앙 정렬 */
+            min-height: 42px; /* 터치 높이 */
+            padding: 0.65rem 1rem; /* 버튼 안쪽 여백 */
+            border: 1px solid var(--accent-cyan); /* 네온 테두리 */
+            color: var(--accent-cyan); /* 강조 글자색 */
+            font-family: 'Noto Sans KR', sans-serif; /* 한글 글꼴 */
+            font-size: 0.8rem; /* 버튼 글자 크기 */
+            font-weight: 700; /* 버튼 글자 굵기 */
+            letter-spacing: 0.04em; /* 버튼 글자 간격 */
+            text-decoration: none; /* 링크 밑줄 제거 */
+            white-space: nowrap; /* 버튼 줄바꿈 차단 */
+            transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; /* 상호작용 전환 */
+        } /* 이동 버튼 끝 */
+
+        .section-detail-link:hover, .section-detail-link:focus-visible /* 이동 버튼 상호작용 */
+        { /* 상호작용 시작 */
+            background: var(--accent-cyan); /* 강조 배경 */
+            color: var(--bg-primary); /* 어두운 글자색 */
+            box-shadow: var(--glow-cyan); /* 네온 그림자 */
+            outline: none; /* 기본 외곽선 제거 */
+        } /* 상호작용 끝 */
+
+        .section-line
+        {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), transparent); /* 장식 선 */
+            margin-top: 1rem;
+        }
+
+        /* ============================================
+           게임 목록 섹션
+        ============================================ */
+        .games-section
+        {
+            background: var(--bg-secondary); /* 배경 구분 */
+        }
+
+        .filter-bar
+        {
+            display: flex;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .filter-btn
+        {
+            padding: 0.4rem 1.2rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .filter-btn.active, .filter-btn:hover
+        {
+            border-color: var(--accent-cyan); /* 활성 필터 테두리 */
+            color: var(--accent-cyan);
+            background: rgba(0, 245, 212, 0.05);
+        }
+
+        .games-grid
+        {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* 반응형 그리드 */
+            gap: 1.5rem;
+        }
+
+        .game-card
+        {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .game-card::before
+        {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,245,212,0.05), transparent); /* 카드 그라디언트 오버레이 */
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+
+        .game-card:hover
+        {
+            border-color: var(--accent-cyan);
+            transform: translateY(-6px);         /* 호버 시 위로 */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), var(--glow-cyan);
+        }
+
+        .game-card:hover::before
+        {
+            opacity: 1; /* 호버 시 오버레이 표시 */
+        }
+
+        .game-thumb
+        {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .game-thumb-img /* 게임 카드 이미지 */
+        { /* 이미지 설정 시작 */
+            display: block; /* 이미지 아래 빈틈 제거 */
+            width: 100%; /* 카드 너비 채우기 */
+            height: 100%; /* 카드 높이 채우기 */
+            object-fit: cover; /* 비율 유지와 영역 채우기 */
+            transition: transform 0.5s ease; /* 부드러운 확대 전환 */
+        } /* 이미지 설정 끝 */
+
+        .game-card:hover .game-thumb-img, /* 마우스를 올린 카드 */
+        .game-card:focus-within .game-thumb-img /* 키보드로 선택한 카드 */
+        { /* 확대 설정 시작 */
+            transform: scale(1.08); /* 이미지 8퍼센트 확대 */
+        } /* 확대 설정 끝 */
+
+        @media (prefers-reduced-motion: reduce) /* 움직임 최소화 환경 */
+        { /* 접근성 설정 시작 */
+            .game-thumb-img /* 게임 카드 이미지 */
+            { /* 전환 설정 시작 */
+                transition: none; /* 확대 애니메이션 생략 */
+            } /* 전환 설정 끝 */
+        } /* 접근성 설정 끝 */
+
+        .status-paused /* 보류 상태 배지 */
+        { /* 보류 색상 시작 */
+            background: rgba(167, 139, 250, 0.15); /* 연보라 배경 */
+            color: #c4b5fd; /* 밝은 보라 글자 */
+            border: 1px solid #a78bfa; /* 보라 테두리 */
+        } /* 보류 색상 끝 */
+
+        .game-card-preview /* 상세 페이지 연결 카드 */
+        { /* 커서 설정 시작 */
+            display: block; /* 카드 전체 링크 영역 */
+            color: inherit; /* 기존 글자색 유지 */
+            text-decoration: none; /* 링크 밑줄 제거 */
+            cursor: pointer; /* 클릭 가능한 마우스 모양 */
+        } /* 커서 설정 끝 */
+
+        .game-card-preview:focus-visible /* 키보드로 선택한 신규 카드 */
+        { /* 초점 표시 시작 */
+            outline: 2px solid var(--accent-cyan); /* 선택 테두리 */
+            outline-offset: 4px; /* 테두리 간격 */
+        } /* 초점 표시 끝 */
+
+        .game-thumb-overlay
+        {
+            position: absolute; /* 썸네일 오버레이 */
+            inset: 0;
+            background: linear-gradient(to top, var(--bg-card) 0%, transparent 60%);
+        }
+
+        .game-status
+        {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 0.25rem 0.7rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .status-released
+        {
+            background: rgba(0, 245, 212, 0.15); /* 출시 상태 배지 */
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .status-dev
+        {
+            background: rgba(176, 72, 255, 0.15); /* 개발 중 배지 */
+            border: 1px solid var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .status-upcoming
+        {
+            background: rgba(255, 107, 53, 0.15); /* 출시 예정 배지 */
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        .game-info
+        {
+            padding: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .game-genre
+        {
+            font-size: 0.7rem;
+            color: var(--accent-purple);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-name
+        {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .game-desc
+        {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .game-meta
+        {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .game-platform
+        {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .platform-tag
+        {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.5rem;
+            background: rgba(255,255,255,0.05); /* 플랫폼 태그 배경 */
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        .game-link
+        {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: gap 0.3s;
+        }
+
+        .game-link:hover
+        {
+            gap: 0.6rem; /* 호버 시 화살표 이동 */
+        }
+
+        /* 게임 썸네일 대체 그라디언트 배경 */
+        .game-thumb-gradient
+        {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        /* ============================================
+           데브로그 섹션
+        ============================================ */
+        .devlog-grid
+        {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2열 그리드 */
+            gap: 1.5rem;
+        }
+
+        .devlog-featured
+        {
+            grid-column: 1 / -1; /* 전체 열 차지 */
+        }
+
+        .devlog-card
+        {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1.8rem;
+            position: relative;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .devlog-card::after
+        {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: var(--accent-cyan); /* 왼쪽 강조 선 */
+            transition: width 0.3s;
+        }
+
+        .devlog-card:hover
+        {
+            border-color: rgba(0, 245, 212, 0.3);
+            transform: translateX(4px); /* 호버 시 오른쪽 이동 */
+        }
+
+        .devlog-card:hover::after
+        {
+            width: 3px; /* 왼쪽 강조 선 표시 */
+        }
+
+        .devlog-tags
+        {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.8rem;
+        }
+
+        .devlog-tag
+        {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.6rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .tag-update  { background: rgba(0,245,212,0.1); color: var(--accent-cyan); border: 1px solid rgba(0,245,212,0.2); }
+        .tag-feature { background: rgba(176,72,255,0.1); color: var(--accent-purple); border: 1px solid rgba(176,72,255,0.2); }
+        .tag-fix     { background: rgba(255,107,53,0.1); color: var(--accent-orange); border: 1px solid rgba(255,107,53,0.2); }
+        .tag-devlog  { background: rgba(255,220,0,0.1); color: #ffd700; border: 1px solid rgba(255,220,0,0.2); }
+
+        .devlog-title
+        {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.6rem;
+            line-height: 1.4;
+        }
+
+        .devlog-featured .devlog-title
+        {
+            font-size: 1.4rem; /* 피처드 글 제목 크게 */
+        }
+
+        .devlog-excerpt
+        {
+            font-size: 0.83rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .devlog-meta
+        {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .devlog-date
+        {
+            font-family: 'Share Tech Mono', monospace; /* 날짜 모노 폰트 */
+        }
+
+        .devlog-read
+        {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: gap 0.3s;
+        }
+
+        .devlog-read:hover
+        {
+            gap: 0.6rem;
+        }
+
+        /* ============================================
+           통계 섹션
+        ============================================ */
+        .stats-section
+        {
+            padding: 4rem 5%;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stats-grid
+        {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4열 균등 배치 */
+            gap: 1px;
+            background: var(--border-color);
+        }
+
+        .stat-item
+        {
+            background: var(--bg-primary);
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s;
+        }
+
+        .stat-item:hover
+        {
+            background: var(--bg-card);
+        }
+
+        .stat-item::before
+        {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan); /* 상단 강조 선 */
+            transition: width 0.5s ease;
+        }
+
+        .stat-item:hover::before
+        {
+            width: 100%; /* 호버 시 선 확장 */
+        }
+
+        .stat-number
+        {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .stat-unit
+        {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .stat-label
+        {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* ============================================
+           커뮤니티 / SNS 섹션
+        ============================================ */
+        .community-section
+        {
+            background: var(--bg-secondary);
+        }
+
+        .community-grid
+        {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: stretch;
+            gap: 1.5rem;
+        }
+
+        /* 정사각형 커뮤니티 카드 — 크기 절반으로 축소 */
+        .community-card
+        {
+            aspect-ratio: 1 / 1;            /* 정사각형 비율 고정 */
+            width: 160px;                   /* 고정 너비 — 한 줄 6개 배치 */
+            flex: 0 0 160px;                /* flex 아이템 고정 크기 */
+            max-width: 160px;
+            margin: 0;                      /* flex gap으로 간격 제어 */
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;                    /* 간격 축소 */
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s ease;
+        }
+
+        /* 카드 배경 빛 효과 (호버 시 등장) */
+        .community-card::before
+        {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Discord 카드 호버 색상 */
+        .community-card.discord::before
+        {
+            background: radial-gradient(circle at 50% 40%, rgba(88, 101, 242, 0.18) 0%, transparent 70%);
+        }
+
+        /* YouTube 카드 호버 색상 */
+        .community-card.youtube::before
+        {
+            background: radial-gradient(circle at 50% 40%, rgba(255, 0, 0, 0.15) 0%, transparent 70%);
+        }
+
+        /* X (트위터) 카드 호버 색상 */
+        .community-card.twitter::before
+        {
+            background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+        }
+
+        .community-card:hover::before
+        {
+            opacity: 1;
+        }
+
+        /* Discord 카드 호버 테두리 */
+        .community-card.discord:hover
+        {
+            border-color: #5865f2;
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 24px rgba(88,101,242,0.35);
+        }
+
+        /* YouTube 카드 호버 테두리 */
+        .community-card.youtube:hover
+        {
+            border-color: #ff0000;
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 24px rgba(255,0,0,0.3);
+        }
+
+        /* X (트위터) 카드 호버 테두리 */
+        .community-card.twitter:hover
+        {
+            border-color: rgba(255,255,255,0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 24px rgba(255,255,255,0.12);
+        }
+
+        /* Instagram 카드 호버 테두리 */
+        .community-card.instagram:hover
+        {
+            border-color: #e1306c;
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 24px rgba(225,48,108,0.35);
+        }
+
+        /* Facebook 카드 호버 테두리 */
+        .community-card.facebook:hover
+        {
+            border-color: #1877f2;
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 24px rgba(24,119,242,0.35);
+        }
+
+        /* TikTok 카드 호버 테두리 */
+        .community-card.tiktok:hover
+        {
+            border-color: #69c9d0;
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 24px rgba(105,201,208,0.35);
+        }
+
+        /* 아이콘 래퍼 — 80px으로 복구 */
+        .community-icon-wrap
+        {
+            width: 80px;                    /* 아이콘 박스 크기 복구 */
+            height: 80px;
+            border-radius: 22px;            /* 둥근 사각형 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.35s ease;
+        }
+
+        .community-card:hover .community-icon-wrap
+        {
+            transform: scale(1.1); /* 호버 시 아이콘 확대 */
+        }
+
+        /* Discord 아이콘 배경 */
+        .community-card.discord .community-icon-wrap
+        {
+            background: linear-gradient(145deg, #4752c4, #5865f2);
+            box-shadow: 0 8px 24px rgba(88,101,242,0.4);
+        }
+
+        /* YouTube 아이콘 배경 */
+        .community-card.youtube .community-icon-wrap
+        {
+            background: linear-gradient(145deg, #cc0000, #ff0000);
+            box-shadow: 0 8px 24px rgba(255,0,0,0.35);
+        }
+
+        /* X 아이콘 배경 */
+        .community-card.twitter .community-icon-wrap
+        {
+            background: linear-gradient(145deg, #111, #222);
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        /* Instagram 아이콘 배경 — 공식 그라디언트 */
+        .community-card.instagram .community-icon-wrap
+        {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            box-shadow: 0 8px 24px rgba(225,48,108,0.4);
+        }
+
+        /* Facebook 아이콘 배경 */
+        .community-card.facebook .community-icon-wrap
+        {
+            background: linear-gradient(145deg, #1565c0, #1877f2);
+            box-shadow: 0 8px 24px rgba(24,119,242,0.4);
+        }
+
+        /* TikTok 아이콘 배경 */
+        .community-card.tiktok .community-icon-wrap
+        {
+            background: linear-gradient(145deg, #010101, #1a1a1a);
+            border: 1px solid rgba(105,201,208,0.3);
+            box-shadow: 0 8px 24px rgba(105,201,208,0.3);
+        }
+
+        /* Instagram 카드 호버 빛 */
+        .community-card.instagram::before
+        {
+            background: radial-gradient(circle at 50% 40%, rgba(225,48,108,0.18) 0%, transparent 70%);
+        }
+
+        /* Facebook 카드 호버 빛 */
+        .community-card.facebook::before
+        {
+            background: radial-gradient(circle at 50% 40%, rgba(24,119,242,0.18) 0%, transparent 70%);
+        }
+
+        /* TikTok 카드 호버 빛 */
+        .community-card.tiktok::before
+        {
+            background: radial-gradient(circle at 50% 40%, rgba(105,201,208,0.15) 0%, transparent 70%);
+        }
+
+        /* SVG 아이콘 크기 — 42px으로 복구 */
+        .community-icon-wrap svg
+        {
+            width: 42px;    /* 아이콘 너비 복구 */
+            height: 42px;   /* 아이콘 높이 복구 */
+        }
+
+        /* 커뮤니티 텍스트 영역 */
+        .community-text
+        {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 0 0.8rem;          /* 좁은 카드에 맞게 패딩 축소 */
+        }
+
+        .community-name
+        {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;         /* 작은 카드에 맞게 폰트 축소 */
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+            letter-spacing: 1px;
+        }
+
+        .community-desc
+        {
+            font-size: 0.65rem;         /* 설명 폰트 축소 */
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* 카드 하단 '바로가기' 레이블 (호버 시 슬라이드 업) */
+        .community-go
+        {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            right: 0;
+            padding: 0.5rem;            /* 패딩 축소 */
+            font-size: 0.62rem;         /* 폰트 축소 */
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: bottom 0.3s ease;
+            z-index: 2;
+        }
+
+        .community-card.discord  .community-go { background: #5865f2; color: #fff; }
+        .community-card.youtube  .community-go { background: #ff0000; color: #fff; }
+        .community-card.twitter  .community-go { background: #333;    color: #fff; }
+        .community-card.instagram .community-go { background: linear-gradient(90deg, #dc2743, #bc1888); color: #fff; } /* 인스타 그라디언트 */
+        .community-card.facebook  .community-go { background: #1877f2; color: #fff; } /* 페이스북 블루 */
+        .community-card.tiktok    .community-go { background: #010101; color: #69c9d0; } /* 틱톡 블랙 */
+
+        .community-card:hover .community-go
+        {
+            bottom: 0; /* 호버 시 슬라이드 업 */
+        }
+
+        /* 반응형: 태블릿 — 3개씩 2줄 */
+        @media (max-width: 1024px)
+        {
+            .community-grid
+            {
+                flex-wrap: wrap;
+            }
+
+            .community-card
+            {
+                width: 140px;
+                flex: 0 0 140px;
+                max-width: 140px;
+            }
+        }
+
+        /* 반응형: 모바일 — 2개씩 3줄 */
+        @media (max-width: 600px)
+        {
+            .community-grid
+            {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .community-card
+            {
+                width: calc(50% - 0.5rem);
+                flex: 0 0 calc(50% - 0.5rem);
+                max-width: calc(50% - 0.5rem);
+                aspect-ratio: auto;
+                padding: 1.5rem;
+            }
+        }
+
+        /* ============================================
+           푸터
+        ============================================ */
+        footer
+        {
+            padding: 3rem 5%;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo
+        {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-copy
+        {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links
+        {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a
+        {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover
+        {
+            color: var(--accent-cyan);
+        }
+
+        /* 약관 / 개인정보 팝업 전용 */
+        .modal-box.legal
+        {
+            max-width: 720px;
+            width: 90vw;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .legal-scroll
+        {
+            overflow-y: auto;
+            flex: 1;
+            padding-right: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.75;
+        }
+
+        .legal-scroll::-webkit-scrollbar
+        {
+            width: 4px;
+        }
+
+        .legal-scroll::-webkit-scrollbar-track
+        {
+            background: rgba(255,255,255,0.04);
+            border-radius: 2px;
+        }
+
+        .legal-scroll::-webkit-scrollbar-thumb
+        {
+            background: var(--accent-cyan);
+            border-radius: 2px;
+        }
+
+        .legal-scroll h2
+        {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin: 1.4rem 0 0.4rem;
+            letter-spacing: 0.5px;
+        }
+
+        .legal-scroll h2:first-child
+        {
+            margin-top: 0;
+        }
+
+        .legal-scroll p,
+        .legal-scroll li
+        {
+            margin-bottom: 0.35rem;
+        }
+
+        .legal-scroll ol,
+        .legal-scroll ul
+        {
+            padding-left: 1.4rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .legal-scroll table
+        {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .legal-scroll th,
+        .legal-scroll td
+        {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.45rem 0.7rem;
+            text-align: left;
+        }
+
+        .legal-scroll th
+        {
+            background: rgba(255,255,255,0.06);
+            color: var(--text-primary);
+        }
+
+        .legal-title
+        {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            margin-bottom: 0.25rem;
+        }
+
+        .legal-date
+        {
+            font-size: 0.78rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1.2rem;
+        }
+
+        /* ============================================
+           키프레임 애니메이션
+        ============================================ */
+        @keyframes fadeInUp
+        {
+            from
+            {
+                opacity: 0;
+                transform: translateY(30px); /* 아래서 위로 */
+            }
+            to
+            {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse
+        {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.6; } /* 페이드 효과 */
+        }
+
+        @keyframes blink
+        {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0; } /* 깜빡임 효과 */
+        }
+
+        @keyframes float
+        {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-10px); } /* 위아래 부유 */
+        }
+
+        /* 스크롤 등장 애니메이션 클래스 */
+        .reveal
+        {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible
+        {
+            opacity: 1;
+            transform: translateY(0); /* 뷰포트 진입 시 표시 */
+        }
+
+        /* ============================================
+           모바일 반응형
+        ============================================ */
+        @media (max-width: 768px)
+        {
+            .nav-menu { display: none; } /* 모바일에서 메뉴 숨김 */
+
+            .news-shortcut { display: inline-flex; align-items: center; } /* 모바일 뉴스 링크 표시 */
+
+            .devlog-grid { grid-template-columns: 1fr; } /* 1열로 변경 */
+
+            .stats-grid { grid-template-columns: repeat(2, 1fr); } /* 2열로 변경 */
+
+            .community-grid { grid-template-columns: 1fr; } /* 1열로 변경 */
+
+            footer { flex-direction: column; text-align: center; } /* 세로 정렬 */
+        }
+
+        /* ============================================
+           스크롤바 스타일
+        ============================================ */
+        ::-webkit-scrollbar
+        {
+            width: 4px; /* 스크롤바 너비 */
+        }
+
+        ::-webkit-scrollbar-track
+        {
+            background: var(--bg-primary); /* 트랙 배경 */
+        }
+
+        ::-webkit-scrollbar-thumb
+        {
+            background: var(--accent-cyan); /* 스크롤바 핸들 색 */
+        }
+
+        /* ============================================
+           굿즈 판매 섹션
+        ============================================ */
+        .goods-section
+        {
+            background: var(--bg-primary); /* 메인 배경으로 구분 */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 굿즈 섹션 배경 장식 (대각선 패턴) */
+        .goods-section::before
+        {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(176, 72, 255, 0.015) 40px,
+                    rgba(176, 72, 255, 0.015) 41px
+                ); /* 대각선 줄무늬 배경 */
+            pointer-events: none;
+        }
+
+        /* 굿즈 섹션 헤더 배너 (판매 중 강조 띠) */
+        .goods-banner
+        {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 1.2rem 1.8rem;
+            background: linear-gradient(135deg, rgba(176,72,255,0.1), rgba(0,245,212,0.05)); /* 그라디언트 배경 */
+            border: 1px solid rgba(176, 72, 255, 0.3); /* 퍼플 테두리 */
+            position: relative;
+        }
+
+        .goods-banner-text
+        {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-purple);
+            letter-spacing: 2px;
+        }
+
+        .goods-banner-badge
+        {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0.9rem;
+            background: rgba(176, 72, 255, 0.15);
+            border: 1px solid var(--accent-purple);
+            color: var(--accent-purple);
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+            animation: pulse 2s infinite; /* 반복 펄스 효과 */
+        }
+
+        /* 굿즈 카드 그리드 (5열 기본, 반응형) */
+        .goods-grid
+        {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* 자동 채우기 그리드 */
+            gap: 1.5rem;
+        }
+
+        /* 굿즈 카드 — 클릭 시 판매 링크로 이동 */
+        .goods-card
+        {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;                /* 포인터 커서 표시 */
+            transition: all 0.35s ease;
+            text-decoration: none;          /* 링크 밑줄 제거 */
+            display: block;                 /* 블록으로 만들어 전체 클릭 가능 */
+        }
+
+        /* 굿즈 카드 상단 색상 라인 (카테고리별 색 변경) */
+        .goods-card::before
+        {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan)); /* 상단 그라디언트 선 */
+            transform: scaleX(0);          /* 초기 상태: 숨김 */
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .goods-card:hover
+        {
+            border-color: rgba(176, 72, 255, 0.5); /* 호버 시 테두리 강조 */
+            transform: translateY(-8px);             /* 호버 시 위로 떠오름 */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), var(--glow-purple);
+        }
+
+        .goods-card:hover::before
+        {
+            transform: scaleX(1); /* 호버 시 상단 선 확장 */
+        }
+
+        /* 굿즈 이미지 영역 */
+        .goods-thumb
+        {
+            position: relative;
+            height: 200px;          /* 이미지 높이 고정 */
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        /* 이미지 대체 이모지 표시 영역 */
+        .goods-emoji-wrap
+        {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;      /* 이모지 크기 */
+            transition: transform 0.4s ease;
+        }
+
+        .goods-card:hover .goods-emoji-wrap
+        {
+            transform: scale(1.12); /* 호버 시 이모지 확대 */
+        }
+
+        .goods-image /* 실제 상품 이미지 */
+        {
+            width: 100%; /* 이미지 전체 너비 */
+            height: 100%; /* 이미지 전체 높이 */
+            object-fit: cover; /* 이미지 영역 채움 */
+            transition: transform 0.4s ease, filter 0.4s ease; /* 이미지 전환 */
+        }
+
+        .goods-card:hover .goods-image /* 상품 이미지 선택 */
+        {
+            transform: scale(1.06); /* 이미지 확대 */
+        }
+
+        .goods-card.state-sold_out .goods-image /* 품절 이미지 */
+        {
+            filter: grayscale(0.8) brightness(0.55); /* 품절 흐림 표현 */
+        }
+
+        /* 새 상품 / 인기 배지 */
+        .goods-badge
+        {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .badge-new
+        {
+            background: rgba(0, 245, 212, 0.15);   /* NEW 배지 배경 */
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .badge-hot
+        {
+            background: rgba(255, 107, 53, 0.15);  /* HOT 배지 배경 */
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        .badge-limited
+        {
+            background: rgba(176, 72, 255, 0.15);  /* LIMITED 배지 배경 */
+            border: 1px solid var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        /* 할인율 표시 배지 */
+        .goods-discount
+        {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 44px;
+            height: 44px;
+            background: var(--accent-orange);       /* 오렌지 할인 배지 */
+            border-radius: 50%;                     /* 원형 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* 굿즈 정보 영역 */
+        .goods-info
+        {
+            padding: 1.2rem;
+        }
+
+        /* 굿즈 카테고리 태그 */
+        .goods-category
+        {
+            font-size: 0.68rem;
+            color: var(--accent-purple);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        /* 굿즈 이름 */
+        .goods-name
+        {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+            line-height: 1.3;
+        }
+
+        /* 굿즈 게임 연관 정보 */
+        .goods-game
+        {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+        }
+
+        /* 가격 행 */
+        .goods-price-row
+        {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border-color); /* 상단 구분선 */
+        }
+
+        .goods-price-wrap
+        {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        /* 정가 (취소선) */
+        .goods-original-price
+        {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-decoration: line-through; /* 취소선 */
+        }
+
+        /* 최종 가격 */
+        .goods-price
+        {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--accent-cyan);     /* 가격 강조색 */
+        }
+
+        /* 장바구니/구매 아이콘 버튼 */
+        .goods-buy-btn
+        {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(176, 72, 255, 0.1);
+            border: 1px solid rgba(176, 72, 255, 0.3);
+            color: var(--accent-purple);
+            font-size: 1rem;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .goods-card:hover .goods-buy-btn
+        {
+            background: var(--accent-purple);       /* 호버 시 배경 채움 */
+            color: #fff;
+            box-shadow: var(--glow-purple);
+        }
+
+        .goods-description /* 상품 설명 */
+        {
+            margin: 0 0 0.8rem; /* 설명 아래 여백 */
+            color: var(--text-muted); /* 보조 글자색 */
+            font-size: 0.72rem; /* 설명 글자 크기 */
+            line-height: 1.5; /* 설명 줄 간격 */
+        }
+
+        .goods-stock-badge /* 판매 상태 배지 */
+        {
+            position: absolute; /* 이미지 위 배치 */
+            top: 10px; /* 위쪽 위치 */
+            right: 10px; /* 오른쪽 위치 */
+            z-index: 2; /* 이미지 위 표시 */
+            padding: 0.25rem 0.55rem; /* 배지 여백 */
+            border: 1px solid currentColor; /* 상태색 경계선 */
+            background: rgba(7, 11, 20, 0.88); /* 어두운 배경 */
+            font-size: 0.65rem; /* 배지 글자 크기 */
+            font-weight: 700; /* 배지 글자 굵기 */
+        }
+
+        .goods-stock-text /* 재고 수량 문구 */
+        {
+            color: var(--text-muted); /* 보조 글자색 */
+            font-size: 0.68rem; /* 재고 글자 크기 */
+        }
+
+        .goods-price-wrap /* 가격 묶음 보완 */
+        {
+            flex-wrap: wrap; /* 좁은 영역 줄바꿈 */
+        }
+
+        .goods-buy-btn.is-disabled /* 비활성 구매 버튼 */
+        {
+            width: auto; /* 문구 너비 사용 */
+            padding: 0 0.65rem; /* 좌우 여백 */
+            border-color: var(--border-color); /* 흐린 경계선 */
+            background: transparent; /* 투명 배경 */
+            color: var(--text-muted); /* 흐린 글자색 */
+            box-shadow: none; /* 빛 효과 제거 */
+        }
+
+        .state-in_stock /* 판매 중 상태 */
+        {
+            color: var(--accent-cyan); /* 판매 중 강조색 */
+        }
+
+        .state-low_stock /* 재고 부족 상태 */
+        {
+            color: #ffad42; /* 재고 부족 강조색 */
+        }
+
+        .state-sold_out /* 품절 상태 */
+        {
+            color: #ff657a; /* 품절 강조색 */
+        }
+
+        .state-preparing, .state-checking /* 준비 상태 */
+        {
+            color: #bd8cff; /* 준비 상태 강조색 */
+        }
+
+        /* 매장 이동 반응형 */
+        @media (max-width: 768px)
+        {
+            .section-heading-row /* 모바일 제목 행 */
+            { /* 모바일 제목 행 시작 */
+                align-items: stretch; /* 전체 너비 정렬 */
+                flex-direction: column; /* 세로 배치 */
+                gap: 1rem; /* 모바일 요소 간격 */
+            } /* 모바일 제목 행 끝 */
+
+            .section-detail-link /* 모바일 이동 버튼 */
+            { /* 모바일 이동 버튼 시작 */
+                width: 100%; /* 전체 너비 */
+            } /* 모바일 이동 버튼 끝 */
+
+            .goods-grid
+            {
+                grid-template-columns: repeat(2, 1fr); /* 모바일 2열 */
+            }
+
+            .goods-banner
+            {
+                flex-direction: column; /* 세로 정렬 */
+            }
+        }
+
+        /* 모달 스타일 */
+        .modal-overlay
+        {
+            display: none;              /* 기본 숨김 */
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85); /* 반투명 오버레이 */
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-overlay.open
+        {
+            display: flex; /* 열릴 때 flex 표시 */
+        }
+
+        .modal-box
+        {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .modal-close
+        {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover
+        {
+            color: var(--accent-cyan);
+        }
+
+        .modal-game-title
+        {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-body
+        {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin: 1rem 0 1.5rem;
+        }
+
+        .modal-actions
+        {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .adult-game-card .game-thumb
+        {
+            background: #090d16;
+        }
+
+        @media (max-width: 767px) /* 메인 모바일 화면 */
+        { /* 구간 시작 */
+            .games-grid /* 모바일 게임 목록 */
+            { /* 규칙 시작 */
+                grid-template-columns: 1fr; /* 게임 한 열 */
+            } /* 규칙 끝 */
+
+            .devlog-grid /* 모바일 뉴스 목록 */
+            { /* 규칙 시작 */
+                grid-template-columns: 1fr; /* 뉴스 한 열 */
+            } /* 규칙 끝 */
+
+            .goods-grid /* 모바일 굿즈 목록 */
+            { /* 규칙 시작 */
+                grid-template-columns: 1fr; /* 굿즈 한 열 */
+            } /* 규칙 끝 */
+
+            .community-grid /* 모바일 커뮤니티 목록 */
+            { /* 규칙 시작 */
+                display: grid; /* 커뮤니티 격자 */
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* 커뮤니티 두 열 */
+                width: 100%; /* 목록 전체 너비 */
+            } /* 규칙 끝 */
+
+            .community-card /* 모바일 커뮤니티 카드 */
+            { /* 규칙 시작 */
+                max-width: none; /* 카드 폭 제한 해제 */
+                width: auto; /* 격자 폭 사용 */
+            } /* 규칙 끝 */
+
+            .filter-bar /* 모바일 게임 필터 */
+            { /* 규칙 시작 */
+                flex-wrap: wrap; /* 필터 줄바꿈 */
+            } /* 규칙 끝 */
+
+            .section-detail-link /* 모바일 상세 이동 */
+            { /* 규칙 시작 */
+                justify-content: center; /* 버튼 글자 가운데 */
+                width: 100%; /* 버튼 전체 너비 */
+            } /* 규칙 끝 */
+
+            .goods-price-row /* 모바일 상품 가격 */
+            { /* 규칙 시작 */
+                align-items: stretch; /* 세로 영역 맞춤 */
+                flex-direction: column; /* 가격과 동작 세로 배치 */
+            } /* 규칙 끝 */
+
+            .goods-buy-btn /* 모바일 구매 버튼 */
+            { /* 규칙 시작 */
+                min-height: 44px; /* 터치 높이 */
+                width: 100%; /* 버튼 전체 너비 */
+            } /* 규칙 끝 */
+        } /* 구간 끝 */
+
+        @media (min-width: 768px) and (max-width: 1023px) /* 메인 작은 태블릿 */
+        { /* 구간 시작 */
+            .games-grid /* 태블릿 게임 목록 */
+            { /* 규칙 시작 */
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* 게임 두 열 */
+            } /* 규칙 끝 */
+
+            .goods-grid /* 태블릿 굿즈 목록 */
+            { /* 규칙 시작 */
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* 굿즈 두 열 */
+            } /* 규칙 끝 */
+
+            .community-grid /* 태블릿 커뮤니티 목록 */
+            { /* 규칙 시작 */
+                display: grid; /* 커뮤니티 격자 */
+                grid-template-columns: repeat(3, minmax(0, 1fr)); /* 커뮤니티 세 열 */
+                width: 100%; /* 목록 전체 너비 */
+            } /* 규칙 끝 */
+
+            .community-card /* 태블릿 커뮤니티 카드 */
+            { /* 규칙 시작 */
+                max-width: none; /* 카드 폭 제한 해제 */
+                width: auto; /* 격자 폭 사용 */
+            } /* 규칙 끝 */
+        } /* 구간 끝 */
+
+        @media (min-width: 1024px) and (max-width: 1279px) /* 메인 큰 태블릿 */
+        { /* 구간 시작 */
+            .games-grid /* 큰 태블릿 게임 목록 */
+            { /* 규칙 시작 */
+                grid-template-columns: repeat(3, minmax(0, 1fr)); /* 게임 세 열 */
+            } /* 규칙 끝 */
+
+            .goods-grid /* 큰 태블릿 굿즈 목록 */
+            { /* 규칙 시작 */
+                grid-template-columns: repeat(3, minmax(0, 1fr)); /* 굿즈 세 열 */
+            } /* 규칙 끝 */
+        } /* 구간 끝 */
+
+        @media (min-width: 1280px) /* 메인 PC 화면 */
+        { /* 구간 시작 */
+            .goods-grid /* PC 굿즈 목록 */
+            { /* 규칙 시작 */
+                grid-template-columns: repeat(4, minmax(0, 1fr)); /* 굿즈 네 열 */
+            } /* 규칙 끝 */
+        } /* 구간 끝 */
+
+        @media (hover: none), (pointer: coarse) /* 터치 조작 환경 */
+        { /* 구간 시작 */
+            .game-card:hover, /* 게임 카드 터치 */
+            .goods-card:hover /* 굿즈 카드 터치 */
+            { /* 규칙 시작 */
+                transform: none; /* 호버 이동 제거 */
+            } /* 규칙 끝 */
+
+            .community-go /* 커뮤니티 이동 문구 */
+            { /* 규칙 시작 */
+                bottom: 0; /* 이동 문구 상시 표시 */
+            } /* 규칙 끝 */
+        } /* 구간 끝 */
+
+    </style>
+    <link rel="stylesheet" href="/game-catalog.css"> <!-- 게임 목록 스타일 -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+    <link rel="stylesheet" href="/site-experience.css"> <!-- 로컬 경험 스타일 -->
+    <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
+</head>
+<body data-responsive-page="main" data-theme="playful-lab"> <!-- 플레이풀 랩 메인 본문 -->
+    <a class="skip-link" href="#main-content">본문으로 바로가기</a> <!-- 키보드 본문 이동 -->
+
+    <!-- 파티클 배경 캔버스 -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ============================================
+         네비게이션 바
+    ============================================ -->
+    <nav class="navbar" id="navbar" data-responsive-nav-root> <!-- 공통 상단 메뉴 -->
+        <!-- 스튜디오 로고 -->
+        <a href="/main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+
+        <!-- 메인 메뉴 -->
+        <ul class="nav-menu">
+            <li><a href="#games">게임</a></li>
+            <li><a href="goods.html">굿즈</a></li>     <!-- 굿즈 전용 페이지 이동 -->
+            <li><a href="devlog.html">개발 뉴스</a></li>
+
+            <li><a href="community.html">커뮤니티</a></li> <!-- 커뮤니티 전용 페이지 이동 -->
+        </ul>
+
+        <!-- 상단 액션 버튼 -->
+        <div class="nav-actions">
+            <a href="devlog.html" class="btn-nav news-shortcut">개발 뉴스</a>
+            <button class="btn-nav" onclick="document.getElementById('contact-modal').classList.add('open')">문의하기</button>
+            <a href="/login" class="btn-nav member-login-link" data-member-action data-analytics-event="login_start" data-analytics-destination="member-login">로그인</a> <!-- 회원 로그인 이동 -->
+        </div>
+    </nav>
+
+    <!-- ============================================
+         히어로 섹션
+    ============================================ -->
+    <section class="hero" id="main-content" tabindex="-1"> <!-- 본문 초점 시작 -->
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+
+        <!-- 히어로 메인 콘텐츠 -->
+        <div class="hero-content hero-carousel" data-hero-carousel role="region" aria-roledescription="carousel" aria-label="DEVFORGE 주요 소개" tabindex="0"> <!-- 히어로 전환 영역 -->
+            <button class="hero-carousel-control hero-carousel-previous" type="button" data-hero-carousel-previous aria-label="이전 홍보 화면">‹</button> <!-- 이전 화면 버튼 -->
+            <div class="hero-carousel-viewport"> <!-- 전환 화면 영역 -->
+                <div class="hero-carousel-track" data-hero-carousel-track> <!-- 가로 이동 트랙 -->
+                <div class="hero-slide is-active" data-hero-slide aria-hidden="false"> <!-- DEVFORGE 소개 화면 -->
+            <!-- 메인 타이틀 -->
+            <h1 class="hero-title">
+                <span class="line1">나만의 세계를</span>
+                <span class="line2">코드로 빚다</span>
+            </h1>
+
+            <!-- 부제목 -->
+            <p class="hero-subtitle">
+                장르를 초월한 인디 게임 개발 스튜디오.<br>
+                한 줄의 코드가 수천 명의 모험이 됩니다.
+            </p>
+            <div class="hero-actions"> <!-- 히어로 행동 영역 -->
+                <a class="hero-action primary" href="#games">게임 둘러보기</a> <!-- 게임 이동 -->
+                <a class="hero-action" href="/devlog.html">최신 개발 소식</a> <!-- 뉴스 이동 -->
+            </div> <!-- 히어로 행동 영역 끝 -->
+            <div class="hero-stats" aria-label="공개 사이트 현황"> <!-- 히어로 현황 -->
+                <div class="hero-stat"><strong data-hero-stat="total">35</strong><span>공개 프로젝트</span></div> <!-- 전체 현황 -->
+                <div class="hero-stat"><strong data-hero-stat="featured">6</strong><span>대표 프로젝트</span></div> <!-- 대표 현황 -->
+                <div class="hero-stat"><strong data-hero-stat="news">4</strong><span>개발 뉴스</span></div> <!-- 뉴스 현황 -->
+            </div> <!-- 히어로 현황 끝 -->
+                </div> <!-- DEVFORGE 소개 화면 끝 -->
+                <div class="hero-slide hero-chatbot-slide" data-hero-slide aria-hidden="true" inert> <!-- ChatBot 홍보 화면 -->
+                    <p class="hero-promo-label">// DEVFORGE CHAT EXPERIENCE</p> <!-- 챗봇 분류 -->
+                    <h2 class="hero-title hero-chatbot-title"> <!-- 챗봇 제목 -->
+                        <span class="line1">캐릭터와 함께</span> <!-- 챗봇 제목 첫 줄 -->
+                        <span class="line2">이야기를 이어가다</span> <!-- 챗봇 제목 둘째 줄 -->
+                    </h2> <!-- 챗봇 제목 끝 -->
+                    <p class="hero-subtitle hero-chatbot-description">캐릭터를 고르고 대화를 시작하며 나만의 이야기를 이어가는 ChatBot 로컬 시연 페이지입니다.</p> <!-- 챗봇 설명 -->
+                    <div class="hero-promo-features" aria-label="ChatBot 주요 기능"> <!-- 챗봇 특징 목록 -->
+                        <span>캐릭터 탐색</span> <!-- 탐색 특징 -->
+                        <span>대화 시연</span> <!-- 대화 특징 -->
+                        <span>로컬 보관</span> <!-- 보관 특징 -->
+                    </div> <!-- 챗봇 특징 목록 끝 -->
+                    <div class="hero-actions"> <!-- 챗봇 행동 영역 -->
+                        <a class="hero-action primary" href="http://localhost:3001/">ChatBot 시작하기</a> <!-- 챗봇 메인 이동 -->
+                    </div> <!-- 챗봇 행동 영역 끝 -->
+                    <p class="hero-local-notice">임시 로컬 주소 · 배포 주소 확정 후 교체 예정</p> <!-- 임시 주소 안내 -->
+                </div> <!-- ChatBot 홍보 화면 끝 -->
+                </div> <!-- 가로 이동 트랙 끝 -->
+            </div> <!-- 전환 화면 영역 끝 -->
+            <button class="hero-carousel-control hero-carousel-next" type="button" data-hero-carousel-next aria-label="다음 홍보 화면">›</button> <!-- 다음 화면 버튼 -->
+            <p class="hero-carousel-status" data-hero-carousel-status aria-live="polite">1 / 2</p> <!-- 현재 화면 위치 -->
+            <div class="hero-carousel-timer"> <!-- 자동 전환 상태 영역 -->
+                <div class="hero-carousel-progress-track" role="progressbar" aria-label="다음 화면까지 남은 시간" aria-valuemin="0" aria-valuemax="7"> <!-- 진행 게이지 틀 -->
+                    <span class="hero-carousel-progress-fill" data-hero-carousel-progress></span> <!-- 진행 게이지 막대 -->
+                </div> <!-- 진행 게이지 틀 끝 -->
+            </div> <!-- 자동 전환 상태 영역 끝 -->
+        </div> <!-- 히어로 전환 영역 끝 -->
+    </section>
+
+    <section class="section experience-section" id="studio"> <!-- 스튜디오 소개 구역 -->
+        <div class="section-header reveal"> <!-- 소개 제목 영역 -->
+            <div class="section-tag">// STUDIO</div> <!-- 소개 영문 제목 -->
+            <h2 class="section-title">DEVFORGE <span>소개</span></h2> <!-- 소개 제목 -->
+            <div class="section-line"></div> <!-- 제목 장식선 -->
+        </div> <!-- 소개 제목 영역 끝 -->
+        <p class="experience-lead">DEVFORGE는 서로 다른 장르의 규칙과 세계를 공개 프로젝트로 실험하는 인디 게임 개발 공간입니다.</p> <!-- 소개 요약 -->
+        <div class="studio-grid"> <!-- 소개 카드 목록 -->
+            <article class="experience-card"><span>01</span><h3>장르 실험</h3><p>전략, 퍼즐, RPG와 액션을 포함한 여러 형식의 플레이 규칙을 프로젝트별로 검토합니다.</p></article> <!-- 개발 방향 카드 -->
+            <article class="experience-card"><span>02</span><h3>확인된 정보 우선</h3><p>확정되지 않은 출시일과 외부 판매 주소는 공개하지 않고 현재 확인 가능한 개발 상태만 안내합니다.</p></article> <!-- 공개 원칙 카드 -->
+            <article class="experience-card"><span>03</span><h3>로컬 시연 단계</h3><p>회원, 댓글, 굿즈와 커뮤니티 기능은 실제 서버 연결 전 화면과 흐름을 검증하는 시연 상태입니다.</p></article> <!-- 운영 상태 카드 -->
+        </div> <!-- 소개 카드 목록 끝 -->
+        <div class="project-status-board" aria-labelledby="project-status-title"> <!-- 프로젝트 현황판 -->
+            <div class="status-board-heading"> <!-- 현황판 제목 영역 -->
+                <h3 id="project-status-title">프로젝트 개발 현황</h3> <!-- 현황판 제목 -->
+                <p>현재 공개 데이터 기준이며 확정된 출시 일정은 없습니다.</p> <!-- 현황 기준 -->
+            </div> <!-- 현황판 제목 영역 끝 -->
+            <div class="status-board-grid"> <!-- 현황 카드 목록 -->
+                <article><strong data-project-status="developing">32</strong><span>개발 중</span></article> <!-- 개발 중 현황 -->
+                <article><strong data-project-status="planning">1</strong><span>기획</span></article> <!-- 기획 현황 -->
+                <article><strong data-project-status="paused">2</strong><span>보류</span></article> <!-- 보류 현황 -->
+            </div> <!-- 현황 카드 목록 끝 -->
+        </div> <!-- 프로젝트 현황판 끝 -->
+    </section> <!-- 스튜디오 소개 구역 끝 -->
+
+    <!-- ============================================
+         게임 목록 섹션
+    ============================================ -->
+    <section class="section games-section" id="games">
+        <div class="section-header reveal">
+            <div class="section-tag">// GAMES</div>
+            <h2 class="section-title">게임 <span>프로젝트</span></h2>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="games-catalog-block reveal"> <!-- 추천 프로젝트 구역 -->
+            <h3 class="games-subheading">추천 <span>프로젝트</span></h3> <!-- 추천 제목 -->
+            <div class="featured-games-grid" data-featured-games aria-label="추천 프로젝트"></div> <!-- 추천 카드 목록 -->
+        </div> <!-- 추천 프로젝트 구역 끝 -->
+
+        <div class="games-catalog-block"> <!-- 전체 프로젝트 구역 -->
+            <h3 class="games-subheading">전체 <span>프로젝트</span></h3> <!-- 전체 목록 제목 -->
+            <div class="game-catalog-toolbar"> <!-- 검색과 필터 도구 -->
+                <label class="game-search-field"> <!-- 프로젝트 검색 -->
+                    <span class="game-search-icon" aria-hidden="true">⌕</span> <!-- 검색 아이콘 -->
+                    <input class="game-search-input" type="search" data-game-search placeholder="프로젝트명 또는 장르 검색" autocomplete="off"> <!-- 검색 입력 -->
+                </label> <!-- 프로젝트 검색 끝 -->
+                <div class="game-filter-group"> <!-- 장르 필터 묶음 -->
+                    <span class="game-filter-label">장르</span> <!-- 장르 필터 제목 -->
+                    <div class="game-filter-options"> <!-- 장르 필터 버튼 -->
+                        <button class="filter-btn active" type="button" data-filter="all" data-genre-filter="all" aria-pressed="true">전체</button> <!-- 전체 장르 -->
+                        <button class="filter-btn" type="button" data-filter="rpg" data-genre-filter="rpg" aria-pressed="false">RPG</button> <!-- RPG 장르 -->
+                        <button class="filter-btn" type="button" data-filter="strategy" data-genre-filter="strategy" aria-pressed="false">전략</button> <!-- 전략 장르 -->
+                        <button class="filter-btn" type="button" data-filter="action" data-genre-filter="action" aria-pressed="false">액션</button> <!-- 액션 장르 -->
+                        <button class="filter-btn" type="button" data-filter="puzzle" data-genre-filter="puzzle" aria-pressed="false">퍼즐</button> <!-- 퍼즐 장르 -->
+                        <button class="filter-btn" type="button" data-filter="roguelike" data-genre-filter="roguelike" aria-pressed="false">로그라이크</button> <!-- 로그라이크 장르 -->
+                        <button class="filter-btn" type="button" data-filter="other" data-genre-filter="other" aria-pressed="false">기타</button> <!-- 기타 장르 -->
+                    </div> <!-- 장르 필터 버튼 끝 -->
+                </div> <!-- 장르 필터 묶음 끝 -->
+                <div class="game-filter-group"> <!-- 상태 필터 묶음 -->
+                    <span class="game-filter-label">개발 상태</span> <!-- 상태 필터 제목 -->
+                    <div class="game-filter-options"> <!-- 상태 필터 버튼 -->
+                        <button class="filter-btn active" type="button" data-status-filter="all" aria-pressed="true">전체</button> <!-- 전체 상태 -->
+                        <button class="filter-btn" type="button" data-status-filter="developing" aria-pressed="false">개발 중</button> <!-- 개발 중 상태 -->
+                        <button class="filter-btn" type="button" data-status-filter="planning" aria-pressed="false">기획</button> <!-- 기획 상태 -->
+                        <button class="filter-btn" type="button" data-status-filter="paused" aria-pressed="false">보류</button> <!-- 보류 상태 -->
+                    </div> <!-- 상태 필터 버튼 끝 -->
+                </div> <!-- 상태 필터 묶음 끝 -->
+            </div> <!-- 검색과 필터 도구 끝 -->
+            <div class="game-catalog-summary"> <!-- 결과 정보 -->
+                <span class="game-result-count" data-game-result-count aria-live="polite">35개 프로젝트</span> <!-- 결과 개수 -->
+            </div> <!-- 결과 정보 끝 -->
+
+        <!-- 게임 카드 그리드 (35개 프로젝트) -->
+        <div class="games-grid" data-all-games>
+
+            <!-- 프로젝트 A -->
+            <div class="game-card reveal" data-genre="strategy" onclick="window.location.href='project_a/ProjectA_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-a.png?v=20260909-2" alt="프로젝트 A 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">SRPG</div>
+                    <div class="game-name">프로젝트 A — 아스트로이아</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_a/ProjectA_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 B -->
+            <div class="game-card reveal" data-genre="rpg" onclick="window.location.href='project_b/ProjectB_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-b.png?v=20260909-2" alt="프로젝트 B 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">RPG · 자동전투</div>
+                    <div class="game-name">프로젝트 B</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_b/ProjectB_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 C -->
+            <div class="game-card reveal" data-genre="roguelike" onclick="window.location.href='project_c/ProjectC_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-c.png?v=20260909-2" alt="프로젝트 C 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">카드 · 로그라이크</div>
+                    <div class="game-name">프로젝트 C</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_c/ProjectC_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 D -->
+            <div class="game-card reveal" data-genre="strategy" onclick="window.location.href='project_d/ProjectD_Main.html'"> <!-- 클릭 시 프로젝트 D 페이지로 이동 -->
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-d.png?v=20260909-2" alt="프로젝트 D 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">타워디펜스</div>
+                    <div class="game-name">프로젝트 D — 바스티온</div> <!-- 실제 게임 이름 반영 -->
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 중</span></div>
+                        <a href="project_d/ProjectD_Main.html" class="game-link">상세 →</a> <!-- 직접 링크 연결 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 E -->
+            <div class="game-card reveal" data-genre="strategy" onclick="window.location.href='project_e/ProjectE_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-e.png?v=20260909-2" alt="프로젝트 E 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">CCG</div>
+                    <div class="game-name">프로젝트 E</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_e/ProjectE_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 F -->
+            <div class="game-card reveal" data-genre="action" onclick="window.location.href='project_f/ProjectF_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-f.png?v=20260909-2" alt="프로젝트 F 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">하이퍼 FPS</div>
+                    <div class="game-name">프로젝트 F</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_f/ProjectF_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 G -->
+            <div class="game-card reveal" data-genre="other" onclick="window.location.href='project_g/ProjectG_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-g.png?v=20260909-2" alt="프로젝트 G 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">스토리</div>
+                    <div class="game-name">프로젝트 G</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_g/ProjectG_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 H (19+) -->
+            <div class="game-card reveal adult-game-card is-age-locked" data-genre="rpg" data-adult-game="project-h" onclick="window.location.href='project_h/ProjectH_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/age-restricted.svg" data-adult-image="images/games/project-h.png?v=20260909-2" data-adult-alt="프로젝트 H 게임 콘셉트 이미지" alt="성인 확인이 필요한 게임" width="1672" height="941" loading="lazy" decoding="async"> <!-- 성인 확인 전 안전 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">미연시 · RPG · <span style="color:var(--accent-orange)">19+</span></div>
+                    <div class="game-name">프로젝트 H</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 중</span></div>
+                        <a href="project_h/ProjectH_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 I -->
+            <div class="game-card reveal" data-genre="roguelike" onclick="window.location.href='project_i/ProjectI_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-i.png?v=20260909-2" alt="프로젝트 I 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">탐사 · 로그라이크</div>
+                    <div class="game-name">프로젝트 I</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_i/ProjectI_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 J -->
+            <div class="game-card reveal" data-genre="strategy" onclick="window.location.href='project_j/ProjectJ_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-j.png?v=20260909-2" alt="프로젝트 J 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">턴제전략 · 액션 · RPG</div>
+                    <div class="game-name">프로젝트 J</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_j/ProjectJ_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 K -->
+            <div class="game-card reveal" data-genre="action" onclick="window.location.href='project_k/ProjectK_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-k.png?v=20260909-2" alt="프로젝트 K 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">배틀로얄</div>
+                    <div class="game-name">프로젝트 K</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_k/ProjectK_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 L -->
+            <div class="game-card reveal" data-genre="action" onclick="window.location.href='project_l/ProjectL_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-l.png?v=20260909-2" alt="프로젝트 L 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">리듬 · 액션</div>
+                    <div class="game-name">프로젝트 L</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 중</span></div>
+                        <a href="project_l/ProjectL_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 M -->
+            <div class="game-card reveal" data-genre="puzzle" onclick="window.location.href='project_m/ProjectM_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-m.png?v=20260909-2" alt="프로젝트 M 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">퍼즐</div>
+                    <div class="game-name">프로젝트 M</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_m/ProjectM_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 N -->
+            <div class="game-card reveal" data-genre="roguelike" onclick="window.location.href='project_n/ProjectN_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-n.png?v=20260909-2" alt="프로젝트 N 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">뱀서바이벌라이크 · 로그라이크</div>
+                    <div class="game-name">프로젝트 N</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_n/ProjectN_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 O -->
+            <div class="game-card reveal" data-genre="other" onclick="window.location.href='project_o/ProjectO_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-o.png?v=20260909-2" alt="프로젝트 O 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">오픈월드</div>
+                    <div class="game-name">프로젝트 O</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_o/ProjectO_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 P -->
+            <div class="game-card reveal" data-genre="puzzle" onclick="window.location.href='project_p/ProjectP_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-p.png?v=20260909-2" alt="프로젝트 P 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">3매치 · 퍼즐</div>
+                    <div class="game-name">프로젝트 P</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_p/ProjectP_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 Q -->
+            <div class="game-card reveal" data-genre="action" onclick="window.location.href='project_q/ProjectQ_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-q.png?v=20260909-2" alt="프로젝트 Q 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">탄막 · 카드 · 슈팅</div>
+                    <div class="game-name">프로젝트 Q</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_q/ProjectQ_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 R -->
+            <div class="game-card reveal" data-genre="action" onclick="window.location.href='project_r/ProjectR_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-r.png?v=20260909-2" alt="프로젝트 R 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">레이싱</div>
+                    <div class="game-name">프로젝트 R</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_r/ProjectR_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 S -->
+            <div class="game-card reveal" data-genre="other" onclick="window.location.href='project_s/ProjectS_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-s.png?v=20260909-2" alt="프로젝트 S 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">생존</div>
+                    <div class="game-name">프로젝트 S</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_s/ProjectS_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 T -->
+            <div class="game-card reveal" data-genre="other" onclick="window.location.href='project_t/ProjectT_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-t.png?v=20260909-2" alt="프로젝트 T 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">미니게임</div>
+                    <div class="game-name">프로젝트 T</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_t/ProjectT_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 U (19+) -->
+            <div class="game-card reveal adult-game-card is-age-locked" data-genre="other" data-adult-game="project-u" onclick="window.location.href='project_u/ProjectU_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/age-restricted.svg" data-adult-image="images/games/project-u.png?v=20260909-2" data-adult-alt="프로젝트 U 게임 콘셉트 이미지" alt="성인 확인이 필요한 게임" width="1672" height="941" loading="lazy" decoding="async"> <!-- 성인 확인 전 안전 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">샌드박스 · 오픈월드 · <span style="color:var(--accent-orange)">19+</span></div>
+                    <div class="game-name">프로젝트 U</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">시스템 설계 중</span></div>
+                        <a href="project_u/ProjectU_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 V (19+) -->
+            <div class="game-card reveal adult-game-card is-age-locked" data-genre="strategy" data-adult-game="project-v" onclick="window.location.href='project_v/ProjectV_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/age-restricted.svg" data-adult-image="images/games/project-v.png?v=20260909-2" data-adult-alt="프로젝트 V 게임 콘셉트 이미지" alt="성인 확인이 필요한 게임" width="1672" height="941" loading="lazy" decoding="async"> <!-- 성인 확인 전 안전 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">턴제전략 · 카드 · <span style="color:var(--accent-orange)">19+</span></div>
+                    <div class="game-name">프로젝트 V</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_v/ProjectV_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 W -->
+            <div class="game-card reveal" data-genre="other" onclick="window.location.href='project_w/ProjectW_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-w.png?v=20260909-2" alt="프로젝트 W 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">가게경영</div>
+                    <div class="game-name">프로젝트 W</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_w/ProjectW_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 X (심야탐정부) -->
+            <div class="game-card reveal" data-genre="puzzle" onclick="window.location.href='project_x/ProjectX_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-x.png?v=20260909-2" alt="프로젝트 X 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">공포 · 퍼즐</div>
+                    <div class="game-name">프로젝트 X — 심야탐정부</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 중</span></div>
+                        <a href="project_x/ProjectX_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 Y -->
+            <div class="game-card reveal" data-genre="rpg" onclick="window.location.href='project_y/ProjectY_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-y.png?v=20260909-2" alt="프로젝트 Y 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">RPG</div>
+                    <div class="game-name">프로젝트 Y</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_y/ProjectY_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 Z -->
+            <div class="game-card reveal" data-genre="action" onclick="window.location.href='project_z/ProjectZ_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-z.png?v=20260909-2" alt="프로젝트 Z 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">메트로배니아</div>
+                    <div class="game-name">프로젝트 Z</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_z/ProjectZ_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 α -->
+            <div class="game-card reveal" data-genre="other" onclick="window.location.href='project_alpha/ProjectAlpha_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-alpha.png?v=20260909-2" alt="프로젝트 ALPHA 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">공포</div>
+                    <div class="game-name">프로젝트 α</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_alpha/ProjectAlpha_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로젝트 β -->
+            <div class="game-card reveal" data-genre="strategy" onclick="window.location.href='project_beta/ProjectBeta_Main.html'">
+                <div class="game-thumb">
+                    <img class="game-thumb-img" src="images/games/project-beta.png?v=20260909-2" alt="프로젝트 BETA 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 게임 이미지 -->
+                    <div class="game-thumb-overlay"></div>
+                    <span class="game-status status-dev">개발 중</span>
+                </div>
+                <div class="game-info">
+                    <div class="game-genre">SRPG · 모바일</div>
+                    <div class="game-name">프로젝트 β</div>
+                    <div class="game-meta">
+                        <div class="game-platform"><span class="platform-tag">기획 단계</span></div>
+                        <a href="project_beta/ProjectBeta_Main.html" class="game-link">상세 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <a class="game-card game-card-preview reveal" id="project-gamma" data-genre="other" href="project_gamma/ProjectGamma_Main.html" aria-label="프로젝트 γ 상세 페이지, 주식 · 시뮬레이션"> <!-- 신규 게임 카드 링크 -->
+                <div class="game-thumb"> <!-- 이미지 영역 -->
+                    <img class="game-thumb-img" src="images/games/project-gamma.png?v=20260909-2" alt="주식 · 시뮬레이션 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 생성 이미지 -->
+                    <div class="game-thumb-overlay"></div> <!-- 하단 명암 효과 -->
+                    <span class="game-status status-paused">보류</span> <!-- 개발 상태 -->
+                </div> <!-- 이미지 영역 끝 -->
+                <div class="game-info"> <!-- 게임 정보 -->
+                    <div class="game-genre">주식 · 시뮬레이션</div> <!-- 게임 장르 -->
+                    <div class="game-name">프로젝트 γ</div> <!-- 프로젝트 이름 -->
+                    <div class="game-meta"> <!-- 추가 정보 -->
+                        <div class="game-platform"><span class="platform-tag">15세 이용가</span></div> <!-- 제공된 이용 연령 -->
+                        <span class="game-link">상세 →</span> <!-- 상세 페이지 안내 -->
+                    </div> <!-- 추가 정보 끝 -->
+                </div> <!-- 게임 정보 끝 -->
+            </a> <!-- 신규 게임 카드 링크 끝 -->
+
+            <a class="game-card game-card-preview reveal" id="project-delta" data-genre="roguelike" href="project_delta/ProjectDelta_Main.html" aria-label="프로젝트 δ 상세 페이지, 던전 · 로그라이크"> <!-- 신규 게임 카드 링크 -->
+                <div class="game-thumb"> <!-- 이미지 영역 -->
+                    <img class="game-thumb-img" src="images/games/project-delta.png?v=20260909-2" alt="던전 · 로그라이크 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 생성 이미지 -->
+                    <div class="game-thumb-overlay"></div> <!-- 하단 명암 효과 -->
+                    <span class="game-status status-dev">개발 중</span> <!-- 개발 상태 -->
+                </div> <!-- 이미지 영역 끝 -->
+                <div class="game-info"> <!-- 게임 정보 -->
+                    <div class="game-genre">던전 · 로그라이크</div> <!-- 게임 장르 -->
+                    <div class="game-name">프로젝트 δ</div> <!-- 프로젝트 이름 -->
+                    <div class="game-meta"> <!-- 추가 정보 -->
+                        <div class="game-platform"><span class="platform-tag">청소년 이용불가</span></div> <!-- 제공된 이용 연령 -->
+                        <span class="game-link">상세 →</span> <!-- 상세 페이지 안내 -->
+                    </div> <!-- 추가 정보 끝 -->
+                </div> <!-- 게임 정보 끝 -->
+            </a> <!-- 신규 게임 카드 링크 끝 -->
+
+            <a class="game-card game-card-preview reveal" id="project-epsilon" data-genre="roguelike" href="project_epsilon/ProjectEpsilon_Main.html" aria-label="프로젝트 ε 상세 페이지, 뱀서류"> <!-- 신규 게임 카드 링크 -->
+                <div class="game-thumb"> <!-- 이미지 영역 -->
+                    <img class="game-thumb-img" src="images/games/project-epsilon.png?v=20260909-2" alt="뱀서류 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 생성 이미지 -->
+                    <div class="game-thumb-overlay"></div> <!-- 하단 명암 효과 -->
+                    <span class="game-status status-dev">개발 중</span> <!-- 개발 상태 -->
+                </div> <!-- 이미지 영역 끝 -->
+                <div class="game-info"> <!-- 게임 정보 -->
+                    <div class="game-genre">뱀서류</div> <!-- 게임 장르 -->
+                    <div class="game-name">프로젝트 ε</div> <!-- 프로젝트 이름 -->
+                    <div class="game-meta"> <!-- 추가 정보 -->
+                        <div class="game-platform"><span class="platform-tag">12세 이용가</span></div> <!-- 제공된 이용 연령 -->
+                        <span class="game-link">상세 →</span> <!-- 상세 페이지 안내 -->
+                    </div> <!-- 추가 정보 끝 -->
+                </div> <!-- 게임 정보 끝 -->
+            </a> <!-- 신규 게임 카드 링크 끝 -->
+
+            <a class="game-card game-card-preview reveal" id="project-zeta" data-genre="other" href="project_zeta/ProjectZeta_Main.html" aria-label="프로젝트 ζ 상세 페이지, 삽질"> <!-- 신규 게임 카드 링크 -->
+                <div class="game-thumb"> <!-- 이미지 영역 -->
+                    <img class="game-thumb-img" src="images/games/project-zeta.png?v=20260909-2" alt="삽질 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 생성 이미지 -->
+                    <div class="game-thumb-overlay"></div> <!-- 하단 명암 효과 -->
+                    <span class="game-status status-paused">보류</span> <!-- 개발 상태 -->
+                </div> <!-- 이미지 영역 끝 -->
+                <div class="game-info"> <!-- 게임 정보 -->
+                    <div class="game-genre">삽질</div> <!-- 게임 장르 -->
+                    <div class="game-name">프로젝트 ζ</div> <!-- 프로젝트 이름 -->
+                    <div class="game-meta"> <!-- 추가 정보 -->
+                        <div class="game-platform"><span class="platform-tag">12세 이용가</span></div> <!-- 제공된 이용 연령 -->
+                        <span class="game-link">상세 →</span> <!-- 상세 페이지 안내 -->
+                    </div> <!-- 추가 정보 끝 -->
+                </div> <!-- 게임 정보 끝 -->
+            </a> <!-- 신규 게임 카드 링크 끝 -->
+
+            <a class="game-card game-card-preview reveal" id="project-eta" data-genre="strategy" href="project_eta/ProjectEta_Main.html" aria-label="프로젝트 η 상세 페이지, 체스 · 카드 · 합성 전략" data-analytics-event="select_game" data-analytics-item-id="project-eta" data-analytics-item-name="프로젝트 에타"> <!-- 신규 게임 카드 링크 -->
+                <div class="game-thumb"> <!-- 이미지 영역 -->
+                    <img class="game-thumb-img" src="images/games/project-eta.png?v=20260909-2" alt="체스 · 카드 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 생성 이미지 -->
+                    <div class="game-thumb-overlay"></div> <!-- 하단 명암 효과 -->
+                    <span class="game-status status-dev">개발 중</span> <!-- 개발 상태 -->
+                </div> <!-- 이미지 영역 끝 -->
+                <div class="game-info"> <!-- 게임 정보 -->
+                    <div class="game-genre">체스 · 카드 · 합성 전략</div> <!-- 게임 장르 -->
+                    <div class="game-name">프로젝트 η</div> <!-- 프로젝트 이름 -->
+                    <div class="game-meta"> <!-- 추가 정보 -->
+                        <div class="game-platform"><span class="platform-tag">12세 이용가</span></div> <!-- 제공된 이용 연령 -->
+                        <span class="game-link">상세 →</span> <!-- 상세 페이지 안내 -->
+                    </div> <!-- 추가 정보 끝 -->
+                </div> <!-- 게임 정보 끝 -->
+            </a> <!-- 신규 게임 카드 링크 끝 -->
+
+            <a class="game-card game-card-preview reveal" id="project-theta" data-genre="other" href="project_theta/ProjectTheta_Main.html" aria-label="프로젝트 θ 상세 페이지, 눈빛 보내기"> <!-- 신규 게임 카드 링크 -->
+                <div class="game-thumb"> <!-- 이미지 영역 -->
+                    <img class="game-thumb-img" src="images/games/project-theta.png?v=20260909-2" alt="눈빛 보내기 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 생성 이미지 -->
+                    <div class="game-thumb-overlay"></div> <!-- 하단 명암 효과 -->
+                    <span class="game-status status-dev">개발 중</span> <!-- 개발 상태 -->
+                </div> <!-- 이미지 영역 끝 -->
+                <div class="game-info"> <!-- 게임 정보 -->
+                    <div class="game-genre">눈빛 보내기</div> <!-- 게임 장르 -->
+                    <div class="game-name">프로젝트 θ</div> <!-- 프로젝트 이름 -->
+                    <div class="game-meta"> <!-- 추가 정보 -->
+                        <div class="game-platform"><span class="platform-tag">청소년 이용불가</span></div> <!-- 제공된 이용 연령 -->
+                        <span class="game-link">상세 →</span> <!-- 상세 페이지 안내 -->
+                    </div> <!-- 추가 정보 끝 -->
+                </div> <!-- 게임 정보 끝 -->
+            </a> <!-- 신규 게임 카드 링크 끝 -->
+
+            <a class="game-card game-card-preview reveal" id="project-iota" data-genre="other" href="project_iota/ProjectIota_Main.html" aria-label="프로젝트 ι 상세 페이지, 러시안 룰렛"> <!-- 신규 게임 카드 링크 -->
+                <div class="game-thumb"> <!-- 이미지 영역 -->
+                    <img class="game-thumb-img" src="images/games/project-iota.png?v=20260909-2" alt="러시안 룰렛 게임 콘셉트 이미지" width="1672" height="941" loading="lazy" decoding="async"> <!-- 장르별 생성 이미지 -->
+                    <div class="game-thumb-overlay"></div> <!-- 하단 명암 효과 -->
+                    <span class="game-status status-upcoming">기획</span> <!-- 개발 상태 -->
+                </div> <!-- 이미지 영역 끝 -->
+                <div class="game-info"> <!-- 게임 정보 -->
+                    <div class="game-genre">러시안 룰렛</div> <!-- 게임 장르 -->
+                    <div class="game-name">프로젝트 ι</div> <!-- 프로젝트 이름 -->
+                    <div class="game-meta"> <!-- 추가 정보 -->
+                        <div class="game-platform"><span class="platform-tag">15세 이용가</span></div> <!-- 제공된 이용 연령 -->
+                        <span class="game-link">상세 →</span> <!-- 상세 페이지 안내 -->
+                    </div> <!-- 추가 정보 끝 -->
+                </div> <!-- 게임 정보 끝 -->
+            </a> <!-- 신규 게임 카드 링크 끝 -->
+        </div> <!-- 전체 게임 카드 끝 -->
+            <p class="game-empty-message" data-game-empty hidden>조건에 맞는 프로젝트가 없습니다.</p> <!-- 빈 결과 안내 -->
+            <button class="game-load-more" type="button" data-game-load-more>프로젝트 더 보기</button> <!-- 더 보기 버튼 -->
+        </div> <!-- 전체 프로젝트 구역 끝 -->
+    </section>
+
+    <section class="section experience-section project-shelf" id="project-shelf" data-project-shelf> <!-- 로컬 프로젝트 보관함 -->
+        <div class="section-header reveal"> <!-- 보관함 제목 영역 -->
+            <div class="section-tag">// MY PROJECT SHELF</div> <!-- 보관함 영문 표기 -->
+            <h2 class="section-title">나의 <span>프로젝트 보관함</span></h2> <!-- 보관함 제목 -->
+            <div class="section-line"></div> <!-- 제목 구분선 -->
+        </div> <!-- 보관함 제목 영역 끝 -->
+        <p class="experience-lead">관심 프로젝트와 최근 확인한 프로젝트를 이 브라우저에만 저장합니다. 회원가입이나 서버 전송은 없습니다.</p> <!-- 로컬 저장 안내 -->
+        <div class="project-shelf-grid"> <!-- 보관함 목록 배치 -->
+            <article class="project-shelf-panel"> <!-- 즐겨찾기 목록 -->
+                <h3>관심 프로젝트</h3> <!-- 즐겨찾기 제목 -->
+                <p class="project-shelf-note">게임 카드의 관심 버튼으로 추가</p> <!-- 즐겨찾기 사용 안내 -->
+                <div class="project-shelf-list" data-favorite-projects></div> <!-- 즐겨찾기 출력 영역 -->
+                <p class="project-shelf-empty" data-favorite-empty>아직 추가한 관심 프로젝트가 없습니다.</p> <!-- 즐겨찾기 빈 상태 -->
+            </article> <!-- 즐겨찾기 목록 끝 -->
+            <article class="project-shelf-panel"> <!-- 최근 프로젝트 목록 -->
+                <h3>최근 본 프로젝트</h3> <!-- 최근 목록 제목 -->
+                <p class="project-shelf-note">최근 확인 순서로 최대 6개 표시</p> <!-- 최근 목록 사용 안내 -->
+                <div class="project-shelf-list" data-recent-projects></div> <!-- 최근 목록 출력 영역 -->
+                <p class="project-shelf-empty" data-recent-empty>아직 확인한 프로젝트가 없습니다.</p> <!-- 최근 목록 빈 상태 -->
+            </article> <!-- 최근 프로젝트 목록 끝 -->
+        </div> <!-- 보관함 목록 배치 끝 -->
+        <button class="project-shelf-clear" type="button" data-clear-project-preferences>로컬 보관 기록 삭제</button> <!-- 로컬 기록 삭제 -->
+    </section> <!-- 로컬 프로젝트 보관함 끝 -->
+
+    <!-- ============================================
+         굿즈 판매 섹션 (게임 ~ 데브로그 사이)
+    ============================================ -->
+    <section class="section goods-section" id="goods">
+        <!-- 섹션 헤더 -->
+        <div class="section-header reveal" data-analytics-event="view_goods" data-analytics-destination="goods">
+            <div class="section-tag">// MERCHANDISE</div>
+            <div class="section-heading-row"> <!-- 굿즈 제목 행 -->
+                <h2 class="section-title">공식 <span>굿즈</span></h2> <!-- 굿즈 제목 -->
+                <a class="section-detail-link" href="goods.html">상세 페이지로 이동 →</a> <!-- 굿즈 상세 이동 -->
+            </div> <!-- 굿즈 제목 행 끝 -->
+            <div class="section-line"></div>
+        </div>
+
+        <!-- 굿즈 카드 그리드 — 각 카드 클릭 시 판매 링크로 이동 -->
+        <div class="goods-grid" data-product-source data-product-limit="4">
+
+            <!-- 굿즈 카드 1: 아크릴 키링 -->
+            <!-- href를 실제 판매 링크로 교체하세요 -->
+            <a class="goods-card reveal" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer">
+                <div class="goods-thumb">
+                    <img class="goods-image" src="images/goods/abyss-keyring.webp" alt="아비스 크로니클 주인공 키링 임시 상품 목업"> <!-- 키링 임시 이미지 -->
+                    <span class="goods-badge badge-new">NEW</span>
+                </div>
+                <div class="goods-info">
+                    <div class="goods-category">아크릴 키링</div>
+                    <div class="goods-name">아비스 크로니클 주인공 키링</div>
+                    <div class="goods-game">아비스 크로니클</div>
+                    <div class="goods-price-row">
+                        <div class="goods-price-wrap">
+                            <span class="goods-price">₩9,900</span>
+                        </div>
+                        <div class="goods-buy-btn">🛒</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 굿즈 카드 2: 후드티 (할인) -->
+            <a class="goods-card reveal" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer">
+                <div class="goods-thumb">
+                    <img class="goods-image" src="images/goods/neon-pulse-hoodie.webp" alt="네온 펄스 후드집업 임시 상품 목업"> <!-- 후드집업 임시 이미지 -->
+                    <span class="goods-badge badge-hot">HOT</span>
+                    <span class="goods-discount">-20%</span> <!-- 할인율 표시 -->
+                </div>
+                <div class="goods-info">
+                    <div class="goods-category">의류</div>
+                    <div class="goods-name">네온 펄스 후드집업</div>
+                    <div class="goods-game">네온 펄스</div>
+                    <div class="goods-price-row">
+                        <div class="goods-price-wrap">
+                            <span class="goods-original-price">₩49,000</span> <!-- 원가 취소선 -->
+                            <span class="goods-price">₩39,200</span>
+                        </div>
+                        <div class="goods-buy-btn">🛒</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 굿즈 카드 3: 포스터 세트 -->
+            <a class="goods-card reveal" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer">
+                <div class="goods-thumb">
+                    <img class="goods-image" src="images/goods/luna-jump-posters.webp" alt="루나 점프 아트 포스터 세트 임시 상품 목업"> <!-- 포스터 임시 이미지 -->
+                    <span class="goods-badge badge-limited">LIMITED</span> <!-- 한정판 배지 -->
+                </div>
+                <div class="goods-info">
+                    <div class="goods-category">포스터</div>
+                    <div class="goods-name">루나 점프 아트 포스터 세트</div>
+                    <div class="goods-game">루나 점프</div>
+                    <div class="goods-price-row">
+                        <div class="goods-price-wrap">
+                            <span class="goods-price">₩18,000</span>
+                        </div>
+                        <div class="goods-buy-btn">🛒</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 굿즈 카드 4: 머그컵 -->
+            <a class="goods-card reveal" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer">
+                <div class="goods-thumb">
+                    <img class="goods-image" src="images/goods/devforge-mug.webp" alt="DEVFORGE 로고 머그컵 임시 상품 목업"> <!-- 머그컵 임시 이미지 -->
+                    <span class="goods-badge badge-new">NEW</span>
+                </div>
+                <div class="goods-info">
+                    <div class="goods-category">생활용품</div>
+                    <div class="goods-name">DevForge 로고 머그컵</div>
+                    <div class="goods-game">DevForge Studio</div>
+                    <div class="goods-price-row">
+                        <div class="goods-price-wrap">
+                            <span class="goods-price">₩14,500</span>
+                        </div>
+                        <div class="goods-buy-btn">🛒</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 굿즈 카드 5: 스티커팩 -->
+            <a class="goods-card reveal" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer">
+                <div class="goods-thumb">
+                    <img class="goods-image" src="images/goods/all-games-stickers.webp" alt="전 게임 캐릭터 스티커팩 임시 상품 목업"> <!-- 스티커 임시 이미지 -->
+                    <span class="goods-badge badge-hot">HOT</span>
+                    <span class="goods-discount">-10%</span>
+                </div>
+                <div class="goods-info">
+                    <div class="goods-category">스티커</div>
+                    <div class="goods-name">전 게임 캐릭터 스티커팩</div>
+                    <div class="goods-game">전 타이틀 컬렉션</div>
+                    <div class="goods-price-row">
+                        <div class="goods-price-wrap">
+                            <span class="goods-original-price">₩7,000</span>
+                            <span class="goods-price">₩6,300</span>
+                        </div>
+                        <div class="goods-buy-btn">🛒</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 굿즈 카드 6: 마우스패드 -->
+            <a class="goods-card reveal" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer">
+                <div class="goods-thumb">
+                    <img class="goods-image" src="images/goods/echo-void-mousepad.webp" alt="에코 보이드 대형 마우스패드 임시 상품 목업"> <!-- 마우스패드 임시 이미지 -->
+                    <span class="goods-badge badge-limited">LIMITED</span>
+                </div>
+                <div class="goods-info">
+                    <div class="goods-category">데스크 용품</div>
+                    <div class="goods-name">에코 보이드 대형 마우스패드</div>
+                    <div class="goods-game">에코 보이드</div>
+                    <div class="goods-price-row">
+                        <div class="goods-price-wrap">
+                            <span class="goods-price">₩22,000</span>
+                        </div>
+                        <div class="goods-buy-btn">🛒</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 굿즈 카드 7: 핀뱃지 세트 -->
+            <a class="goods-card reveal" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer">
+                <div class="goods-thumb">
+                    <img class="goods-image" src="images/goods/abyss-pin-set.webp" alt="아비스 크로니클 핀뱃지 3종 세트 임시 상품 목업"> <!-- 핀뱃지 임시 이미지 -->
+                    <span class="goods-badge badge-new">NEW</span>
+                </div>
+                <div class="goods-info">
+                    <div class="goods-category">핀뱃지</div>
+                    <div class="goods-name">아비스 크로니클 핀뱃지 3종 세트</div>
+                    <div class="goods-game">아비스 크로니클</div>
+                    <div class="goods-price-row">
+                        <div class="goods-price-wrap">
+                            <span class="goods-price">₩12,000</span>
+                        </div>
+                        <div class="goods-buy-btn">🛒</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 굿즈 카드 8: OST CD -->
+            <a class="goods-card reveal" href="https://smartstore.naver.com/" target="_blank" rel="noopener noreferrer">
+                <div class="goods-thumb">
+                    <img class="goods-image" src="images/goods/neon-pulse-ost.webp" alt="네온 펄스 OST 한정판 CD 임시 상품 목업"> <!-- OST 임시 이미지 -->
+                    <span class="goods-badge badge-limited">LIMITED</span>
+                </div>
+                <div class="goods-info">
+                    <div class="goods-category">음반</div>
+                    <div class="goods-name">네온 펄스 OST 한정판 CD</div>
+                    <div class="goods-game">네온 펄스</div>
+                    <div class="goods-price-row">
+                        <div class="goods-price-wrap">
+                            <span class="goods-price">₩25,000</span>
+                        </div>
+                        <div class="goods-buy-btn">🛒</div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- ============================================
+         개발 뉴스 섹션
+    ============================================ -->
+    <section class="section" id="devlog">
+        <div class="section-header reveal" data-analytics-event="view_development_news" data-analytics-destination="development-news">
+            <div class="section-tag">// DEVELOPMENT NEWS</div>
+            <div class="section-heading-row"> <!-- 개발 뉴스 제목 행 -->
+                <h2 class="section-title">개발 <span>뉴스</span></h2> <!-- 개발 뉴스 제목 -->
+                <a class="section-detail-link" href="devlog.html">상세 페이지로 이동 →</a> <!-- 개발 뉴스 상세 이동 -->
+            </div> <!-- 개발 뉴스 제목 행 끝 -->
+            <div class="section-line"></div>
+        </div>
+
+        <!-- 개발 뉴스 카드 그리드 -->
+        <div class="devlog-grid">
+            <!-- 피처드(큰) 카드 -->
+            <div class="devlog-card devlog-featured reveal">
+                <div class="devlog-tags">
+                    <span class="devlog-tag tag-update">업데이트</span>
+                    <span class="devlog-tag tag-feature">신기능</span>
+                </div>
+                <h3 class="devlog-title">에코 보이드 v0.8 — 음향 엔진 전면 재설계 완료</h3>
+                <p class="devlog-excerpt">
+                    3개월간의 작업 끝에 에코 보이드의 핵심 음향 공간화 엔진을 완전히 재구성했습니다.
+                    기존 2D 기반 사운드 처리에서 실시간 3D HRTF 처리 방식으로 전환하면서
+                    더욱 몰입감 있는 청각적 퍼즐 경험을 제공할 수 있게 되었습니다.
+                    이번 업데이트로 스테이지 반응 속도가 40% 향상되었고, 신규 레벨 12개가 추가되었습니다.
+                </p>
+                <div class="devlog-meta">
+                    <span class="devlog-date">2025.04.28</span>
+                    <a href="devlog.html#echo-void" class="devlog-read">전체 읽기 →</a>
+                </div>
+            </div>
+
+            <!-- 일반 카드 1 -->
+            <div class="devlog-card reveal">
+                <div class="devlog-tags">
+                    <span class="devlog-tag tag-devlog">데브로그</span>
+                </div>
+                <h3 class="devlog-title">스타 베이그런트 — 절차적 생성 은하계 알고리즘 공개</h3>
+                <p class="devlog-excerpt">
+                    매번 다른 우주를 만들어내는 씨앗 기반 생성 시스템의 내부 구조를
+                    처음으로 공개합니다. 노이즈 함수와 Voronoi 다이어그램을 조합한 방식입니다.
+                </p>
+                <div class="devlog-meta">
+                    <span class="devlog-date">2025.04.15</span>
+                    <a href="devlog.html#star-vagrant" class="devlog-read">읽기 →</a>
+                </div>
+            </div>
+
+            <!-- 일반 카드 2 -->
+            <div class="devlog-card reveal">
+                <div class="devlog-tags">
+                    <span class="devlog-tag tag-fix">버그픽스</span>
+                </div>
+                <h3 class="devlog-title">네온 펄스 v2.1.3 패치 — 주요 버그 수정 및 성능 개선</h3>
+                <p class="devlog-excerpt">
+                    플레이어들이 보고한 스킬 겹침 이슈 7건과 보스 패턴 누락 현상을
+                    수정했습니다. GPU 최적화로 평균 FPS가 약 15% 향상되었습니다.
+                </p>
+                <div class="devlog-meta">
+                    <span class="devlog-date">2025.04.03</span>
+                    <a href="devlog.html#neon-pulse" class="devlog-read">읽기 →</a>
+                </div>
+            </div>
+
+            <!-- 일반 카드 3 -->
+            <div class="devlog-card reveal">
+                <div class="devlog-tags">
+                    <span class="devlog-tag tag-feature">신기능</span>
+                </div>
+                <h3 class="devlog-title">블레이드 리프트 — 패링 피드백 시스템 새로 설계</h3>
+                <p class="devlog-excerpt">
+                    플레이어 테스트에서 가장 많은 피드백을 받은 패링 타이밍 인디케이터를
+                    시각/진동/음향 세 가지 방식으로 분리해 선택할 수 있게 개선했습니다.
+                </p>
+                <div class="devlog-meta">
+                    <span class="devlog-date">2025.03.22</span>
+                    <a href="devlog.html#blade-rift" class="devlog-read">읽기 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         커뮤니티 섹션
+    ============================================ -->
+    <section class="section community-section" id="community">
+        <div class="section-header reveal" data-analytics-event="view_community" data-analytics-destination="community">
+            <div class="section-tag">// COMMUNITY</div>
+            <h2 class="section-title"><span>커뮤니티</span></h2>
+            <div class="section-line"></div>
+            <a class="section-detail-link" href="community.html">상세 페이지로 이동 →</a> <!-- 커뮤니티 상세 이동 -->
+        </div>
+
+        <!-- 커뮤니티 카드 그리드 -->
+        <div class="community-grid">
+
+            <!-- Discord 카드 -->
+            <a href="community.html#discord" class="community-card discord reveal">
+                <!-- Discord 공식 SVG 아이콘 -->
+                <div class="community-icon-wrap">
+                    <svg viewBox="0 0 127.14 96.36" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Discord 로고 패스 -->
+                        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+                    </svg>
+                </div>
+                <!-- 카드 텍스트 -->
+                <div class="community-text">
+                    <div class="community-name">Discord 서버</div>
+                    <p class="community-desc">실시간 소통 · 베타 테스터 모집 · 개발 근황 공유</p>
+                </div>
+                <!-- 호버 시 슬라이드업 레이블 -->
+                <div class="community-go">서버 입장하기 →</div>
+            </a>
+
+            <!-- YouTube 카드 -->
+            <a href="community.html#youtube" class="community-card youtube reveal">
+                <!-- YouTube 공식 SVG 아이콘 -->
+                <div class="community-icon-wrap">
+                    <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <!-- YouTube 재생 버튼 패스 -->
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                </div>
+                <!-- 카드 텍스트 -->
+                <div class="community-text">
+                    <div class="community-name">YouTube 채널</div>
+                    <p class="community-desc">개발 영상 · 타임랩스 · 데브로그 영상판</p>
+                </div>
+                <!-- 호버 시 슬라이드업 레이블 -->
+                <div class="community-go">채널 구독하기 →</div>
+            </a>
+
+            <!-- X (트위터) 카드 -->
+            <a href="community.html#x" class="community-card twitter reveal">
+                <!-- X(트위터) 공식 SVG 아이콘 -->
+                <div class="community-icon-wrap">
+                    <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <!-- X 로고 패스 -->
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </div>
+                <!-- 카드 텍스트 -->
+                <div class="community-text">
+                    <div class="community-name">X (트위터)</div>
+                    <p class="community-desc">개발 스크린샷 · 빠른 업데이트 · 개발 팁</p>
+                </div>
+                <!-- 호버 시 슬라이드업 레이블 -->
+                <div class="community-go">팔로우하기 →</div>
+            </a>
+
+            <!-- Instagram 카드 -->
+            <a href="community.html#instagram" class="community-card instagram reveal">
+                <!-- Instagram 공식 SVG 아이콘 -->
+                <div class="community-icon-wrap">
+                    <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Instagram 카메라 로고 패스 -->
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </div>
+                <!-- 카드 텍스트 -->
+                <div class="community-text">
+                    <div class="community-name">Instagram</div>
+                    <p class="community-desc">게임 아트 · 개발 스냅샷 · 비하인드 씬</p>
+                </div>
+                <!-- 호버 시 슬라이드업 레이블 -->
+                <div class="community-go">팔로우하기 →</div>
+            </a>
+
+            <!-- Facebook (Meta) 카드 -->
+            <a href="community.html#facebook" class="community-card facebook reveal">
+                <!-- Facebook 공식 SVG 아이콘 -->
+                <div class="community-icon-wrap">
+                    <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Facebook f 로고 패스 -->
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </div>
+                <!-- 카드 텍스트 -->
+                <div class="community-text">
+                    <div class="community-name">Facebook</div>
+                    <p class="community-desc">공지 · 커뮤니티 페이지 · 팬 소통</p>
+                </div>
+                <!-- 호버 시 슬라이드업 레이블 -->
+                <div class="community-go">페이지 좋아요 →</div>
+            </a>
+
+            <!-- TikTok 카드 -->
+            <a href="community.html#tiktok" class="community-card tiktok reveal">
+                <!-- TikTok 공식 SVG 아이콘 -->
+                <div class="community-icon-wrap">
+                    <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <!-- TikTok 로고 패스 -->
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.17 8.17 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+                    </svg>
+                </div>
+                <!-- 카드 텍스트 -->
+                <div class="community-text">
+                    <div class="community-name">TikTok</div>
+                    <p class="community-desc">개발 숏폼 · 게임플레이 클립 · 트렌드</p>
+                </div>
+                <!-- 호버 시 슬라이드업 레이블 -->
+                <div class="community-go">팔로우하기 →</div>
+            </a>
+
+        </div>
+    </section>
+
+    <section class="section experience-section" id="faq"> <!-- 자주 묻는 질문 구역 -->
+        <div class="section-header reveal"> <!-- 질문 제목 영역 -->
+            <div class="section-tag">// FAQ</div> <!-- 질문 영문 제목 -->
+            <h2 class="section-title">자주 묻는 <span>질문</span></h2> <!-- 질문 제목 -->
+            <div class="section-line"></div> <!-- 제목 장식선 -->
+        </div> <!-- 질문 제목 영역 끝 -->
+        <div class="faq-list"> <!-- 질문 목록 -->
+            <details><summary>프로젝트 출시 일정이 정해졌나요?</summary><p>출시 일정은 확정되지 않았습니다. 확인된 개발 상태와 공개 가능한 소식만 개발 뉴스에서 안내합니다.</p></details> <!-- 출시 일정 질문 -->
+            <details><summary>굿즈를 지금 구매할 수 있나요?</summary><p>현재 이미지는 화면 검증용 목업입니다. 실제 판매가 시작되기 전까지 결제 기능을 제공하지 않습니다.</p></details> <!-- 상품 판매 질문 -->
+            <details><summary>회원 정보와 댓글은 서버에 저장되나요?</summary><p>현재 회원과 댓글 기능은 시연 모드이며 입력 내용은 서버에 저장되지 않습니다.</p></details> <!-- 회원 기능 질문 -->
+            <details><summary>공식 SNS와 문의 채널은 어디인가요?</summary><p>공식 외부 채널은 아직 연결되지 않았습니다. 주소가 확정되기 전에는 이동 링크를 제공하지 않습니다.</p></details> <!-- 외부 채널 질문 -->
+        </div> <!-- 질문 목록 끝 -->
+    </section> <!-- 자주 묻는 질문 구역 끝 -->
+
+    <!-- ============================================
+         푸터
+    ============================================ -->
+    <footer>
+        <div class="footer-logo">DEVFORGE</div>
+        <p class="footer-copy">© <span data-current-year>2026</span> DEVFORGE Studio. All Rights Reserved.</p> <!-- 현재 연도 표시 -->
+        <div class="footer-links">
+            <a href="/terms.html">이용약관</a> <!-- 이용약관 독립 페이지 -->
+            <a href="/privacy.html">개인정보처리방침</a> <!-- 개인정보 독립 페이지 -->
+            <a href="#" onclick="document.getElementById('contact-modal').classList.add('open'); return false;">문의하기</a>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         게임 상세 모달
+    ============================================ -->
+    <div class="modal-overlay" id="game-modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="document.getElementById('game-modal').classList.remove('open')">✕</button>
+            <div class="game-genre" id="modal-genre" style="color:var(--accent-cyan);font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.5rem;"></div>
+            <div class="modal-game-title" id="modal-title"></div>
+            <p class="modal-body" id="modal-body"></p>
+            <div class="modal-actions">
+                <span class="btn-primary is-disabled" aria-disabled="true">Steam 주소 준비 중</span> <!-- 스팀 준비 안내 -->
+                <span class="btn-secondary is-disabled" aria-disabled="true">itch.io 주소 준비 중</span> <!-- 잇치 준비 안내 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         문의 모달
+    ============================================ -->
+    <div class="modal-overlay" id="contact-modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="document.getElementById('contact-modal').classList.remove('open')">✕</button>
+            <div class="section-tag">// CONTACT</div>
+            <div class="modal-game-title">문의하기</div>
+            <p class="modal-body">공식 문의 채널은 운영 준비 단계에서 연결됩니다.</p> <!-- 문의 준비 안내 -->
+            <div class="modal-actions" style="flex-direction:column; gap:0.8rem;">
+                <span class="btn-primary is-disabled" aria-disabled="true" style="justify-content:center;">문의 이메일 준비 중</span> <!-- 이메일 준비 안내 -->
+                <span class="btn-secondary is-disabled" aria-disabled="true" style="justify-content:center;">Discord 주소 준비 중</span> <!-- 디스코드 준비 안내 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         이용약관 모달
+    ============================================ -->
+    <div class="modal-overlay" id="terms-modal">
+        <div class="modal-box legal">
+            <button class="modal-close" onclick="document.getElementById('terms-modal').classList.remove('open')">✕</button>
+            <div class="section-tag">// TERMS</div>
+            <div class="legal-title">[게임명] 공식 사이트 이용약관</div>
+            <div class="legal-date">시행일: [YYYY년 MM월 DD일]</div>
+            <div class="legal-scroll">
+                <h2>제1조 목적</h2>
+                <p>본 약관은 [운영자명 또는 회사명](이하 "운영자")이 운영하는 [게임명] 공식 사이트(이하 "사이트")의 이용과 관련하여 운영자와 이용자 사이의 권리, 의무 및 책임사항을 정하는 것을 목적으로 합니다.</p>
+
+                <h2>제2조 정의</h2>
+                <ol>
+                    <li>"사이트"란 운영자가 [게임명]의 소개, 홍보, 공지, 문의 접수, 이벤트 안내 등을 제공하기 위해 운영하는 웹사이트를 말합니다.</li>
+                    <li>"이용자"란 본 사이트에 접속하여 사이트가 제공하는 정보를 열람하거나 서비스를 이용하는 자를 말합니다.</li>
+                    <li>"콘텐츠"란 사이트에 게시된 문구, 이미지, 영상, 로고, 캐릭터, 세계관, 음악, 그래픽, UI, 게임 정보, 기타 자료를 말합니다.</li>
+                    <li>"문의"란 이용자가 사이트 내 문의 양식 또는 이메일을 통해 운영자에게 전달하는 의견, 질문, 요청 등을 말합니다.</li>
+                </ol>
+
+                <h2>제3조 약관의 효력 및 변경</h2>
+                <ol>
+                    <li>본 약관은 사이트에 게시함으로써 효력이 발생합니다.</li>
+                    <li>운영자는 관련 법령을 위반하지 않는 범위에서 본 약관을 변경할 수 있습니다.</li>
+                    <li>약관이 변경되는 경우 운영자는 변경 내용, 적용일자 및 변경 사유를 사이트에 공지합니다.</li>
+                    <li>이용자가 변경된 약관의 적용일 이후에도 사이트를 계속 이용하는 경우 변경된 약관에 동의한 것으로 봅니다.</li>
+                    <li>이용자에게 불리하거나 중요한 내용이 변경되는 경우 운영자는 적용일 전 합리적인 기간 동안 이를 공지합니다.</li>
+                </ol>
+
+                <h2>제4조 서비스의 제공</h2>
+                <p>운영자는 사이트를 통해 다음 서비스를 제공할 수 있습니다.</p>
+                <ol>
+                    <li>[게임명] 소개 및 홍보 자료 제공</li>
+                    <li>게임 관련 공지사항 제공</li>
+                    <li>개발 소식, 업데이트 예정 사항, 출시 일정 안내</li>
+                    <li>문의 접수 및 답변</li>
+                    <li>이벤트, 사전등록, 뉴스레터 신청 기능</li>
+                    <li>기타 운영자가 정하는 서비스</li>
+                </ol>
+
+                <h2>제5조 서비스의 변경 및 중단</h2>
+                <ol>
+                    <li>운영자는 사이트 운영상 또는 기술상 필요한 경우 서비스의 전부 또는 일부를 변경하거나 중단할 수 있습니다.</li>
+                    <li>운영자는 서비스 변경 또는 중단이 예정된 경우 가능한 범위에서 사전에 사이트를 통해 공지합니다.</li>
+                    <li>서버 장애, 보안 문제, 천재지변, 외부 서비스 장애 등 부득이한 사유가 있는 경우 사전 공지 없이 서비스가 일시 중단될 수 있습니다.</li>
+                </ol>
+
+                <h2>제6조 이용자의 의무</h2>
+                <p>이용자는 사이트 이용 과정에서 다음 행위를 해서는 안 됩니다.</p>
+                <ol>
+                    <li>타인의 개인정보를 무단으로 사용하는 행위</li>
+                    <li>허위 정보를 입력하는 행위</li>
+                    <li>사이트의 정상적인 운영을 방해하는 행위</li>
+                    <li>해킹, 악성코드 유포, 비정상적 접속 시도 등 보안상 위험을 발생시키는 행위</li>
+                    <li>운영자 또는 제3자의 저작권, 상표권, 초상권, 기타 권리를 침해하는 행위</li>
+                    <li>욕설, 비방, 혐오, 음란, 폭력적 표현 등 부적절한 내용을 전송하는 행위</li>
+                    <li>영리 목적의 광고, 도배, 스팸성 문의를 반복하는 행위</li>
+                    <li>관련 법령 또는 본 약관을 위반하는 행위</li>
+                </ol>
+
+                <h2>제7조 지식재산권</h2>
+                <ol>
+                    <li>사이트에 게시된 콘텐츠의 저작권 및 기타 지식재산권은 운영자 또는 정당한 권리자에게 귀속됩니다.</li>
+                    <li>이용자는 운영자의 사전 서면 동의 없이 사이트의 콘텐츠를 복제, 배포, 전송, 게시, 수정, 판매, 2차 저작물 제작 등의 방식으로 이용할 수 없습니다.</li>
+                    <li>단순 링크 공유, 개인적 감상 목적의 비상업적 공유 등 관련 법령상 허용되는 범위의 이용은 예외로 합니다.</li>
+                    <li>게임의 명칭, 로고, 캐릭터, 세계관, 설정, 이미지, 영상 등은 운영자의 중요한 자산이며 무단 사용을 금지합니다.</li>
+                </ol>
+
+                <h2>제8조 이용자가 제출한 의견 및 문의</h2>
+                <ol>
+                    <li>이용자가 사이트를 통해 제출한 문의, 의견, 제안은 운영자가 서비스 개선, 버그 확인, 공지 대응, 운영 참고 목적으로 활용할 수 있습니다.</li>
+                    <li>이용자가 제출한 내용에 개인정보가 포함된 경우 운영자는 개인정보처리방침에 따라 이를 처리합니다.</li>
+                    <li>이용자가 제안한 아이디어, 제안, 피드백은 별도의 계약이 없는 한 운영자에게 보상 의무를 발생시키지 않습니다.</li>
+                    <li>이용자는 제3자의 권리를 침해하는 내용이나 불법적인 내용을 제출해서는 안 됩니다.</li>
+                </ol>
+
+                <h2>제9조 외부 링크</h2>
+                <ol>
+                    <li>사이트에는 외부 웹사이트, 플랫폼, SNS, 스토어 페이지로 연결되는 링크가 포함될 수 있습니다.</li>
+                    <li>외부 사이트의 운영 및 콘텐츠에 대해서는 해당 외부 사이트의 정책이 적용됩니다.</li>
+                    <li>운영자는 외부 사이트에서 발생한 문제에 대해 운영자의 고의 또는 중대한 과실이 없는 한 책임을 지지 않습니다.</li>
+                </ol>
+
+                <h2>제10조 면책사항</h2>
+                <ol>
+                    <li>운영자는 사이트에 게시된 게임 정보, 출시 일정, 업데이트 예정 사항 등이 개발 상황에 따라 변경될 수 있음을 안내합니다.</li>
+                    <li>운영자는 이용자의 귀책사유로 발생한 사이트 이용 장애에 대해 책임을 지지 않습니다.</li>
+                    <li>운영자는 천재지변, 서버 장애, 통신망 장애, 보안 사고 등 운영자가 합리적으로 통제하기 어려운 사유로 발생한 손해에 대해 책임을 지지 않습니다.</li>
+                    <li>운영자는 이용자가 사이트에 게시된 정보를 임의로 해석하거나 활용하여 발생한 손해에 대해 운영자의 고의 또는 중대한 과실이 없는 한 책임을 지지 않습니다.</li>
+                    <li>본 조항은 관련 법령상 운영자의 책임이 인정되는 경우까지 면제하는 것으로 해석되지 않습니다.</li>
+                </ol>
+
+                <h2>제11조 개인정보 보호</h2>
+                <p>운영자는 사이트 운영 과정에서 개인정보를 처리하는 경우 관련 법령 및 개인정보처리방침에 따라 개인정보를 보호합니다.</p>
+
+                <h2>제12조 손해배상</h2>
+                <ol>
+                    <li>이용자가 본 약관 또는 관련 법령을 위반하여 운영자에게 손해를 발생시킨 경우 이용자는 그 손해를 배상할 책임이 있습니다.</li>
+                    <li>운영자가 이용자에게 손해를 배상할 책임이 있는 경우 그 책임 범위는 관련 법령에 따릅니다.</li>
+                </ol>
+
+                <h2>제13조 준거법 및 분쟁 해결</h2>
+                <ol>
+                    <li>본 약관은 대한민국 법령에 따라 해석됩니다.</li>
+                    <li>사이트 이용과 관련하여 분쟁이 발생한 경우 운영자와 이용자는 성실히 협의하여 해결합니다.</li>
+                    <li>협의로 해결되지 않는 분쟁은 관련 법령에 따른 관할 법원에서 해결합니다.</li>
+                </ol>
+
+                <h2>부칙</h2>
+                <p>본 약관은 [YYYY년 MM월 DD일]부터 시행합니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         개인정보처리방침 모달
+    ============================================ -->
+    <div class="modal-overlay" id="privacy-modal">
+        <div class="modal-box legal">
+            <button class="modal-close" onclick="document.getElementById('privacy-modal').classList.remove('open')">✕</button>
+            <div class="section-tag">// PRIVACY</div>
+            <div class="legal-title">[게임명] 공식 사이트 개인정보처리방침</div>
+            <div class="legal-date">시행일: [YYYY년 MM월 DD일]</div>
+            <div class="legal-scroll">
+                <p>[운영자명 또는 회사명](이하 "운영자")은 [게임명] 공식 사이트 이용자의 개인정보를 중요하게 생각하며, 개인정보 보호법 등 관련 법령을 준수합니다.</p>
+
+                <h2>1. 개인정보의 처리 목적</h2>
+                <p>운영자는 다음 목적을 위해 개인정보를 처리합니다.</p>
+                <ol>
+                    <li>이용자 문의 접수 및 답변</li>
+                    <li>게임 관련 공지, 개발 소식, 이벤트 안내</li>
+                    <li>사전등록 또는 뉴스레터 신청 관리</li>
+                    <li>이벤트 참여자 확인 및 당첨 안내</li>
+                    <li>사이트 이용 기록 확인 및 보안 관리</li>
+                    <li>법령상 의무 이행 및 분쟁 대응</li>
+                </ol>
+
+                <h2>2. 처리하는 개인정보 항목</h2>
+                <table>
+                    <tr><th>구분</th><th>수집 항목</th><th>수집 방법</th></tr>
+                    <tr><td>문의 접수</td><td>이름 또는 닉네임, 이메일 주소, 문의 내용</td><td>문의 양식, 이메일</td></tr>
+                    <tr><td>뉴스레터 신청</td><td>이메일 주소</td><td>신청 양식</td></tr>
+                    <tr><td>사전등록</td><td>이메일 주소, 닉네임, 신청 일시</td><td>사전등록 양식</td></tr>
+                    <tr><td>이벤트 참여</td><td>이름 또는 닉네임, 이메일 주소, 당첨 확인에 필요한 정보</td><td>이벤트 양식</td></tr>
+                    <tr><td>자동 생성 정보</td><td>IP 주소, 접속 기록, 브라우저 정보, 기기 정보, 쿠키 정보</td><td>사이트 접속 시 자동 생성</td></tr>
+                </table>
+
+                <h2>3. 개인정보의 처리 및 보유 기간</h2>
+                <table>
+                    <tr><th>구분</th><th>보유 기간</th></tr>
+                    <tr><td>문의 접수 및 답변 기록</td><td>문의 처리 완료 후 3년</td></tr>
+                    <tr><td>뉴스레터 신청 정보</td><td>수신 거부 또는 동의 철회 시까지</td></tr>
+                    <tr><td>사전등록 정보</td><td>게임 출시 또는 사전등록 목적 달성 후 1년</td></tr>
+                    <tr><td>이벤트 참여 정보</td><td>이벤트 종료 및 경품 지급 완료 후 1년</td></tr>
+                    <tr><td>접속 기록</td><td>보안 및 장애 대응 목적상 최대 1년</td></tr>
+                    <tr><td>법령상 보존이 필요한 기록</td><td>관련 법령에서 정한 기간</td></tr>
+                </table>
+
+                <h2>4. 개인정보의 제3자 제공</h2>
+                <p>운영자는 이용자의 개인정보를 원칙적으로 외부에 제공하지 않습니다. 다만 다음 경우에는 개인정보를 제공할 수 있습니다.</p>
+                <ol>
+                    <li>이용자가 사전에 동의한 경우</li>
+                    <li>법령에 특별한 규정이 있는 경우</li>
+                    <li>수사기관 또는 감독기관이 법령에 따른 절차에 따라 요구하는 경우</li>
+                    <li>이용자 또는 제3자의 생명, 신체, 재산상 이익 보호를 위해 필요한 경우</li>
+                </ol>
+
+                <h2>5. 개인정보 처리의 위탁</h2>
+                <table>
+                    <tr><th>수탁자</th><th>위탁 업무</th><th>보유 및 이용 기간</th></tr>
+                    <tr><td>[호스팅 업체명]</td><td>사이트 호스팅 및 서버 관리</td><td>위탁 계약 종료 시까지</td></tr>
+                    <tr><td>[이메일 발송 서비스명]</td><td>뉴스레터 및 공지 이메일 발송</td><td>위탁 계약 종료 시까지</td></tr>
+                    <tr><td>[분석 도구 제공 업체명]</td><td>접속 통계 분석</td><td>위탁 계약 종료 시까지</td></tr>
+                </table>
+
+                <h2>6. 개인정보의 파기 절차 및 방법</h2>
+                <ol>
+                    <li>운영자는 개인정보 보유 기간이 지나거나 처리 목적이 달성된 경우 지체 없이 개인정보를 파기합니다.</li>
+                    <li>전자적 파일 형태의 개인정보는 복구 또는 재생이 어렵도록 안전한 방법으로 삭제합니다.</li>
+                    <li>종이 문서에 기록된 개인정보는 분쇄하거나 소각하는 방식으로 파기합니다.</li>
+                    <li>법령에 따라 보존해야 하는 개인정보는 다른 개인정보와 분리하여 보관합니다.</li>
+                </ol>
+
+                <h2>7. 이용자와 법정대리인의 권리 및 행사 방법</h2>
+                <p>이용자는 언제든지 운영자에게 다음 권리를 행사할 수 있습니다.</p>
+                <ol>
+                    <li>개인정보 열람 요구</li>
+                    <li>개인정보 정정 요구</li>
+                    <li>개인정보 삭제 요구</li>
+                    <li>개인정보 처리정지 요구</li>
+                    <li>개인정보 수집 및 이용 동의 철회</li>
+                    <li>뉴스레터 수신 거부</li>
+                </ol>
+                <p>권리 행사는 [이메일 주소]를 통해 요청할 수 있으며, 운영자는 본인 확인 후 관련 법령에 따라 처리합니다.</p>
+
+                <h2>8. 만 14세 미만 아동의 개인정보 처리</h2>
+                <p>운영자는 원칙적으로 만 14세 미만 아동의 개인정보를 수집하지 않습니다. 만 14세 미만 아동의 개인정보를 수집해야 하는 경우 법정대리인의 동의를 받은 후 처리합니다.</p>
+
+                <h2>9. 개인정보의 안전성 확보 조치</h2>
+                <ol>
+                    <li>개인정보 접근 권한 제한</li>
+                    <li>개인정보 보관 자료의 암호화 또는 접근 제한</li>
+                    <li>개인정보 처리 기록 관리</li>
+                    <li>보안 프로그램 및 서버 보안 점검</li>
+                    <li>개인정보 처리 담당자 최소화</li>
+                    <li>불필요한 개인정보의 주기적 삭제</li>
+                </ol>
+
+                <h2>10. 쿠키 및 자동수집장치의 운영</h2>
+                <ol>
+                    <li>쿠키는 이용자의 브라우저에 저장되는 작은 정보 파일입니다.</li>
+                    <li>이용자는 브라우저 설정을 통해 쿠키 저장을 거부하거나 삭제할 수 있습니다.</li>
+                    <li>쿠키 저장을 거부하는 경우 일부 기능 이용이 제한될 수 있습니다.</li>
+                </ol>
+
+                <h2>11. 개인정보 보호책임자</h2>
+                <table>
+                    <tr><th>구분</th><th>내용</th></tr>
+                    <tr><td>개인정보 보호책임자</td><td>[성명 또는 담당 부서명]</td></tr>
+                    <tr><td>이메일</td><td>[이메일 주소]</td></tr>
+                    <tr><td>연락처</td><td>[전화번호 또는 문의 가능한 연락처]</td></tr>
+                </table>
+
+                <h2>12. 권익침해 구제 방법</h2>
+                <p>이용자는 개인정보 침해에 대한 신고나 상담이 필요한 경우 개인정보침해신고센터, 개인정보분쟁조정위원회 등 관련 기관에 문의할 수 있습니다.</p>
+
+                <h2>13. 개인정보처리방침의 변경</h2>
+                <ol>
+                    <li>본 개인정보처리방침은 관련 법령, 사이트 운영 방식, 개인정보 처리 내용의 변경에 따라 수정될 수 있습니다.</li>
+                    <li>개인정보처리방침이 변경되는 경우 운영자는 사이트 공지사항 또는 별도 안내를 통해 변경 내용을 고지합니다.</li>
+                    <li>중요한 변경 사항이 있는 경우 시행 전 합리적인 기간 동안 사전 공지합니다.</li>
+                </ol>
+
+                <h2>부칙</h2>
+                <p>본 개인정보처리방침은 [YYYY년 MM월 DD일]부터 시행합니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // 파티클 배경 애니메이션
+        // ============================================
+        const canvas = document.getElementById('particles-canvas'); // 캔버스 요소
+        const ctx = canvas.getContext('2d');                         // 2D 컨텍스트
+
+        // 캔버스 크기를 화면에 맞게 설정
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = []; // 파티클 배열
+
+        // 파티클 객체 생성 함수
+        function createParticle()
+        {
+            return {
+                x:     Math.random() * canvas.width,       // 무작위 x 위치
+                y:     Math.random() * canvas.height,      // 무작위 y 위치
+                size:  Math.random() * 1.5 + 0.5,          // 무작위 크기
+                speedX: (Math.random() - 0.5) * 0.3,      // 무작위 x 속도
+                speedY: (Math.random() - 0.5) * 0.3,      // 무작위 y 속도
+                opacity: Math.random() * 0.5 + 0.1        // 무작위 투명도
+            };
+        }
+
+        // 초기 파티클 80개 생성
+        for (let i = 0; i < 80; i++)
+        {
+            particles.push(createParticle());
+        }
+
+        // 파티클 애니메이션 루프
+        function animateParticles()
+        {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 초기화
+
+            particles.forEach(function(p)
+            {
+                // 파티클 그리기
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 245, 212, ${p.opacity})`; // 사이언 색상
+                ctx.fill();
+
+                // 위치 업데이트
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                // 화면 밖으로 나가면 반대편으로 순환
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+            });
+
+            requestAnimationFrame(animateParticles); // 다음 프레임 요청
+        }
+
+        animateParticles(); // 애니메이션 시작
+
+        // 윈도우 리사이즈 시 캔버스 크기 재설정
+        window.addEventListener('resize', function()
+        {
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // ============================================
+        // 스크롤 시 네비게이션 배경 강화
+        // ============================================
+        window.addEventListener('scroll', function()
+        {
+            const navbar = document.getElementById('navbar'); // 내비게이션 바
+
+            if (window.scrollY > 50)
+            {
+                navbar.style.background = 'rgba(7, 11, 20, 0.98)'; // 스크롤 시 불투명
+            }
+            else
+            {
+                navbar.style.background = 'rgba(7, 11, 20, 0.85)'; // 상단에서 반투명
+            }
+        });
+
+        // ============================================
+        // Intersection Observer - 스크롤 등장 애니메이션
+        // ============================================
+        const observer = new IntersectionObserver(function(entries)
+        {
+            entries.forEach(function(entry)
+            {
+                if (entry.isIntersecting)
+                {
+                    entry.target.classList.add('visible'); // 뷰포트 진입 시 표시
+                }
+            });
+        },
+        {
+            threshold: 0.1 // 10% 보이면 트리거
+        });
+
+        // 모든 reveal 요소에 옵저버 적용
+        document.querySelectorAll('.reveal').forEach(function(el)
+        {
+            observer.observe(el);
+        });
+
+        // ============================================
+        // 게임 상세 모달 열기
+        // ============================================
+        function openGameModal(title, genre, status, desc, platforms)
+        {
+            document.getElementById('modal-title').textContent = title; // 제목 설정
+            document.getElementById('modal-genre').textContent = genre; // 장르 설정
+            document.getElementById('modal-body').textContent  = desc;  // 설명 설정
+            document.getElementById('game-modal').classList.add('open'); // 모달 열기
+        }
+
+        // 모달 바깥 클릭 시 닫기
+        document.querySelectorAll('.modal-overlay').forEach(function(overlay)
+        {
+            overlay.addEventListener('click', function(e)
+            {
+                if (e.target === this)
+                {
+                    this.classList.remove('open'); // 오버레이 클릭 시 닫기
+                }
+            });
+        });
+
+    </script>
+
+    <p class="favorite-feedback" data-favorite-feedback role="status" aria-live="polite" aria-atomic="true" hidden></p> <!-- 관심 목록 변경 안내 -->
+
+    <script type="module" src="/game-catalog.mjs"></script> <!-- 게임 목록 기능 연결 -->
+    <script type="module" src="goods.mjs"></script> <!-- 상품 목록 기능 연결 -->
+    <script type="module" src="age-gate.mjs"></script> <!-- 성인 콘텐츠 보호 연결 -->
+    <script type="module" src="member-session.mjs"></script> <!-- 회원 상태 연결 -->
+    <script type="module" src="/site-experience.mjs"></script> <!-- 로컬 경험 연결 -->
+    <script type="module" src="/hero-carousel.mjs"></script> <!-- 히어로 전환 연결 -->
+
+    <script type="module" src="/support-widget.mjs"></script> <!-- 설정 기반 상담 연결 -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body>
+</html>

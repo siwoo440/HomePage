@@ -1,0 +1,165 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식을 브라우저에 알려준다. -->
+<html lang="ko"> <!-- 문서의 기본 언어를 한국어로 설정한다. -->
+<head> <!-- 문서 정보 영역을 시작한다. -->
+    <meta charset="UTF-8"> <!-- 한글이 깨지지 않도록 문자 인코딩을 설정한다. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 화면에서도 올바르게 보이도록 설정한다. -->
+    <title>Project B — DEVFORGE</title> <!-- 브라우저 탭에 표시될 제목을 설정한다. -->
+    <link rel="stylesheet" href="ProjectB_Style.css"> <!-- Project B 전용 CSS 파일을 연결한다. -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head> <!-- 문서 정보 영역을 끝낸다. -->
+<body> <!-- 실제 화면에 보이는 영역을 시작한다. -->
+    <div class="page-background" aria-hidden="true"></div> <!-- 배경 장식 레이어를 만든다. -->
+    <header class="top-header" data-responsive-nav-root> <!-- 상단 고정 헤더를 만든다. -->
+        <a class="brand-logo" href="../main.html">DEVFORGE</a> <!-- 메인 사이트로 돌아가는 로고 링크를 만든다. -->
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="메뉴 열기">MENU</button> <!-- 모바일 메뉴 버튼을 만든다. -->
+        <nav class="top-nav" id="topNav" aria-label="Project B 메뉴"> <!-- 페이지 내부 이동 메뉴를 만든다. -->
+            <a href="#overview">개요</a> <!-- 개요 영역으로 이동하는 링크를 만든다. -->
+            <a href="#features">특징</a> <!-- 특징 영역으로 이동하는 링크를 만든다. -->
+            <a href="#combat">합성 시스템</a> <!-- 합성 시스템 영역으로 이동하는 링크를 만든다. -->
+            <a href="#characters">등장인물</a> <!-- 등장인물 영역으로 이동하는 링크를 만든다. -->
+            <a href="#modes">챕터</a> <!-- 챕터 영역으로 이동하는 링크를 만든다. -->
+            <a href="#archive">아카이브</a> <!-- 아카이브 영역으로 이동하는 링크를 만든다. -->
+        </nav> <!-- 페이지 내부 이동 메뉴를 끝낸다. -->
+    </header> <!-- 상단 고정 헤더를 끝낸다. -->
+    <main> <!-- 페이지의 주요 내용을 시작한다. -->
+
+        <!-- 히어로 섹션 — 개요 -->
+        <section class="hero-section" id="overview"> <!-- 첫 화면 소개 영역을 만든다. -->
+            <div class="hero-copy reveal-item"> <!-- 첫 화면 텍스트 묶음을 만든다. -->
+                <p class="section-kicker">Project B · Emotional Merge Puzzle</p> <!-- 장르와 프로젝트명을 표시한다. -->
+                <h1>망자의 감정을<br>모아 자아를<br>되찾게 하라</h1> <!-- 페이지의 핵심 문구를 표시한다. -->
+                <p class="hero-desc">이승과 저승 사이의 경계 병동. 기억을 잃은 주인공은 상담사 같은 저승사자의 안내로 망자들의 흩어진 감정 구슬을 합성하고, 그들이 자아를 되찾아 저승으로 갈 수 있도록 돕는다.</p> <!-- 게임 설명을 표시한다. -->
+                <div class="hero-buttons"> <!-- 첫 화면 버튼 묶음을 만든다. -->
+                    <a class="primary-button" href="#combat">합성 시스템 보기</a> <!-- 합성 시스템 영역으로 이동하는 버튼을 만든다. -->
+                    <a class="ghost-button" href="#characters">등장인물 보기</a> <!-- 등장인물 영역으로 이동하는 버튼을 만든다. -->
+                </div> <!-- 첫 화면 버튼 묶음을 끝낸다. -->
+            </div> <!-- 첫 화면 텍스트 묶음을 끝낸다. -->
+            <div class="hero-visual reveal-item"> <!-- 첫 화면 비주얼 패널을 만든다. -->
+                <div class="ward-corridor"> <!-- 병동 복도 아치형 문 장식을 만든다. -->
+                    <span></span> <!-- 첫 번째 병실 문을 만든다. -->
+                    <span></span> <!-- 두 번째 병실 문을 만든다. -->
+                    <span></span> <!-- 세 번째 병실 문을 만든다. -->
+                </div> <!-- 병동 복도 장식을 끝낸다. -->
+                <div class="ward-card"> <!-- 경계 병동 정보 카드를 만든다. -->
+                    <p>BOUNDARY WARD</p> <!-- 병동 라벨을 표시한다. -->
+                    <h2>경계 병동</h2> <!-- 병동 이름을 표시한다. -->
+                    <div class="ward-status"><span></span></div> <!-- 감정 회복 상태 바를 만든다. -->
+                </div> <!-- 경계 병동 카드를 끝낸다. -->
+                <div class="emotion-badge">사우다지 합성 완료</div> <!-- 감정 합성 결과 배지를 만든다. -->
+            </div> <!-- 첫 화면 비주얼 패널을 끝낸다. -->
+        </section> <!-- 첫 화면 소개 영역을 끝낸다. -->
+
+        <!-- 핵심 특징 섹션 -->
+        <section class="section-block" id="features"> <!-- 핵심 특징 영역을 만든다. -->
+            <div class="section-heading reveal-item"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="section-kicker">Core Selling Point</p> <!-- 작은 섹션 라벨을 표시한다. -->
+                <h2>감성 병합 퍼즐과 치유 서사의 결합</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>Project B는 단순 점수 경쟁보다, 감정 합성이 망자의 자아 회복과 직접 연결되는 구조를 강조합니다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="feature-grid"> <!-- 특징 카드 그리드를 만든다. -->
+                <article class="feature-card reveal-item"> <!-- 첫 번째 특징 카드를 만든다. -->
+                    <span>01</span> <!-- 카드 번호를 표시한다. -->
+                    <h3>경계 병동 세계관</h3> <!-- 카드 제목을 표시한다. -->
+                    <p>이승과 저승 사이 병동을 중심 허브로 사용해 UI, 챕터, 스토리를 하나의 세계관으로 연결합니다.</p> <!-- 카드 설명을 표시한다. -->
+                </article> <!-- 첫 번째 특징 카드를 끝낸다. -->
+                <article class="feature-card reveal-item"> <!-- 두 번째 특징 카드를 만든다. -->
+                    <span>02</span> <!-- 카드 번호를 표시한다. -->
+                    <h3>7단계 감정 합성 트리</h3> <!-- 카드 제목을 표시한다. -->
+                    <p>기쁨·슬픔·분노·공포에서 출발해 해탈·아가페까지. 단순 숫자 병합이 아닌 감정의 논리가 규칙입니다.</p> <!-- 카드 설명을 표시한다. -->
+                </article> <!-- 두 번째 특징 카드를 끝낸다. -->
+                <article class="feature-card reveal-item"> <!-- 세 번째 특징 카드를 만든다. -->
+                    <span>03</span> <!-- 카드 번호를 표시한다. -->
+                    <h3>감정 합성 = 서사 해금</h3> <!-- 카드 제목을 표시한다. -->
+                    <p>구슬을 합성하면 망자의 기억 조각이 열립니다. 퍼즐 진행 자체가 스토리 체험 과정입니다.</p> <!-- 카드 설명을 표시한다. -->
+                </article> <!-- 세 번째 특징 카드를 끝낸다. -->
+                <article class="feature-card reveal-item"> <!-- 네 번째 특징 카드를 만든다. -->
+                    <span>04</span> <!-- 카드 번호를 표시한다. -->
+                    <h3>레이어드 BGM</h3> <!-- 카드 제목을 표시한다. -->
+                    <p>합성 성공 시마다 멜로디 레이어가 추가됩니다. 플레이어의 행동이 음악을 완성해가는 구조입니다.</p> <!-- 카드 설명을 표시한다. -->
+                </article> <!-- 네 번째 특징 카드를 끝낸다. -->
+            </div> <!-- 특징 카드 그리드를 끝낸다. -->
+        </section> <!-- 핵심 특징 영역을 끝낸다. -->
+
+        <!-- 감정 합성 시스템 섹션 -->
+        <section class="section-block combat-section" id="combat"> <!-- 감정 합성 시스템 영역을 만든다. -->
+            <div class="section-heading reveal-item"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="section-kicker">Merge System</p> <!-- 작은 섹션 라벨을 표시한다. -->
+                <h2>감정이 쌓이고 합성되어 자아를 회복한다</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>챕터 최종 목표 감정을 완성하면 망자는 자신의 이름과 생전 감정을 기억하고 저승으로 이동합니다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="combat-layout"> <!-- 합성 카드와 단계 패널을 배치하는 영역을 만든다. -->
+                <div class="input-list reveal-item" id="inputList"></div> <!-- 자바스크립트로 합성 단계 카드를 넣을 영역을 만든다. -->
+                <div class="judge-panel reveal-item"> <!-- 감정 단계 패널을 만든다. -->
+                    <h3>감정 단계 구조</h3> <!-- 패널 제목을 표시한다. -->
+                    <ul> <!-- 감정 단계 목록을 만든다. -->
+                        <li><strong>1단계</strong><span>기쁨·슬픔·분노·공포 (뿌리)</span></li> <!-- 1단계 감정을 표시한다. -->
+                        <li><strong>2단계</strong><span>그리움·열정·설렘·절망</span></li> <!-- 2단계 감정을 표시한다. -->
+                        <li><strong>3~5단계</strong><span>중간 복합·심층 복합 감정</span></li> <!-- 3~5단계 감정을 표시한다. -->
+                        <li><strong>6단계</strong><span>사우다지·용기·숭고함 등</span></li> <!-- 6단계 감정을 표시한다. -->
+                        <li><strong>7단계</strong><span>해탈·아가페·모노노아와레</span></li> <!-- 7단계 감정을 표시한다. -->
+                    </ul> <!-- 감정 단계 목록을 끝낸다. -->
+                    <p class="formula-text">합성 점수 = 단계 × 단계 × 10점 · 연쇄 합성 보너스 = 연쇄 수 × 50점</p> <!-- 점수 공식을 표시한다. -->
+                </div> <!-- 감정 단계 패널을 끝낸다. -->
+            </div> <!-- 합성 카드와 단계 패널 배치 영역을 끝낸다. -->
+        </section> <!-- 감정 합성 시스템 영역을 끝낸다. -->
+
+        <!-- 등장인물 섹션 -->
+        <section class="section-block" id="characters"> <!-- 등장인물 영역을 만든다. -->
+            <div class="section-heading reveal-item"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="section-kicker">Characters</p> <!-- 작은 섹션 라벨을 표시한다. -->
+                <h2>병동에 머무는 망자들</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>각 망자는 생전의 강한 감정으로 자아가 흐려진 채 병동에 머뭅니다. 플레이어는 그들의 감정 공간에 들어가 핵심 감정을 완성합니다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="character-grid" id="characterGrid"></div> <!-- 자바스크립트로 캐릭터 카드를 넣을 영역을 만든다. -->
+        </section> <!-- 등장인물 영역을 끝낸다. -->
+
+        <!-- 챕터 섹션 -->
+        <section class="section-block mode-section" id="modes"> <!-- 챕터 영역을 만든다. -->
+            <div class="section-heading reveal-item"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="section-kicker">Chapters</p> <!-- 작은 섹션 라벨을 표시한다. -->
+                <h2>이별, 야망, 달관, 그리고 해탈</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>각 챕터는 한 명의 망자와 그 생전 감정을 중심으로 구성됩니다. 최종 감정을 완성하면 망자는 자아를 되찾고 저승으로 이동합니다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="mode-tabs reveal-item"> <!-- 챕터 탭 버튼 묶음을 만든다. -->
+                <button class="mode-tab active" type="button" data-mode="ch1">챕터 1 · 이별</button> <!-- 챕터 1 버튼을 만든다. -->
+                <button class="mode-tab" type="button" data-mode="ch2">챕터 2 · 야망</button> <!-- 챕터 2 버튼을 만든다. -->
+                <button class="mode-tab" type="button" data-mode="ch3">챕터 3 · 달관</button> <!-- 챕터 3 버튼을 만든다. -->
+                <button class="mode-tab" type="button" data-mode="hidden">숨겨진 챕터</button> <!-- 숨겨진 챕터 버튼을 만든다. -->
+            </div> <!-- 챕터 탭 버튼 묶음을 끝낸다. -->
+            <article class="mode-detail reveal-item" id="modeDetail"></article> <!-- 선택된 챕터 설명을 표시할 영역을 만든다. -->
+        </section> <!-- 챕터 영역을 끝낸다. -->
+
+        <!-- 세계관 아카이브 섹션 -->
+        <section class="section-block archive-section" id="archive"> <!-- 아카이브 영역을 만든다. -->
+            <div class="section-heading reveal-item"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="section-kicker">World Archive</p> <!-- 작은 섹션 라벨을 표시한다. -->
+                <h2>경계 병동의 기록</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>경계 병동의 세계관, 핵심 개념, 망자와 사건들을 정리한 기록입니다. 분류 버튼과 검색창으로 빠르게 찾을 수 있습니다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="archive-tools reveal-item"> <!-- 아카이브 도구 영역을 만든다. -->
+                <div class="filter-group" id="filterGroup"></div> <!-- 자바스크립트로 필터 버튼을 넣을 영역을 만든다. -->
+                <label class="search-box" for="archiveSearch">검색 <input id="archiveSearch" type="search" placeholder="감정, 망자, 병동 검색"></label> <!-- 검색 입력 영역을 만든다. -->
+            </div> <!-- 아카이브 도구 영역을 끝낸다. -->
+            <div class="archive-viewer reveal-item"> <!-- 단일 차트 뷰어 영역을 만든다. -->
+                <button class="archive-nav archive-nav-left" id="archivePrev" type="button" aria-label="이전 차트">‹</button> <!-- 이전 차트로 이동하는 화살표 버튼을 만든다. -->
+                <div class="archive-stage" id="archiveGrid"></div> <!-- 자바스크립트로 단일 차트를 표시할 영역을 만든다. -->
+                <button class="archive-nav archive-nav-right" id="archiveNext" type="button" aria-label="다음 차트">›</button> <!-- 다음 차트로 이동하는 화살표 버튼을 만든다. -->
+            </div> <!-- 단일 차트 뷰어 영역을 끝낸다. -->
+            <div class="archive-progress"> <!-- 진행 표시 영역을 만든다. -->
+                <p class="result-count" id="archiveCount">0개의 항목</p> <!-- 현재 위치와 전체 항목 수를 표시한다. -->
+                <div class="archive-progress-bar"> <!-- 진행 막대 컨테이너를 만든다. -->
+                    <div class="archive-progress-fill" id="archiveProgressFill"></div> <!-- 진행 채움 막대를 만든다. -->
+                </div> <!-- 진행 막대 컨테이너를 끝낸다. -->
+            </div> <!-- 진행 표시 영역을 끝낸다. -->
+        </section> <!-- 아카이브 영역을 끝낸다. -->
+
+    </main> <!-- 페이지의 주요 내용을 끝낸다. -->
+    <footer class="site-footer"> <!-- 하단 푸터 영역을 만든다. -->
+        <p>Project B · Emotional Merge Puzzle · DEVFORGE</p> <!-- 푸터 문구를 표시한다. -->
+    </footer> <!-- 하단 푸터 영역을 끝낸다. -->
+    <script src="ProjectB_Script.js"></script> <!-- Project B 전용 자바스크립트 파일을 연결한다. -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 실제 화면에 보이는 영역을 끝낸다. -->
+</html> <!-- HTML 문서를 끝낸다. -->

@@ -1,0 +1,941 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap'); /* 페이지에서 사용할 구글 폰트를 불러온다. */
+
+:root /* 전역 색상과 크기 변수를 선언한다. */
+{ /* 전역 변수 블록을 시작한다. */
+    --bg: #070711; /* 전체 배경색을 저장한다. */
+    --panel: rgba(15, 18, 35, 0.86); /* 패널 배경색을 저장한다. */
+    --panel-strong: #14172a; /* 진한 패널 배경색을 저장한다. */
+    --text: #f5f7ff; /* 기본 글자색을 저장한다. */
+    --muted: #a9b2cf; /* 보조 글자색을 저장한다. */
+    --line: rgba(255, 255, 255, 0.14); /* 테두리 색을 저장한다. */
+    --pink: #ff4fd8; /* 리듬 느낌의 분홍 강조색을 저장한다. */
+    --cyan: #4de9ff; /* 사이버 느낌의 하늘 강조색을 저장한다. */
+    --violet: #8d5bff; /* 판타지 느낌의 보라 강조색을 저장한다. */
+    --gold: #ffd166; /* 랭크와 보상 느낌의 금색을 저장한다. */
+    --radius: 28px; /* 큰 둥근 모서리 값을 저장한다. */
+    --shadow: 0 28px 90px rgba(0, 0, 0, 0.44); /* 큰 그림자 값을 저장한다. */
+} /* 전역 변수 블록을 끝낸다. */
+
+* /* 모든 요소에 공통 박스 계산을 적용한다. */
+{ /* 공통 선택자 블록을 시작한다. */
+    box-sizing: border-box; /* 너비 계산에 패딩과 테두리를 포함한다. */
+} /* 공통 선택자 블록을 끝낸다. */
+
+html /* 문서 전체 스크롤 방식을 설정한다. */
+{ /* html 블록을 시작한다. */
+    scroll-behavior: smooth; /* 메뉴 이동을 부드럽게 만든다. */
+} /* html 블록을 끝낸다. */
+
+body /* 본문 전체 스타일을 설정한다. */
+{ /* body 블록을 시작한다. */
+    margin: 0; /* 브라우저 기본 여백을 제거한다. */
+    min-height: 100vh; /* 화면 최소 높이를 전체 화면 높이로 설정한다. */
+    color: var(--text); /* 기본 글자색을 적용한다. */
+    font-family: 'Noto Sans KR', Arial, sans-serif; /* 기본 글꼴을 설정한다. */
+    background: var(--bg); /* 기본 배경색을 적용한다. */
+    overflow-x: hidden; /* 가로 스크롤을 막는다. */
+} /* body 블록을 끝낸다. */
+
+a /* 링크 기본 스타일을 설정한다. */
+{ /* 링크 블록을 시작한다. */
+    color: inherit; /* 링크가 부모 글자색을 따르게 한다. */
+    text-decoration: none; /* 링크 밑줄을 제거한다. */
+} /* 링크 블록을 끝낸다. */
+
+button /* 버튼 기본 스타일을 설정한다. */
+{ /* 버튼 블록을 시작한다. */
+    font: inherit; /* 버튼이 부모 글꼴을 사용하게 한다. */
+} /* 버튼 블록을 끝낸다. */
+
+.page-background /* 화면 배경 장식을 설정한다. */
+{ /* 배경 장식 블록을 시작한다. */
+    position: fixed; /* 배경을 화면에 고정한다. */
+    inset: 0; /* 배경을 화면 전체에 펼친다. */
+    z-index: -1; /* 배경을 콘텐츠 뒤로 보낸다. */
+    background: radial-gradient(circle at 18% 20%, rgba(255, 79, 216, 0.24), transparent 28%), radial-gradient(circle at 82% 12%, rgba(77, 233, 255, 0.18), transparent 30%), linear-gradient(120deg, #070711, #0d1022 52%, #111429); /* 음악과 사이버 느낌의 배경을 만든다. */
+} /* 배경 장식 블록을 끝낸다. */
+
+.page-background::after /* 배경 위에 격자 장식을 추가한다. */
+{ /* 배경 격자 블록을 시작한다. */
+    content: ""; /* 장식용 가상 요소를 만든다. */
+    position: absolute; /* 배경 안에서 절대 위치로 배치한다. */
+    inset: 0; /* 가상 요소를 전체에 펼친다. */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px); /* 얇은 격자선을 만든다. */
+    background-size: 54px 54px; /* 격자 크기를 설정한다. */
+    mask-image: linear-gradient(to bottom, black, transparent 88%); /* 아래쪽으로 격자가 사라지게 만든다. */
+} /* 배경 격자 블록을 끝낸다. */
+
+.top-header /* 상단 헤더를 설정한다. */
+{ /* 상단 헤더 블록을 시작한다. */
+    position: sticky; /* 스크롤 시 상단에 붙게 만든다. */
+    top: 0; /* 화면 상단에 고정한다. */
+    z-index: 20; /* 다른 요소보다 위에 보이게 한다. */
+    display: flex; /* 내부 요소를 가로로 배치한다. */
+    align-items: center; /* 내부 요소를 세로 가운데 정렬한다. */
+    justify-content: space-between; /* 로고와 메뉴를 양쪽으로 나눈다. */
+    padding: 18px min(6vw, 72px); /* 화면 크기에 맞춰 좌우 여백을 설정한다. */
+    background: rgba(7, 7, 17, 0.74); /* 반투명 헤더 배경을 만든다. */
+    backdrop-filter: blur(18px); /* 뒤 배경을 흐리게 만든다. */
+    border-bottom: 1px solid var(--line); /* 헤더 아래 구분선을 만든다. */
+} /* 상단 헤더 블록을 끝낸다. */
+
+.brand-logo /* 로고 스타일을 설정한다. */
+{ /* 로고 블록을 시작한다. */
+    font-family: 'Orbitron', sans-serif; /* 로고 전용 글꼴을 설정한다. */
+    font-size: 20px; /* 로고 글자 크기를 설정한다. */
+    font-weight: 900; /* 로고 글자를 굵게 만든다. */
+    letter-spacing: 4px; /* 로고 글자 간격을 넓힌다. */
+    background: linear-gradient(135deg, var(--cyan), var(--pink)); /* 로고에 그라디언트를 넣는다. */
+    -webkit-background-clip: text; /* 크롬에서 배경을 글자에만 적용한다. */
+    -webkit-text-fill-color: transparent; /* 크롬에서 글자 내부를 투명하게 만든다. */
+    background-clip: text; /* 표준 방식으로 배경을 글자에만 적용한다. */
+} /* 로고 블록을 끝낸다. */
+
+.top-nav /* 상단 메뉴를 설정한다. */
+{ /* 상단 메뉴 블록을 시작한다. */
+    display: flex; /* 메뉴 링크를 가로로 배치한다. */
+    gap: 28px; /* 메뉴 사이 간격을 설정한다. */
+    align-items: center; /* 메뉴를 세로 가운데 정렬한다. */
+} /* 상단 메뉴 블록을 끝낸다. */
+
+.top-nav a /* 상단 메뉴 링크를 설정한다. */
+{ /* 상단 메뉴 링크 블록을 시작한다. */
+    color: var(--muted); /* 메뉴 기본 색을 적용한다. */
+    font-size: 14px; /* 메뉴 글자 크기를 설정한다. */
+    font-weight: 800; /* 메뉴 글자를 굵게 만든다. */
+    transition: color 0.2s ease; /* 색상 변화를 부드럽게 만든다. */
+} /* 상단 메뉴 링크 블록을 끝낸다. */
+
+.top-nav a:hover /* 상단 메뉴 링크 호버를 설정한다. */
+{ /* 상단 메뉴 호버 블록을 시작한다. */
+    color: var(--cyan); /* 마우스를 올리면 강조색으로 바꾼다. */
+} /* 상단 메뉴 호버 블록을 끝낸다. */
+
+.menu-toggle /* 모바일 메뉴 버튼을 설정한다. */
+{ /* 모바일 메뉴 버튼 블록을 시작한다. */
+    display: none; /* 기본 화면에서는 숨긴다. */
+    border: 1px solid var(--line); /* 버튼 테두리를 만든다. */
+    color: var(--text); /* 버튼 글자색을 설정한다. */
+    background: rgba(255, 255, 255, 0.04); /* 버튼 배경을 반투명하게 만든다. */
+    border-radius: 999px; /* 버튼을 알약 모양으로 만든다. */
+    padding: 9px 14px; /* 버튼 안쪽 여백을 설정한다. */
+    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 바꾼다. */
+} /* 모바일 메뉴 버튼 블록을 끝낸다. */
+
+main /* 주요 콘텐츠 너비를 설정한다. */
+{ /* main 블록을 시작한다. */
+    width: min(1180px, calc(100% - 32px)); /* 콘텐츠 최대 너비를 제한한다. */
+    margin: 0 auto; /* 콘텐츠를 화면 가운데에 배치한다. */
+} /* main 블록을 끝낸다. */
+
+.hero-section /* 첫 화면 영역을 설정한다. */
+{ /* 첫 화면 블록을 시작한다. */
+    min-height: calc(100vh - 76px); /* 헤더를 뺀 화면 높이를 확보한다. */
+    display: grid; /* 텍스트와 비주얼을 격자로 배치한다. */
+    grid-template-columns: 1.05fr 0.95fr; /* 좌우 열 비율을 설정한다. */
+    gap: 48px; /* 열 사이 간격을 설정한다. */
+    align-items: center; /* 요소를 세로 가운데 정렬한다. */
+    padding: 86px 0; /* 위아래 여백을 설정한다. */
+} /* 첫 화면 블록을 끝낸다. */
+
+.section-kicker /* 작은 라벨 문구를 설정한다. */
+{ /* 작은 라벨 블록을 시작한다. */
+    margin: 0 0 16px; /* 아래 여백을 설정한다. */
+    color: var(--cyan); /* 라벨 색상을 적용한다. */
+    font-family: 'Orbitron', sans-serif; /* 라벨 글꼴을 설정한다. */
+    font-size: 13px; /* 라벨 글자 크기를 설정한다. */
+    font-weight: 900; /* 라벨 글자를 굵게 만든다. */
+    letter-spacing: 0.18em; /* 라벨 글자 간격을 넓힌다. */
+    text-transform: uppercase; /* 영문을 대문자로 표시한다. */
+} /* 작은 라벨 블록을 끝낸다. */
+
+.hero-copy h1 /* 첫 화면 제목을 설정한다. */
+{ /* 첫 화면 제목 블록을 시작한다. */
+    margin: 0; /* 기본 여백을 제거한다. */
+    font-family: 'Orbitron', 'Noto Sans KR', sans-serif; /* 제목 글꼴을 설정한다. */
+    font-size: clamp(48px, 7vw, 92px); /* 화면 크기에 맞춰 제목 크기를 조절한다. */
+    line-height: 1.02; /* 제목 줄 간격을 좁게 설정한다. */
+    letter-spacing: -0.06em; /* 제목 글자 간격을 줄인다. */
+} /* 첫 화면 제목 블록을 끝낸다. */
+
+.hero-desc /* 첫 화면 설명을 설정한다. */
+{ /* 첫 화면 설명 블록을 시작한다. */
+    max-width: 720px; /* 설명 너비를 제한한다. */
+    margin: 28px 0 0; /* 제목과 설명 사이 여백을 설정한다. */
+    color: var(--muted); /* 설명 글자색을 적용한다. */
+    font-size: 18px; /* 설명 글자 크기를 설정한다. */
+    line-height: 1.85; /* 설명 줄 간격을 넓힌다. */
+} /* 첫 화면 설명 블록을 끝낸다. */
+
+.hero-buttons /* 첫 화면 버튼 묶음을 설정한다. */
+{ /* 버튼 묶음 블록을 시작한다. */
+    display: flex; /* 버튼을 가로로 배치한다. */
+    flex-wrap: wrap; /* 화면이 좁으면 줄바꿈한다. */
+    gap: 14px; /* 버튼 사이 간격을 설정한다. */
+    margin-top: 34px; /* 설명 아래 여백을 설정한다. */
+} /* 버튼 묶음 블록을 끝낸다. */
+
+.primary-button, .ghost-button /* 공통 버튼 스타일을 설정한다. */
+{ /* 공통 버튼 블록을 시작한다. */
+    display: inline-flex; /* 버튼 내부 글자를 가운데 배치한다. */
+    align-items: center; /* 버튼 내부를 세로 가운데 정렬한다. */
+    justify-content: center; /* 버튼 내부를 가로 가운데 정렬한다. */
+    min-height: 48px; /* 버튼 최소 높이를 설정한다. */
+    padding: 0 22px; /* 버튼 좌우 여백을 설정한다. */
+    border-radius: 999px; /* 버튼을 알약 모양으로 만든다. */
+    font-weight: 900; /* 버튼 글자를 굵게 만든다. */
+} /* 공통 버튼 블록을 끝낸다. */
+
+.primary-button /* 기본 강조 버튼을 설정한다. */
+{ /* 강조 버튼 블록을 시작한다. */
+    color: #070711; /* 강조 버튼 글자색을 어둡게 만든다. */
+    background: linear-gradient(135deg, var(--cyan), var(--pink)); /* 강조 버튼 배경을 그라디언트로 만든다. */
+} /* 강조 버튼 블록을 끝낸다. */
+
+.ghost-button /* 보조 버튼을 설정한다. */
+{ /* 보조 버튼 블록을 시작한다. */
+    color: var(--text); /* 보조 버튼 글자색을 설정한다. */
+    border: 1px solid var(--line); /* 보조 버튼 테두리를 만든다. */
+    background: rgba(255, 255, 255, 0.04); /* 보조 버튼 배경을 반투명하게 만든다. */
+} /* 보조 버튼 블록을 끝낸다. */
+
+.hero-visual /* 첫 화면 비주얼 패널을 설정한다. */
+{ /* 비주얼 패널 블록을 시작한다. */
+    position: relative; /* 내부 장식의 기준점을 만든다. */
+    min-height: 520px; /* 비주얼 패널 높이를 확보한다. */
+    border: 1px solid var(--line); /* 패널 테두리를 만든다. */
+    border-radius: var(--radius); /* 패널 모서리를 둥글게 만든다. */
+    background: linear-gradient(160deg, rgba(255, 79, 216, 0.16), rgba(77, 233, 255, 0.08)), var(--panel); /* 패널 배경을 만든다. */
+    box-shadow: var(--shadow); /* 패널 그림자를 적용한다. */
+    overflow: hidden; /* 내부 장식이 밖으로 나가지 않게 자른다. */
+} /* 비주얼 패널 블록을 끝낸다. */
+
+.hero-visual::before /* 비주얼 패널 안쪽 빛을 추가한다. */
+{ /* 비주얼 빛 블록을 시작한다. */
+    content: ""; /* 장식용 가상 요소를 만든다. */
+    position: absolute; /* 패널 안에서 절대 배치한다. */
+    inset: 34px; /* 패널 내부에 여백을 둔다. */
+    border: 1px solid rgba(77, 233, 255, 0.18); /* 내부 테두리를 만든다. */
+    border-radius: 22px; /* 내부 테두리 모서리를 둥글게 만든다. */
+} /* 비주얼 빛 블록을 끝낸다. */
+
+.rhythm-lane /* 노트 레인 장식을 설정한다. */
+{ /* 노트 레인 블록을 시작한다. */
+    position: absolute; /* 패널 내부에 절대 배치한다. */
+    left: 12%; /* 왼쪽 위치를 설정한다. */
+    right: 12%; /* 오른쪽 위치를 설정한다. */
+    bottom: 78px; /* 아래 위치를 설정한다. */
+    display: grid; /* 노트를 격자로 배치한다. */
+    grid-template-columns: repeat(4, 1fr); /* 4개의 레인을 만든다. */
+    gap: 14px; /* 레인 간격을 설정한다. */
+} /* 노트 레인 블록을 끝낸다. */
+
+.rhythm-lane span /* 노트 한 칸을 설정한다. */
+{ /* 노트 칸 블록을 시작한다. */
+    height: 220px; /* 레인 높이를 설정한다. */
+    border-radius: 18px; /* 레인 모서리를 둥글게 만든다. */
+    background: linear-gradient(to top, rgba(77, 233, 255, 0.42), rgba(255, 79, 216, 0.04)); /* 레인 배경을 만든다. */
+    border: 1px solid rgba(255, 255, 255, 0.12); /* 레인 테두리를 만든다. */
+} /* 노트 칸 블록을 끝낸다. */
+
+.boss-card /* 보스 카드 장식을 설정한다. */
+{ /* 보스 카드 블록을 시작한다. */
+    position: absolute; /* 패널 내부에 절대 배치한다. */
+    left: 42px; /* 왼쪽 위치를 설정한다. */
+    top: 42px; /* 위쪽 위치를 설정한다. */
+    width: min(310px, calc(100% - 84px)); /* 카드 너비를 제한한다. */
+    padding: 24px; /* 카드 안쪽 여백을 설정한다. */
+    border-radius: 22px; /* 카드 모서리를 둥글게 만든다. */
+    background: rgba(7, 7, 17, 0.72); /* 카드 배경을 반투명하게 만든다. */
+    border: 1px solid var(--line); /* 카드 테두리를 만든다. */
+} /* 보스 카드 블록을 끝낸다. */
+
+.boss-card p /* 보스 카드 라벨을 설정한다. */
+{ /* 보스 라벨 블록을 시작한다. */
+    margin: 0 0 8px; /* 라벨 아래 여백을 설정한다. */
+    color: var(--pink); /* 라벨 색상을 설정한다. */
+    font-family: 'Orbitron', sans-serif; /* 라벨 글꼴을 설정한다. */
+    font-size: 12px; /* 라벨 글자 크기를 설정한다. */
+    letter-spacing: 0.18em; /* 라벨 글자 간격을 넓힌다. */
+} /* 보스 라벨 블록을 끝낸다. */
+
+.boss-card h2 /* 보스 카드 제목을 설정한다. */
+{ /* 보스 제목 블록을 시작한다. */
+    margin: 0 0 18px; /* 제목 아래 여백을 설정한다. */
+    font-family: 'Orbitron', sans-serif; /* 제목 글꼴을 설정한다. */
+    font-size: 42px; /* 제목 글자 크기를 설정한다. */
+} /* 보스 제목 블록을 끝낸다. */
+
+.hp-bar /* 보스 체력바 배경을 설정한다. */
+{ /* 체력바 블록을 시작한다. */
+    height: 12px; /* 체력바 높이를 설정한다. */
+    border-radius: 999px; /* 체력바를 둥글게 만든다. */
+    background: rgba(255, 255, 255, 0.12); /* 체력바 배경을 설정한다. */
+    overflow: hidden; /* 체력 게이지가 밖으로 나가지 않게 자른다. */
+} /* 체력바 블록을 끝낸다. */
+
+.hp-bar span /* 보스 체력 게이지를 설정한다. */
+{ /* 체력 게이지 블록을 시작한다. */
+    display: block; /* 게이지를 블록으로 만든다. */
+    width: 68%; /* 게이지의 현재 길이를 설정한다. */
+    height: 100%; /* 게이지 높이를 부모와 같게 만든다. */
+    background: linear-gradient(90deg, var(--pink), var(--gold)); /* 게이지 색을 그라디언트로 만든다. */
+} /* 체력 게이지 블록을 끝낸다. */
+
+.perfect-card /* 판정 장식 카드를 설정한다. */
+{ /* 판정 카드 블록을 시작한다. */
+    position: absolute; /* 패널 내부에 절대 배치한다. */
+    right: 42px; /* 오른쪽 위치를 설정한다. */
+    bottom: 42px; /* 아래쪽 위치를 설정한다. */
+    padding: 18px 22px; /* 카드 안쪽 여백을 설정한다. */
+    border-radius: 999px; /* 카드를 알약 모양으로 만든다. */
+    color: #080816; /* 글자색을 어둡게 만든다. */
+    background: var(--gold); /* 배경색을 금색으로 만든다. */
+    font-family: 'Orbitron', sans-serif; /* 판정 카드 글꼴을 설정한다. */
+    font-weight: 900; /* 판정 카드 글자를 굵게 만든다. */
+} /* 판정 카드 블록을 끝낸다. */
+
+.section-block /* 공통 섹션 박스를 설정한다. */
+{ /* 섹션 블록을 시작한다. */
+    margin-bottom: 76px; /* 섹션 아래 여백을 설정한다. */
+    padding: clamp(28px, 5vw, 48px); /* 화면 크기에 맞춰 안쪽 여백을 설정한다. */
+    border: 1px solid var(--line); /* 섹션 테두리를 만든다. */
+    border-radius: var(--radius); /* 섹션 모서리를 둥글게 만든다. */
+    background: var(--panel); /* 섹션 배경을 적용한다. */
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.28); /* 섹션 그림자를 적용한다. */
+} /* 섹션 블록을 끝낸다. */
+
+.section-heading /* 섹션 제목 묶음을 설정한다. */
+{ /* 섹션 제목 묶음 블록을 시작한다. */
+    margin-bottom: 34px; /* 제목 아래 여백을 설정한다. */
+} /* 섹션 제목 묶음 블록을 끝낸다. */
+
+.section-heading h2 /* 섹션 제목을 설정한다. */
+{ /* 섹션 제목 블록을 시작한다. */
+    margin: 0; /* 기본 여백을 제거한다. */
+    font-family: 'Orbitron', 'Noto Sans KR', sans-serif; /* 섹션 제목 글꼴을 설정한다. */
+    font-size: clamp(32px, 4.8vw, 56px); /* 화면 크기에 맞춰 제목 크기를 조절한다. */
+    letter-spacing: -0.05em; /* 제목 글자 간격을 줄인다. */
+} /* 섹션 제목 블록을 끝낸다. */
+
+.section-heading p:last-child /* 섹션 설명을 설정한다. */
+{ /* 섹션 설명 블록을 시작한다. */
+    max-width: 780px; /* 설명 너비를 제한한다. */
+    margin: 16px 0 0; /* 제목과 설명 사이 여백을 설정한다. */
+    color: var(--muted); /* 설명 색상을 설정한다. */
+    line-height: 1.8; /* 설명 줄 간격을 넓힌다. */
+} /* 섹션 설명 블록을 끝낸다. */
+
+.feature-grid, .character-grid, .archive-grid /* 카드 그리드 공통 스타일을 설정한다. */
+{ /* 카드 그리드 블록을 시작한다. */
+    display: grid; /* 카드를 격자로 배치한다. */
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* 기본 4열을 만든다. */
+    gap: 18px; /* 카드 사이 간격을 설정한다. */
+} /* 카드 그리드 블록을 끝낸다. */
+
+.feature-card, .character-card, .archive-card, .input-card, .judge-panel, .mode-detail /* 카드 공통 스타일을 설정한다. */
+{ /* 카드 공통 블록을 시작한다. */
+    border: 1px solid var(--line); /* 카드 테두리를 만든다. */
+    border-radius: 22px; /* 카드 모서리를 둥글게 만든다. */
+    background: linear-gradient(155deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)); /* 카드 배경을 은은하게 만든다. */
+} /* 카드 공통 블록을 끝낸다. */
+
+.feature-card /* 특징 카드를 설정한다. */
+{ /* 특징 카드 블록을 시작한다. */
+    padding: 24px; /* 카드 안쪽 여백을 설정한다. */
+    min-height: 220px; /* 카드 최소 높이를 설정한다. */
+} /* 특징 카드 블록을 끝낸다. */
+
+.feature-card span /* 특징 카드 번호를 설정한다. */
+{ /* 카드 번호 블록을 시작한다. */
+    color: var(--pink); /* 번호 색상을 설정한다. */
+    font-family: 'Orbitron', sans-serif; /* 번호 글꼴을 설정한다. */
+    font-weight: 900; /* 번호 글자를 굵게 만든다. */
+} /* 카드 번호 블록을 끝낸다. */
+
+.feature-card h3, .character-card h3, .input-card h3, .mode-detail h3, .archive-card h3 /* 카드 제목 공통 스타일을 설정한다. */
+{ /* 카드 제목 블록을 시작한다. */
+    margin: 16px 0 10px; /* 제목 위아래 여백을 설정한다. */
+    font-size: 21px; /* 제목 글자 크기를 설정한다. */
+} /* 카드 제목 블록을 끝낸다. */
+
+.feature-card p, .character-card p, .input-card p, .mode-detail p, .archive-card p /* 카드 설명 공통 스타일을 설정한다. */
+{ /* 카드 설명 블록을 시작한다. */
+    margin: 0; /* 기본 여백을 제거한다. */
+    color: var(--muted); /* 설명 글자색을 설정한다. */
+    line-height: 1.7; /* 설명 줄 간격을 넓힌다. */
+} /* 카드 설명 블록을 끝낸다. */
+
+.combat-layout /* 전투 영역 레이아웃을 설정한다. */
+{ /* 전투 레이아웃 블록을 시작한다. */
+    display: grid; /* 전투 슬라이드와 점 목록을 세로로 배치한다. */
+    gap: 18px; /* 요소 사이 간격을 설정한다. */
+} /* 전투 레이아웃 블록을 끝낸다. */
+
+.combat-carousel /* 전투 튜토리얼 캐러셀을 설정한다. */
+{ /* 전투 캐러셀 블록을 시작한다. */
+    display: grid; /* 화살표와 카드를 격자로 배치한다. */
+    grid-template-columns: 68px minmax(0, 1fr) 68px; /* 좌우 화살표와 본문 열 비율을 설정한다. */
+    gap: 18px; /* 요소 사이 간격을 설정한다. */
+    align-items: center; /* 요소를 세로 가운데 정렬한다. */
+} /* 전투 캐러셀 블록을 끝낸다. */
+
+.combat-arrow-button /* 전투 화살표 버튼을 설정한다. */
+{ /* 전투 화살표 버튼 블록을 시작한다. */
+    width: 68px; /* 버튼 너비를 설정한다. */
+    height: 68px; /* 버튼 높이를 설정한다. */
+    border: 1px solid var(--line); /* 버튼 테두리를 만든다. */
+    border-radius: 999px; /* 버튼을 원형에 가깝게 만든다. */
+    color: var(--text); /* 버튼 글자색을 설정한다. */
+    background: rgba(255, 255, 255, 0.05); /* 버튼 배경을 반투명하게 만든다. */
+    font-size: 42px; /* 버튼 화살표 크기를 설정한다. */
+    line-height: 1; /* 버튼 줄 높이를 설정한다. */
+    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 바꾼다. */
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease; /* 버튼 변화 효과를 부드럽게 만든다. */
+} /* 전투 화살표 버튼 블록을 끝낸다. */
+
+.combat-arrow-button:hover /* 전투 화살표 버튼 호버를 설정한다. */
+{ /* 전투 화살표 버튼 호버 블록을 시작한다. */
+    transform: translateY(-2px); /* 버튼을 살짝 위로 올린다. */
+    border-color: rgba(77, 233, 255, 0.5); /* 버튼 테두리를 강조한다. */
+    background: rgba(77, 233, 255, 0.1); /* 버튼 배경을 강조한다. */
+} /* 전투 화살표 버튼 호버 블록을 끝낸다. */
+
+.combat-slide-card /* 전투 슬라이드 카드를 설정한다. */
+{ /* 전투 슬라이드 카드 블록을 시작한다. */
+    padding: 24px; /* 카드 안쪽 여백을 설정한다. */
+    border: 1px solid var(--line); /* 카드 테두리를 만든다. */
+    border-radius: 26px; /* 카드 모서리를 둥글게 만든다. */
+    background: linear-gradient(155deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)); /* 카드 배경을 은은하게 만든다. */
+    box-shadow: 0 18px 54px rgba(0, 0, 0, 0.24); /* 카드 그림자를 적용한다. */
+} /* 전투 슬라이드 카드 블록을 끝낸다. */
+
+.combat-slide-top /* 전투 슬라이드 상단 정보를 설정한다. */
+{ /* 전투 슬라이드 상단 블록을 시작한다. */
+    display: flex; /* 상단 요소를 가로로 배치한다. */
+    justify-content: space-between; /* 상단 요소를 양쪽으로 벌린다. */
+    gap: 16px; /* 요소 사이 간격을 설정한다. */
+    align-items: center; /* 요소를 세로 가운데 정렬한다. */
+    margin-bottom: 18px; /* 이미지 영역과의 간격을 설정한다. */
+} /* 전투 슬라이드 상단 블록을 끝낸다. */
+
+.combat-step, .combat-type /* 전투 상단 라벨을 설정한다. */
+{ /* 전투 상단 라벨 블록을 시작한다. */
+    display: inline-flex; /* 라벨을 내용 크기에 맞춘다. */
+    align-items: center; /* 내부를 세로 가운데 정렬한다. */
+    min-height: 38px; /* 라벨 최소 높이를 설정한다. */
+    padding: 0 16px; /* 라벨 좌우 여백을 설정한다. */
+    border-radius: 999px; /* 라벨을 둥글게 만든다. */
+    font-weight: 900; /* 라벨 글자를 굵게 만든다. */
+} /* 전투 상단 라벨 블록을 끝낸다. */
+
+.combat-step /* 전투 페이지 라벨을 설정한다. */
+{ /* 전투 페이지 라벨 블록을 시작한다. */
+    color: #070711; /* 글자색을 어둡게 만든다. */
+    background: linear-gradient(135deg, var(--cyan), var(--pink)); /* 배경을 그라디언트로 만든다. */
+} /* 전투 페이지 라벨 블록을 끝낸다. */
+
+.combat-type /* 전투 타입 라벨을 설정한다. */
+{ /* 전투 타입 라벨 블록을 시작한다. */
+    color: var(--text); /* 글자색을 설정한다. */
+    background: rgba(255, 255, 255, 0.06); /* 배경을 반투명하게 만든다. */
+    border: 1px solid var(--line); /* 테두리를 만든다. */
+} /* 전투 타입 라벨 블록을 끝낸다. */
+
+.combat-image-box /* 전투 튜토리얼 이미지 영역을 설정한다. */
+{ /* 전투 이미지 영역 블록을 시작한다. */
+    overflow: hidden; /* 이미지가 밖으로 나가지 않게 자른다. */
+    border-radius: 20px; /* 이미지 영역 모서리를 둥글게 만든다. */
+    background: rgba(255, 255, 255, 0.95); /* 이미지 영역 배경을 밝게 만든다. */
+    padding: 12px; /* 이미지 주변 여백을 설정한다. */
+} /* 전투 이미지 영역 블록을 끝낸다. */
+
+.combat-image-box img /* 전투 튜토리얼 이미지를 설정한다. */
+{ /* 전투 튜토리얼 이미지 블록을 시작한다. */
+    display: block; /* 이미지를 블록으로 만든다. */
+    width: 100%; /* 이미지 너비를 영역에 맞춘다. */
+    height: auto; /* 이미지 비율을 유지한다. */
+    border-radius: 14px; /* 이미지 모서리를 둥글게 만든다. */
+} /* 전투 튜토리얼 이미지 블록을 끝낸다. */
+
+.combat-copy-box /* 전투 텍스트 설명 영역을 설정한다. */
+{ /* 전투 텍스트 설명 블록을 시작한다. */
+    padding: 24px 4px 4px; /* 설명 영역 여백을 설정한다. */
+} /* 전투 텍스트 설명 블록을 끝낸다. */
+
+.combat-copy-box h3 /* 전투 제목을 설정한다. */
+{ /* 전투 제목 블록을 시작한다. */
+    margin: 18px 0 12px; /* 제목 위아래 여백을 설정한다. */
+    font-size: 30px; /* 제목 글자 크기를 설정한다. */
+} /* 전투 제목 블록을 끝낸다. */
+
+.combat-guide-text /* 전투 조작 요약을 설정한다. */
+{ /* 전투 조작 요약 블록을 시작한다. */
+    margin: 0; /* 기본 여백을 제거한다. */
+    color: var(--cyan); /* 글자색을 강조색으로 만든다. */
+    font-size: 18px; /* 글자 크기를 설정한다. */
+    font-weight: 800; /* 글자를 굵게 만든다. */
+} /* 전투 조작 요약 블록을 끝낸다. */
+
+.combat-desc-text /* 전투 상세 설명을 설정한다. */
+{ /* 전투 상세 설명 블록을 시작한다. */
+    margin: 12px 0 0; /* 위쪽 여백을 설정한다. */
+    color: var(--muted); /* 글자색을 보조색으로 만든다. */
+    line-height: 1.8; /* 줄 간격을 넓힌다. */
+} /* 전투 상세 설명 블록을 끝낸다. */
+
+.combat-dots /* 전투 페이지 점 목록을 설정한다. */
+{ /* 전투 페이지 점 목록 블록을 시작한다. */
+    display: flex; /* 점 목록을 가로로 배치한다. */
+    justify-content: center; /* 점 목록을 가운데 정렬한다. */
+    gap: 10px; /* 점 사이 간격을 설정한다. */
+} /* 전투 페이지 점 목록 블록을 끝낸다. */
+
+.combat-dot /* 전투 페이지 점 버튼을 설정한다. */
+{ /* 전투 페이지 점 버튼 블록을 시작한다. */
+    width: 12px; /* 점 너비를 설정한다. */
+    height: 12px; /* 점 높이를 설정한다. */
+    border: 0; /* 기본 테두리를 제거한다. */
+    border-radius: 999px; /* 점을 원형으로 만든다. */
+    background: rgba(255, 255, 255, 0.24); /* 점 기본 배경을 설정한다. */
+    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 바꾼다. */
+    transition: transform 0.2s ease, background 0.2s ease; /* 점 변화 효과를 부드럽게 만든다. */
+} /* 전투 페이지 점 버튼 블록을 끝낸다. */
+
+.combat-dot.active /* 활성 전투 페이지 점 버튼을 설정한다. */
+{ /* 활성 전투 페이지 점 버튼 블록을 시작한다. */
+    transform: scale(1.2); /* 점 크기를 살짝 키운다. */
+    background: linear-gradient(135deg, var(--cyan), var(--pink)); /* 점 배경을 강조한다. */
+} /* 활성 전투 페이지 점 버튼 블록을 끝낸다. */
+
+.character-card /* 캐릭터 카드를 설정한다. */
+{ /* 캐릭터 카드 블록을 시작한다. */
+    min-height: 260px; /* 캐릭터 카드 높이를 확보한다. */
+} /* 캐릭터 카드 블록을 끝낸다. */
+
+.role-badge /* 캐릭터 역할 배지를 설정한다. */
+{ /* 역할 배지 블록을 시작한다. */
+    display: inline-flex; /* 배지를 내용 크기에 맞춘다. */
+    padding: 6px 10px; /* 배지 안쪽 여백을 설정한다. */
+    border-radius: 999px; /* 배지를 둥글게 만든다. */
+    color: #070711; /* 배지 글자색을 어둡게 만든다. */
+    background: linear-gradient(135deg, var(--cyan), var(--pink)); /* 배지 배경을 그라디언트로 만든다. */
+    font-size: 13px; /* 배지 글자 크기를 설정한다. */
+    font-weight: 900; /* 배지 글자를 굵게 만든다. */
+} /* 역할 배지 블록을 끝낸다. */
+
+.stat-list /* 능력치 목록을 설정한다. */
+{ /* 능력치 목록 블록을 시작한다. */
+    display: grid; /* 능력치를 세로로 배치한다. */
+    gap: 8px; /* 능력치 사이 간격을 설정한다. */
+    margin-top: 18px; /* 설명 아래 여백을 설정한다. */
+} /* 능력치 목록 블록을 끝낸다. */
+
+.stat-row /* 능력치 한 줄을 설정한다. */
+{ /* 능력치 줄 블록을 시작한다. */
+    display: grid; /* 이름과 막대를 격자로 배치한다. */
+    grid-template-columns: 78px 1fr; /* 이름과 막대 열 너비를 설정한다. */
+    gap: 10px; /* 이름과 막대 사이 간격을 설정한다. */
+    align-items: center; /* 줄 내부를 세로 가운데 정렬한다. */
+    color: var(--muted); /* 능력치 이름 색상을 설정한다. */
+    font-size: 13px; /* 능력치 글자 크기를 설정한다. */
+} /* 능력치 줄 블록을 끝낸다. */
+
+.stat-bar /* 능력치 막대 배경을 설정한다. */
+{ /* 능력치 막대 블록을 시작한다. */
+    height: 8px; /* 막대 높이를 설정한다. */
+    border-radius: 999px; /* 막대 모서리를 둥글게 만든다. */
+    background: rgba(255, 255, 255, 0.1); /* 막대 배경을 설정한다. */
+    overflow: hidden; /* 채워진 막대가 밖으로 나가지 않게 자른다. */
+} /* 능력치 막대 블록을 끝낸다. */
+
+.stat-bar span /* 능력치 채움 막대를 설정한다. */
+{ /* 능력치 채움 블록을 시작한다. */
+    display: block; /* 채움 막대를 블록으로 만든다. */
+    height: 100%; /* 채움 막대 높이를 부모와 같게 만든다. */
+    background: linear-gradient(90deg, var(--cyan), var(--pink)); /* 채움 막대 색을 설정한다. */
+} /* 능력치 채움 블록을 끝낸다. */
+
+.character-showcase /* 캐릭터 소개 슬라이드 영역을 설정한다. */
+{ /* 캐릭터 소개 슬라이드 블록을 시작한다. */
+    position: relative; /* 화살표 배치 기준을 만든다. */
+    display: grid; /* 좌우 영역을 격자로 배치한다. */
+    grid-template-columns: 0.9fr 1.1fr; /* 이미지와 설명 영역 비율을 설정한다. */
+    min-height: 560px; /* 소개 영역 높이를 확보한다. */
+    overflow: hidden; /* 장식이 밖으로 나가지 않게 자른다. */
+    border-radius: 32px; /* 소개 영역 모서리를 둥글게 만든다. */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(232, 239, 255, 0.96)); /* 밝은 소개 배경을 만든다. */
+    color: #15182a; /* 소개 영역 기본 글자색을 설정한다. */
+} /* 캐릭터 소개 슬라이드 블록을 끝낸다. */
+
+.character-showcase::before /* 캐릭터 소개 하단 물결 장식을 만든다. */
+{ /* 하단 물결 장식 블록을 시작한다. */
+    content: ""; /* 장식용 가상 요소를 만든다. */
+    position: absolute; /* 소개 영역 안에서 절대 배치한다. */
+    left: -4%; /* 장식을 왼쪽 밖으로 살짝 이동한다. */
+    right: -4%; /* 장식을 오른쪽 밖으로 살짝 이동한다. */
+    bottom: -52px; /* 장식을 아래쪽에 배치한다. */
+    height: 140px; /* 물결 장식 높이를 설정한다. */
+    background: radial-gradient(90% 100% at 50% 0%, rgba(77, 233, 255, 0.44), transparent 62%), linear-gradient(135deg, rgba(77, 233, 255, 0.92), rgba(141, 91, 255, 0.72), rgba(255, 209, 102, 0.7)); /* 물결 색상을 만든다. */
+    clip-path: polygon(0 52%, 14% 36%, 30% 48%, 46% 30%, 62% 44%, 78% 26%, 100% 38%, 100% 100%, 0 100%); /* 물결 모양을 만든다. */
+} /* 하단 물결 장식 블록을 끝낸다. */
+
+.character-visual-panel /* 캐릭터 비주얼 패널을 설정한다. */
+{ /* 캐릭터 비주얼 패널 블록을 시작한다. */
+    position: relative; /* 내부 캐릭터 배치 기준을 만든다. */
+    display: flex; /* 캐릭터 비주얼을 가운데 배치한다. */
+    align-items: center; /* 세로 가운데 정렬을 적용한다. */
+    justify-content: center; /* 가로 가운데 정렬을 적용한다. */
+    min-height: 560px; /* 비주얼 패널 높이를 확보한다. */
+} /* 캐릭터 비주얼 패널 블록을 끝낸다. */
+
+.character-visual-panel::before /* 캐릭터 배경 말굽 장식을 만든다. */
+{ /* 말굽 장식 블록을 시작한다. */
+    content: ""; /* 장식용 가상 요소를 만든다. */
+    position: absolute; /* 비주얼 패널 안에서 절대 배치한다. */
+    inset: 44px 36px 96px; /* 장식의 위치와 크기를 설정한다. */
+    background-image: radial-gradient(circle at 20% 18%, rgba(77, 233, 255, 0.18) 0 8%, transparent 9%), radial-gradient(circle at 72% 24%, rgba(255, 79, 216, 0.16) 0 7%, transparent 8%), radial-gradient(circle at 38% 72%, rgba(255, 209, 102, 0.18) 0 8%, transparent 9%); /* 배경 문양을 만든다. */
+} /* 말굽 장식 블록을 끝낸다. */
+
+.character-symbol /* 캐릭터 좌측 상징 문양을 설정한다. */
+{ /* 상징 문양 블록을 시작한다. */
+    position: absolute; /* 왼쪽에 장식으로 배치한다. */
+    left: 28px; /* 왼쪽 위치를 설정한다. */
+    top: 45%; /* 세로 위치를 설정한다. */
+    color: var(--pink); /* 상징 문양 색상을 설정한다. */
+    font-size: 82px; /* 상징 문양 크기를 설정한다. */
+    font-weight: 900; /* 상징 문양 두께를 설정한다. */
+    transform: rotate(-12deg); /* 상징 문양을 기울인다. */
+} /* 상징 문양 블록을 끝낸다. */
+
+.character-portrait /* 캐릭터 일러스트 대체 비주얼을 설정한다. */
+{ /* 캐릭터 비주얼 블록을 시작한다. */
+    position: relative; /* 장식 기준점을 만든다. */
+    z-index: 1; /* 배경 장식보다 위에 배치한다. */
+    display: flex; /* 문양을 가운데 배치한다. */
+    align-items: center; /* 문양을 세로 가운데 정렬한다. */
+    justify-content: center; /* 문양을 가로 가운데 정렬한다. */
+    width: min(310px, 70%); /* 비주얼 너비를 설정한다. */
+    aspect-ratio: 0.62; /* 캐릭터형 세로 비율을 만든다. */
+    border-radius: 48% 48% 22% 22%; /* 캐릭터 실루엣 형태를 만든다. */
+    color: rgba(255, 255, 255, 0.9); /* 문양 글자색을 설정한다. */
+    font-size: 118px; /* 중앙 문양 크기를 설정한다. */
+    font-weight: 900; /* 중앙 문양 두께를 설정한다. */
+    background: linear-gradient(160deg, rgba(77, 233, 255, 0.9), rgba(141, 91, 255, 0.8)); /* 기본 캐릭터 색상을 만든다. */
+    box-shadow: 0 32px 70px rgba(13, 19, 38, 0.24); /* 캐릭터 그림자를 만든다. */
+} /* 캐릭터 비주얼 블록을 끝낸다. */
+
+.character-portrait[data-color="pink"] /* 분홍 캐릭터 색상을 설정한다. */
+{ /* 분홍 캐릭터 색상 블록을 시작한다. */
+    background: linear-gradient(160deg, rgba(255, 79, 216, 0.94), rgba(255, 209, 102, 0.78)); /* 분홍 계열 배경을 만든다. */
+} /* 분홍 캐릭터 색상 블록을 끝낸다. */
+
+.character-portrait[data-color="violet"] /* 보라 캐릭터 색상을 설정한다. */
+{ /* 보라 캐릭터 색상 블록을 시작한다. */
+    background: linear-gradient(160deg, rgba(141, 91, 255, 0.94), rgba(77, 233, 255, 0.74)); /* 보라 계열 배경을 만든다. */
+} /* 보라 캐릭터 색상 블록을 끝낸다. */
+
+.character-portrait[data-color="gold"] /* 금색 캐릭터 색상을 설정한다. */
+{ /* 금색 캐릭터 색상 블록을 시작한다. */
+    background: linear-gradient(160deg, rgba(255, 209, 102, 0.95), rgba(255, 79, 216, 0.62)); /* 금색 계열 배경을 만든다. */
+} /* 금색 캐릭터 색상 블록을 끝낸다. */
+
+.character-info-panel /* 캐릭터 설명 패널을 설정한다. */
+{ /* 캐릭터 설명 패널 블록을 시작한다. */
+    position: relative; /* 내부 요소 배치 기준을 만든다. */
+    z-index: 1; /* 배경 장식보다 위에 배치한다. */
+    display: flex; /* 설명 요소를 세로로 배치한다. */
+    flex-direction: column; /* 설명 요소를 위아래로 배치한다. */
+    justify-content: center; /* 설명을 세로 가운데에 배치한다. */
+    padding: 74px 78px 92px 44px; /* 설명 패널 안쪽 여백을 설정한다. */
+} /* 캐릭터 설명 패널 블록을 끝낸다. */
+
+.character-thumbnails /* 캐릭터 썸네일 목록을 설정한다. */
+{ /* 썸네일 목록 블록을 시작한다. */
+    position: absolute; /* 설명 패널 상단에 배치한다. */
+    top: 34px; /* 위쪽 위치를 설정한다. */
+    right: 78px; /* 오른쪽 위치를 설정한다. */
+    display: flex; /* 썸네일을 가로로 배치한다. */
+    gap: 10px; /* 썸네일 사이 간격을 설정한다. */
+} /* 썸네일 목록 블록을 끝낸다. */
+
+.character-thumb /* 캐릭터 썸네일 버튼을 설정한다. */
+{ /* 썸네일 버튼 블록을 시작한다. */
+    display: flex; /* 내부 문양을 가운데 배치한다. */
+    align-items: center; /* 내부 문양을 세로 가운데 정렬한다. */
+    justify-content: center; /* 내부 문양을 가로 가운데 정렬한다. */
+    width: 48px; /* 썸네일 너비를 설정한다. */
+    height: 48px; /* 썸네일 높이를 설정한다. */
+    border: 2px solid transparent; /* 기본 테두리를 투명하게 만든다. */
+    border-radius: 14px; /* 썸네일 모서리를 둥글게 만든다. */
+    color: #15182a; /* 썸네일 글자색을 설정한다. */
+    background: rgba(21, 24, 42, 0.08); /* 썸네일 배경을 설정한다. */
+    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 바꾼다. */
+} /* 썸네일 버튼 블록을 끝낸다. */
+
+.character-thumb.active /* 활성 썸네일 버튼을 설정한다. */
+{ /* 활성 썸네일 블록을 시작한다. */
+    border-color: var(--violet); /* 활성 썸네일 테두리를 강조한다. */
+    background: rgba(141, 91, 255, 0.14); /* 활성 썸네일 배경을 강조한다. */
+} /* 활성 썸네일 블록을 끝낸다. */
+
+.character-code /* 캐릭터 코드명을 설정한다. */
+{ /* 캐릭터 코드명 블록을 시작한다. */
+    margin: 0 0 8px; /* 코드명 아래 여백을 설정한다. */
+    color: #5e6a9a; /* 코드명 색상을 설정한다. */
+    font-family: 'Orbitron', sans-serif; /* 코드명 글꼴을 설정한다. */
+    font-size: 13px; /* 코드명 글자 크기를 설정한다. */
+    font-weight: 900; /* 코드명 글자 두께를 설정한다. */
+    letter-spacing: 0.08em; /* 코드명 글자 간격을 설정한다. */
+} /* 캐릭터 코드명 블록을 끝낸다. */
+
+.character-info-panel h3 /* 캐릭터 이름을 설정한다. */
+{ /* 캐릭터 이름 블록을 시작한다. */
+    margin: 0 0 10px; /* 이름 아래 여백을 설정한다. */
+    color: #050716; /* 이름 글자색을 설정한다. */
+    font-size: clamp(34px, 5vw, 58px); /* 이름 글자 크기를 화면에 맞춘다. */
+    line-height: 1.05; /* 이름 줄 간격을 설정한다. */
+    letter-spacing: -0.05em; /* 이름 글자 간격을 줄인다. */
+} /* 캐릭터 이름 블록을 끝낸다. */
+
+.character-role-line /* 캐릭터 역할 문구를 설정한다. */
+{ /* 캐릭터 역할 문구 블록을 시작한다. */
+    margin: 0 0 28px; /* 역할 아래 여백을 설정한다. */
+    color: #1f2540; /* 역할 문구 색상을 설정한다. */
+    font-weight: 900; /* 역할 문구 두께를 설정한다. */
+} /* 캐릭터 역할 문구 블록을 끝낸다. */
+
+.character-info-panel blockquote /* 캐릭터 대사 영역을 설정한다. */
+{ /* 캐릭터 대사 블록을 시작한다. */
+    margin: 0 0 22px; /* 대사 아래 여백을 설정한다. */
+    color: #5664a8; /* 대사 글자색을 설정한다. */
+    font-size: 19px; /* 대사 글자 크기를 설정한다. */
+    font-weight: 800; /* 대사 글자 두께를 설정한다. */
+    line-height: 1.7; /* 대사 줄 간격을 설정한다. */
+} /* 캐릭터 대사 블록을 끝낸다. */
+
+.character-desc-text /* 캐릭터 설명 문구를 설정한다. */
+{ /* 캐릭터 설명 문구 블록을 시작한다. */
+    margin: 0 0 24px; /* 설명 아래 여백을 설정한다. */
+    color: #596071; /* 설명 글자색을 설정한다. */
+    line-height: 1.85; /* 설명 줄 간격을 설정한다. */
+} /* 캐릭터 설명 문구 블록을 끝낸다. */
+
+.character-stat-panel .stat-row /* 밝은 패널의 능력치 줄을 설정한다. */
+{ /* 밝은 능력치 줄 블록을 시작한다. */
+    color: #39405f; /* 능력치 이름 색상을 어둡게 설정한다. */
+} /* 밝은 능력치 줄 블록을 끝낸다. */
+
+.character-stat-panel .stat-bar /* 밝은 패널의 능력치 막대 배경을 설정한다. */
+{ /* 밝은 능력치 막대 블록을 시작한다. */
+    background: rgba(21, 24, 42, 0.12); /* 능력치 막대 배경을 어둡게 설정한다. */
+} /* 밝은 능력치 막대 블록을 끝낸다. */
+
+.character-arrow /* 캐릭터 이동 화살표를 설정한다. */
+{ /* 캐릭터 이동 화살표 블록을 시작한다. */
+    position: absolute; /* 슬라이드 양쪽에 배치한다. */
+    top: 50%; /* 세로 가운데 위치를 설정한다. */
+    z-index: 3; /* 다른 요소보다 위에 배치한다. */
+    width: 42px; /* 화살표 버튼 너비를 설정한다. */
+    height: 64px; /* 화살표 버튼 높이를 설정한다. */
+    border: 0; /* 기본 테두리를 제거한다. */
+    color: #2e3454; /* 화살표 색상을 설정한다. */
+    background: transparent; /* 화살표 배경을 투명하게 만든다. */
+    font-size: 58px; /* 화살표 크기를 설정한다. */
+    line-height: 1; /* 화살표 줄 높이를 설정한다. */
+    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 바꾼다. */
+    transform: translateY(-50%); /* 화살표를 정확히 가운데 정렬한다. */
+} /* 캐릭터 이동 화살표 블록을 끝낸다. */
+
+.character-arrow-left /* 왼쪽 화살표 위치를 설정한다. */
+{ /* 왼쪽 화살표 블록을 시작한다. */
+    left: 18px; /* 왼쪽 위치를 설정한다. */
+} /* 왼쪽 화살표 블록을 끝낸다. */
+
+.character-arrow-right /* 오른쪽 화살표 위치를 설정한다. */
+{ /* 오른쪽 화살표 블록을 시작한다. */
+    right: 18px; /* 오른쪽 위치를 설정한다. */
+} /* 오른쪽 화살표 블록을 끝낸다. */
+
+.mode-tabs /* 모드 탭 버튼 묶음을 설정한다. */
+{ /* 모드 탭 블록을 시작한다. */
+    display: flex; /* 탭 버튼을 가로로 배치한다. */
+    flex-wrap: wrap; /* 화면이 좁으면 탭을 줄바꿈한다. */
+    gap: 10px; /* 탭 사이 간격을 설정한다. */
+    margin-bottom: 18px; /* 탭 아래 여백을 설정한다. */
+} /* 모드 탭 블록을 끝낸다. */
+
+.mode-tab, .filter-button /* 작은 조작 버튼을 설정한다. */
+{ /* 작은 버튼 블록을 시작한다. */
+    border: 1px solid var(--line); /* 버튼 테두리를 만든다. */
+    border-radius: 999px; /* 버튼을 둥글게 만든다. */
+    color: var(--muted); /* 버튼 글자색을 설정한다. */
+    background: rgba(255, 255, 255, 0.04); /* 버튼 배경을 반투명하게 만든다. */
+    padding: 10px 15px; /* 버튼 안쪽 여백을 설정한다. */
+    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 바꾼다. */
+} /* 작은 버튼 블록을 끝낸다. */
+
+.mode-tab.active, .filter-button.active /* 활성 버튼을 설정한다. */
+{ /* 활성 버튼 블록을 시작한다. */
+    color: #070711; /* 활성 버튼 글자색을 어둡게 만든다. */
+    border-color: transparent; /* 활성 버튼 테두리를 투명하게 만든다. */
+    background: linear-gradient(135deg, var(--cyan), var(--pink)); /* 활성 버튼 배경을 강조한다. */
+} /* 활성 버튼 블록을 끝낸다. */
+
+.mode-detail /* 모드 상세 패널을 설정한다. */
+{ /* 모드 상세 블록을 시작한다. */
+    padding: 28px; /* 패널 안쪽 여백을 설정한다. */
+    min-height: 170px; /* 패널 최소 높이를 설정한다. */
+} /* 모드 상세 블록을 끝낸다. */
+
+.archive-tools /* 아카이브 도구 영역을 설정한다. */
+{ /* 아카이브 도구 블록을 시작한다. */
+    display: flex; /* 필터와 검색창을 가로로 배치한다. */
+    justify-content: space-between; /* 양쪽으로 벌려 배치한다. */
+    gap: 18px; /* 요소 사이 간격을 설정한다. */
+    align-items: center; /* 요소를 세로 가운데 정렬한다. */
+    margin-bottom: 16px; /* 도구 아래 여백을 설정한다. */
+} /* 아카이브 도구 블록을 끝낸다. */
+
+.filter-group /* 필터 버튼 묶음을 설정한다. */
+{ /* 필터 묶음 블록을 시작한다. */
+    display: flex; /* 필터 버튼을 가로로 배치한다. */
+    flex-wrap: wrap; /* 화면이 좁으면 줄바꿈한다. */
+    gap: 8px; /* 필터 버튼 사이 간격을 설정한다. */
+} /* 필터 묶음 블록을 끝낸다. */
+
+.search-box /* 검색 영역을 설정한다. */
+{ /* 검색 영역 블록을 시작한다. */
+    display: flex; /* 라벨과 입력칸을 가로로 배치한다. */
+    align-items: center; /* 요소를 세로 가운데 정렬한다. */
+    gap: 10px; /* 라벨과 입력칸 사이 간격을 설정한다. */
+    color: var(--muted); /* 라벨 색상을 설정한다. */
+    font-weight: 800; /* 라벨 글자를 굵게 만든다. */
+} /* 검색 영역 블록을 끝낸다. */
+
+.search-box input /* 검색 입력칸을 설정한다. */
+{ /* 검색 입력칸 블록을 시작한다. */
+    width: min(320px, 48vw); /* 입력칸 너비를 화면에 맞춘다. */
+    border: 1px solid var(--line); /* 입력칸 테두리를 만든다. */
+    border-radius: 999px; /* 입력칸을 둥글게 만든다. */
+    color: var(--text); /* 입력 글자색을 설정한다. */
+    background: rgba(255, 255, 255, 0.05); /* 입력칸 배경을 반투명하게 만든다. */
+    padding: 11px 14px; /* 입력칸 안쪽 여백을 설정한다. */
+    outline: none; /* 클릭 시 기본 외곽선을 제거한다. */
+} /* 검색 입력칸 블록을 끝낸다. */
+
+.result-count /* 결과 개수 문구를 설정한다. */
+{ /* 결과 개수 블록을 시작한다. */
+    margin: 0 0 16px; /* 아래 여백을 설정한다. */
+    color: var(--gold); /* 결과 개수 색상을 금색으로 만든다. */
+    font-weight: 900; /* 결과 개수 글자를 굵게 만든다. */
+} /* 결과 개수 블록을 끝낸다. */
+
+.archive-card small /* 아카이브 카드 분류를 설정한다. */
+{ /* 아카이브 분류 블록을 시작한다. */
+    color: var(--cyan); /* 분류 색상을 설정한다. */
+    font-weight: 900; /* 분류 글자를 굵게 만든다. */
+} /* 아카이브 분류 블록을 끝낸다. */
+
+.site-footer /* 하단 푸터를 설정한다. */
+{ /* 푸터 블록을 시작한다. */
+    width: min(1180px, calc(100% - 32px)); /* 푸터 너비를 콘텐츠와 맞춘다. */
+    margin: 0 auto 36px; /* 푸터를 가운데 배치하고 아래 여백을 둔다. */
+    padding: 26px 0; /* 푸터 위아래 여백을 설정한다. */
+    color: var(--muted); /* 푸터 글자색을 설정한다. */
+    text-align: center; /* 푸터 문구를 가운데 정렬한다. */
+    border-top: 1px solid var(--line); /* 푸터 위 구분선을 만든다. */
+} /* 푸터 블록을 끝낸다. */
+
+.reveal-item /* 등장 애니메이션 대상의 기본 상태를 설정한다. */
+{ /* 등장 대상 블록을 시작한다. */
+    opacity: 0; /* 처음에는 투명하게 만든다. */
+    transform: translateY(24px); /* 처음에는 아래에 위치시킨다. */
+    transition: opacity 0.6s ease, transform 0.6s ease; /* 등장 효과를 부드럽게 만든다. */
+} /* 등장 대상 블록을 끝낸다. */
+
+.reveal-item.visible /* 등장 애니메이션 완료 상태를 설정한다. */
+{ /* 등장 완료 블록을 시작한다. */
+    opacity: 1; /* 보이게 만든다. */
+    transform: translateY(0); /* 원래 위치로 올린다. */
+} /* 등장 완료 블록을 끝낸다. */
+
+@media (max-width: 980px) /* 태블릿 이하 화면 스타일을 설정한다. */
+{ /* 태블릿 미디어 쿼리를 시작한다. */
+    .hero-section /* 태블릿 첫 화면 배치를 설정한다. */
+    { /* 태블릿 첫 화면 블록을 시작한다. */
+        grid-template-columns: 1fr; /* 첫 화면을 한 열로 배치한다. */
+    } /* 태블릿 첫 화면 블록을 끝낸다. */
+    .feature-grid, .character-grid, .archive-grid /* 태블릿 카드 그리드를 설정한다. */
+    { /* 태블릿 카드 그리드 블록을 시작한다. */
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 카드를 2열로 배치한다. */
+    } /* 태블릿 카드 그리드 블록을 끝낸다. */
+    .character-showcase /* 태블릿 캐릭터 소개 배치를 설정한다. */
+    { /* 태블릿 캐릭터 소개 블록을 시작한다. */
+        grid-template-columns: 1fr; /* 캐릭터 소개를 한 열로 배치한다. */
+    } /* 태블릿 캐릭터 소개 블록을 끝낸다. */
+    .character-info-panel /* 태블릿 캐릭터 설명 패널을 설정한다. */
+    { /* 태블릿 캐릭터 설명 블록을 시작한다. */
+        padding: 40px 58px 92px; /* 태블릿 설명 여백을 설정한다. */
+    } /* 태블릿 캐릭터 설명 블록을 끝낸다. */
+    .character-thumbnails /* 태블릿 썸네일 위치를 설정한다. */
+    { /* 태블릿 썸네일 블록을 시작한다. */
+        position: static; /* 썸네일을 문서 흐름에 배치한다. */
+        margin-bottom: 28px; /* 썸네일 아래 여백을 설정한다. */
+    } /* 태블릿 썸네일 블록을 끝낸다. */
+    .combat-carousel /* 태블릿 전투 캐러셀을 설정한다. */
+    { /* 태블릿 전투 캐러셀 블록을 시작한다. */
+        grid-template-columns: 56px minmax(0, 1fr) 56px; /* 화살표와 카드를 좁은 화면에 맞춘다. */
+    } /* 태블릿 전투 캐러셀 블록을 끝낸다. */
+} /* 태블릿 미디어 쿼리를 끝낸다. */
+
+@media (max-width: 720px) /* 모바일 화면 스타일을 설정한다. */
+{ /* 모바일 미디어 쿼리를 시작한다. */
+    .menu-toggle /* 모바일 메뉴 버튼을 보이게 설정한다. */
+    { /* 모바일 메뉴 버튼 블록을 시작한다. */
+        display: inline-flex; /* 모바일에서 버튼을 보이게 만든다. */
+    } /* 모바일 메뉴 버튼 블록을 끝낸다. */
+    .top-nav /* 모바일 메뉴를 접힌 상태로 설정한다. */
+    { /* 모바일 메뉴 블록을 시작한다. */
+        position: absolute; /* 헤더 아래에 메뉴를 배치한다. */
+        left: 16px; /* 왼쪽 여백을 설정한다. */
+        right: 16px; /* 오른쪽 여백을 설정한다. */
+        top: 68px; /* 헤더 아래 위치를 설정한다. */
+        display: none; /* 기본적으로 메뉴를 숨긴다. */
+        flex-direction: column; /* 메뉴를 세로로 배치한다. */
+        align-items: stretch; /* 메뉴 너비를 채운다. */
+        padding: 16px; /* 메뉴 안쪽 여백을 설정한다. */
+        border: 1px solid var(--line); /* 메뉴 테두리를 만든다. */
+        border-radius: 18px; /* 메뉴 모서리를 둥글게 만든다. */
+        background: rgba(7, 7, 17, 0.94); /* 메뉴 배경을 진하게 만든다. */
+    } /* 모바일 메뉴 블록을 끝낸다. */
+    .top-nav.open /* 모바일 메뉴 열린 상태를 설정한다. */
+    { /* 모바일 메뉴 열린 블록을 시작한다. */
+        display: flex; /* 메뉴를 화면에 표시한다. */
+    } /* 모바일 메뉴 열린 블록을 끝낸다. */
+    .feature-grid, .character-grid, .archive-grid /* 모바일 카드 그리드를 설정한다. */
+    { /* 모바일 카드 그리드 블록을 시작한다. */
+        grid-template-columns: 1fr; /* 카드를 한 열로 배치한다. */
+    } /* 모바일 카드 그리드 블록을 끝낸다. */
+    .character-visual-panel /* 모바일 캐릭터 비주얼 패널을 설정한다. */
+    { /* 모바일 캐릭터 비주얼 블록을 시작한다. */
+        min-height: 420px; /* 모바일 비주얼 높이를 줄인다. */
+    } /* 모바일 캐릭터 비주얼 블록을 끝낸다. */
+    .character-info-panel /* 모바일 캐릭터 설명 패널을 설정한다. */
+    { /* 모바일 캐릭터 설명 블록을 시작한다. */
+        padding: 32px 42px 82px; /* 모바일 설명 여백을 설정한다. */
+    } /* 모바일 캐릭터 설명 블록을 끝낸다. */
+    .character-arrow /* 모바일 화살표 크기를 설정한다. */
+    { /* 모바일 화살표 블록을 시작한다. */
+        font-size: 44px; /* 모바일 화살표 글자 크기를 줄인다. */
+    } /* 모바일 화살표 블록을 끝낸다. */
+    .archive-tools /* 모바일 아카이브 도구를 설정한다. */
+    { /* 모바일 도구 블록을 시작한다. */
+        align-items: stretch; /* 도구를 너비에 맞게 늘린다. */
+        flex-direction: column; /* 도구를 세로로 배치한다. */
+    } /* 모바일 도구 블록을 끝낸다. */
+    .hero-visual /* 모바일 비주얼 높이를 설정한다. */
+    { /* 모바일 비주얼 블록을 시작한다. */
+        min-height: 430px; /* 모바일에서 비주얼 높이를 줄인다. */
+    } /* 모바일 비주얼 블록을 끝낸다. */
+} /* 모바일 미디어 쿼리를 끝낸다. */

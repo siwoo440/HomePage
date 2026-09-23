@@ -1,0 +1,185 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식을 사용한다고 브라우저에 알려준다. -->
+<html lang="ko"> <!-- 문서의 기본 언어를 한국어로 설정한다. -->
+<head> <!-- 문서 정보 영역을 시작한다. -->
+    <meta charset="UTF-8"> <!-- 한글이 깨지지 않도록 문자 인코딩을 설정한다. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 화면에서도 올바르게 보이도록 설정한다. -->
+    <title>Project J 기획서</title> <!-- 브라우저 탭에 표시될 제목을 설정한다. -->
+    <link rel="stylesheet" href="ProjectJ_Style.css"> <!-- 공용 CSS 파일을 연결한다. -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head> <!-- 문서 정보 영역을 끝낸다. -->
+<body> <!-- 실제 화면에 보이는 영역을 시작한다. -->
+    <div class="page-shell"> <!-- 전체 페이지 너비를 관리하는 큰 박스를 만든다. -->
+        <header class="hero-section" id="overview"> <!-- 상단 소개 영역을 만든다. -->
+            <nav class="top-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 상단 메뉴 영역을 만든다. -->
+                <!-- DEVFORGE 로고: 클릭 시 홈(main.html)으로 이동한다. -->
+                <a href="../main.html" class="top-nav-logo">DEVFORGE</a>
+                <!-- 오른쪽 링크 묶음 -->
+                <div class="top-nav-links">
+                    <a href="ProjectJ_Main.html#overview">메인</a>
+                    <a href="ProjectJ_Main.html#visual">이미지 기록</a>
+                    <a href="ProjectJ_Main.html#archive">아카이브</a>
+                    <a href="ProjectJ_Main.html#timeline">사건 기록</a>
+                    <a href="ProjectJ_Main.html#glossary">용어</a>
+                </div>
+            </nav> <!-- 상단 메뉴 영역을 끝낸다. -->
+            <section class="hero-card image-panel" style="--image: url('images/world/hero-main.jpg');"> <!-- 메인 소개 카드를 만든다. -->
+                <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                <div class="hero-content"> <!-- 메인 소개 글을 담는 영역을 만든다. -->
+                    <p class="eyebrow">Project J — 턴제전략 · 액션 · RPG</p> <!-- 작은 분류 문구를 표시한다. -->
+                    <h1>생각하고 움직이고 싸워라, 세 가지가 하나로</h1> <!-- 페이지의 큰 제목을 표시한다. -->
+                    <p class="hero-desc">깊이 있는 턴제 전략과 박진감 있는 액션, 방대한 RPG 성장이 하나로 융합된 전례 없는 장르 크로스오버.</p> <!-- 세계관 핵심 설명을 표시한다. -->
+                    <div class="hero-meta"> <!-- 핵심 키워드를 담는 영역을 만든다. -->
+                        <span>장르 융합</span>
+                        <span>턴제 액션</span>
+                        <span>전략 RPG</span>
+                    </div> <!-- 핵심 키워드 영역을 끝낸다. -->
+                </div> <!-- 메인 소개 글 영역을 끝낸다. -->
+            </section> <!-- 메인 소개 카드를 끝낸다. -->
+        </header> <!-- 상단 소개 영역을 끝낸다. -->
+        <main> <!-- 페이지의 주요 내용을 시작한다. -->
+            <section id="visual" class="section-block visual-section"> <!-- 이미지 기록 영역을 만든다. -->
+                <div class="section-heading">
+                    <p class="eyebrow">Visual Archive</p>
+                    <h2>이미지 기록</h2>
+                    <p>실제 이미지 파일을 넣으면 게임 콘셉트, 세계관, 캐릭터 이미지를 바로 보여주는 영역입니다.</p>
+                </div>
+                <div class="visual-grid">
+                    <article class="visual-card visual-card-large image-panel" style="--image: url('images/world/strategy.jpg');"> <!-- Strategy 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div>
+                        <div class="visual-content">
+                            <span class="visual-label">Strategy</span>
+                            <h3>전략 맵</h3>
+                            <p>턴제 전략 배치 화면 이미지 자리입니다.</p>
+                        </div>
+                    </article>
+                    <article class="visual-card image-panel" style="--image: url('images/world/action.jpg');"> <!-- Action 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div>
+                        <div class="visual-content">
+                            <span class="visual-label">Action</span>
+                            <h3>액션 전투</h3>
+                            <p>실시간 액션 전투 장면 이미지 자리입니다.</p>
+                        </div>
+                    </article>
+                    <article class="visual-card image-panel" style="--image: url('images/world/growth.jpg');"> <!-- Growth 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div>
+                        <div class="visual-content">
+                            <span class="visual-label">Growth</span>
+                            <h3>캐릭터 성장</h3>
+                            <p>RPG 레벨업과 스킬 트리 이미지 자리입니다.</p>
+                        </div>
+                    </article>
+                    <article class="visual-card image-panel" style="--image: url('images/world/world.jpg');"> <!-- World 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div>
+                        <div class="visual-content">
+                            <span class="visual-label">World</span>
+                            <h3>전쟁 세계관</h3>
+                            <p>전쟁이 펼쳐지는 세계 배경 이미지 자리입니다.</p>
+                        </div>
+                    </article>
+                </div>
+            </section> <!-- 이미지 기록 영역을 끝낸다. -->
+            <section id="archive" class="section-block"> <!-- 정보 카드 아카이브 영역을 만든다. -->
+                <div class="section-heading">
+                    <p class="eyebrow">World Archive</p>
+                    <h2>세계관 정보 카드</h2>
+                    <p>각 정보 카드는 이미지와 설명을 함께 보여주며, 버튼과 검색창으로 빠르게 분류할 수 있습니다.</p>
+                </div>
+                <div class="tool-bar">
+                    <div class="filter-group" aria-label="분류">
+                        <button class="filter-button active" data-filter="전체" type="button">전체</button>
+                        <button class="filter-button" data-filter="핵심 개념" type="button">핵심 개념</button>
+                        <button class="filter-button" data-filter="주요 세력" type="button">주요 세력</button>
+                        <button class="filter-button" data-filter="사건" type="button">사건</button>
+                        <button class="filter-button" data-filter="배경 소재" type="button">배경 소재</button>
+                    </div>
+                    <label class="search-box" for="searchInput">
+                        <span>검색</span>
+                        <input id="searchInput" type="search" placeholder="키워드 검색">
+                    </label>
+                </div>
+                <p id="resultCount" class="result-count">0개의 항목</p>
+                <div class="carousel-shell" aria-label="카드 슬라이더">
+                    <button id="prevCardButton" class="carousel-button carousel-button-left" type="button" aria-label="이전 카드 보기">‹</button>
+                    <div class="carousel-viewport">
+                        <div id="cardGrid" class="card-track" aria-live="polite"></div>
+                    </div>
+                    <button id="nextCardButton" class="carousel-button carousel-button-right" type="button" aria-label="다음 카드 보기">›</button>
+                </div>
+                <div id="cardDots" class="card-dots" aria-label="카드 위치 버튼"></div>
+            </section> <!-- 정보 카드 아카이브 영역을 끝낸다. -->
+            <section id="timeline" class="section-block timeline-section"> <!-- 사건 기록 영역을 만든다. -->
+                <div class="section-heading">
+                    <p class="eyebrow">Incident Timeline</p>
+                    <h2>사건 기록</h2>
+                    <p>게임 세계관의 주요 사건들을 시간 순서로 정리한 기록입니다.</p>
+                </div>
+                <div class="timeline-list">
+                    <article class="timeline-item"> <!-- 01 사건을 만든다. -->
+                        <div class="timeline-image image-panel" style="--image: url('images/world/incident-01.jpg');"></div>
+                        <div class="timeline-text">
+                            <span>01</span>
+                            <h3>동맹의 붕괴</h3>
+                            <p>오랜 동맹이 무너지며 전쟁의 시대가 열립니다.</p>
+                        </div>
+                    </article>
+                    <article class="timeline-item"> <!-- 02 사건을 만든다. -->
+                        <div class="timeline-image image-panel" style="--image: url('images/world/incident-02.jpg');"></div>
+                        <div class="timeline-text">
+                            <span>02</span>
+                            <h3>전략가의 등장</h3>
+                            <p>천재 전략가가 혼란한 전장에 나타나 판도를 바꿉니다.</p>
+                        </div>
+                    </article>
+                    <article class="timeline-item"> <!-- 03 사건을 만든다. -->
+                        <div class="timeline-image image-panel" style="--image: url('images/world/incident-03.jpg');"></div>
+                        <div class="timeline-text">
+                            <span>03</span>
+                            <h3>최후의 결전</h3>
+                            <p>모든 세력이 최후의 결전에 집결합니다.</p>
+                        </div>
+                    </article>
+                </div>
+            </section> <!-- 사건 기록 영역을 끝낸다. -->
+            <section id="glossary" class="section-block glossary-section"> <!-- 용어 정리 영역을 만든다. -->
+                <div class="section-heading">
+                    <p class="eyebrow">Glossary</p>
+                    <h2>핵심 용어</h2>
+                    <p>게임 세계관에서 자주 사용하는 핵심 용어 정리입니다.</p>
+                </div>
+                <dl class="glossary-list">
+                    <div>
+                        <dt>턴</dt>
+                        <dd>플레이어와 적이 번갈아 행동하는 기본 단위입니다.</dd>
+                    </div>
+                    <div>
+                        <dt>액션 게이지</dt>
+                        <dd>실시간 전투 전환을 결정하는 에너지 수치입니다.</dd>
+                    </div>
+                    <div>
+                        <dt>스킬 트리</dt>
+                        <dd>캐릭터 성장 방향을 결정하는 능력 선택 구조입니다.</dd>
+                    </div>
+                    <div>
+                        <dt>전선</dt>
+                        <dd>전투가 벌어지는 접경 지역입니다.</dd>
+                    </div>
+                </dl>
+            </section> <!-- 용어 정리 영역을 끝낸다. -->
+        </main> <!-- 페이지의 주요 내용을 끝낸다. -->
+        <footer class="site-footer"> <!-- 하단 영역을 만든다. -->
+            <p>Project J 기획서 · DEVFORGE Studio</p>
+        </footer> <!-- 하단 영역을 끝낸다. -->
+    </div> <!-- 전체 페이지 너비 박스를 끝낸다. -->
+    <script>
+    /* 각 프로젝트 고유 카드 데이터 — 추후 기획서 내용으로 채워주세요. */
+    const loreData = [
+        { type:"핵심 개념", title:"기획 준비 중", body:"이 항목은 기획서 내용이 확정되면 업데이트됩니다. (Project J 기획서)", image:"", tags:["준비 중"] },
+        { type:"배경 소재", title:"세계관 구성 예정", body:"세계관 상세 내용이 추가될 예정입니다.", image:"", tags:["준비 중"] },
+    ];
+    </script>
+    <script src="ProjectJ_Script.js"></script> <!-- 공용 카드 슬라이더 스크립트를 연결한다. -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 실제 화면에 보이는 영역을 끝낸다. -->
+</html> <!-- HTML 문서를 끝낸다. -->

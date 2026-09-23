@@ -1,0 +1,285 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식 -->
+<html lang="ko"> <!-- 한국어 문서 -->
+<head> <!-- 문서 정보 시작 -->
+    <meta charset="UTF-8"> <!-- 한글 인코딩 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
+    <meta name="description" content="체스의 이동 규칙, 카드 덱빌딩과 기물 합성을 결합한 프로젝트 η 소개 페이지"> <!-- 검색 설명 -->
+    <title>Project η · Your Move</title> <!-- 브라우저 제목 -->
+    <link rel="stylesheet" href="../project-detail.css"> <!-- 공통 상세 스타일 연결 -->
+    <link rel="stylesheet" href="ProjectEta_Style.css"> <!-- 전용 스타일 연결 -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head> <!-- 문서 정보 끝 -->
+<body data-responsive-page="eta"> <!-- 화면 본문 시작 -->
+    <div class="invitation-intro" id="invitation-intro" role="dialog" aria-modal="true" aria-label="프로젝트 에타 초대장" hidden> <!-- 첫 진입 초대장 화면 -->
+        <div class="invitation-room" aria-hidden="true"> <!-- 어두운 방 배경 -->
+            <span class="room-ceiling-line"></span> <!-- 천장 경계선 -->
+            <span class="room-wall room-wall-left"></span> <!-- 왼쪽 벽면 -->
+            <span class="room-wall room-wall-right"></span> <!-- 오른쪽 벽면 -->
+            <span class="room-door"></span> <!-- 정면 문 윤곽 -->
+            <span class="room-floor"></span> <!-- 원근 바닥 -->
+            <span class="room-light"></span> <!-- 확산 조명 -->
+        </div> <!-- 어두운 방 배경 끝 -->
+        <div class="invitation-stage"> <!-- 초대장 상호작용 영역 -->
+            <p class="invitation-kicker">AN INVITATION HAS ARRIVED</p> <!-- 초대장 도착 안내 -->
+            <button class="invitation-letter" id="invitation-letter" type="button" aria-label="흰 편지 열기" aria-describedby="invitation-hint"> <!-- 흰 편지 열기 버튼 -->
+                <span class="envelope-shadow" aria-hidden="true"></span> <!-- 봉투 바닥 그림자 -->
+                <span class="envelope" aria-hidden="true"> <!-- 흰 봉투 본체 -->
+                    <span class="envelope-back"></span> <!-- 봉투 뒷면 -->
+                    <span class="invitation-paper"> <!-- 봉투 속 초대장 -->
+                        <small>PROJECT η</small> <!-- 프로젝트 이름 -->
+                        <strong id="invitation-title">YOUR MOVE.</strong> <!-- 초대 문구 -->
+                        <span>당신을 게임에 초대합니다</span> <!-- 초대 설명 -->
+                    </span> <!-- 봉투 속 초대장 끝 -->
+                    <span class="envelope-front"></span> <!-- 봉투 앞면 -->
+                    <span class="envelope-flap"></span> <!-- 봉투 덮개 -->
+                    <span class="envelope-seal">η</span> <!-- 봉인 인장 -->
+                </span> <!-- 흰 봉투 본체 끝 -->
+            </button> <!-- 흰 편지 열기 버튼 끝 -->
+            <p class="invitation-hint" id="invitation-hint">흰 편지를 눌러 초대장을 여세요</p> <!-- 조작 안내 -->
+        </div> <!-- 초대장 상호작용 영역 끝 -->
+        <button class="invitation-skip" id="invitation-skip" type="button">건너뛰기</button> <!-- 연출 건너뛰기 -->
+    </div> <!-- 첫 진입 초대장 화면 끝 -->
+    <nav class="eta-nav" aria-label="프로젝트 에타 주요 메뉴" data-responsive-nav-root> <!-- 상단 고정 메뉴 -->
+        <a class="eta-brand" href="../main.html">DEVFORGE <span>/ η</span></a> <!-- 메인 복귀 로고 -->
+        <div class="eta-nav-links"> <!-- 내부 이동 링크 묶음 -->
+            <a href="#gameplay">전투</a> <!-- 전투 이동 -->
+            <a href="#fusion">합성</a> <!-- 합성 이동 -->
+            <a href="#pieces">기물</a> <!-- 기물 이동 -->
+            <a href="#beyond-table">미스터리</a> <!-- 미스터리 이동 -->
+        </div> <!-- 내부 이동 링크 끝 -->
+        <a class="nav-cta" href="#wishlist">WISHLIST</a> <!-- 마지막 행동 유도 이동 -->
+    </nav> <!-- 상단 고정 메뉴 끝 -->
+
+    <header class="eta-hero" id="overview"> <!-- 대표 소개 영역 -->
+        <img class="hero-art" src="../images/games/project-eta.png?v=20260909-2" alt="흑백 체스 기물과 마법 카드가 놓인 프로젝트 에타 보드"> <!-- 대표 이미지 -->
+        <div class="hero-shade"></div> <!-- 이미지 명암 레이어 -->
+        <div class="hero-grid" aria-hidden="true"></div> <!-- 보드 격자 장식 -->
+        <div class="hero-copy"> <!-- 대표 문구 영역 -->
+            <p class="kicker">PROJECT η · TURN-BASED STRATEGY</p> <!-- 프로젝트 분류 -->
+            <h1>당신의 다음 수가,<br><em>살아남을 기물</em>을 결정한다.</h1> <!-- 대표 제목 -->
+            <p class="hero-summary">체스의 이동 규칙과 카드 덱빌딩, 기물 합성을 결합한 턴제 전략 로그라이트.</p> <!-- 대표 설명 -->
+            <div class="hero-actions"> <!-- 대표 버튼 묶음 -->
+                <a class="button button-light" href="#identity">게임 소개</a> <!-- 게임 소개 이동 -->
+                <a class="button button-ghost" href="#gameplay">트레일러 준비 중</a> <!-- 트레일러 대체 이동 -->
+            </div> <!-- 대표 버튼 묶음 끝 -->
+        </div> <!-- 대표 문구 영역 끝 -->
+        <div class="hero-status" aria-label="개발 상태"> <!-- 개발 정보 묶음 -->
+            <span>개발 중</span> <!-- 개발 상태 -->
+            <span>체스 · 카드 · 합성 전략</span> <!-- 게임 장르 -->
+            <span>12세 이용가</span> <!-- 이용 연령 -->
+            <span>기획 초안</span> <!-- 기획 단계 -->
+            <span>10×10 BOARD</span> <!-- 보드 크기 -->
+            <span>81 PIECES</span> <!-- 기물 수 -->
+        </div> <!-- 개발 정보 묶음 끝 -->
+        <a class="scroll-cue" href="#identity" aria-label="게임 정체성으로 이동"><span></span>SCROLL TO PLAY</a> <!-- 아래 이동 안내 -->
+    </header> <!-- 대표 소개 영역 끝 -->
+
+    <main> <!-- 주요 내용 시작 -->
+        <section class="identity-section light-section" id="identity"> <!-- 게임 정체성 영역 -->
+            <div class="section-shell narrow-shell"> <!-- 제한 너비 영역 -->
+                <p class="section-number">01 / THE RULE</p> <!-- 영역 번호 -->
+                <h2 class="statement">체스의 한 수, 카드의 선택,<br>그리고 <em>합성</em>으로 만들어지는 새로운 전술.</h2> <!-- 정체성 문장 -->
+                <div class="identity-flow" aria-label="게임 핵심 흐름"> <!-- 핵심 흐름 시각화 -->
+                    <article class="identity-card"><span class="identity-symbol">♞</span><small>CHESS</small><strong>이동 규칙</strong></article> <!-- 체스 카드 -->
+                    <span class="flow-plus">+</span> <!-- 결합 기호 -->
+                    <article class="identity-card"><span class="identity-symbol">▱</span><small>CARDS</small><strong>덱 선택</strong></article> <!-- 카드 선택 카드 -->
+                    <span class="flow-plus">+</span> <!-- 결합 기호 -->
+                    <article class="identity-card accent-card"><span class="identity-symbol">✦</span><small>FUSION</small><strong>새로운 기물</strong></article> <!-- 합성 카드 -->
+                </div> <!-- 핵심 흐름 끝 -->
+            </div> <!-- 제한 너비 영역 끝 -->
+        </section> <!-- 게임 정체성 영역 끝 -->
+
+        <section class="gameplay-section dark-section" id="gameplay"> <!-- 핵심 게임플레이 영역 -->
+            <div class="section-shell split-layout"> <!-- 좌우 분할 영역 -->
+                <div class="board-stage" aria-label="10×10 전투 보드 예시"> <!-- 전투 보드 시각화 -->
+                    <div class="board-frame"> <!-- 보드 테두리 -->
+                        <div class="strategy-board"> <!-- 전략 보드 -->
+                            <span class="board-piece ally piece-a">♔</span> <!-- 아군 왕 -->
+                            <span class="board-piece ally piece-b">♞</span> <!-- 아군 기사 -->
+                            <span class="board-piece enemy piece-c">♜</span> <!-- 적군 룩 -->
+                            <span class="board-piece enemy piece-d">♟</span> <!-- 적군 폰 -->
+                        </div> <!-- 전략 보드 끝 -->
+                        <span class="board-label">LIVE BOARD / TURN 05</span> <!-- 보드 상태 -->
+                    </div> <!-- 보드 테두리 끝 -->
+                </div> <!-- 전투 보드 시각화 끝 -->
+                <div class="section-copy"> <!-- 전투 설명 -->
+                    <p class="section-number">02 / CORE GAMEPLAY</p> <!-- 영역 번호 -->
+                    <p class="overline">THINK BEFORE YOU MOVE</p> <!-- 영문 제목 -->
+                    <h2>한 번의 행동이<br>전장을 바꿉니다.</h2> <!-- 전투 제목 -->
+                    <p>플레이어 턴에는 기물 이동·공격 또는 카드 소환 중 하나를 선택합니다. 다섯 번의 일반 턴 뒤에는 전열을 다시 짜고 합성을 결정하는 배치 턴이 찾아옵니다.</p> <!-- 전투 설명 -->
+                    <ol class="action-sequence"> <!-- 행동 순서 -->
+                        <li><span>01</span>MOVE</li> <!-- 이동 행동 -->
+                        <li><span>02</span>ATTACK</li> <!-- 공격 행동 -->
+                        <li><span>03</span>SUMMON</li> <!-- 소환 행동 -->
+                        <li><span>04</span>FUSE</li> <!-- 합성 행동 -->
+                    </ol> <!-- 행동 순서 끝 -->
+                </div> <!-- 전투 설명 끝 -->
+            </div> <!-- 좌우 분할 영역 끝 -->
+        </section> <!-- 핵심 게임플레이 영역 끝 -->
+
+        <section class="fusion-section light-section" id="fusion"> <!-- 합성 시스템 영역 -->
+            <div class="section-shell"> <!-- 합성 내용 영역 -->
+                <div class="center-heading"> <!-- 중앙 제목 묶음 -->
+                    <p class="section-number">03 / FUSION SYSTEM</p> <!-- 영역 번호 -->
+                    <h2>두 기물을 하나로.</h2> <!-- 합성 제목 -->
+                    <p>무엇을 남기고 무엇을 합칠지에 따라 같은 전장에서도 전혀 다른 전술이 탄생합니다.</p> <!-- 합성 설명 -->
+                </div> <!-- 중앙 제목 끝 -->
+                <div class="fusion-stage" aria-label="비숍과 나이트를 합성해 아크비숍을 만드는 예시"> <!-- 합성 시각화 -->
+                    <article class="piece-card material-card"><span class="card-rank">II</span><span class="piece-glyph">♝</span><strong>BISHOP</strong><small>DIAGONAL / SUPPORT</small></article> <!-- 비숍 카드 -->
+                    <span class="fusion-operator">+</span> <!-- 합성 더하기 기호 -->
+                    <article class="piece-card material-card"><span class="card-rank">II</span><span class="piece-glyph">♞</span><strong>KNIGHT</strong><small>LEAP / ASSAULT</small></article> <!-- 나이트 카드 -->
+                    <span class="fusion-operator result-arrow">→</span> <!-- 합성 결과 화살표 -->
+                    <article class="piece-card result-card"><span class="card-rank">III</span><span class="fusion-flare" aria-hidden="true"></span><span class="piece-glyph">♞</span><strong>ARCHBISHOP</strong><small>DIAGONAL + LEAP</small></article> <!-- 아크비숍 카드 -->
+                </div> <!-- 합성 시각화 끝 -->
+            </div> <!-- 합성 내용 영역 끝 -->
+        </section> <!-- 합성 시스템 영역 끝 -->
+
+        <section class="pieces-section dark-section" id="pieces"> <!-- 기물 합성 도감 영역 -->
+            <div class="section-shell atlas-shell"> <!-- 합성 도감 내용 영역 -->
+                <div class="pieces-heading"> <!-- 합성 도감 제목 묶음 -->
+                    <div><p class="section-number">04 / PIECE ARCHIVE</p><h2>81 PIECES —<br><span>PIECE &amp; FUSION ATLAS</span></h2></div> <!-- 합성 도감 제목 -->
+                    <p>기물을 선택하면 만드는 재료, 다음 합성 결과, 최종 5성까지 이어지는 경로만 밝게 표시됩니다.</p> <!-- 합성 도감 설명 -->
+                </div> <!-- 합성 도감 제목 끝 -->
+                <div class="atlas-toolbar"> <!-- 합성 도감 도구 영역 -->
+                    <label class="atlas-search" for="fusion-search"> <!-- 검색 입력 설명 -->
+                        <span>SEARCH PIECE</span> <!-- 검색 입력 제목 -->
+                        <input id="fusion-search" type="search" placeholder="기물명 또는 영문명 검색" autocomplete="off"> <!-- 기물 검색 입력 -->
+                    </label> <!-- 검색 입력 설명 끝 -->
+                    <div class="grade-filters" role="group" aria-label="기물 등급 필터"> <!-- 등급 필터 묶음 -->
+                        <button class="grade-filter is-active" type="button" data-fusion-grade="0" aria-pressed="true">전체</button> <!-- 전체 등급 버튼 -->
+                        <button class="grade-filter" type="button" data-fusion-grade="1" aria-pressed="false">1★</button> <!-- 1성 버튼 -->
+                        <button class="grade-filter" type="button" data-fusion-grade="2" aria-pressed="false">2★</button> <!-- 2성 버튼 -->
+                        <button class="grade-filter" type="button" data-fusion-grade="3" aria-pressed="false">3★</button> <!-- 3성 버튼 -->
+                        <button class="grade-filter" type="button" data-fusion-grade="4" aria-pressed="false">4★</button> <!-- 4성 버튼 -->
+                        <button class="grade-filter" type="button" data-fusion-grade="5" aria-pressed="false">5★</button> <!-- 5성 버튼 -->
+                    </div> <!-- 등급 필터 묶음 끝 -->
+                    <button class="spoiler-toggle" id="spoiler-toggle" type="button" aria-pressed="false">숨김 조합 표시 <span>OFF</span></button> <!-- 숨김 조합 버튼 -->
+                </div> <!-- 합성 도감 도구 끝 -->
+                <div class="atlas-meta"> <!-- 합성 도감 상태 줄 -->
+                    <p id="fusion-count" aria-live="polite">81종 기물 · 공개 조합 63개</p> <!-- 표시 수량 안내 -->
+                    <p>숨김 조합 7개 중 조합식이 공개된 3개만 표시 가능</p> <!-- 비공개 데이터 안내 -->
+                </div> <!-- 합성 도감 상태 줄 끝 -->
+                <div class="atlas-layout"> <!-- 트리와 상세 배치 -->
+                    <div class="fusion-tree-shell"> <!-- 합성 트리 화면 -->
+                        <p class="tree-guide">기물을 선택해 연결 경로를 강조하세요. 가로로 이동하면 상위 등급을 볼 수 있습니다.</p> <!-- 트리 사용 안내 -->
+                        <div class="fusion-tree" id="fusion-tree" aria-label="1성부터 5성까지 이어지는 기물 합성 트리"> <!-- 합성 트리 -->
+                            <svg class="fusion-connectors" id="fusion-connectors" aria-hidden="true"></svg> <!-- 합성 연결선 -->
+                            <div class="fusion-columns" id="fusion-columns"></div> <!-- 등급별 기물 열 -->
+                        </div> <!-- 합성 트리 끝 -->
+                    </div> <!-- 합성 트리 화면 끝 -->
+                    <aside class="fusion-detail" id="fusion-detail" aria-live="polite"> <!-- 선택 기물 상세 -->
+                        <div class="detail-piece-head"> <!-- 선택 기물 머리말 -->
+                            <span class="detail-piece-symbol" id="detail-piece-symbol">♗</span> <!-- 선택 기물 기호 -->
+                            <div><p id="detail-piece-grade">1★ PIECE</p><h3 id="detail-piece-name">비숍</h3><small id="detail-piece-en">Bishop</small></div> <!-- 선택 기물 이름 -->
+                        </div> <!-- 선택 기물 머리말 끝 -->
+                        <section class="detail-group"> <!-- 제작 조합 영역 -->
+                            <h4>이 기물을 만드는 조합</h4> <!-- 제작 조합 제목 -->
+                            <div class="recipe-list" id="created-by-list"></div> <!-- 제작 조합 목록 -->
+                        </section> <!-- 제작 조합 영역 끝 -->
+                        <section class="detail-group"> <!-- 상위 조합 영역 -->
+                            <h4>이 기물로 만들 수 있는 기물</h4> <!-- 상위 조합 제목 -->
+                            <div class="recipe-list" id="used-in-list"></div> <!-- 상위 조합 목록 -->
+                        </section> <!-- 상위 조합 영역 끝 -->
+                        <section class="detail-group final-path-group"> <!-- 최종 경로 영역 -->
+                            <h4>최종 5성 합성 경로</h4> <!-- 최종 경로 제목 -->
+                            <div class="final-path" id="final-path"></div> <!-- 최종 경로 목록 -->
+                        </section> <!-- 최종 경로 영역 끝 -->
+                    </aside> <!-- 선택 기물 상세 끝 -->
+                </div> <!-- 트리와 상세 배치 끝 -->
+            </div> <!-- 합성 도감 내용 끝 -->
+        </section> <!-- 기물 합성 도감 영역 끝 -->
+
+        <dialog class="spoiler-dialog" id="spoiler-dialog"> <!-- 스포일러 경고 창 -->
+            <form method="dialog"> <!-- 경고 창 선택 양식 -->
+                <p class="section-number">HIDDEN RECIPES</p> <!-- 경고 창 분류 -->
+                <h2>스포일러가 포함되어 있습니다.</h2> <!-- 경고 창 제목 -->
+                <p>첨부 기획에 조합식이 명시된 숨김 레시피 3개를 합성 트리에 표시합니다. 나머지 4개는 아직 비공개입니다.</p> <!-- 경고 창 설명 -->
+                <div class="dialog-actions"> <!-- 경고 창 버튼 묶음 -->
+                    <button id="spoiler-cancel" type="submit" value="cancel">취소</button> <!-- 취소 버튼 -->
+                    <button id="spoiler-reveal" type="submit" value="reveal">숨김 조합 표시</button> <!-- 표시 버튼 -->
+                </div> <!-- 경고 창 버튼 묶음 끝 -->
+            </form> <!-- 경고 창 선택 양식 끝 -->
+        </dialog> <!-- 스포일러 경고 창 끝 -->
+
+        <section class="beyond-section" id="beyond-table"> <!-- 공간 탐색 영역 -->
+            <div class="section-shell"> <!-- 공간 탐색 내용 -->
+                <p class="section-number">05 / BEYOND THE TABLE</p> <!-- 영역 번호 -->
+                <h2>게임은 테이블 위에서만<br>진행되지 않는다.</h2> <!-- 공간 탐색 제목 -->
+                <div class="scene-strip"> <!-- 공간 장면 묶음 -->
+                    <article class="scene scene-table"><span>01</span><strong>THE TABLE</strong><p>규칙을 따르고 상대의 수를 읽는다.</p></article> <!-- 테이블 장면 -->
+                    <article class="scene scene-chair"><span>02</span><strong>STAND UP</strong><p>특정 순간, 의자에서 일어날 수 있다.</p></article> <!-- 자리 이탈 장면 -->
+                    <article class="scene scene-corridor"><span>03</span><strong>THE CORRIDOR</strong><p>잠긴 문 너머에서 다음 단서를 찾는다.</p></article> <!-- 복도 장면 -->
+                </div> <!-- 공간 장면 묶음 끝 -->
+                <div class="mystery-questions"> <!-- 미스터리 질문 -->
+                    <p>이 방은 어디인가?</p> <!-- 첫 질문 -->
+                    <p>당신보다 먼저 이곳에 있었던 사람은 누구인가?</p> <!-- 둘째 질문 -->
+                    <p>그리고 왜 이 게임은 계속되는가?</p> <!-- 셋째 질문 -->
+                </div> <!-- 미스터리 질문 끝 -->
+            </div> <!-- 공간 탐색 내용 끝 -->
+        </section> <!-- 공간 탐색 영역 끝 -->
+
+        <section class="host-section" id="host"> <!-- 게임 마스터 영역 -->
+            <div class="section-shell host-layout"> <!-- 게임 마스터 배치 -->
+                <div class="host-portrait" aria-label="어둠 속 테이블에 앉은 게임 마스터 실루엣"><span class="host-head"></span><span class="host-body"></span><span class="host-cup">◒</span></div> <!-- 게임 마스터 초상 -->
+                <div class="section-copy host-copy"> <!-- 게임 마스터 설명 -->
+                    <p class="section-number">06 / YOUR HOST</p> <!-- 영역 번호 -->
+                    <p class="overline">YOUR HOST</p> <!-- 영문 제목 -->
+                    <h2>친절한 초대자.<br>완벽한 관전자.</h2> <!-- 게임 마스터 제목 -->
+                    <p>당신을 이곳으로 초대한 게임 마스터. 좋은 수에는 즐거워하고 실수에는 진심으로 아쉬워합니다.</p> <!-- 게임 마스터 설명 -->
+                    <blockquote>“서두르지 마세요. 아직 좋은 수가 남아 있으니까.”</blockquote> <!-- 게임 마스터 대사 -->
+                </div> <!-- 게임 마스터 설명 끝 -->
+            </div> <!-- 게임 마스터 배치 끝 -->
+        </section> <!-- 게임 마스터 영역 끝 -->
+
+        <section class="run-section light-section" id="run"> <!-- 로그라이트 진행 영역 -->
+            <div class="section-shell"> <!-- 로그라이트 내용 -->
+                <div class="center-heading"><p class="section-number">07 / THE RUN</p><h2>5 PHASES. ONE WAY OUT.</h2><p>전투·정예·보상·상점·이벤트가 섞인 분기 경로를 통과해 다음 페이즈로 향합니다.</p></div> <!-- 중앙 제목 묶음 -->
+                <div class="route-map" aria-label="로그라이트 진행 흐름"> <!-- 경로 지도 -->
+                    <span class="route-node active-node">CHOOSE<br>KING</span><i></i><span class="route-node">BATTLE</span><i></i><span class="route-node">REWARD</span><i></i><span class="route-node">SHOP<br>/ EVENT</span><i></i><span class="route-node boss-node">BOSS</span><i></i><span class="route-node">NEXT<br>PHASE</span> <!-- 진행 노드 -->
+                </div> <!-- 경로 지도 끝 -->
+            </div> <!-- 로그라이트 내용 끝 -->
+        </section> <!-- 로그라이트 진행 영역 끝 -->
+
+        <section class="kings-section dark-section" id="kings"> <!-- 왕 선택 영역 -->
+            <div class="section-shell"> <!-- 왕 선택 내용 -->
+                <div class="pieces-heading"> <!-- 왕 제목 묶음 -->
+                    <div><p class="section-number">08 / CHOOSE YOUR KING</p><h2>같은 보드.<br><span>다른 승리 방식.</span></h2></div> <!-- 왕 제목 내용 -->
+                    <p>런을 시작할 때 선택한 왕은 전투와 배치 턴의 규칙을 바꿉니다.</p> <!-- 왕 선택 설명 -->
+                </div> <!-- 왕 제목 묶음 끝 -->
+                <div class="king-grid"> <!-- 왕 카드 묶음 -->
+                    <article class="king-card"><span>♔</span><small>DEFAULT</small><h3>균형의 왕</h3><p>기본 규칙을 충실히 사용하는 안정적인 플레이.</p></article> <!-- 기본형 왕 -->
+                    <article class="king-card attack-king"><span>♔</span><small>ATTACK</small><h3>분노의 왕</h3><p>직접 처치로 분노를 쌓아 공격 기회를 확장.</p></article> <!-- 공격형 왕 -->
+                    <article class="king-card defense-king"><span>♔</span><small>DEFENSE</small><h3>인내의 왕</h3><p>정지한 턴 이후 받는 피해를 줄이는 수비 운영.</p></article> <!-- 방어형 왕 -->
+                    <article class="king-card strategy-king"><span>♔</span><small>STRATEGY</small><h3>설계의 왕</h3><p>배치 턴의 카드 선택지를 강화하는 장기 전략.</p></article> <!-- 전략형 왕 -->
+                </div> <!-- 왕 카드 묶음 끝 -->
+            </div> <!-- 왕 선택 내용 끝 -->
+        </section> <!-- 왕 선택 영역 끝 -->
+
+        <section class="story-section" id="story"> <!-- 스토리 티저 영역 -->
+            <div class="lonely-piece" aria-hidden="true">♟<span></span></div> <!-- 외로운 기물 장식 -->
+            <p class="section-number">09 / A QUESTION</p> <!-- 영역 번호 -->
+            <h2>보드 위의 기물은<br>때때로 <em>당신을 바라본다.</em></h2> <!-- 스토리 티저 문구 -->
+            <p>규칙을 의심하는 순간, 게임은 다른 얼굴을 보여주기 시작합니다.</p> <!-- 스토리 티저 설명 -->
+        </section> <!-- 스토리 티저 영역 끝 -->
+
+        <section class="wishlist-section" id="wishlist"> <!-- 마지막 행동 유도 영역 -->
+            <div class="open-door" aria-hidden="true"><span></span></div> <!-- 열린 문 장식 -->
+            <p class="kicker">THE TABLE IS READY</p> <!-- 마지막 분류 -->
+            <h2>YOUR MOVE.</h2> <!-- 마지막 제목 -->
+            <p>다음 참가자는 당신입니다.</p> <!-- 마지막 설명 -->
+            <span class="button button-light disabled-button" aria-disabled="true">STEAM WISHLIST · 준비 중</span> <!-- 스팀 준비 상태 -->
+            <small>Turn-Based Strategy · Deckbuilding · Roguelite · Chess Variant</small> <!-- 장르 목록 -->
+        </section> <!-- 마지막 행동 유도 영역 끝 -->
+    </main> <!-- 주요 내용 끝 -->
+
+    <footer class="eta-footer"> <!-- 하단 정보 영역 -->
+        <a href="../main.html">← 모든 게임으로 돌아가기</a> <!-- 메인 복귀 링크 -->
+        <span>PROJECT η · DEVFORGE STUDIO</span> <!-- 프로젝트 정보 -->
+    </footer> <!-- 하단 정보 영역 끝 -->
+    <script type="module" src="ProjectEtaInvitation.mjs"></script> <!-- 첫 진입 초대장 연결 -->
+    <script type="module" src="ProjectEta.mjs"></script> <!-- 기물 상호작용 연결 -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 화면 본문 끝 -->
+</html> <!-- HTML 문서 끝 -->

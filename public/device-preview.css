@@ -1,0 +1,128 @@
+:root /* 미리보기 색상 */
+{ /* 규칙 시작 */
+    color-scheme: dark; /* 어두운 기본 화면 */
+    --lab-bg: #050914; /* 전체 배경 */
+    --lab-cyan: #18e8e1; /* 사이언 강조 */
+} /* 규칙 끝 */
+
+* /* 모든 요소 */
+{ /* 규칙 시작 */
+    box-sizing: border-box; /* 크기 계산 통일 */
+} /* 규칙 끝 */
+
+html /* 문서 화면 */
+{ /* 규칙 시작 */
+    min-height: 100%; /* 최소 화면 높이 */
+} /* 규칙 끝 */
+
+body /* 문서 본문 */
+{ /* 규칙 시작 */
+    background: var(--lab-bg); /* 개발 도구 배경 */
+    margin: 0; /* 기본 여백 제거 */
+    min-height: 100vh; /* 화면 높이 확보 */
+} /* 규칙 끝 */
+
+.preview-icon-sprite /* 이동 전 아이콘 모음 */
+{ /* 규칙 시작 */
+    height: 0; /* 화면 높이 제거 */
+    overflow: hidden; /* 아이콘 원본 숨김 */
+    pointer-events: none; /* 입력 차단 */
+    position: absolute; /* 문서 흐름 제외 */
+    width: 0; /* 화면 너비 제거 */
+} /* 규칙 끝 */
+
+.preview-device-picker[hidden] /* 이동 전 기기 선택기 */
+{ /* 규칙 시작 */
+    display: none; /* 선택기 숨김 */
+} /* 규칙 끝 */
+
+.preview-error /* 프레임 오류 안내 */
+{ /* 규칙 시작 */
+    background: rgba(255, 101, 122, 0.12); /* 오류 배경 */
+    border: 1px solid rgba(255, 101, 122, 0.48); /* 오류 테두리 */
+    color: #ff9baa; /* 오류 글자색 */
+    font-family: "Segoe UI", "Malgun Gothic", sans-serif; /* 오류 글꼴 */
+    margin: 16px 22px 0; /* 오류 바깥 여백 */
+    padding: 12px 16px; /* 오류 안쪽 여백 */
+} /* 규칙 끝 */
+
+.preview-error[hidden] /* 숨김 오류 안내 */
+{ /* 규칙 시작 */
+    display: none; /* 오류 숨김 */
+} /* 규칙 끝 */
+
+.preview-stage /* 미리보기 무대 */
+{ /* 규칙 시작 */
+    align-items: flex-start; /* 프레임 위쪽 정렬 */
+    display: flex; /* 프레임 가운데 배치 */
+    justify-content: center; /* 프레임 가로 가운데 */
+    min-height: 100dvh; /* 전체 화면 높이 */
+    overflow: auto; /* 양방향 이동 허용 */
+    padding: 0; /* 상단바 공간 제거 */
+} /* 규칙 끝 */
+
+.preview-shell /* 프레임 외곽 */
+{ /* 규칙 시작 */
+    --preview-width: 1440px; /* 기본 프레임 너비 */
+    --preview-height: 900px; /* 기본 프레임 높이 */
+    --preview-scale: 1; /* 기본 맞춤 비율 */
+    background: #02040a; /* 기기 외곽 배경 */
+    border: 10px solid #17233a; /* 기기 외곽 테두리 */
+    border-radius: 18px; /* 기기 외곽 모서리 */
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.58), 0 0 0 1px rgba(24, 232, 225, 0.18); /* 기기 외곽 그림자 */
+    flex: 0 0 auto; /* 프레임 축소 차단 */
+    height: calc(var(--preview-height) + 20px); /* 외곽 포함 높이 */
+    overflow: hidden; /* 프레임 넘침 차단 */
+    position: relative; /* 카메라 배치 기준 */
+    transform-origin: top center; /* 맞춤 축소 기준 */
+    width: calc(var(--preview-width) + 20px); /* 외곽 포함 너비 */
+} /* 규칙 끝 */
+
+.preview-shell.is-fit /* 화면 맞춤 프레임 */
+{ /* 규칙 시작 */
+    transform: scale(var(--preview-scale)); /* 외곽 시각 축소 */
+} /* 규칙 끝 */
+
+.preview-camera /* 기기 카메라 장식 */
+{ /* 규칙 시작 */
+    background: var(--lab-cyan); /* 카메라 점 색상 */
+    border-radius: 50%; /* 카메라 원형 */
+    box-shadow: 0 0 10px rgba(24, 232, 225, 0.7); /* 카메라 빛 */
+    height: 5px; /* 카메라 높이 */
+    left: 50%; /* 가로 가운데 */
+    opacity: 0.7; /* 장식 투명도 */
+    position: absolute; /* 외곽 위 배치 */
+    top: 2px; /* 위쪽 위치 */
+    transform: translateX(-50%); /* 정확한 가운데 */
+    width: 5px; /* 카메라 너비 */
+    z-index: 2; /* 프레임 위 표시 */
+} /* 규칙 끝 */
+
+.preview-shell iframe /* 실제 페이지 프레임 */
+{ /* 규칙 시작 */
+    background: #ffffff; /* 로드 전 배경 */
+    border: 0; /* 기본 테두리 제거 */
+    display: block; /* 아래 공백 제거 */
+    height: var(--preview-height); /* 기기 높이 적용 */
+    width: var(--preview-width); /* 기기 너비 적용 */
+} /* 규칙 끝 */
+
+@media (max-width: 719px) /* 모바일 개발 화면 */
+{ /* 구간 시작 */
+    .preview-stage /* 모바일 미리보기 무대 */
+    { /* 규칙 시작 */
+        justify-content: flex-start; /* 가로 이동 시작점 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (prefers-reduced-motion: reduce) /* 움직임 축소 환경 */
+{ /* 구간 시작 */
+    *, /* 모든 요소 */
+    *::before, /* 앞 장식 */
+    *::after /* 뒤 장식 */
+    { /* 규칙 시작 */
+        animation-duration: 0.01ms !important; /* 애니메이션 축소 */
+        scroll-behavior: auto !important; /* 스크롤 움직임 제거 */
+        transition-duration: 0.01ms !important; /* 전환 움직임 축소 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */

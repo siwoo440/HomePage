@@ -1,0 +1,103 @@
+:root /* 법적 문서 색상 */
+{ /* 규칙 시작 */
+    color-scheme: dark; /* 어두운 화면 */
+    --legal-background: #070b14; /* 문서 배경 */
+    --legal-surface: #101827; /* 문서 카드 */
+    --legal-border: #26364e; /* 문서 경계 */
+    --legal-text: #e8edf5; /* 기본 글자 */
+    --legal-muted: #9aa9bd; /* 보조 글자 */
+    --legal-accent: #58e4c7; /* 강조 색상 */
+} /* 규칙 끝 */
+
+* /* 전체 요소 */
+{ /* 규칙 시작 */
+    box-sizing: border-box; /* 크기 계산 통일 */
+} /* 규칙 끝 */
+
+body /* 문서 본문 */
+{ /* 규칙 시작 */
+    background: radial-gradient(circle at top, rgba(88, 228, 199, 0.08), transparent 32%), var(--legal-background); /* 문서 배경 */
+    color: var(--legal-text); /* 기본 글자 */
+    font-family: "Segoe UI", "Malgun Gothic", sans-serif; /* 기본 글꼴 */
+    line-height: 1.75; /* 줄 간격 */
+    margin: 0; /* 기본 여백 제거 */
+} /* 규칙 끝 */
+
+.legal-nav /* 법적 문서 메뉴 */
+{ /* 규칙 시작 */
+    align-items: center; /* 세로 정렬 */
+    border-bottom: 1px solid var(--legal-border); /* 아래 경계 */
+    display: flex; /* 가로 배치 */
+    justify-content: space-between; /* 양쪽 배치 */
+    min-height: 64px; /* 메뉴 높이 */
+    padding: 0.65rem max(1rem, calc((100vw - 880px) / 2)); /* 반응형 여백 */
+} /* 규칙 끝 */
+
+.legal-nav-logo /* 법적 문서 로고 */
+{ /* 규칙 시작 */
+    color: var(--legal-accent); /* 로고 색상 */
+    font-weight: 900; /* 로고 굵기 */
+    letter-spacing: 0.12em; /* 로고 간격 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 규칙 끝 */
+
+.legal-shell /* 문서 너비 영역 */
+{ /* 규칙 시작 */
+    margin: 0 auto; /* 가운데 배치 */
+    max-width: 880px; /* 읽기 너비 */
+    padding: 2rem 1rem 4rem; /* 문서 여백 */
+} /* 규칙 끝 */
+
+.legal-back /* 메인 이동 링크 */
+{ /* 규칙 시작 */
+    color: var(--legal-accent); /* 링크 색상 */
+    display: inline-flex; /* 링크 배치 */
+    min-height: 44px; /* 터치 높이 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 규칙 끝 */
+
+.legal-document /* 법적 문서 카드 */
+{ /* 규칙 시작 */
+    background: rgba(16, 24, 39, 0.96); /* 카드 배경 */
+    border: 1px solid var(--legal-border); /* 카드 경계 */
+    border-radius: 18px; /* 모서리 둥글기 */
+    margin-top: 1rem; /* 위쪽 간격 */
+    padding: clamp(1.25rem, 4vw, 2.5rem); /* 반응형 여백 */
+} /* 규칙 끝 */
+
+.legal-draft /* 초안 표시 */
+{ /* 규칙 시작 */
+    color: #ffd28a; /* 초안 글자 */
+    font-weight: 700; /* 초안 강조 */
+} /* 규칙 끝 */
+
+.legal-document h1, /* 문서 제목 */
+.legal-document h2 /* 항목 제목 */
+{ /* 규칙 시작 */
+    line-height: 1.35; /* 제목 줄 간격 */
+} /* 규칙 끝 */
+
+.legal-document h2 /* 항목 제목 */
+{ /* 규칙 시작 */
+    color: var(--legal-accent); /* 항목 강조 */
+    font-size: 1.12rem; /* 항목 크기 */
+    margin-top: 2rem; /* 항목 간격 */
+} /* 규칙 끝 */
+
+.legal-document p, /* 문서 문단 */
+.legal-document li /* 문서 목록 */
+{ /* 규칙 시작 */
+    color: var(--legal-muted); /* 읽기 색상 */
+} /* 규칙 끝 */
+
+.legal-updated /* 기준일 표시 */
+{ /* 규칙 시작 */
+    border-bottom: 1px solid var(--legal-border); /* 아래 구분선 */
+    padding-bottom: 1.25rem; /* 아래 여백 */
+} /* 규칙 끝 */
+
+a:focus-visible /* 키보드 링크 초점 */
+{ /* 규칙 시작 */
+    outline: 3px solid var(--legal-accent); /* 초점 테두리 */
+    outline-offset: 3px; /* 초점 간격 */
+} /* 규칙 끝 */

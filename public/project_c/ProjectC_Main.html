@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카오스폰즈 | 게임 소개</title> <!-- 공개 브라우저 제목 -->
+    <link rel="stylesheet" href="ProjectC_style.css"> <!-- 카오스폰즈 전용 CSS 연결 -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head>
+<body data-public-project-page data-project-id="project-c"> <!-- 공개 프로젝트 본문 -->
+<div class="page-shell">
+
+    <!-- 히어로 / 내비게이션 -->
+    <header class="hero-section" id="overview">
+        <nav class="top-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 공통 메뉴 마운트 -->
+            <a href="../main.html" class="top-nav-logo">DEVFORGE</a>
+            <div class="top-nav-links">
+                <a href="#overview">메인</a>
+                <a href="#system">시스템</a>
+                <a href="#world">세계관</a>
+                <a href="#zones">구역</a>
+                <a href="ProjectC_Cards.html">카드</a>
+                <a href="#glossary">용어</a>
+            </div>
+        </nav>
+
+        <section class="hero-card image-panel" style="--image: url('images/world/hero-main.jpg');">
+            <div class="image-overlay"></div>
+            <div class="hero-content">
+                <h1>카오스폰즈 (ChaosPons)</h1>
+            </div>
+        </section>
+
+        <!-- 게임 메타 정보 — 장르/#태그, 플랫폼/심의/언어 이미지 포함 -->
+        <div class="game-meta-grid">
+
+            <!-- 장르 — #태그 나열 -->
+            <div class="game-meta-item genre-item">
+                <div class="game-meta-label">장르</div>
+                <div class="genre-tags">
+                    <span class="genre-tag">#덱빌딩</span>
+                    <span class="genre-tag">#카드게임</span>
+                    <span class="genre-tag">#싱글플레이</span>
+                    <span class="genre-tag">#턴제전투</span>
+                    <span class="genre-tag">#로그라이크</span>
+                </div>
+            </div>
+
+            <!-- 플랫폼 — PC 모니터 SVG -->
+            <div class="game-meta-item meta-icon-item">
+                <div class="game-meta-label">플랫폼</div>
+                <div class="meta-icon-wrap">
+                    <!-- PC 모니터 인라인 SVG -->
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="6" width="40" height="26" rx="3" stroke="#9b5de5" stroke-width="2.2" fill="none"/>
+                        <line x1="4" y1="28" x2="44" y2="28" stroke="#9b5de5" stroke-width="2.2"/>
+                        <polyline points="18,42 24,32 30,42" stroke="#9b5de5" stroke-width="2.2" fill="none" stroke-linejoin="round"/>
+                        <line x1="14" y1="42" x2="34" y2="42" stroke="#9b5de5" stroke-width="2.2" stroke-linecap="round"/>
+                        <rect x="10" y="12" width="16" height="10" rx="1.5" fill="rgba(155,93,229,0.12)" stroke="#9b5de5" stroke-width="1.2"/>
+                        <line x1="30" y1="13" x2="38" y2="13" stroke="#9b5de5" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="30" y1="17" x2="36" y2="17" stroke="#9b5de5" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="30" y1="21" x2="38" y2="21" stroke="#9b5de5" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <span class="meta-icon-label">PC (Steam)</span>
+                </div>
+            </div>
+
+            <!-- 가격 -->
+            <div class="game-meta-item">
+                <div class="game-meta-label">가격</div>
+                <div class="game-meta-value">₩11,000 (기본 출시가)</div>
+            </div>
+
+            <!-- 심의 등급 — 15세 등급 SVG 배지 -->
+            <div class="game-meta-item meta-icon-item">
+                <div class="game-meta-label">심의 등급</div>
+                <div class="meta-icon-wrap">
+                    <!-- 15세 등급 배지 SVG -->
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="3" width="42" height="42" rx="8" fill="rgba(240,180,0,0.15)" stroke="#f0b400" stroke-width="2.2"/>
+                        <text x="24" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#f0b400">15</text>
+                        <text x="24" y="36" text-anchor="middle" font-family="Arial,sans-serif" font-size="7.5" font-weight="600" fill="#f0b400">이용가</text>
+                    </svg>
+                    <span class="meta-icon-label" style="color:#f0b400;">15세 이용가 (예상)</span>
+                </div>
+            </div>
+
+            <!-- 지원 언어 — 국기 SVG -->
+            <div class="game-meta-item meta-icon-item">
+                <div class="game-meta-label">지원 언어</div>
+                <div class="lang-flags">
+                    <!-- 한국 국기 SVG -->
+                    <div class="flag-item">
+                        <svg width="36" height="24" viewBox="0 0 36 24" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="36" height="24" rx="2" fill="#fff"/>
+                            <circle cx="18" cy="12" r="6" fill="none"/>
+                            <!-- 태극 원 -->
+                            <path d="M18 6 a6 6 0 0 1 0 12 a3 3 0 0 0 0-6 a3 3 0 0 1 0-6z" fill="#C60C30"/>
+                            <path d="M18 6 a3 3 0 0 1 0 6 a3 3 0 0 0 0 6 a6 6 0 0 1 0-12z" fill="#003478"/>
+                            <!-- 건 (4귀 막대) -->
+                            <line x1="6" y1="4.5" x2="11.5" y2="9" stroke="#000" stroke-width="1.2" stroke-linecap="round"/>
+                            <line x1="7.5" y1="2.8" x2="13" y2="7.3" stroke="#000" stroke-width="1.2" stroke-linecap="round"/>
+                            <line x1="4.5" y1="6.2" x2="10" y2="10.7" stroke="#000" stroke-width="1.2" stroke-linecap="round"/>
+                            <line x1="24.5" y1="15" x2="30" y2="19.5" stroke="#000" stroke-width="1.2" stroke-linecap="round"/>
+                            <line x1="23" y1="16.7" x2="28.5" y2="21.2" stroke="#000" stroke-width="1.2" stroke-linecap="round"/>
+                            <line x1="26" y1="13.3" x2="31.5" y2="17.8" stroke="#000" stroke-width="1.2" stroke-linecap="round"/>
+                        </svg>
+                        <span class="flag-lang">한국어</span>
+                    </div>
+                    <!-- 영국/미국 국기 SVG (영어 대표) -->
+                    <div class="flag-item">
+                        <svg width="36" height="24" viewBox="0 0 36 24" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="36" height="24" rx="2" fill="#012169"/>
+                            <line x1="0" y1="0" x2="36" y2="24" stroke="#fff" stroke-width="4"/>
+                            <line x1="36" y1="0" x2="0" y2="24" stroke="#fff" stroke-width="4"/>
+                            <line x1="0" y1="0" x2="36" y2="24" stroke="#C8102E" stroke-width="2.4"/>
+                            <line x1="36" y1="0" x2="0" y2="24" stroke="#C8102E" stroke-width="2.4"/>
+                            <rect x="0" y="9" width="36" height="6" fill="#fff"/>
+                            <rect x="15" y="0" width="6" height="24" fill="#fff"/>
+                            <rect x="0" y="10" width="36" height="4" fill="#C8102E"/>
+                            <rect x="16" y="0" width="4" height="24" fill="#C8102E"/>
+                        </svg>
+                        <span class="flag-lang">English</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+
+        <!-- 핵심 차별점 USP -->
+        <section id="usp" class="section-block">
+            <div class="section-heading">
+                <p class="eyebrow">USP — Unique Selling Points</p>
+                <h2>핵심 차별점</h2>
+                <p>"정신력 기반 카드 변화 + 각성/붕괴 전투 스타일 전환 + 서사 연계 플레이"</p>
+            </div>
+
+            <div class="usp-list">
+                <div class="usp-item">
+                    <div class="usp-num">USP 01</div>
+                    <div class="usp-title">정신력 기반의 카드 변화 시스템</div>
+                    <div class="usp-desc">정신력 상태에 따라 카드의 성능·효과·활용 방식이 변화한다. 카드를 뽑고 사용하는 구조가 아닌, 캐릭터의 내면 상태를 함께 관리하는 이중 전술 구조.</div>
+                </div>
+                <div class="usp-item">
+                    <div class="usp-num">USP 02</div>
+                    <div class="usp-title">각성 / 붕괴로 인한 전투 스타일 전환</div>
+                    <div class="usp-desc">정신력 변화는 단순 디버프가 아니라 각성과 붕괴라는 극단적 상태 변화로 이어지며 전투 스타일 자체를 뒤바꾼다. 위기를 통제할 것인가, 한계까지 몰 것인가.</div>
+                </div>
+                <div class="usp-item">
+                    <div class="usp-num">USP 03</div>
+                    <div class="usp-title">전투와 서사가 직접 연결되는 구조</div>
+                    <div class="usp-desc">캐릭터 감정선, 기록 수집, 호감도, 세계관 단서가 전투와 탐사 보상에 연결되어 플레이 자체가 서사 해금 과정으로 이어진다.</div>
+                </div>
+                <div class="usp-item">
+                    <div class="usp-num">USP 04</div>
+                    <div class="usp-title">다크 판타지 감성 + 서브컬처 캐릭터성</div>
+                    <div class="usp-desc">무겁고 침잠된 세계관 위에 개성 강한 캐릭터 서사와 감정선을 결합. 하드한 분위기와 캐릭터 몰입 요소를 동시에 제공한다.</div>
+                </div>
+            </div>
+        </section>
+<!-- 세계관 -->
+        <section id="world" class="section-block">
+            <div class="section-heading">
+                <p class="eyebrow">World Lore</p>
+                <h2>세계관</h2>
+                <p>어느 날 세계 곳곳에서 외계 기원의 정체불명 물질이 감지되기 시작했다.<br>
+                기존 과학 기술로는 분석·측정·예측이 불가능하며 강력한 에너지로 주변 환경을 잠식한다.</p>
+            </div>
+
+            <!-- 세계관 슬라이더 — 좌우 화살표로 한 칸씩 이동 -->
+            <div class="world-slider-wrap">
+                <!-- 왼쪽 화살표 -->
+                <button class="world-slider-btn prev" onclick="worldSlide(-1)" aria-label="이전">‹</button>
+
+                <!-- 슬라이드 뷰포트 -->
+                <div class="world-slider-viewport">
+                    <div class="world-slider-track" id="worldTrack">
+
+                        <!-- 슬라이드 01 -->
+                        <div class="world-slide" style="--slide-color:#9b5de5;">
+                            <div class="world-slide-number">01 · 핵심 물질</div>
+                            <div class="world-slide-name">네크레이트 (Necraite)</div>
+                            <div class="world-slide-level">외계 기원 오염성 광석</div>
+                            <div class="world-slide-desc">
+                                세계 붕괴의 시작이 된 외계 기원의 정체불명 물질이다.<br>
+                                검은/회청색 결정 형태로 광석처럼 단단한 외형을 지닌 생물성 물질이며,
+                                기존 과학 기술로는 분석도, 분류도, 예측도 불가능하다.<br><br>
+                                접촉하는 대상의 물질 구조를 서서히 변환시키는 능력을 갖고 있으며 —
+                                이를 파괴가 아닌 <strong>다른 규칙으로 치환(Conversion)</strong>하는 성질이라 정의한다.<br><br>
+                                네크레이트가 나타난 지역은 곧바로 주변 지형과 생태계가 비정상적으로 변화하며 뒤틀리기 시작했다.
+                                접촉한 생명체는 감염→변이→괴생체로 변화하며 강한 공격성과 전염성을 갖게 된다.
+                            </div>
+                        </div>
+
+                    </div><!-- /world-slider-track -->
+                </div><!-- /world-slider-viewport -->
+
+                <!-- 오른쪽 화살표 -->
+                <button class="world-slider-btn next" onclick="worldSlide(1)" aria-label="다음">›</button>
+
+                <!-- 인디케이터 점 -->
+                <div class="world-slider-dots" id="worldDots"></div>
+            </div><!-- /world-slider-wrap -->
+        </section>
+
+        <!-- 탐사 구역 8개 — 슬라이더 방식 -->
+        <section id="zones" class="section-block">
+            <div class="section-heading">
+                <p class="eyebrow">Exploration Zones</p>
+                <h2>탐사 구역 (8개)</h2>
+                <p>각 구역은 고유한 환경 기믹, 정신력 변동 방식, 등장 몬스터, 보상 테이블을 가진다.<br>
+                탐사 수치 100% 도달 → 구역 레벨 +1 상승 → 보스 스테이지 삽입.</p>
+            </div>
+
+            <div class="world-slider-wrap">
+                <button class="world-slider-btn prev" onclick="zoneSlide(-1)" aria-label="이전">‹</button>
+
+                <div class="world-slider-viewport">
+                    <div class="world-slider-track" id="zoneTrack">
+
+                        <!-- ZONE 01 -->
+                        <div class="world-slide" style="--slide-color:#a0a0c0;">
+                            <div class="world-slide-number">ZONE 01 · Lv 1~5 · 초기 해금</div>
+                            <div class="world-slide-name">윈터폴 잿빛 벌판</div>
+                            <div class="world-slide-level">Winterfall Ash Plains</div>
+                            <div class="world-slide-desc">
+                                퇴색 에너지 실험이 폭주하면서 인근 도시가 순간적으로 소멸했다.
+                                남은 것은 잿빛 토양과 타버린 구조물, 재를 뒤집어쓴 채 떠도는 잔재들뿐이다.<br><br>
+                                <strong>환경 규칙</strong><br>
+                                · 탐사 진입 시 즉시 정신력 -5 적용<br>
+                                · 일부 전투에서 적 선제공격 확률 +15% (재 속에 숨어 기습하는 컨셉)<br>
+                                · 재폭풍 이벤트 발생 시 전투 시작 시 아군 전체 명중률 -10% (1턴 지속)<br><br>
+                                <strong>등장 몬스터</strong><br>
+                                재 망령 · 탄화 부유체 · 잿빛 포식자(정예) · 재폭풍의 심핵(보스)
+                            </div>
+                        </div>
+
+                        <!-- ZONE 02 -->
+                        <div class="world-slide" style="--slide-color:#c08040;">
+                            <div class="world-slide-number">ZONE 02 · Lv 3~7 · 잿빛 벌판 보스 처치</div>
+                            <div class="world-slide-name">금 간 대지</div>
+                            <div class="world-slide-level">Fractured Earth</div>
+                            <div class="world-slide-desc">
+                                지하에서 솟구친 퇴색 에너지로 인해 지각이 찢겼다.
+                                땅 아래에서 무언가가 꿈틀거린다는 소문이 끊이지 않는다.<br><br>
+                                <strong>환경 규칙</strong><br>
+                                · 일부 전투 필드에 지반 붕괴 타일 존재 — 해당 타일 위 캐릭터는 매 턴 종료 시 고정 피해 3<br>
+                                · 탐사 경로 수가 제한되어 우회가 어려운 구조<br>
+                                · Lv3 이상부터 낙석 이벤트 추가 — 전투 시작 시 무작위 아군 1명에게 피해 5<br><br>
+                                <strong>등장 몬스터</strong><br>
+                                지각충 · 틈새의 눈 · 지반 파편 골렘(정예) · 대균열의 심장(보스)
+                            </div>
+                        </div>
+
+                        <!-- ZONE 03 -->
+                        <div class="world-slide" style="--slide-color:#40c080;">
+                            <div class="world-slide-number">ZONE 03 · Lv 5~9 · 금 간 대지 탐사 100%</div>
+                            <div class="world-slide-name">부식된 산업 지구</div>
+                            <div class="world-slide-level">Corroded Industrial District</div>
+                            <div class="world-slide-desc">
+                                퇴색 에너지를 동력으로 사용하던 산업 지구가 제어 불능이 되며 폐쇄되었다.
+                                그 잔재가 스스로 움직이는 기계 괴물로 변해 이 구역을 점거하고 있다.<br><br>
+                                <strong>환경 규칙</strong><br>
+                                · 구역 진입 시 아군 전체에게 중독 1 스택 부여<br>
+                                · 독성 가스 장판 타일 — 해당 타일 위 캐릭터는 매 턴 시작 시 중독 1 추가<br>
+                                · 금속 파편 이벤트 — 처리 방식에 따라 체력 손실/카드 파괴/자원 획득 분기<br><br>
+                                <strong>등장 몬스터</strong><br>
+                                녹슨 자동병기 · 오작동 드론 · 유독 가스 챔버(정예) · 제어 불능 중추 코어(보스)
+                            </div>
+                        </div>
+
+                        <!-- ZONE 04 -->
+                        <div class="world-slide" style="--slide-color:#c0c040;">
+                            <div class="world-slide-number">ZONE 04 · Lv 6~10 · 산업 지구 보스 처치</div>
+                            <div class="world-slide-name">퇴색의 사막</div>
+                            <div class="world-slide-level">Faded Dunes</div>
+                            <div class="world-slide-desc">
+                                퇴색 에너지가 지표 위로 새어나와 시간과 기억이 불안정한 지대가 되었다.
+                                이곳을 지나간 이들은 자신이 누구였는지 잊어버리기도 한다.<br><br>
+                                <strong>환경 규칙</strong><br>
+                                · 각 전투 시작 시 손패 카드 중 무작위 1장이 퇴색 버전으로 변형 (효과 약화/부작용 추가)<br>
+                                · 이벤트 노드에서 정신력 변동 폭이 일반 구역 대비 2배 (±10~20)<br>
+                                · Lv3 이상부터 매 탐사 시작 시 덱 최상단 카드 1장이 퇴색 상태로 변형<br><br>
+                                <strong>등장 몬스터</strong><br>
+                                모래 그림자 · 사막 수렴충 · 왜곡된 환상체(정예) · 퇴색의 현현(보스)
+                            </div>
+                        </div>
+
+                        <!-- ZONE 05 -->
+                        <div class="world-slide" style="--slide-color:#e05030;">
+                            <div class="world-slide-number">ZONE 05 · Lv 8~12 · 퇴색의 사막 보스 처치</div>
+                            <div class="world-slide-name">불타는 협곡</div>
+                            <div class="world-slide-level">Scorched Ravine</div>
+                            <div class="world-slide-desc">
+                                지하 깊은 곳에서 솟구친 에너지와 가스가 계속해서 불을 붙이는 위험 지역이다.
+                                한때 개발하려다 포기된 채 방치되어 자연발화 구역이 되었다.<br><br>
+                                <strong>환경 규칙</strong><br>
+                                · 전투 시작 시 아군 전체에게 화상 1 부여<br>
+                                · 특정 노드는 무조건 전투 발생 (지열 폭발 구역)<br>
+                                · Lv3 이상부터 용암 장판 타일 추가 — 해당 타일 위 캐릭터는 매 턴 화상 1 추가<br><br>
+                                <strong>등장 몬스터</strong><br>
+                                화염의 수호자 · 타오르는 잔해벌레 · 용암의 정령(정예) · 대지의 화핵(보스)
+                            </div>
+                        </div>
+
+                        <!-- ZONE 06 -->
+                        <div class="world-slide" style="--slide-color:#5080e0;">
+                            <div class="world-slide-number">ZONE 06 · Lv 10~14 · 협곡 보스 처치 + 특수 아이템</div>
+                            <div class="world-slide-name">지하 벙커 Δ-12</div>
+                            <div class="world-slide-level">Subterranean Vault Δ-12</div>
+                            <div class="world-slide-desc">
+                                인류가 퇴색을 역이용해 생체 병기를 만들려 했던 비밀 실험 시설이다.
+                                연구는 실패했지만 실험체들은 여전히 움직이고 있다.<br><br>
+                                <strong>환경 규칙</strong><br>
+                                · 전투 후 체력 회복량 50% 감소 (대신 유물/자원 드랍률 기본 대비 30% 상승 — 고위험 고보상)<br>
+                                · Lv3 이상부터 전투 종료 후 랜덤 아군 1명에게 '실험 부작용' 디버프 부여 (1턴 지속)<br><br>
+                                <strong>등장 몬스터</strong><br>
+                                실험체-41 · 유기 데이터 코어 · 생체 융합 기계(정예) · 프로토타입 오메가(보스)
+                            </div>
+                        </div>
+
+                        <!-- ZONE 07 -->
+                        <div class="world-slide" style="--slide-color:#8040c0;">
+                            <div class="world-slide-number">ZONE 07 · Lv 12~16 · 벙커 탐사 100% × 2</div>
+                            <div class="world-slide-name">붕괴된 성채</div>
+                            <div class="world-slide-level">Ruined Citadel</div>
+                            <div class="world-slide-desc">
+                                지배층의 죄와 퇴색 실험의 은폐가 이루어지던 장소로,
+                                그 잔재가 망령과 병기로 남아 성채를 지키고 있다.<br><br>
+                                <strong>환경 규칙</strong><br>
+                                · 망령형 적에게 물리 피해 20% 감소 효과 적용 (마법/정신 피해는 정상 적용)<br>
+                                · 과거의 잔상 이벤트 높은 확률로 등장 — 정신력 변동 ± 및 기억 조각 획득<br>
+                                · Lv3 이상부터 매 탐사 진입 시 정신력 -3 추가 적용<br><br>
+                                <strong>등장 몬스터</strong><br>
+                                망령 기사 · 공허의 궁병 · 성채의 집행자(정예) · 성채의 지배자(보스)
+                            </div>
+                        </div>
+
+                        <!-- ZONE 08 -->
+                        <div class="world-slide" style="--slide-color:#606070;">
+                            <div class="world-slide-number">ZONE 08 · Lv 15+ · 성채 보스 처치 + 스토리 조건 (엔딩 C)</div>
+                            <div class="world-slide-name">공백지대</div>
+                            <div class="world-slide-level">The Void — 퇴색의 근원과 밀접한 심층 구역</div>
+                            <div class="world-slide-desc">
+                                퇴색의 근원과 밀접한 관련이 있는 심층 구역이다.
+                                이곳에 들어온 이들은 자신이 누구인지, 무엇을 위해 싸우는지 잊어간다.<br><br>
+                                <strong>환경 규칙</strong><br>
+                                · 탐사 중 매 노드 이동마다 정신력 -1 지속 감소 (전투 외 구간 포함)<br>
+                                · 이벤트는 위험/보상이 극단적 (정신력 ±20~30, 전설 유물 or 저주 카드 3장)<br>
+                                · Lv3 이상부터 매 전투 시작 시 손패 카드 1장 무작위 소멸<br><br>
+                                <strong>등장 몬스터</strong><br>
+                                무형의 감시자 · 기억 태식자 · 지워진 존재(정예) · 공백의 핵(보스 — 엔딩 C 연관)
+                            </div>
+                            <div class="world-slide-tags">
+                                <span class="world-slide-tag">정신력 상시 감소</span>
+                                <span class="world-slide-tag">카드 소멸</span>
+                                <span class="world-slide-tag">극단적 이벤트</span>
+                                <span class="world-slide-tag">최고 난이도</span>
+                            </div>
+                        </div>
+
+                    </div><!-- /zoneTrack -->
+                </div><!-- /viewport -->
+
+                <button class="world-slider-btn next" onclick="zoneSlide(1)" aria-label="다음">›</button>
+                <div class="world-slider-dots" id="zoneDots"></div>
+            </div><!-- /slider-wrap -->
+        </section>
+</main>
+
+    <footer class="site-footer">
+        <p>카오스폰즈 (ChaosPons) — Project C · DEVFORGE Studio · Steam 2026 Q3 예정 · v0.1.0 Early Access</p>
+    </footer>
+</div>
+
+    <script src="ProjectC_script.js"></script> <!-- 카오스폰즈 전용 JS 연결 -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body>
+</html>

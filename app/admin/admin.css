@@ -1,0 +1,490 @@
+body[data-theme="playful-lab"] /* 관리자 색상 */
+{ /* 색상 시작 */
+    color-scheme: light; /* 밝은 화면 */
+    --admin-bg: var(--pl-surface); /* 관리자 배경 */
+    --admin-panel: var(--pl-canvas); /* 관리자 패널 */
+    --admin-panel-soft: var(--pl-panel); /* 관리자 보조 패널 */
+    --admin-line: var(--pl-border-strong); /* 관리자 경계선 */
+    --admin-text: var(--pl-ink); /* 관리자 글자 */
+    --admin-muted: var(--pl-muted); /* 관리자 보조 글자 */
+    --admin-accent: var(--pl-orange); /* 관리자 강조 */
+    --admin-danger: var(--pl-danger); /* 관리자 오류 */
+    --admin-success: var(--pl-success); /* 관리자 성공 */
+    --admin-background: var(--admin-bg); /* 기존 배경 별칭 */
+    --admin-surface: var(--admin-panel); /* 기존 패널 별칭 */
+    --admin-surface-soft: var(--admin-panel-soft); /* 기존 보조 패널 별칭 */
+    --admin-border: var(--admin-line); /* 기존 경계선 별칭 */
+    --admin-cyan: var(--admin-accent); /* 기존 강조 별칭 */
+    --admin-purple: var(--pl-violet); /* 기존 보조 강조 별칭 */
+} /* 색상 끝 */
+
+body /* 관리자 문서 */
+{ /* 본문 설정 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    min-height: 100vh; /* 최소 화면 높이 */
+    background: radial-gradient(circle at 14% 0%, color-mix(in srgb, var(--pl-orange) 13%, transparent), transparent 30%), radial-gradient(circle at 90% 8%, color-mix(in srgb, var(--pl-violet) 12%, transparent), transparent 32%), var(--admin-background); /* 공간감 배경 */
+    color: var(--admin-text); /* 기본 글자색 */
+} /* 본문 설정 끝 */
+
+.admin-shell /* 관리자 전체 영역 */
+{ /* 전체 영역 설정 시작 */
+    width: min(1180px, 92%); /* 반응형 최대 너비 */
+    min-height: 100vh; /* 최소 화면 높이 */
+    margin: 0 auto; /* 가운데 배치 */
+    padding-bottom: 64px; /* 아래 여백 */
+} /* 전체 영역 설정 끝 */
+
+.admin-login-shell /* 로그인 전체 영역 */
+{ /* 로그인 배치 시작 */
+    display: grid; /* 중앙 배치 준비 */
+    place-items: center; /* 화면 중앙 배치 */
+    padding-block: 48px; /* 위아래 여백 */
+} /* 로그인 배치 끝 */
+
+.admin-login-card /* 로그인 카드 */
+{ /* 카드 설정 시작 */
+    width: min(480px, 100%); /* 반응형 카드 너비 */
+    padding: clamp(28px, 6vw, 52px); /* 반응형 안쪽 여백 */
+    border: 1px solid var(--admin-border); /* 카드 경계선 */
+    background: linear-gradient(145deg, color-mix(in srgb, var(--pl-orange) 7%, var(--admin-surface)), transparent 58%), var(--admin-surface); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-medium); /* 카드 그림자 */
+} /* 카드 설정 끝 */
+
+.admin-brand /* 브랜드 링크 */
+{ /* 브랜드 설정 시작 */
+    color: var(--admin-cyan); /* 브랜드 강조색 */
+    font-family: Consolas, monospace; /* 기술형 글꼴 */
+    font-size: 1.05rem; /* 브랜드 크기 */
+    font-weight: 800; /* 브랜드 굵기 */
+    letter-spacing: 0.18em; /* 브랜드 글자 간격 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+} /* 브랜드 설정 끝 */
+
+.admin-eyebrow /* 영문 분류 */
+{ /* 분류 설정 시작 */
+    margin: 42px 0 10px; /* 분류 여백 */
+    color: var(--admin-cyan); /* 분류 강조색 */
+    font-family: Consolas, monospace; /* 기술형 글꼴 */
+    font-weight: 700; /* 분류 굵기 */
+    letter-spacing: 0.14em; /* 분류 글자 간격 */
+} /* 분류 설정 끝 */
+
+.admin-login-card h1, .admin-page-heading h1 /* 관리자 제목 */
+{ /* 제목 설정 시작 */
+    margin: 0 0 14px; /* 제목 여백 */
+    font-size: clamp(2rem, 5vw, 3.4rem); /* 반응형 제목 크기 */
+    letter-spacing: -0.045em; /* 제목 글자 간격 */
+} /* 제목 설정 끝 */
+
+.admin-description /* 관리자 설명 */
+{ /* 설명 설정 시작 */
+    margin: 0 0 32px; /* 설명 여백 */
+    color: var(--admin-muted); /* 보조 글자색 */
+    line-height: 1.7; /* 설명 줄 간격 */
+} /* 설명 설정 끝 */
+
+.admin-login-form, .editor-field /* 입력 묶음 */
+{ /* 입력 배치 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 9px; /* 입력 간격 */
+} /* 입력 배치 끝 */
+
+.admin-login-form label, .editor-field > span, .editor-panel legend /* 입력 이름 */
+{ /* 입력 이름 설정 시작 */
+    color: var(--admin-text); /* 기본 글자색 */
+    font-size: 0.9rem; /* 입력 이름 크기 */
+    font-weight: 700; /* 입력 이름 굵기 */
+} /* 입력 이름 설정 끝 */
+
+.admin-login-form input, .editor-field input, .editor-field textarea, .editor-field select /* 입력 요소 */
+{ /* 입력 요소 설정 시작 */
+    width: 100%; /* 입력 전체 너비 */
+    border: 1px solid var(--admin-border); /* 입력 경계선 */
+    border-radius: 6px; /* 입력 모서리 */
+    background: var(--admin-surface-soft); /* 입력 배경 */
+    color: var(--admin-text); /* 입력 글자색 */
+    font: inherit; /* 기본 글꼴 상속 */
+} /* 입력 요소 설정 끝 */
+
+.admin-login-form input, .editor-field input, .editor-field select /* 한 줄 입력 */
+{ /* 한 줄 입력 설정 시작 */
+    min-height: 48px; /* 입력 선택 높이 */
+    padding: 0 14px; /* 입력 좌우 여백 */
+} /* 한 줄 입력 설정 끝 */
+
+.editor-field textarea /* 여러 줄 입력 */
+{ /* 여러 줄 입력 설정 시작 */
+    padding: 14px; /* 입력 안쪽 여백 */
+    line-height: 1.7; /* 본문 줄 간격 */
+    resize: vertical; /* 세로 크기 조절 */
+} /* 여러 줄 입력 설정 끝 */
+
+.admin-login-form input:focus, .editor-field input:focus, .editor-field textarea:focus, .editor-field select:focus /* 입력 초점 */
+{ /* 초점 설정 시작 */
+    border-color: var(--admin-cyan); /* 초점 경계색 */
+    outline: var(--pl-focus-ring); /* 초점 표시 */
+} /* 초점 설정 끝 */
+
+.admin-login-form /* 로그인 폼 */
+{ /* 로그인 폼 설정 시작 */
+    gap: 14px; /* 입력 사이 간격 */
+} /* 로그인 폼 설정 끝 */
+
+.admin-primary-button /* 주요 버튼 */
+{ /* 버튼 설정 시작 */
+    min-height: 48px; /* 버튼 선택 높이 */
+    padding: 0 22px; /* 버튼 좌우 여백 */
+    border: 1px solid var(--admin-cyan); /* 버튼 경계선 */
+    border-radius: 6px; /* 버튼 모서리 */
+    background: var(--admin-cyan); /* 버튼 배경 */
+    color: var(--pl-ink); /* 버튼 글자색 */
+    font: inherit; /* 기본 글꼴 상속 */
+    font-weight: 800; /* 버튼 글자 굵기 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 버튼 설정 끝 */
+
+.admin-primary-button:disabled /* 비활성 버튼 */
+{ /* 비활성 설정 시작 */
+    cursor: not-allowed; /* 비활성 커서 */
+    opacity: 0.45; /* 비활성 투명도 */
+} /* 비활성 설정 끝 */
+
+.admin-button-link /* 링크형 버튼 */
+{ /* 링크 설정 시작 */
+    display: inline-grid; /* 링크 배치 */
+    place-items: center; /* 링크 중앙 정렬 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+} /* 링크 설정 끝 */
+
+.admin-message /* 관리자 안내 */
+{ /* 안내 설정 시작 */
+    padding: 13px 15px; /* 안내 안쪽 여백 */
+    border: 1px solid var(--admin-border); /* 안내 경계선 */
+    border-radius: 5px; /* 안내 모서리 */
+    font-size: 0.9rem; /* 안내 글자 크기 */
+} /* 안내 설정 끝 */
+
+.admin-message-error, .field-error /* 오류 안내 */
+{ /* 오류 색상 시작 */
+    color: var(--admin-danger); /* 오류 글자색 */
+} /* 오류 색상 끝 */
+
+.admin-message-error /* 전체 오류 안내 */
+{ /* 전체 오류 설정 시작 */
+    background: color-mix(in srgb, var(--admin-danger) 10%, var(--admin-surface)); /* 오류 배경 */
+    border-color: color-mix(in srgb, var(--admin-danger) 38%, var(--admin-border)); /* 오류 경계색 */
+} /* 전체 오류 설정 끝 */
+
+.admin-message-success /* 성공 안내 */
+{ /* 성공 설정 시작 */
+    color: var(--admin-cyan); /* 성공 글자색 */
+    background: color-mix(in srgb, var(--admin-success) 10%, var(--admin-surface)); /* 성공 배경 */
+    border-color: color-mix(in srgb, var(--admin-success) 34%, var(--admin-border)); /* 성공 경계색 */
+} /* 성공 설정 끝 */
+
+.admin-back-link /* 복귀 링크 */
+{ /* 복귀 링크 설정 시작 */
+    display: inline-block; /* 링크 영역 */
+    margin-top: 24px; /* 위 여백 */
+    color: var(--admin-muted); /* 보조 글자색 */
+} /* 복귀 링크 설정 끝 */
+
+.admin-header /* 관리자 상단 메뉴 */
+{ /* 메뉴 설정 시작 */
+    min-height: 82px; /* 메뉴 높이 */
+    border-bottom: 1px solid var(--admin-border); /* 메뉴 구분선 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 24px; /* 메뉴 간격 */
+} /* 메뉴 설정 끝 */
+
+.admin-nav, .admin-row-actions /* 작업 메뉴 */
+{ /* 작업 메뉴 설정 시작 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 16px; /* 메뉴 간격 */
+} /* 작업 메뉴 설정 끝 */
+
+.admin-nav a, .admin-nav button, .admin-row-actions a, .admin-row-actions button /* 작업 요소 */
+{ /* 작업 요소 설정 시작 */
+    border: 0; /* 기본 경계선 제거 */
+    background: transparent; /* 투명 배경 */
+    color: var(--admin-muted); /* 보조 글자색 */
+    font: inherit; /* 기본 글꼴 상속 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 작업 요소 설정 끝 */
+
+.admin-nav a:hover, .admin-nav button:hover, .admin-row-actions a:hover /* 작업 요소 선택 */
+{ /* 선택 설정 시작 */
+    color: var(--admin-cyan); /* 선택 글자색 */
+} /* 선택 설정 끝 */
+
+.admin-page-heading /* 관리자 화면 제목 */
+{ /* 제목 영역 설정 시작 */
+    padding: 58px 0 34px; /* 제목 영역 여백 */
+    display: flex; /* 가로 배치 */
+    align-items: flex-end; /* 아래 기준 정렬 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 24px; /* 제목 요소 간격 */
+} /* 제목 영역 설정 끝 */
+
+.admin-page-heading .admin-eyebrow /* 화면 영문 분류 */
+{ /* 분류 여백 설정 시작 */
+    margin-top: 0; /* 위 여백 제거 */
+} /* 분류 여백 설정 끝 */
+
+.admin-post-list /* 관리자 게시물 목록 */
+{ /* 목록 설정 시작 */
+    margin-top: 22px; /* 목록 위 여백 */
+    display: grid; /* 세로 목록 */
+    gap: 12px; /* 행 간격 */
+} /* 목록 설정 끝 */
+
+.admin-post-row /* 관리자 게시물 행 */
+{ /* 행 설정 시작 */
+    padding: 22px 24px; /* 행 안쪽 여백 */
+    border: 1px solid var(--admin-border); /* 행 경계선 */
+    background: var(--admin-surface); /* 행 배경 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 24px; /* 행 내용 간격 */
+} /* 행 설정 끝 */
+
+.admin-post-row h2 /* 게시물 제목 */
+{ /* 게시물 제목 설정 시작 */
+    margin: 8px 0 5px; /* 제목 여백 */
+    font-size: 1.1rem; /* 제목 크기 */
+} /* 게시물 제목 설정 끝 */
+
+.admin-post-row time /* 수정 시각 */
+{ /* 시각 설정 시작 */
+    color: var(--admin-muted); /* 보조 글자색 */
+    font-size: 0.82rem; /* 시각 크기 */
+} /* 시각 설정 끝 */
+
+.admin-status /* 공개 상태 */
+{ /* 상태 설정 시작 */
+    font-size: 0.75rem; /* 상태 크기 */
+    font-weight: 800; /* 상태 굵기 */
+} /* 상태 설정 끝 */
+
+.admin-status-published /* 공개 상태 강조 */
+{ /* 공개 색상 시작 */
+    color: var(--admin-success); /* 공개 글자색 */
+} /* 공개 색상 끝 */
+
+.admin-status-draft /* 초안 상태 강조 */
+{ /* 초안 색상 시작 */
+    color: var(--admin-accent); /* 초안 글자색 */
+} /* 초안 색상 끝 */
+
+.admin-delete-button /* 삭제 버튼 */
+{ /* 삭제 설정 시작 */
+    color: var(--admin-danger) !important; /* 위험 글자색 */
+} /* 삭제 설정 끝 */
+
+.admin-empty-state /* 빈 목록 안내 */
+{ /* 빈 목록 설정 시작 */
+    padding: 70px 24px; /* 안내 안쪽 여백 */
+    border: 1px dashed var(--admin-border); /* 안내 경계선 */
+    color: var(--admin-muted); /* 안내 글자색 */
+    text-align: center; /* 가운데 정렬 */
+} /* 빈 목록 설정 끝 */
+
+.product-editor /* 상품 편집기 */
+{ /* 상품 편집기 시작 */
+    display: grid; /* 두 영역 배치 */
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); /* 편집 영역 너비 */
+    gap: 24px; /* 영역 간격 */
+    align-items: start; /* 위 기준 정렬 */
+} /* 상품 편집기 끝 */
+
+.product-field-grid /* 상품 입력 격자 */
+{ /* 상품 입력 격자 시작 */
+    display: grid; /* 입력 나란히 배치 */
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* 같은 너비 두 열 */
+    gap: 16px; /* 입력 간격 */
+} /* 상품 입력 격자 끝 */
+
+.product-state-preview /* 상품 상태 미리보기 */
+{ /* 상태 미리보기 시작 */
+    display: grid; /* 문구 세로 배치 */
+    gap: 5px; /* 문구 간격 */
+    padding: 16px; /* 내부 여백 */
+    border: 1px solid var(--admin-border); /* 기본 경계선 */
+    background: var(--admin-surface-soft); /* 기본 배경 */
+} /* 상태 미리보기 끝 */
+
+.product-state-preview strong /* 상태 강조 문구 */
+{ /* 상태 강조 시작 */
+    font-size: 1.15rem; /* 상태 글자 크기 */
+} /* 상태 강조 끝 */
+
+.state-in_stock /* 판매 중 상태 */
+{ /* 판매 중 상태 시작 */
+    color: var(--admin-success); /* 판매 중 강조색 */
+} /* 판매 중 상태 끝 */
+
+.state-low_stock /* 재고 부족 상태 */
+{ /* 재고 부족 상태 시작 */
+    color: var(--admin-accent); /* 재고 부족 강조색 */
+} /* 재고 부족 상태 끝 */
+
+.state-sold_out /* 품절 상태 */
+{ /* 품절 상태 시작 */
+    color: var(--admin-danger); /* 품절 강조색 */
+} /* 품절 상태 끝 */
+
+.state-preparing, .state-checking /* 준비 상태 */
+{ /* 준비 상태 시작 */
+    color: var(--admin-purple); /* 준비 상태 강조색 */
+} /* 준비 상태 끝 */
+
+.state-hidden /* 비공개 상태 */
+{ /* 비공개 상태 시작 */
+    color: var(--admin-muted); /* 비공개 강조색 */
+} /* 비공개 상태 끝 */
+
+.admin-product-list /* 관리자 상품 목록 */
+{ /* 관리자 상품 목록 시작 */
+    display: grid; /* 상품 행 배치 */
+    gap: 12px; /* 상품 간격 */
+} /* 관리자 상품 목록 끝 */
+
+.admin-product-row /* 관리자 상품 행 */
+{ /* 관리자 상품 행 시작 */
+    display: grid; /* 상품 정보 배치 */
+    grid-template-columns: 96px minmax(0, 1fr) auto; /* 이미지 정보 작업 열 */
+    gap: 18px; /* 열 간격 */
+    align-items: center; /* 세로 중앙 정렬 */
+    padding: 14px; /* 내부 여백 */
+    border: 1px solid var(--admin-border); /* 행 경계선 */
+    background: var(--admin-surface); /* 행 배경 */
+} /* 관리자 상품 행 끝 */
+
+.admin-product-row img /* 상품 미리보기 */
+{ /* 상품 미리보기 시작 */
+    width: 96px; /* 이미지 너비 */
+    aspect-ratio: 4 / 3; /* 이미지 비율 */
+    object-fit: cover; /* 이미지 채움 */
+    border: 1px solid var(--admin-border); /* 이미지 경계선 */
+} /* 상품 미리보기 끝 */
+
+.admin-product-copy h2, .admin-product-copy p /* 상품 목록 문구 */
+{ /* 상품 문구 시작 */
+    margin: 5px 0 0; /* 문구 간격 */
+} /* 상품 문구 끝 */
+
+.admin-product-copy p /* 상품 보조 문구 */
+{ /* 상품 보조 문구 시작 */
+    color: var(--admin-muted); /* 보조 글자색 */
+} /* 상품 보조 문구 끝 */
+
+.news-editor /* 뉴스 편집기 */
+{ /* 편집기 설정 시작 */
+    display: grid; /* 두 영역 배치 */
+    grid-template-columns: minmax(0, 1fr) 300px; /* 본문과 설정 너비 */
+    gap: 24px; /* 영역 간격 */
+    align-items: start; /* 위 기준 정렬 */
+} /* 편집기 설정 끝 */
+
+.editor-main, .editor-sidebar /* 편집기 영역 */
+{ /* 영역 설정 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 18px; /* 항목 간격 */
+} /* 영역 설정 끝 */
+
+.editor-main, .editor-panel /* 편집기 카드 */
+{ /* 카드 설정 시작 */
+    border: 1px solid var(--admin-border); /* 카드 경계선 */
+    background: var(--admin-surface); /* 카드 배경 */
+} /* 카드 설정 끝 */
+
+.editor-main /* 주요 편집 카드 */
+{ /* 주요 카드 설정 시작 */
+    padding: clamp(22px, 4vw, 38px); /* 반응형 안쪽 여백 */
+} /* 주요 카드 설정 끝 */
+
+.editor-panel /* 설정 카드 */
+{ /* 설정 카드 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 20px; /* 카드 안쪽 여백 */
+} /* 설정 카드 끝 */
+
+.tag-choice-list /* 태그 선택 목록 */
+{ /* 태그 목록 설정 시작 */
+    margin-top: 13px; /* 목록 위 여백 */
+    display: grid; /* 세로 배치 */
+    gap: 9px; /* 태그 간격 */
+} /* 태그 목록 설정 끝 */
+
+.tag-choice /* 태그 선택 */
+{ /* 태그 설정 시작 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 9px; /* 선택 요소 간격 */
+    color: var(--admin-muted); /* 보조 글자색 */
+} /* 태그 설정 끝 */
+
+.character-count, .editor-field small /* 입력 보조 문구 */
+{ /* 보조 문구 설정 시작 */
+    color: var(--admin-muted); /* 보조 글자색 */
+    font-size: 0.78rem; /* 보조 문구 크기 */
+} /* 보조 문구 설정 끝 */
+
+.character-count /* 글자 수 */
+{ /* 글자 수 설정 시작 */
+    text-align: right; /* 오른쪽 정렬 */
+} /* 글자 수 설정 끝 */
+
+.field-error /* 필드 오류 */
+{ /* 필드 오류 설정 시작 */
+    color: var(--admin-danger) !important; /* 오류 글자색 */
+} /* 필드 오류 설정 끝 */
+
+@media (max-width: 820px) /* 좁은 화면 */
+{ /* 좁은 화면 시작 */
+    .admin-header, .admin-page-heading, .admin-post-row /* 좁은 가로 영역 */
+    { /* 영역 설정 시작 */
+        align-items: flex-start; /* 왼쪽 기준 정렬 */
+        flex-direction: column; /* 세로 배치 */
+    } /* 영역 설정 끝 */
+
+    .admin-header /* 좁은 상단 메뉴 */
+    { /* 메뉴 설정 시작 */
+        padding: 22px 0; /* 메뉴 여백 */
+    } /* 메뉴 설정 끝 */
+
+    .news-editor, .product-editor, .product-field-grid /* 좁은 편집기 */
+    { /* 편집기 설정 시작 */
+        grid-template-columns: 1fr; /* 한 열 배치 */
+    } /* 편집기 설정 끝 */
+
+    .admin-product-row /* 좁은 상품 행 */
+    { /* 좁은 상품 행 시작 */
+        grid-template-columns: 72px minmax(0, 1fr); /* 이미지와 정보 배치 */
+    } /* 좁은 상품 행 끝 */
+
+    .admin-product-row img /* 좁은 상품 이미지 */
+    { /* 좁은 상품 이미지 시작 */
+        width: 72px; /* 좁은 이미지 너비 */
+    } /* 좁은 상품 이미지 끝 */
+
+    .admin-product-row .admin-row-actions /* 좁은 상품 작업 */
+    { /* 좁은 상품 작업 시작 */
+        grid-column: 1 / -1; /* 전체 너비 사용 */
+    } /* 좁은 상품 작업 끝 */
+} /* 좁은 화면 끝 */
+
+@media (prefers-reduced-motion: reduce) /* 움직임 최소화 환경 */
+{ /* 접근성 설정 시작 */
+    * /* 모든 요소 */
+    { /* 움직임 설정 시작 */
+        scroll-behavior: auto; /* 부드러운 이동 해제 */
+        transition: none !important; /* 화면 전환 해제 */
+    } /* 움직임 설정 끝 */
+} /* 접근성 설정 끝 */

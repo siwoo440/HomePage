@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1672 941" role="img" aria-labelledby="title description"> <!-- 모자이크 그림 시작 -->
+    <title id="title">성인 확인이 필요한 게임</title> <!-- 그림 제목 -->
+    <desc id="description">성인 확인 전에는 게임 이미지를 표시하지 않는 모자이크 화면</desc> <!-- 그림 설명 -->
+    <rect width="1672" height="941" fill="#090d16"/> <!-- 기본 배경 -->
+    <g opacity="0.9"> <!-- 픽셀 묶음 시작 -->
+        <rect x="0" y="0" width="418" height="235" fill="#18233a"/> <!-- 첫 픽셀 -->
+        <rect x="418" y="0" width="418" height="235" fill="#27304a"/> <!-- 둘째 픽셀 -->
+        <rect x="836" y="0" width="418" height="235" fill="#121b2d"/> <!-- 셋째 픽셀 -->
+        <rect x="1254" y="0" width="418" height="235" fill="#253451"/> <!-- 넷째 픽셀 -->
+        <rect x="0" y="235" width="418" height="236" fill="#24334c"/> <!-- 다섯째 픽셀 -->
+        <rect x="418" y="235" width="418" height="236" fill="#101827"/> <!-- 여섯째 픽셀 -->
+        <rect x="836" y="235" width="418" height="236" fill="#2e2940"/> <!-- 일곱째 픽셀 -->
+        <rect x="1254" y="235" width="418" height="236" fill="#151f34"/> <!-- 여덟째 픽셀 -->
+        <rect x="0" y="471" width="418" height="235" fill="#10192b"/> <!-- 아홉째 픽셀 -->
+        <rect x="418" y="471" width="418" height="235" fill="#2a3550"/> <!-- 열째 픽셀 -->
+        <rect x="836" y="471" width="418" height="235" fill="#17253b"/> <!-- 열한째 픽셀 -->
+        <rect x="1254" y="471" width="418" height="235" fill="#29243a"/> <!-- 열두째 픽셀 -->
+        <rect x="0" y="706" width="418" height="235" fill="#26324c"/> <!-- 열셋째 픽셀 -->
+        <rect x="418" y="706" width="418" height="235" fill="#131d31"/> <!-- 열넷째 픽셀 -->
+        <rect x="836" y="706" width="418" height="235" fill="#252f47"/> <!-- 열다섯째 픽셀 -->
+        <rect x="1254" y="706" width="418" height="235" fill="#0f1727"/> <!-- 열여섯째 픽셀 -->
+    </g> <!-- 픽셀 묶음 끝 -->
+    <circle cx="836" cy="410" r="116" fill="#090d16" stroke="#ff657b" stroke-width="18"/> <!-- 성인 표시 원 -->
+    <text x="836" y="442" fill="#ffffff" font-family="Arial, sans-serif" font-size="88" font-weight="800" text-anchor="middle">19+</text> <!-- 성인 표시 글자 -->
+    <text x="836" y="590" fill="#dce5f7" font-family="Arial, sans-serif" font-size="46" font-weight="700" text-anchor="middle">성인 확인 후 열람</text> <!-- 잠금 안내 -->
+</svg> <!-- 모자이크 그림 끝 -->

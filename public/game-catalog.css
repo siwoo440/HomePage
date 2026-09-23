@@ -1,0 +1,174 @@
+.games-catalog-block /* 게임 목록 구역 */
+{ /* 규칙 시작 */
+    margin-top: 3rem; /* 구역 위 간격 */
+} /* 규칙 끝 */
+
+.games-subheading /* 게임 구역 제목 */
+{ /* 규칙 시작 */
+    color: var(--text-primary); /* 제목 글자색 */
+    font-family: "Orbitron", sans-serif; /* 제목 글꼴 */
+    font-size: clamp(1.15rem, 2vw, 1.55rem); /* 반응형 제목 크기 */
+    letter-spacing: 0.04em; /* 제목 글자 간격 */
+    margin: 0 0 1.25rem; /* 제목 아래 간격 */
+} /* 규칙 끝 */
+
+.games-subheading span /* 제목 강조 */
+{ /* 규칙 시작 */
+    color: var(--accent-cyan); /* 강조 글자색 */
+} /* 규칙 끝 */
+
+.featured-games-grid /* 추천 게임 목록 */
+{ /* 규칙 시작 */
+    display: grid; /* 추천 카드 격자 */
+    gap: 1.25rem; /* 추천 카드 간격 */
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* PC 세 열 */
+} /* 규칙 끝 */
+
+.game-card-featured /* 추천 게임 카드 */
+{ /* 규칙 시작 */
+    border-color: rgba(0, 245, 212, 0.46); /* 추천 카드 강조선 */
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.24); /* 추천 카드 깊이 */
+} /* 규칙 끝 */
+
+.game-catalog-toolbar /* 검색과 필터 영역 */
+{ /* 규칙 시작 */
+    background: rgba(7, 11, 20, 0.42); /* 도구 배경 */
+    border: 1px solid var(--border-color); /* 도구 테두리 */
+    display: grid; /* 도구 세로 배치 */
+    gap: 1rem; /* 도구 간격 */
+    margin-bottom: 1.5rem; /* 목록과 간격 */
+    padding: 1.1rem; /* 도구 안쪽 여백 */
+} /* 규칙 끝 */
+
+.game-search-field /* 게임 검색 입력 */
+{ /* 규칙 시작 */
+    align-items: center; /* 검색 세로 정렬 */
+    border: 1px solid var(--border-color); /* 검색 테두리 */
+    display: grid; /* 검색 아이콘과 입력 배치 */
+    gap: 0.7rem; /* 검색 내부 간격 */
+    grid-template-columns: auto minmax(0, 1fr); /* 아이콘과 입력 열 */
+    min-height: 46px; /* 검색 터치 높이 */
+    padding: 0 0.9rem; /* 검색 좌우 여백 */
+} /* 규칙 끝 */
+
+.game-search-field:focus-within /* 검색 입력 초점 */
+{ /* 규칙 시작 */
+    border-color: var(--accent-cyan); /* 초점 강조선 */
+    box-shadow: 0 0 0 3px rgba(0, 245, 212, 0.08); /* 초점 외곽 */
+} /* 규칙 끝 */
+
+.game-search-icon /* 검색 아이콘 */
+{ /* 규칙 시작 */
+    color: var(--accent-cyan); /* 검색 아이콘 색상 */
+    font-size: 1rem; /* 검색 아이콘 크기 */
+} /* 규칙 끝 */
+
+.game-search-input /* 검색 입력칸 */
+{ /* 규칙 시작 */
+    background: transparent; /* 입력 배경 제거 */
+    border: 0; /* 입력 테두리 제거 */
+    color: var(--text-primary); /* 입력 글자색 */
+    font: inherit; /* 본문 글꼴 상속 */
+    min-width: 0; /* 입력 축소 허용 */
+    outline: 0; /* 기본 외곽선 제거 */
+    width: 100%; /* 입력 너비 채움 */
+} /* 규칙 끝 */
+
+.game-filter-group /* 필터 묶음 */
+{ /* 규칙 시작 */
+    align-items: flex-start; /* 필터 위쪽 정렬 */
+    display: grid; /* 필터 제목과 버튼 배치 */
+    gap: 0.75rem; /* 필터 내부 간격 */
+    grid-template-columns: 72px minmax(0, 1fr); /* 제목과 버튼 열 */
+} /* 규칙 끝 */
+
+.game-filter-label /* 필터 제목 */
+{ /* 규칙 시작 */
+    color: var(--text-muted); /* 필터 제목색 */
+    font-size: 0.78rem; /* 필터 제목 크기 */
+    padding-top: 0.48rem; /* 버튼 문구선 정렬 */
+} /* 규칙 끝 */
+
+.game-filter-options /* 필터 버튼 영역 */
+{ /* 규칙 시작 */
+    display: flex; /* 버튼 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 0.55rem; /* 버튼 간격 */
+} /* 규칙 끝 */
+
+.game-catalog-summary /* 결과 정보 줄 */
+{ /* 규칙 시작 */
+    align-items: center; /* 결과 세로 정렬 */
+    display: flex; /* 결과 가로 배치 */
+    justify-content: space-between; /* 결과 양쪽 정렬 */
+    margin-bottom: 1rem; /* 목록과 간격 */
+} /* 규칙 끝 */
+
+.game-result-count /* 결과 개수 */
+{ /* 규칙 시작 */
+    color: var(--text-muted); /* 결과 보조색 */
+    font-size: 0.85rem; /* 결과 글자 크기 */
+} /* 규칙 끝 */
+
+.game-empty-message /* 검색 결과 없음 */
+{ /* 규칙 시작 */
+    border: 1px dashed var(--border-color); /* 빈 결과 테두리 */
+    color: var(--text-muted); /* 빈 결과 글자색 */
+    margin-top: 1rem; /* 빈 결과 위 간격 */
+    padding: 2.5rem 1rem; /* 빈 결과 안쪽 여백 */
+    text-align: center; /* 빈 결과 가운데 정렬 */
+} /* 규칙 끝 */
+
+.game-load-more /* 게임 더 보기 */
+{ /* 규칙 시작 */
+    background: transparent; /* 버튼 배경 제거 */
+    border: 1px solid var(--accent-cyan); /* 버튼 강조선 */
+    color: var(--accent-cyan); /* 버튼 글자색 */
+    cursor: pointer; /* 선택 커서 */
+    display: block; /* 가운데 배치 기반 */
+    font: inherit; /* 본문 글꼴 상속 */
+    font-weight: 700; /* 버튼 글자 굵기 */
+    margin: 2rem auto 0; /* 버튼 가운데 배치 */
+    min-height: 46px; /* 버튼 터치 높이 */
+    min-width: 180px; /* 버튼 최소 너비 */
+    padding: 0.7rem 1.5rem; /* 버튼 안쪽 여백 */
+} /* 규칙 끝 */
+
+.game-load-more:hover, /* 더 보기 마우스 */
+.game-load-more:focus-visible /* 더 보기 초점 */
+{ /* 규칙 시작 */
+    background: var(--accent-cyan); /* 강조 배경 */
+    color: var(--bg-primary); /* 대비 글자색 */
+    outline: none; /* 기본 외곽선 제거 */
+} /* 규칙 끝 */
+
+.games-section [hidden] /* 게임 구역 숨김 요소 */
+{ /* 규칙 시작 */
+    display: none !important; /* 화면 제외 */
+} /* 규칙 끝 */
+
+@media (max-width: 1023px) /* 태블릿 이하 */
+{ /* 구간 시작 */
+    .featured-games-grid /* 태블릿 추천 목록 */
+    { /* 규칙 시작 */
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 추천 두 열 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (max-width: 767px) /* 모바일 화면 */
+{ /* 구간 시작 */
+    .featured-games-grid /* 모바일 추천 목록 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr; /* 추천 한 열 */
+    } /* 규칙 끝 */
+
+    .game-filter-group /* 모바일 필터 묶음 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr; /* 필터 세로 배치 */
+    } /* 규칙 끝 */
+
+    .game-filter-label /* 모바일 필터 제목 */
+    { /* 규칙 시작 */
+        padding-top: 0; /* 위 여백 제거 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */

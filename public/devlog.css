@@ -1,0 +1,616 @@
+:root /* 공통 색상 */
+{ /* 색상 시작 */
+    color-scheme: dark; /* 어두운 기본 화면 */
+    --background: #070b14; /* 메인 배경 */
+    --surface: #101827; /* 카드 배경 */
+    --surface-soft: #0d1526; /* 보조 배경 */
+    --border: #22314a; /* 경계선 색상 */
+    --cyan: #00f5d4; /* 주요 강조색 */
+    --purple: #b048ff; /* 보조 강조색 */
+    --orange: #ff8a4c; /* 신기능 강조색 */
+    --text: #e8edf5; /* 기본 글자색 */
+    --muted: #8492aa; /* 보조 글자색 */
+} /* 색상 끝 */
+* /* 모든 요소 */
+{ /* 크기 설정 시작 */
+    box-sizing: border-box; /* 테두리 포함 크기 */
+} /* 크기 설정 끝 */
+html /* 문서 화면 */
+{ /* 스크롤 설정 시작 */
+    scroll-behavior: smooth; /* 부드러운 위치 이동 */
+} /* 스크롤 설정 끝 */
+body /* 문서 본문 */
+{ /* 본문 설정 시작 */
+    margin: 0; /* 기본 바깥 여백 제거 */
+    min-height: 100vh; /* 최소 화면 높이 */
+    background: radial-gradient(circle at 18% 0%, rgba(0, 245, 212, 0.08), transparent 34%), radial-gradient(circle at 84% 8%, rgba(176, 72, 255, 0.1), transparent 32%), var(--background); /* 공간감 배경 */
+    color: var(--text); /* 기본 글자색 */
+    font-family: "Segoe UI", "Malgun Gothic", sans-serif; /* 기본 글꼴 */
+    line-height: 1.65; /* 본문 줄 간격 */
+} /* 본문 설정 끝 */
+a /* 모든 링크 */
+{ /* 링크 설정 시작 */
+    color: inherit; /* 주변 글자색 유지 */
+    text-decoration: none; /* 기본 밑줄 제거 */
+} /* 링크 설정 끝 */
+button /* 모든 버튼 */
+{ /* 버튼 글꼴 설정 시작 */
+    font: inherit; /* 본문 글꼴 상속 */
+} /* 버튼 글꼴 설정 끝 */
+.navbar /* 상단 고정 메뉴 */
+{ /* 메뉴 설정 시작 */
+    position: fixed; /* 화면 상단 고정 */
+    top: 0; /* 위쪽 위치 */
+    right: 0; /* 오른쪽 위치 */
+    left: 0; /* 왼쪽 위치 */
+    z-index: 100; /* 다른 내용 위 배치 */
+    height: 70px; /* 메뉴 높이 */
+    padding: 0 5%; /* 좌우 안쪽 여백 */
+    border-bottom: 1px solid var(--border); /* 메뉴 구분선 */
+    background: rgba(7, 11, 20, 0.9); /* 반투명 배경 */
+    backdrop-filter: blur(20px); /* 배경 흐림 효과 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 24px; /* 메뉴 요소 간격 */
+} /* 메뉴 설정 끝 */
+.nav-logo /* 상단 로고 */
+{ /* 로고 설정 시작 */
+    background: linear-gradient(135deg, var(--cyan), var(--purple)); /* 로고 그라디언트 */
+    background-clip: text; /* 글자 영역 배경 */
+    color: transparent; /* 그라디언트 글자 */
+    font-family: Orbitron, "Segoe UI", sans-serif; /* 로고 글꼴 */
+    font-size: 1.4rem; /* 로고 크기 */
+    font-weight: 900; /* 로고 굵기 */
+    letter-spacing: 3px; /* 로고 글자 간격 */
+    white-space: nowrap; /* 로고 줄바꿈 차단 */
+} /* 로고 설정 끝 */
+.nav-menu /* 상단 메뉴 목록 */
+{ /* 목록 설정 시작 */
+    margin: 0; /* 기본 바깥 여백 제거 */
+    padding: 0; /* 기본 안쪽 여백 제거 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 2.5rem; /* 메뉴 간격 */
+    list-style: none; /* 목록 기호 제거 */
+} /* 목록 설정 끝 */
+.nav-menu a /* 상단 메뉴 링크 */
+{ /* 링크 설정 시작 */
+    position: relative; /* 밑줄 기준 위치 */
+    color: var(--muted); /* 기본 글자색 */
+    font-size: 0.85rem; /* 메뉴 글자 크기 */
+    font-weight: 500; /* 메뉴 글자 굵기 */
+    letter-spacing: 1.5px; /* 메뉴 글자 간격 */
+} /* 링크 설정 끝 */
+.nav-menu a::after /* 메뉴 링크 밑줄 */
+{ /* 밑줄 설정 시작 */
+    content: ""; /* 빈 장식 요소 */
+    position: absolute; /* 링크 아래 배치 */
+    right: 0; /* 오른쪽 위치 */
+    bottom: -5px; /* 아래쪽 위치 */
+    left: 0; /* 왼쪽 위치 */
+    height: 1px; /* 밑줄 높이 */
+    background: var(--cyan); /* 밑줄 색상 */
+    transform: scaleX(0); /* 기본 밑줄 숨김 */
+    transition: transform 0.25s ease; /* 밑줄 전환 */
+} /* 밑줄 설정 끝 */
+.nav-menu a:hover, .nav-menu a:focus-visible, .nav-menu a[aria-current="page"] /* 메뉴 선택 상태 */
+{ /* 선택 설정 시작 */
+    color: var(--cyan); /* 선택 글자색 */
+} /* 선택 설정 끝 */
+.nav-menu a:hover::after, .nav-menu a:focus-visible::after, .nav-menu a[aria-current="page"]::after /* 메뉴 밑줄 선택 */
+{ /* 선택 밑줄 설정 시작 */
+    transform: scaleX(1); /* 밑줄 표시 */
+} /* 선택 밑줄 설정 끝 */
+.nav-actions /* 상단 작업 묶음 */
+{ /* 작업 묶음 설정 시작 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 1rem; /* 작업 요소 간격 */
+} /* 작업 묶음 설정 끝 */
+.btn-nav /* 상단 외곽선 버튼 */
+{ /* 버튼 설정 시작 */
+    min-height: 40px; /* 버튼 선택 높이 */
+    padding: 0.5rem 1.2rem; /* 버튼 안쪽 여백 */
+    border: 1px solid var(--cyan); /* 버튼 테두리 */
+    background: transparent; /* 투명 배경 */
+    color: var(--cyan); /* 버튼 글자색 */
+    font-family: Orbitron, "Segoe UI", sans-serif; /* 버튼 글꼴 */
+    font-size: 0.75rem; /* 버튼 글자 크기 */
+    font-weight: 700; /* 버튼 글자 굵기 */
+    letter-spacing: 2px; /* 버튼 글자 간격 */
+    cursor: pointer; /* 클릭 커서 */
+    transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; /* 버튼 전환 */
+} /* 버튼 설정 끝 */
+.btn-nav:hover, .btn-nav:focus-visible /* 버튼 선택 상태 */
+{ /* 선택 설정 시작 */
+    background: var(--cyan); /* 선택 배경 */
+    color: var(--background); /* 선택 글자색 */
+    box-shadow: 0 0 22px rgba(0, 245, 212, 0.25); /* 선택 빛 효과 */
+    outline: none; /* 기본 초점선 제거 */
+} /* 선택 설정 끝 */
+.member-login-link /* 회원 로그인 버튼 */
+{ /* 로그인 설정 시작 */
+    background: rgba(0, 245, 212, 0.08); /* 연한 강조 배경 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+} /* 로그인 설정 끝 */
+.news-shortcut /* 모바일 뉴스 바로가기 */
+{ /* 바로가기 설정 시작 */
+    display: none; /* 데스크톱 중복 링크 숨김 */
+} /* 바로가기 설정 끝 */
+.page-shell /* 전체 페이지 */
+{ /* 너비 설정 시작 */
+    width: min(1180px, 92%); /* 반응형 최대 너비 */
+    margin: 0 auto; /* 가운데 배치 */
+    padding-top: 70px; /* 고정 메뉴 공간 */
+} /* 너비 설정 끝 */
+.site-header /* 상단 소개 */
+{ /* 상단 설정 시작 */
+    padding-bottom: 54px; /* 소개 아래 여백 */
+    border-bottom: 1px solid var(--border); /* 소개 구분선 */
+} /* 상단 설정 끝 */
+.top-nav /* 상단 메뉴 */
+{ /* 메뉴 설정 시작 */
+    min-height: 82px; /* 메뉴 높이 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 24px; /* 요소 간격 */
+} /* 메뉴 설정 끝 */
+.brand /* 브랜드 링크 */
+{ /* 브랜드 설정 시작 */
+    color: var(--cyan); /* 브랜드 강조색 */
+    font-family: Consolas, monospace; /* 기술 느낌 글꼴 */
+    font-size: 1.05rem; /* 브랜드 크기 */
+    font-weight: 800; /* 브랜드 굵기 */
+    letter-spacing: 0.18em; /* 브랜드 글자 간격 */
+} /* 브랜드 설정 끝 */
+.back-link /* 메인 복귀 링크 */
+{ /* 복귀 링크 설정 시작 */
+    color: var(--muted); /* 보조 글자색 */
+    border-bottom: 1px solid transparent; /* 호버선 자리 */
+    transition: color 0.2s ease, border-color 0.2s ease; /* 선택 전환 */
+} /* 복귀 링크 설정 끝 */
+.back-link:hover, .back-link:focus-visible /* 복귀 링크 선택 */
+{ /* 선택 설정 시작 */
+    color: var(--cyan); /* 선택 글자색 */
+    border-color: var(--cyan); /* 선택 밑줄 */
+} /* 선택 설정 끝 */
+.hero-copy /* 페이지 소개문 */
+{ /* 소개문 설정 시작 */
+    max-width: 760px; /* 읽기 너비 */
+    padding: 72px 0 18px; /* 소개문 여백 */
+} /* 소개문 설정 끝 */
+.eyebrow /* 영문 분류 */
+{ /* 분류 설정 시작 */
+    margin: 0 0 12px; /* 아래 여백 */
+    color: var(--cyan); /* 분류 강조색 */
+    font-family: Consolas, monospace; /* 기술 느낌 글꼴 */
+    font-weight: 700; /* 분류 굵기 */
+    letter-spacing: 0.14em; /* 분류 글자 간격 */
+} /* 분류 설정 끝 */
+h1, h2, p /* 기본 글자 요소 */
+{ /* 기본 여백 시작 */
+    margin-top: 0; /* 위 여백 제거 */
+} /* 기본 여백 끝 */
+h1 /* 페이지 제목 */
+{ /* 제목 설정 시작 */
+    margin-bottom: 18px; /* 제목 아래 여백 */
+    font-size: clamp(2.7rem, 8vw, 5.6rem); /* 반응형 제목 크기 */
+    line-height: 1; /* 제목 줄 간격 */
+    letter-spacing: -0.06em; /* 제목 글자 간격 */
+} /* 제목 설정 끝 */
+h1 span /* 제목 강조 */
+{ /* 강조 설정 시작 */
+    color: var(--cyan); /* 강조 글자색 */
+} /* 강조 설정 끝 */
+.hero-copy > p:last-child /* 페이지 설명 */
+{ /* 설명 설정 시작 */
+    color: var(--muted); /* 보조 글자색 */
+    font-size: 1.06rem; /* 설명 글자 크기 */
+} /* 설명 설정 끝 */
+.filter-panel /* 필터 영역 */
+{ /* 필터 설정 시작 */
+    padding: 46px 0 28px; /* 필터 위아래 여백 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: minmax(220px, 1fr) auto; /* 제목과 버튼 배치 */
+    gap: 24px; /* 영역 간격 */
+    align-items: end; /* 아래 기준 정렬 */
+} /* 필터 설정 끝 */
+.filter-panel h2 /* 필터 제목 */
+{ /* 필터 제목 설정 시작 */
+    margin-bottom: 0; /* 아래 여백 제거 */
+    font-size: 1.7rem; /* 제목 크기 */
+} /* 필터 제목 설정 끝 */
+.filter-buttons /* 필터 버튼 묶음 */
+{ /* 버튼 묶음 설정 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 10px; /* 버튼 간격 */
+    justify-content: flex-end; /* 오른쪽 정렬 */
+} /* 버튼 묶음 설정 끝 */
+.filter-button /* 필터 버튼 */
+{ /* 버튼 설정 시작 */
+    min-height: 42px; /* 선택 영역 높이 */
+    padding: 8px 17px; /* 버튼 안쪽 여백 */
+    border: 1px solid var(--border); /* 버튼 테두리 */
+    border-radius: 999px; /* 둥근 버튼 */
+    background: var(--surface-soft); /* 버튼 배경 */
+    color: var(--muted); /* 버튼 글자색 */
+    cursor: pointer; /* 클릭 커서 */
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; /* 선택 전환 */
+} /* 버튼 설정 끝 */
+.filter-button:hover, .filter-button:focus-visible, .filter-button.active /* 버튼 선택 상태 */
+{ /* 선택 설정 시작 */
+    border-color: var(--cyan); /* 선택 테두리 */
+    background: rgba(0, 245, 212, 0.08); /* 선택 배경 */
+    color: var(--cyan); /* 선택 글자색 */
+    outline: none; /* 기본 초점선 제거 */
+} /* 선택 설정 끝 */
+.result-count /* 결과 개수 */
+{ /* 결과 설정 시작 */
+    grid-column: 1 / -1; /* 전체 너비 사용 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--muted); /* 보조 글자색 */
+    font-family: Consolas, monospace; /* 숫자용 글꼴 */
+    text-align: right; /* 오른쪽 정렬 */
+} /* 결과 설정 끝 */
+.load-status /* 원격 조회 상태 */
+{ /* 조회 상태 설정 시작 */
+    grid-column: 1 / -1; /* 전체 너비 사용 */
+    margin: -14px 0 0; /* 위 간격 축소 */
+    color: var(--muted); /* 보조 글자색 */
+    font-size: 0.82rem; /* 상태 글자 크기 */
+    text-align: right; /* 오른쪽 정렬 */
+} /* 조회 상태 설정 끝 */
+.news-list /* 뉴스 목록 */
+{ /* 목록 설정 시작 */
+    display: grid; /* 세로 격자 배치 */
+    gap: 18px; /* 뉴스 사이 간격 */
+} /* 목록 설정 끝 */
+.news-row /* 가로 뉴스 카드 */
+{ /* 카드 설정 시작 */
+    min-height: 210px; /* 가로 카드 높이 */
+    padding: 30px 34px; /* 카드 안쪽 여백 */
+    border: 1px solid var(--border); /* 카드 경계선 */
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.025), transparent 62%), var(--surface); /* 카드 배경 */
+    display: grid; /* 카드 내부 격자 */
+    grid-template-columns: 120px minmax(0, 1fr) 72px; /* 날짜 내용 순번 배치 */
+    gap: 30px; /* 카드 내부 간격 */
+    align-items: center; /* 세로 가운데 정렬 */
+    position: relative; /* 장식 기준 */
+    overflow: hidden; /* 장식 넘침 차단 */
+    transition: transform 0.25s ease, border-color 0.25s ease; /* 카드 전환 */
+} /* 카드 설정 끝 */
+.news-row::before /* 카드 강조선 */
+{ /* 강조선 설정 시작 */
+    content: ""; /* 빈 장식 요소 */
+    position: absolute; /* 카드 위 배치 */
+    inset: 0 auto 0 0; /* 왼쪽 전체 높이 */
+    width: 3px; /* 강조선 너비 */
+    background: linear-gradient(var(--cyan), var(--purple)); /* 강조선 색상 */
+} /* 강조선 설정 끝 */
+.news-row:hover /* 카드 호버 */
+{ /* 호버 설정 시작 */
+    transform: translateX(5px); /* 오른쪽 이동 */
+    border-color: rgba(0, 245, 212, 0.55); /* 호버 테두리 */
+} /* 호버 설정 끝 */
+.news-row-hit /* 뉴스 카드 전체 링크 */
+{ /* 링크 설정 시작 */
+    position: absolute; /* 카드 위 배치 */
+    inset: 0; /* 카드 전체 채움 */
+    z-index: 2; /* 내용 위 선택 영역 */
+} /* 링크 설정 끝 */
+.news-row-hit:focus-visible /* 카드 링크 초점 */
+{ /* 초점 설정 시작 */
+    outline: 3px solid rgba(0, 245, 212, 0.45); /* 초점 표시 */
+    outline-offset: -4px; /* 카드 안쪽 표시 */
+} /* 초점 설정 끝 */
+.news-row-link:focus-visible /* 링크 카드 초점 */
+{ /* 초점 설정 시작 */
+    border-color: var(--cyan); /* 초점 테두리 */
+    outline: 3px solid rgba(0, 245, 212, 0.2); /* 초점 표시 */
+    transform: translateX(5px); /* 선택 이동 */
+} /* 초점 설정 끝 */
+.news-row[hidden] /* 숨긴 뉴스 */
+{ /* 숨김 설정 시작 */
+    display: none; /* 화면에서 제거 */
+} /* 숨김 설정 끝 */
+.news-date /* 뉴스 날짜 */
+{ /* 날짜 설정 시작 */
+    padding-right: 22px; /* 오른쪽 여백 */
+    border-right: 1px solid var(--border); /* 날짜 구분선 */
+    display: flex; /* 세로 배치 준비 */
+    flex-direction: column; /* 연도와 날짜 세로 배치 */
+    color: var(--muted); /* 연도 글자색 */
+    font-family: Consolas, monospace; /* 날짜 글꼴 */
+} /* 날짜 설정 끝 */
+.news-date strong /* 월일 표시 */
+{ /* 월일 설정 시작 */
+    color: var(--text); /* 월일 글자색 */
+    font-size: 1.65rem; /* 월일 크기 */
+} /* 월일 설정 끝 */
+.news-tags /* 태그 묶음 */
+{ /* 태그 설정 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 태그 줄바꿈 */
+    gap: 8px; /* 태그 간격 */
+    margin-bottom: 13px; /* 태그 아래 여백 */
+} /* 태그 설정 끝 */
+.news-tag /* 뉴스 태그 */
+{ /* 개별 태그 설정 시작 */
+    padding: 4px 10px; /* 태그 안쪽 여백 */
+    border-radius: 4px; /* 태그 모서리 */
+    font-size: 0.76rem; /* 태그 글자 크기 */
+    font-weight: 700; /* 태그 글자 굵기 */
+} /* 개별 태그 설정 끝 */
+.tag-update /* 업데이트 태그 */
+{ /* 업데이트 색상 시작 */
+    background: rgba(0, 245, 212, 0.12); /* 업데이트 배경 */
+    color: var(--cyan); /* 업데이트 글자색 */
+} /* 업데이트 색상 끝 */
+.tag-feature /* 신기능 태그 */
+{ /* 신기능 색상 시작 */
+    background: rgba(255, 138, 76, 0.13); /* 신기능 배경 */
+    color: var(--orange); /* 신기능 글자색 */
+} /* 신기능 색상 끝 */
+.tag-devlog /* 데브로그 태그 */
+{ /* 데브로그 색상 시작 */
+    background: rgba(255, 215, 0, 0.11); /* 데브로그 배경 */
+    color: #ffd76a; /* 데브로그 글자색 */
+} /* 데브로그 색상 끝 */
+.tag-fix /* 버그픽스 태그 */
+{ /* 버그픽스 색상 시작 */
+    background: rgba(176, 72, 255, 0.13); /* 버그픽스 배경 */
+    color: #cf91ff; /* 버그픽스 글자색 */
+} /* 버그픽스 색상 끝 */
+.news-content h2 /* 뉴스 제목 */
+{ /* 뉴스 제목 설정 시작 */
+    margin-bottom: 10px; /* 제목 아래 여백 */
+    font-size: clamp(1.15rem, 2.3vw, 1.55rem); /* 반응형 제목 크기 */
+    line-height: 1.4; /* 제목 줄 간격 */
+} /* 뉴스 제목 설정 끝 */
+.news-content p /* 뉴스 요약 */
+{ /* 뉴스 요약 설정 시작 */
+    margin-bottom: 0; /* 아래 여백 제거 */
+    color: var(--muted); /* 보조 글자색 */
+} /* 뉴스 요약 설정 끝 */
+.news-index /* 뉴스 순번 */
+{ /* 순번 설정 시작 */
+    color: rgba(132, 146, 170, 0.22); /* 흐린 순번 색상 */
+    font-family: Consolas, monospace; /* 순번 글꼴 */
+    font-size: 2.6rem; /* 순번 크기 */
+    font-weight: 700; /* 순번 굵기 */
+    text-align: right; /* 오른쪽 정렬 */
+} /* 순번 설정 끝 */
+.empty-state /* 빈 결과 안내 */
+{ /* 빈 결과 설정 시작 */
+    padding: 70px 24px; /* 안내 여백 */
+    border: 1px dashed var(--border); /* 안내 테두리 */
+    color: var(--muted); /* 안내 글자색 */
+    text-align: center; /* 가운데 정렬 */
+} /* 빈 결과 설정 끝 */
+.site-footer /* 하단 정보 */
+{ /* 하단 설정 시작 */
+    margin-top: 64px; /* 위 여백 */
+    padding: 28px 0 42px; /* 하단 안쪽 여백 */
+    border-top: 1px solid var(--border); /* 하단 구분선 */
+    color: var(--muted); /* 하단 글자색 */
+    font-family: Consolas, monospace; /* 하단 글꼴 */
+    display: flex; /* 하단 가로 배치 */
+    justify-content: space-between; /* 하단 양쪽 정렬 */
+    gap: 20px; /* 하단 요소 간격 */
+} /* 하단 설정 끝 */
+.site-footer a:hover, .site-footer a:focus-visible /* 하단 링크 선택 */
+{ /* 하단 선택 설정 시작 */
+    color: var(--cyan); /* 선택 글자색 */
+} /* 하단 선택 설정 끝 */
+.contact-dialog /* 문의 대화상자 */
+{ /* 대화상자 설정 시작 */
+    width: min(540px, 90%); /* 반응형 대화상자 너비 */
+    padding: 0; /* 기본 안쪽 여백 제거 */
+    border: 1px solid var(--border); /* 대화상자 경계선 */
+    background: var(--surface); /* 대화상자 배경 */
+    color: var(--text); /* 대화상자 글자색 */
+} /* 대화상자 설정 끝 */
+.contact-dialog::backdrop /* 문의 배경 */
+{ /* 배경 설정 시작 */
+    background: rgba(0, 0, 0, 0.78); /* 어두운 배경 */
+    backdrop-filter: blur(8px); /* 배경 흐림 효과 */
+} /* 배경 설정 끝 */
+.contact-dialog form /* 문의 내용 */
+{ /* 내용 설정 시작 */
+    position: relative; /* 닫기 버튼 기준 */
+    padding: 36px; /* 내용 안쪽 여백 */
+} /* 내용 설정 끝 */
+.contact-dialog h2 /* 문의 제목 */
+{ /* 제목 설정 시작 */
+    margin-bottom: 12px; /* 제목 아래 여백 */
+    font-size: 1.7rem; /* 제목 크기 */
+} /* 제목 설정 끝 */
+.contact-dialog p:not(.eyebrow) /* 문의 설명 */
+{ /* 설명 설정 시작 */
+    color: var(--muted); /* 보조 글자색 */
+} /* 설명 설정 끝 */
+.dialog-close /* 문의 닫기 버튼 */
+{ /* 닫기 버튼 설정 시작 */
+    position: absolute; /* 오른쪽 위 배치 */
+    top: 16px; /* 위쪽 위치 */
+    right: 18px; /* 오른쪽 위치 */
+    border: 0; /* 테두리 제거 */
+    background: transparent; /* 투명 배경 */
+    color: var(--muted); /* 보조 글자색 */
+    font-size: 1.6rem; /* 닫기 기호 크기 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 닫기 버튼 설정 끝 */
+.dialog-link /* 문의 정보 링크 */
+{ /* 링크 설정 시작 */
+    display: inline-block; /* 링크 영역 */
+    margin-top: 12px; /* 위쪽 여백 */
+    color: var(--cyan); /* 링크 강조색 */
+    border-bottom: 1px solid var(--cyan); /* 링크 밑줄 */
+} /* 링크 설정 끝 */
+@media (max-width: 760px) /* 모바일 화면 */
+{ /* 모바일 설정 시작 */
+    .nav-menu /* 모바일 메뉴 목록 */
+    { /* 목록 설정 시작 */
+        display: none; /* 모바일 목록 숨김 */
+    } /* 목록 설정 끝 */
+    .news-shortcut /* 모바일 뉴스 바로가기 */
+    { /* 바로가기 설정 시작 */
+        display: inline-flex; /* 모바일 바로가기 표시 */
+        align-items: center; /* 글자 가운데 정렬 */
+    } /* 바로가기 설정 끝 */
+    .top-nav /* 모바일 상단 메뉴 */
+    { /* 메뉴 설정 시작 */
+        align-items: flex-start; /* 왼쪽 기준 정렬 */
+        flex-direction: column; /* 세로 배치 */
+        justify-content: center; /* 세로 가운데 정렬 */
+        padding: 20px 0; /* 메뉴 여백 */
+    } /* 메뉴 설정 끝 */
+    .hero-copy /* 모바일 소개문 */
+    { /* 소개문 설정 시작 */
+        padding-top: 46px; /* 위 여백 축소 */
+    } /* 소개문 설정 끝 */
+    .filter-panel /* 모바일 필터 */
+    { /* 필터 설정 시작 */
+        grid-template-columns: 1fr; /* 한 열 배치 */
+    } /* 필터 설정 끝 */
+    .filter-buttons /* 모바일 버튼 묶음 */
+    { /* 버튼 묶음 설정 시작 */
+        justify-content: flex-start; /* 왼쪽 정렬 */
+    } /* 버튼 묶음 설정 끝 */
+    .result-count /* 모바일 결과 개수 */
+    { /* 결과 설정 시작 */
+        text-align: left; /* 왼쪽 정렬 */
+    } /* 결과 설정 끝 */
+    .load-status /* 모바일 조회 상태 */
+    { /* 조회 상태 설정 시작 */
+        text-align: left; /* 왼쪽 정렬 */
+    } /* 조회 상태 설정 끝 */
+    .news-row /* 모바일 뉴스 카드 */
+    { /* 카드 설정 시작 */
+        padding: 25px 24px; /* 모바일 카드 여백 */
+        grid-template-columns: 1fr; /* 카드 내부 세로 배치 */
+        gap: 18px; /* 카드 내부 간격 축소 */
+    } /* 카드 설정 끝 */
+    .news-date /* 모바일 날짜 */
+    { /* 날짜 설정 시작 */
+        padding-right: 0; /* 오른쪽 여백 제거 */
+        padding-bottom: 12px; /* 아래 여백 */
+        border-right: 0; /* 세로 구분선 제거 */
+        border-bottom: 1px solid var(--border); /* 가로 구분선 */
+        flex-direction: row; /* 날짜 가로 배치 */
+        align-items: baseline; /* 글자 기준선 정렬 */
+        gap: 10px; /* 날짜 간격 */
+    } /* 날짜 설정 끝 */
+    .news-index /* 모바일 순번 */
+    { /* 순번 설정 시작 */
+        display: none; /* 장식 순번 제거 */
+    } /* 순번 설정 끝 */
+} /* 모바일 설정 끝 */
+@media (max-width: 520px) /* 작은 모바일 화면 */
+{ /* 작은 모바일 설정 시작 */
+    .navbar /* 작은 모바일 메뉴 */
+    { /* 메뉴 설정 시작 */
+        padding-inline: 4%; /* 좌우 여백 축소 */
+        gap: 12px; /* 요소 간격 축소 */
+    } /* 메뉴 설정 끝 */
+    .nav-logo /* 작은 모바일 로고 */
+    { /* 로고 설정 시작 */
+        font-size: 1rem; /* 로고 크기 축소 */
+        letter-spacing: 2px; /* 로고 글자 간격 축소 */
+    } /* 로고 설정 끝 */
+    .news-shortcut /* 작은 모바일 뉴스 바로가기 */
+    { /* 바로가기 설정 시작 */
+        display: none; /* 중복 바로가기 숨김 */
+    } /* 바로가기 설정 끝 */
+    .btn-nav /* 작은 모바일 버튼 */
+    { /* 버튼 설정 시작 */
+        padding-inline: 0.9rem; /* 좌우 여백 축소 */
+        letter-spacing: 1px; /* 글자 간격 축소 */
+    } /* 버튼 설정 끝 */
+} /* 작은 모바일 설정 끝 */
+@media (prefers-reduced-motion: reduce) /* 움직임 최소화 환경 */
+{ /* 접근성 설정 시작 */
+    * /* 모든 요소 */
+    { /* 전환 설정 시작 */
+        scroll-behavior: auto; /* 부드러운 스크롤 해제 */
+        transition: none !important; /* 애니메이션 해제 */
+    } /* 전환 설정 끝 */
+} /* 접근성 설정 끝 */
+
+@media (max-width: 767px) /* 뉴스 모바일 화면 */
+{ /* 구간 시작 */
+    .filter-panel /* 모바일 필터 영역 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr; /* 필터 한 열 */
+    } /* 규칙 끝 */
+
+    .filter-buttons /* 모바일 필터 버튼 */
+    { /* 규칙 시작 */
+        justify-content: flex-start; /* 필터 왼쪽 정렬 */
+        width: 100%; /* 필터 전체 너비 */
+    } /* 규칙 끝 */
+
+    .filter-button /* 모바일 필터 항목 */
+    { /* 규칙 시작 */
+        min-height: 44px; /* 터치 높이 */
+    } /* 규칙 끝 */
+
+    .news-row /* 모바일 뉴스 카드 */
+    { /* 규칙 시작 */
+        gap: 18px; /* 카드 내부 간격 */
+        grid-template-columns: 1fr; /* 뉴스 세로 배치 */
+        padding: 24px 20px; /* 카드 안쪽 여백 */
+    } /* 규칙 끝 */
+
+    .news-date /* 모바일 날짜 */
+    { /* 규칙 시작 */
+        border-bottom: 1px solid var(--border); /* 아래 구분선 */
+        border-right: 0; /* 오른쪽 구분선 제거 */
+        padding: 0 0 12px; /* 날짜 아래 여백 */
+    } /* 규칙 끝 */
+
+    .news-index /* 모바일 순번 */
+    { /* 규칙 시작 */
+        display: none; /* 장식 순번 숨김 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (min-width: 768px) and (max-width: 899px) /* 뉴스 작은 태블릿 */
+{ /* 구간 시작 */
+    .news-row /* 작은 태블릿 뉴스 카드 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr; /* 뉴스 세로 배치 */
+    } /* 규칙 끝 */
+
+    .news-date /* 작은 태블릿 날짜 */
+    { /* 규칙 시작 */
+        border-bottom: 1px solid var(--border); /* 아래 구분선 */
+        border-right: 0; /* 오른쪽 구분선 제거 */
+        padding: 0 0 12px; /* 날짜 아래 여백 */
+    } /* 규칙 끝 */
+
+    .news-index /* 작은 태블릿 순번 */
+    { /* 규칙 시작 */
+        display: none; /* 장식 순번 숨김 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (min-width: 900px) and (max-width: 1279px) /* 뉴스 가로 태블릿 */
+{ /* 구간 시작 */
+    .news-row /* 가로 태블릿 뉴스 카드 */
+    { /* 규칙 시작 */
+        grid-template-columns: 105px minmax(0, 1fr) 58px; /* 날짜 내용 순번 배치 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (hover: none), (pointer: coarse) /* 뉴스 터치 환경 */
+{ /* 구간 시작 */
+    .news-row:hover, /* 뉴스 카드 터치 */
+    .news-row-link:focus-visible /* 뉴스 카드 초점 */
+    { /* 규칙 시작 */
+        transform: none; /* 카드 이동 제거 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */

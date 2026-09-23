@@ -1,0 +1,64 @@
+<!DOCTYPE html> <!-- HTML5 문서 -->
+<html lang="ko"> <!-- 한국어 문서 -->
+<head> <!-- 문서 정보 시작 -->
+    <meta charset="UTF-8"> <!-- 한글 인코딩 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
+    <title>공식 굿즈 · DEVFORGE</title> <!-- 브라우저 제목 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet"> <!-- 로고 글꼴 -->
+    <link rel="stylesheet" href="devlog.css"> <!-- 공통 페이지 스타일 -->
+    <link rel="stylesheet" href="goods.css"> <!-- 굿즈 전용 스타일 -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+    <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
+</head> <!-- 문서 정보 끝 -->
+<body data-responsive-page="goods" data-theme="playful-lab"> <!-- 플레이풀 랩 상품 본문 -->
+    <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 상단 고정 메뉴 -->
+        <a href="main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+        <ul class="nav-menu"> <!-- 메인 메뉴 목록 -->
+            <li><a href="main.html#games">게임</a></li> <!-- 게임 영역 이동 -->
+            <li><a href="goods.html" aria-current="page">굿즈</a></li> <!-- 현재 굿즈 페이지 -->
+            <li><a href="devlog.html">개발 뉴스</a></li> <!-- 개발 뉴스 이동 -->
+            <li><a href="community.html">커뮤니티</a></li> <!-- 커뮤니티 전용 페이지 이동 -->
+        </ul> <!-- 메인 메뉴 목록 끝 -->
+        <div class="nav-actions"> <!-- 상단 작업 묶음 -->
+            <a href="goods.html" class="btn-nav goods-shortcut" aria-current="page">굿즈</a> <!-- 모바일 굿즈 바로가기 -->
+            <button class="btn-nav" id="contact-open" type="button">문의하기</button> <!-- 문의 창 열기 -->
+            <a href="/login" class="btn-nav member-login-link" data-member-action>로그인</a> <!-- 회원 로그인 이동 -->
+        </div> <!-- 상단 작업 묶음 끝 -->
+    </nav> <!-- 상단 고정 메뉴 끝 -->
+    <div class="page-shell"> <!-- 전체 너비 영역 -->
+        <header class="site-header"> <!-- 상단 소개 시작 -->
+            <div class="hero-copy"> <!-- 소개 문구 영역 -->
+                <p class="eyebrow">// OFFICIAL MERCHANDISE</p> <!-- 영문 분류 -->
+                <h1>공식 <span>굿즈</span></h1> <!-- 페이지 제목 -->
+                <p>DEVFORGE의 게임 세계를 일상에서 만나는 상품 목록입니다. 현재 상품 이미지는 개발 단계용 임시 목업입니다.</p> <!-- 페이지 설명 -->
+            </div> <!-- 소개 문구 영역 끝 -->
+        </header> <!-- 상단 소개 끝 -->
+        <main> <!-- 주요 내용 시작 -->
+            <section class="goods-heading" aria-labelledby="goods-title"> <!-- 상품 목록 제목 -->
+                <div><p class="eyebrow">GOODS COLLECTION</p><h2 id="goods-title">전체 상품</h2></div> <!-- 목록 제목 묶음 -->
+                <p id="goods-load-status" class="load-status" aria-live="polite">등록된 상품 정보를 확인하고 있습니다.</p> <!-- 조회 상태 안내 -->
+            </section> <!-- 상품 목록 제목 끝 -->
+            <p class="goods-payment-notice">현재 상품은 화면 검증용 목업이며 실제 판매가 시작되기 전에는 결제되지 않습니다.</p> <!-- 결제 전 안내 -->
+            <section class="goods-grid" id="goods-list" data-product-source aria-label="전체 굿즈 목록"> <!-- 전체 상품 목록 -->
+                <article class="goods-card state-preparing"><div class="goods-thumb"><img class="goods-image" src="images/goods/abyss-keyring.webp" alt="아비스 크로니클 주인공 키링 임시 상품 목업"><span class="goods-badge badge-new">NEW</span><span class="goods-stock-badge state-preparing">판매 준비 중</span></div><div class="goods-info"><div class="goods-category">아크릴 키링</div><div class="goods-name">아비스 크로니클 주인공 키링</div><div class="goods-game">아비스 크로니클</div><p class="goods-description">주인공을 담은 임시 아크릴 키링 목업입니다.</p><div class="goods-price-row"><div class="goods-price-wrap"><span class="goods-price">₩9,900</span><span class="goods-stock-text">판매 준비 중</span></div><span class="goods-buy-btn is-disabled">준비 중</span></div></div></article> <!-- 키링 상품 -->
+                <article class="goods-card state-preparing"><div class="goods-thumb"><img class="goods-image" src="images/goods/neon-pulse-hoodie.webp" alt="네온 펄스 후드집업 임시 상품 목업"><span class="goods-badge badge-hot">HOT</span><span class="goods-stock-badge state-preparing">판매 준비 중</span></div><div class="goods-info"><div class="goods-category">의류</div><div class="goods-name">네온 펄스 후드집업</div><div class="goods-game">네온 펄스</div><p class="goods-description">네온 색상을 활용한 임시 후드집업 목업입니다.</p><div class="goods-price-row"><div class="goods-price-wrap"><span class="goods-original-price">₩49,000</span><span class="goods-price">₩39,200</span><span class="goods-stock-text">판매 준비 중</span></div><span class="goods-buy-btn is-disabled">준비 중</span></div></div></article> <!-- 후드집업 상품 -->
+                <article class="goods-card state-preparing"><div class="goods-thumb"><img class="goods-image" src="images/goods/luna-jump-posters.webp" alt="루나 점프 아트 포스터 세트 임시 상품 목업"><span class="goods-badge badge-limited">LIMITED</span><span class="goods-stock-badge state-preparing">판매 준비 중</span></div><div class="goods-info"><div class="goods-category">포스터</div><div class="goods-name">루나 점프 아트 포스터 세트</div><div class="goods-game">루나 점프</div><p class="goods-description">게임 아트를 활용한 임시 포스터 세트 목업입니다.</p><div class="goods-price-row"><div class="goods-price-wrap"><span class="goods-price">₩18,000</span><span class="goods-stock-text">판매 준비 중</span></div><span class="goods-buy-btn is-disabled">준비 중</span></div></div></article> <!-- 포스터 상품 -->
+                <article class="goods-card state-preparing"><div class="goods-thumb"><img class="goods-image" src="images/goods/devforge-mug.webp" alt="DEVFORGE 로고 머그컵 임시 상품 목업"><span class="goods-badge badge-new">NEW</span><span class="goods-stock-badge state-preparing">판매 준비 중</span></div><div class="goods-info"><div class="goods-category">생활용품</div><div class="goods-name">DEVFORGE 로고 머그컵</div><div class="goods-game">DEVFORGE Studio</div><p class="goods-description">스튜디오 색상을 활용한 임시 머그컵 목업입니다.</p><div class="goods-price-row"><div class="goods-price-wrap"><span class="goods-price">₩14,500</span><span class="goods-stock-text">판매 준비 중</span></div><span class="goods-buy-btn is-disabled">준비 중</span></div></div></article> <!-- 머그컵 상품 -->
+                <article class="goods-card state-preparing"><div class="goods-thumb"><img class="goods-image" src="images/goods/all-games-stickers.webp" alt="전 게임 캐릭터 스티커팩 임시 상품 목업"><span class="goods-badge badge-hot">HOT</span><span class="goods-stock-badge state-preparing">판매 준비 중</span></div><div class="goods-info"><div class="goods-category">스티커</div><div class="goods-name">전 게임 캐릭터 스티커팩</div><div class="goods-game">전 타이틀 컬렉션</div><p class="goods-description">여러 프로젝트를 표현한 임시 스티커 목업입니다.</p><div class="goods-price-row"><div class="goods-price-wrap"><span class="goods-original-price">₩7,000</span><span class="goods-price">₩6,300</span><span class="goods-stock-text">판매 준비 중</span></div><span class="goods-buy-btn is-disabled">준비 중</span></div></div></article> <!-- 스티커 상품 -->
+                <article class="goods-card state-preparing"><div class="goods-thumb"><img class="goods-image" src="images/goods/echo-void-mousepad.webp" alt="에코 보이드 대형 마우스패드 임시 상품 목업"><span class="goods-badge badge-limited">LIMITED</span><span class="goods-stock-badge state-preparing">판매 준비 중</span></div><div class="goods-info"><div class="goods-category">데스크 용품</div><div class="goods-name">에코 보이드 대형 마우스패드</div><div class="goods-game">에코 보이드</div><p class="goods-description">어두운 우주 분위기의 임시 마우스패드 목업입니다.</p><div class="goods-price-row"><div class="goods-price-wrap"><span class="goods-price">₩22,000</span><span class="goods-stock-text">판매 준비 중</span></div><span class="goods-buy-btn is-disabled">준비 중</span></div></div></article> <!-- 마우스패드 상품 -->
+                <article class="goods-card state-preparing"><div class="goods-thumb"><img class="goods-image" src="images/goods/abyss-pin-set.webp" alt="아비스 크로니클 핀뱃지 3종 세트 임시 상품 목업"><span class="goods-badge badge-new">NEW</span><span class="goods-stock-badge state-preparing">판매 준비 중</span></div><div class="goods-info"><div class="goods-category">핀뱃지</div><div class="goods-name">아비스 크로니클 핀뱃지 3종 세트</div><div class="goods-game">아비스 크로니클</div><p class="goods-description">세 가지 문양으로 구성한 임시 핀뱃지 목업입니다.</p><div class="goods-price-row"><div class="goods-price-wrap"><span class="goods-price">₩12,000</span><span class="goods-stock-text">판매 준비 중</span></div><span class="goods-buy-btn is-disabled">준비 중</span></div></div></article> <!-- 핀뱃지 상품 -->
+                <article class="goods-card state-preparing"><div class="goods-thumb"><img class="goods-image" src="images/goods/neon-pulse-ost.webp" alt="네온 펄스 OST 한정판 CD 임시 상품 목업"><span class="goods-badge badge-limited">LIMITED</span><span class="goods-stock-badge state-preparing">판매 준비 중</span></div><div class="goods-info"><div class="goods-category">음반</div><div class="goods-name">네온 펄스 OST 한정판 CD</div><div class="goods-game">네온 펄스</div><p class="goods-description">사이버 음악 콘셉트의 임시 OST CD 목업입니다.</p><div class="goods-price-row"><div class="goods-price-wrap"><span class="goods-price">₩25,000</span><span class="goods-stock-text">판매 준비 중</span></div><span class="goods-buy-btn is-disabled">준비 중</span></div></div></article> <!-- OST 상품 -->
+            </section> <!-- 전체 상품 목록 끝 -->
+        </main> <!-- 주요 내용 끝 -->
+        <footer class="site-footer"><span>DEVFORGE Official Merchandise</span><a href="/admin/login">관리자 로그인</a></footer> <!-- 하단 정보 -->
+    </div> <!-- 전체 너비 영역 끝 -->
+    <dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-title"> <!-- 문의 대화상자 -->
+        <form method="dialog"><button class="dialog-close" type="submit" aria-label="문의 창 닫기">×</button><p class="eyebrow">// CONTACT</p><h2 id="contact-title">문의하기</h2><p>상품과 협업 관련 문의는 공식 커뮤니티 정보를 이용해 주세요.</p><a class="dialog-link" href="community.html">커뮤니티 및 문의 정보 보기</a></form> <!-- 문의 내용 -->
+    </dialog> <!-- 문의 대화상자 끝 -->
+    <script type="module" src="goods.mjs"></script> <!-- 상품 기능 연결 -->
+    <script type="module" src="member-session.mjs"></script> <!-- 회원 상태 연결 -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 화면 내용 끝 -->
+</html> <!-- HTML 문서 끝 -->

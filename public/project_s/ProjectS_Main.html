@@ -1,0 +1,68 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식 -->
+<html lang="ko"> <!-- 한국어 문서 -->
+<head> <!-- 문서 정보 시작 -->
+    <meta charset="UTF-8"> <!-- 한글 인코딩 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
+    <meta name="description" content="제한된 환경에서 살아남는 생존 프로젝트"> <!-- 검색 설명 -->
+    <title>프로젝트 S | 게임 소개</title> <!-- 브라우저 제목 -->
+    <link rel="stylesheet" href="/project-page.css"> <!-- 공개 소개 스타일 -->
+    <link rel="stylesheet" href="/device-preview-control.css"> <!-- 기기 선택 스타일 -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head> <!-- 문서 정보 끝 -->
+<body data-responsive-page="project"> <!-- 화면 내용 시작 -->
+    <div class="project-page" data-public-project-page data-project-id="project-s" data-project-mode="planning"> <!-- 공개 프로젝트 루트 -->
+        <nav class="project-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 공통 상단 메뉴 -->
+            <a class="project-logo" href="/main.html">DEVFORGE</a> <!-- 메인 이동 -->
+            <div class="project-nav-links"> <!-- 주요 메뉴 목록 -->
+                <a href="/main.html#games">게임</a> <!-- 게임 목록 이동 -->
+                <a href="/goods.html">굿즈</a> <!-- 굿즈 이동 -->
+                <a href="/devlog.html">개발 뉴스</a> <!-- 뉴스 이동 -->
+                <a href="/community.html">커뮤니티</a> <!-- 커뮤니티 이동 -->
+            </div> <!-- 주요 메뉴 목록 끝 -->
+            <div class="project-nav-actions"> <!-- 계정 메뉴 묶음 -->
+                <a class="project-button project-button-ghost" href="/main.html#contact">문의하기</a> <!-- 문의 이동 -->
+                <a class="project-button" href="/login?returnTo=%2Fproject_s%2FProjectS_Main.html" data-member-action>로그인</a> <!-- 로그인 이동 -->
+            </div> <!-- 계정 메뉴 묶음 끝 -->
+        </nav> <!-- 공통 상단 메뉴 끝 -->
+        <main> <!-- 주요 내용 시작 -->
+            <section class="project-hero"> <!-- 대표 소개 영역 -->
+                <div class="project-hero-media"> <!-- 대표 이미지 영역 -->
+                    <img src="/images/games/project-s.png" alt="프로젝트 S 대표 콘셉트 이미지" data-project-hero-image> <!-- 대표 이미지 -->
+                    <div class="project-image-fallback" data-project-image-fallback hidden aria-label="프로젝트 S 이미지 준비 중"><strong>S</strong><span>IMAGE COMING SOON</span></div> <!-- 이미지 대체 영역 -->
+                </div> <!-- 대표 이미지 영역 끝 -->
+                <div class="project-hero-copy"> <!-- 대표 문구 영역 -->
+                    <p class="project-kicker">S · DEVFORGE PROJECT</p> <!-- 프로젝트 분류 -->
+                    <h1 data-project-title>프로젝트 S</h1> <!-- 프로젝트 제목 -->
+                    <p class="project-tagline">제한된 환경에서 살아남는 생존 프로젝트</p> <!-- 한 문장 소개 -->
+                    <div class="project-tags"><span>생존</span><span>기타</span></div> <!-- 장르 목록 -->
+                    <dl class="project-meta"> <!-- 프로젝트 상태 목록 -->
+                        <div><dt>개발 상태</dt><dd>개발 중</dd></div> <!-- 개발 상태 -->
+                        <div><dt>공개 상태</dt><dd>기획 단계</dd></div> <!-- 공개 상태 -->
+                    </dl> <!-- 프로젝트 상태 목록 끝 -->
+                </div> <!-- 대표 문구 영역 끝 -->
+            </section> <!-- 대표 소개 영역 끝 -->
+            <section class="project-section" id="overview"> <!-- 프로젝트 개요 -->
+                <p class="project-kicker">OVERVIEW</p> <!-- 개요 영문 제목 -->
+                <h2>게임 소개</h2> <!-- 개요 제목 -->
+                <p>제한된 환경에서 살아남는 생존 프로젝트</p> <!-- 공개 요약 -->
+            </section> <!-- 프로젝트 개요 끝 -->
+
+            <section class="project-planning" aria-labelledby="planning-title"> <!-- 준비 안내 영역 -->
+                <p class="project-kicker">IN DEVELOPMENT</p> <!-- 준비 상태 영문 -->
+                <h2 id="planning-title">새로운 정보가 준비되는 대로 공개됩니다</h2> <!-- 준비 안내 제목 -->
+                <p>현재 공개 가능한 콘셉트와 개발 상태만 안내하고 있습니다.</p> <!-- 준비 안내 설명 -->
+            </section> <!-- 준비 안내 영역 끝 -->
+            <section class="project-links" aria-label="관련 페이지"> <!-- 관련 페이지 영역 -->
+                <a class="project-link-card" href="/devlog.html"><span>개발 과정</span><strong>개발 뉴스 보기 →</strong></a> <!-- 뉴스 연결 -->
+                <a class="project-link-card" href="/community.html?game=project-s"><span>이야기 나누기</span><strong>커뮤니티 보기 →</strong></a> <!-- 커뮤니티 연결 -->
+                <a class="project-link-card" href="/main.html#games"><span>다른 프로젝트</span><strong>게임 목록으로 →</strong></a> <!-- 게임 목록 연결 -->
+            </section> <!-- 관련 페이지 영역 끝 -->
+        </main> <!-- 주요 내용 끝 -->
+        <footer class="project-footer"><p>프로젝트 S · DEVFORGE Studio</p></footer> <!-- 하단 정보 -->
+    </div> <!-- 공개 프로젝트 루트 끝 -->
+    <script type="module" src="/project-page.mjs"></script> <!-- 공개 페이지 기능 -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 화면 내용 끝 -->
+</html> <!-- HTML 문서 끝 -->

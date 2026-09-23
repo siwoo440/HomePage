@@ -1,0 +1,124 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식 -->
+<html lang="ko"> <!-- 한국어 문서 -->
+<head> <!-- 문서 정보 시작 -->
+    <meta charset="UTF-8"> <!-- 한글 인코딩 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
+    <title>개발 뉴스 · DEVFORGE</title> <!-- 브라우저 제목 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet"> <!-- 로고 글꼴 -->
+    <link rel="stylesheet" href="devlog.css"> <!-- 개발 뉴스 스타일 -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+    <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
+</head> <!-- 문서 정보 끝 -->
+<body data-responsive-page="news" data-theme="playful-lab"> <!-- 플레이풀 랩 뉴스 본문 -->
+    <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 상단 고정 메뉴 -->
+        <a href="main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+        <ul class="nav-menu"> <!-- 메인 메뉴 목록 -->
+            <li><a href="main.html#games">게임</a></li> <!-- 게임 영역 이동 -->
+            <li><a href="goods.html">굿즈</a></li> <!-- 굿즈 전용 페이지 이동 -->
+            <li><a href="devlog.html" aria-current="page">개발 뉴스</a></li> <!-- 현재 뉴스 페이지 -->
+            <li><a href="community.html">커뮤니티</a></li> <!-- 커뮤니티 전용 페이지 이동 -->
+        </ul> <!-- 메인 메뉴 목록 끝 -->
+        <div class="nav-actions"> <!-- 상단 작업 묶음 -->
+            <a href="devlog.html" class="btn-nav news-shortcut" aria-current="page">개발 뉴스</a> <!-- 모바일 뉴스 바로가기 -->
+            <button class="btn-nav" id="contact-open" type="button">문의하기</button> <!-- 문의 창 열기 -->
+            <a href="/login" class="btn-nav member-login-link" data-member-action>로그인</a> <!-- 회원 로그인 이동 -->
+        </div> <!-- 상단 작업 묶음 끝 -->
+    </nav> <!-- 상단 고정 메뉴 끝 -->
+    <div class="page-shell"> <!-- 전체 너비 영역 -->
+        <header class="site-header"> <!-- 상단 영역 -->
+            <div class="hero-copy"> <!-- 페이지 소개 영역 -->
+                <p class="eyebrow">// DEVELOPMENT NEWS</p> <!-- 영문 분류 -->
+                <h1>개발 <span>뉴스</span></h1> <!-- 페이지 제목 -->
+                <p>DEVFORGE 프로젝트의 업데이트, 개발 기록과 수정 소식을 한곳에서 확인하는 공간입니다.</p> <!-- 페이지 설명 -->
+            </div> <!-- 페이지 소개 영역 끝 -->
+        </header> <!-- 상단 영역 끝 -->
+        <main> <!-- 주요 내용 시작 -->
+            <section class="filter-panel" aria-labelledby="filter-title"> <!-- 필터 영역 -->
+                <div> <!-- 필터 제목 묶음 -->
+                    <p class="eyebrow">NEWS FILTER</p> <!-- 필터 영문 분류 -->
+                    <h2 id="filter-title">태그별 뉴스</h2> <!-- 필터 제목 -->
+                </div> <!-- 필터 제목 묶음 끝 -->
+                <div class="filter-buttons" role="group" aria-label="뉴스 태그 필터"> <!-- 필터 버튼 묶음 -->
+                    <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">전체</button> <!-- 전체 필터 -->
+                    <button class="filter-button" type="button" data-filter="update" aria-pressed="false">업데이트</button> <!-- 업데이트 필터 -->
+                    <button class="filter-button" type="button" data-filter="feature" aria-pressed="false">신기능</button> <!-- 신기능 필터 -->
+                    <button class="filter-button" type="button" data-filter="devlog" aria-pressed="false">데브로그</button> <!-- 데브로그 필터 -->
+                    <button class="filter-button" type="button" data-filter="fix" aria-pressed="false">버그픽스</button> <!-- 버그픽스 필터 -->
+                </div> <!-- 필터 버튼 묶음 끝 -->
+                <p id="result-count" class="result-count" aria-live="polite">4개의 뉴스</p> <!-- 검색 결과 개수 -->
+                <p id="news-load-status" class="load-status" aria-live="polite">등록된 최신 뉴스를 확인하고 있습니다.</p> <!-- 원격 조회 상태 -->
+            </section> <!-- 필터 영역 끝 -->
+            <section class="news-list" aria-label="개발 뉴스 목록"> <!-- 뉴스 목록 -->
+                <article class="news-row" id="echo-void" data-tags="update feature"> <!-- 에코 보이드 뉴스 -->
+                    <div class="news-date"><span>2025</span><strong>04.28</strong></div> <!-- 뉴스 날짜 -->
+                    <div class="news-content"> <!-- 뉴스 내용 -->
+                        <div class="news-tags"> <!-- 뉴스 태그 묶음 -->
+                            <span class="news-tag tag-update">업데이트</span> <!-- 업데이트 태그 -->
+                            <span class="news-tag tag-feature">신기능</span> <!-- 신기능 태그 -->
+                        </div> <!-- 뉴스 태그 묶음 끝 -->
+                        <h2>에코 보이드 v0.8 — 음향 엔진 전면 재설계 완료</h2> <!-- 뉴스 제목 -->
+                        <p>3개월간의 작업 끝에 에코 보이드의 핵심 음향 공간화 엔진을 재구성했습니다. 기존 2D 기반 사운드 처리에서 실시간 3D HRTF 처리 방식으로 전환하고, 신규 레벨 12개를 추가한 임시 개발 뉴스입니다.</p> <!-- 뉴스 요약 -->
+                    </div> <!-- 뉴스 내용 끝 -->
+                    <span class="news-index" aria-hidden="true">01</span> <!-- 뉴스 순번 -->
+                    <a class="news-row-hit" href="/news/demo-echo-void" aria-label="에코 보이드 개발 뉴스 상세 보기"></a> <!-- 뉴스 상세 이동 -->
+                </article> <!-- 에코 보이드 뉴스 끝 -->
+                <article class="news-row" id="star-vagrant" data-tags="devlog"> <!-- 스타 베이그런트 뉴스 -->
+                    <div class="news-date"><span>2025</span><strong>04.15</strong></div> <!-- 뉴스 날짜 -->
+                    <div class="news-content"> <!-- 뉴스 내용 -->
+                        <div class="news-tags"> <!-- 뉴스 태그 묶음 -->
+                            <span class="news-tag tag-devlog">데브로그</span> <!-- 데브로그 태그 -->
+                        </div> <!-- 뉴스 태그 묶음 끝 -->
+                        <h2>스타 베이그런트 — 절차적 생성 은하계 알고리즘 공개</h2> <!-- 뉴스 제목 -->
+                        <p>매번 다른 우주를 만드는 씨앗 기반 생성 시스템의 내부 구조와 노이즈 함수, Voronoi 다이어그램의 조합 방식을 소개하는 임시 개발 뉴스입니다.</p> <!-- 뉴스 요약 -->
+                    </div> <!-- 뉴스 내용 끝 -->
+                    <span class="news-index" aria-hidden="true">02</span> <!-- 뉴스 순번 -->
+                    <a class="news-row-hit" href="/news/demo-star-vagrant" aria-label="스타 베이그런트 개발 뉴스 상세 보기"></a> <!-- 뉴스 상세 이동 -->
+                </article> <!-- 스타 베이그런트 뉴스 끝 -->
+                <article class="news-row" id="neon-pulse" data-tags="fix"> <!-- 네온 펄스 뉴스 -->
+                    <div class="news-date"><span>2025</span><strong>04.03</strong></div> <!-- 뉴스 날짜 -->
+                    <div class="news-content"> <!-- 뉴스 내용 -->
+                        <div class="news-tags"> <!-- 뉴스 태그 묶음 -->
+                            <span class="news-tag tag-fix">버그픽스</span> <!-- 버그픽스 태그 -->
+                        </div> <!-- 뉴스 태그 묶음 끝 -->
+                        <h2>네온 펄스 v2.1.3 패치 — 주요 버그 수정 및 성능 개선</h2> <!-- 뉴스 제목 -->
+                        <p>플레이어가 보고한 스킬 겹침과 보스 패턴 누락 현상 수정, GPU 최적화 내용을 정리한 임시 개발 뉴스입니다.</p> <!-- 뉴스 요약 -->
+                    </div> <!-- 뉴스 내용 끝 -->
+                    <span class="news-index" aria-hidden="true">03</span> <!-- 뉴스 순번 -->
+                    <a class="news-row-hit" href="/news/demo-neon-pulse" aria-label="네온 펄스 개발 뉴스 상세 보기"></a> <!-- 뉴스 상세 이동 -->
+                </article> <!-- 네온 펄스 뉴스 끝 -->
+                <article class="news-row" id="blade-rift" data-tags="feature"> <!-- 블레이드 리프트 뉴스 -->
+                    <div class="news-date"><span>2025</span><strong>03.22</strong></div> <!-- 뉴스 날짜 -->
+                    <div class="news-content"> <!-- 뉴스 내용 -->
+                        <div class="news-tags"> <!-- 뉴스 태그 묶음 -->
+                            <span class="news-tag tag-feature">신기능</span> <!-- 신기능 태그 -->
+                        </div> <!-- 뉴스 태그 묶음 끝 -->
+                        <h2>블레이드 리프트 — 패링 피드백 시스템 새로 설계</h2> <!-- 뉴스 제목 -->
+                        <p>패링 타이밍 안내를 시각, 진동, 음향의 세 방식으로 나눠 선택하도록 검토한 내용을 소개하는 임시 개발 뉴스입니다.</p> <!-- 뉴스 요약 -->
+                    </div> <!-- 뉴스 내용 끝 -->
+                    <span class="news-index" aria-hidden="true">04</span> <!-- 뉴스 순번 -->
+                    <a class="news-row-hit" href="/news/demo-blade-rift" aria-label="블레이드 리프트 개발 뉴스 상세 보기"></a> <!-- 뉴스 상세 이동 -->
+                </article> <!-- 블레이드 리프트 뉴스 끝 -->
+            </section> <!-- 뉴스 목록 끝 -->
+            <p id="empty-state" class="empty-state" hidden>선택한 태그의 뉴스가 없습니다.</p> <!-- 빈 결과 안내 -->
+        </main> <!-- 주요 내용 끝 -->
+        <footer class="site-footer"> <!-- 하단 정보 시작 -->
+            <span>DEVFORGE Development News</span> <!-- 하단 이름 -->
+            <a href="/admin/login">관리자 로그인</a> <!-- 관리자 로그인 이동 -->
+        </footer> <!-- 하단 정보 끝 -->
+    </div> <!-- 전체 너비 영역 끝 -->
+    <dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-title"> <!-- 문의 대화상자 -->
+        <form method="dialog"> <!-- 문의 대화상자 폼 -->
+            <button class="dialog-close" type="submit" aria-label="문의 창 닫기">×</button> <!-- 문의 창 닫기 -->
+            <p class="eyebrow">// CONTACT</p> <!-- 문의 영문 분류 -->
+            <h2 id="contact-title">문의하기</h2> <!-- 문의 제목 -->
+            <p>협업 제안, 버그 제보와 관련된 연락은 메인 사이트의 공식 문의 정보를 이용해 주세요.</p> <!-- 문의 안내 -->
+            <a class="dialog-link" href="community.html">커뮤니티 및 문의 정보 보기</a> <!-- 문의 정보 이동 -->
+        </form> <!-- 문의 대화상자 폼 끝 -->
+    </dialog> <!-- 문의 대화상자 끝 -->
+    <script type="module" src="devlog.mjs"></script> <!-- 필터 동작 연결 -->
+    <script type="module" src="member-session.mjs"></script> <!-- 회원 상태 연결 -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 화면 내용 끝 -->
+</html> <!-- HTML 문서 끝 -->

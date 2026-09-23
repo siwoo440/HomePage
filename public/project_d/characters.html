@@ -1,0 +1,118 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식을 사용한다고 브라우저에 알려준다. -->
+<html lang="ko"> <!-- 문서의 기본 언어를 한국어로 설정한다. -->
+<head> <!-- 문서 정보 영역을 시작한다. -->
+    <meta charset="UTF-8"> <!-- 한글이 깨지지 않도록 문자 인코딩을 설정한다. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 화면에서도 화면 크기에 맞게 보이도록 설정한다. -->
+    <title>Project D 캐릭터 아카이브</title> <!-- 브라우저 탭에 표시될 제목을 설정한다. -->
+    <link rel="stylesheet" href="style.css"> <!-- 공통 스타일 파일을 연결한다. -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head> <!-- 문서 정보 영역을 끝낸다. -->
+<body> <!-- 실제 화면에 보이는 영역을 시작한다. -->
+    <div class="page-shell"> <!-- 전체 페이지 너비를 관리하는 큰 박스를 만든다. -->
+        <header class="hero-section character-hero" id="overview"> <!-- 캐릭터 페이지 상단 소개 영역을 만든다. -->
+            <nav class="top-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 상단 메뉴 영역을 만든다. -->
+                <!-- DEVFORGE 로고: 클릭 시 홈(main.html)으로 이동 -->
+                <a href="../main.html" class="top-nav-logo">DEVFORGE</a>
+                <!-- 오른쪽 링크 묶음 -->
+                <div class="top-nav-links">
+                    <a href="ProjectD_Main.html#overview">메인</a> <!-- 메인 페이지로 이동하는 링크를 만든다. -->
+                    <a href="characters.html">캐릭터</a> <!-- 현재 캐릭터 페이지로 이동하는 링크를 만든다. -->
+                    <a href="factions.html">세력</a> <!-- 세력 소개 페이지로 이동하는 링크를 만든다. -->
+                    <a href="ProjectD_Main.html#archive">세계관</a> <!-- 세계관 정보 카드 영역으로 이동하는 링크를 만든다. -->
+                    <a href="ProjectD_Main.html#timeline">사건 기록</a> <!-- 사건 기록 영역으로 이동하는 링크를 만든다. -->
+                </div>
+            </nav> <!-- 상단 메뉴 영역을 끝낸다. -->
+            <section class="hero-card page-hero-card image-panel" style="--image: url('images/characters/character-hero.jpg');"> <!-- 캐릭터 페이지의 대표 이미지를 담는 카드를 만든다. -->
+                <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                <div class="hero-content"> <!-- 메인 소개 글을 담는 영역을 만든다. -->
+                    <p class="eyebrow">Personnel Archive</p> <!-- 작은 분류 문구를 표시한다. -->
+                    <h1>바스티온을 움직이는 인물 기록</h1> <!-- 페이지의 큰 제목을 표시한다. -->
+                    <p class="hero-desc">게이트 이후의 세계에서 명령을 내리고, 거래를 이어가고, 금지된 기술을 다루는 인물들을 정리합니다.</p> <!-- 캐릭터 페이지의 설명을 표시한다. -->
+                    <div class="hero-meta"> <!-- 핵심 키워드를 담는 영역을 만든다. -->
+                        <span>지휘관</span> <!-- 첫 번째 키워드를 표시한다. -->
+                        <span>개척자</span> <!-- 두 번째 키워드를 표시한다. -->
+                        <span>연구자</span> <!-- 세 번째 키워드를 표시한다. -->
+                    </div> <!-- 핵심 키워드 영역을 끝낸다. -->
+                </div> <!-- 메인 소개 글 영역을 끝낸다. -->
+            </section> <!-- 캐릭터 페이지 대표 카드를 끝낸다. -->
+        </header> <!-- 캐릭터 페이지 상단 소개 영역을 끝낸다. -->
+        <main> <!-- 페이지의 주요 내용을 시작한다. -->
+            <section class="section-block character-section"> <!-- 캐릭터 목록과 상세 정보를 담는 영역을 만든다. -->
+                <div class="section-heading"> <!-- 섹션 제목과 설명을 묶는 영역을 만든다. -->
+                    <p class="eyebrow">Character Database</p> <!-- 작은 분류 문구를 표시한다. -->
+                    <h2>캐릭터 소개</h2> <!-- 섹션 제목을 표시한다. -->
+                    <p>소속 버튼을 누르면 해당 세력의 인물만 볼 수 있고, 캐릭터 카드를 누르면 상세 기록이 바뀝니다.</p> <!-- 사용 방법을 설명한다. -->
+                </div> <!-- 섹션 제목 영역을 끝낸다. -->
+                <div class="tool-row"> <!-- 필터 버튼과 검색창을 나란히 배치하는 영역을 만든다. -->
+                    <div class="filter-group" aria-label="캐릭터 소속 필터"> <!-- 캐릭터 필터 버튼 묶음을 만든다. -->
+                        <button class="character-filter-button active" type="button" data-filter="전체">전체</button> <!-- 전체 캐릭터를 보여주는 버튼을 만든다. -->
+                        <button class="character-filter-button" type="button" data-filter="게이트 오더">게이트 오더</button> <!-- 게이트 오더 캐릭터를 보여주는 버튼을 만든다. -->
+                        <button class="character-filter-button" type="button" data-filter="프론티어">프론티어</button> <!-- 프론티어 캐릭터를 보여주는 버튼을 만든다. -->
+                        <button class="character-filter-button" type="button" data-filter="아르카나">아르카나</button> <!-- 아르카나 캐릭터를 보여주는 버튼을 만든다. -->
+                        <button class="character-filter-button" type="button" data-filter="각성자">각성자</button> <!-- 각성자 캐릭터를 보여주는 버튼을 만든다. -->
+                    </div> <!-- 캐릭터 필터 버튼 묶음을 끝낸다. -->
+                    <label class="search-box"> <!-- 검색 입력칸과 제목을 묶는다. -->
+                        <span>검색</span> <!-- 검색 라벨을 표시한다. -->
+                        <input id="characterSearchInput" type="search" placeholder="예: 지휘관, 각성자, 아르카나"> <!-- 캐릭터 검색 입력칸을 만든다. -->
+                    </label> <!-- 검색 입력칸 묶음을 끝낸다. -->
+                </div> <!-- 필터와 검색 영역을 끝낸다. -->
+                <p class="result-count" id="characterResultCount">0명의 인물</p> <!-- 검색 결과 개수를 표시한다. -->
+                <div class="character-layout"> <!-- 캐릭터 카드와 상세 패널을 나란히 배치하는 영역을 만든다. -->
+                    <div class="character-card-grid" id="characterCardGrid"></div> <!-- 캐릭터 카드가 들어갈 영역을 만든다. -->
+                    <aside class="character-detail image-panel" id="characterDetail" style="--image: url('images/characters/seoha.jpg');"> <!-- 선택한 캐릭터의 상세 정보를 표시하는 패널을 만든다. -->
+                        <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                        <div class="character-detail-inner"> <!-- 상세 정보 글을 담는 영역을 만든다. -->
+                            <p class="eyebrow" id="detailFaction">Gate Order</p> <!-- 캐릭터 소속을 표시한다. -->
+                            <h3 id="detailName">윤서하</h3> <!-- 캐릭터 이름을 표시한다. -->
+                            <p class="detail-role" id="detailRole">전술 지휘관</p> <!-- 캐릭터 역할을 표시한다. -->
+                            <p id="detailBody">바스티온 외곽 방어선을 담당하는 지휘관입니다.</p> <!-- 캐릭터 설명을 표시한다. -->
+                            <dl class="detail-list"> <!-- 캐릭터 속성 목록을 만든다. -->
+                                <div> <!-- 첫 번째 속성 묶음을 만든다. -->
+                                    <dt>전투 역할</dt> <!-- 속성 이름을 표시한다. -->
+                                    <dd id="detailCombat">방어 지휘와 지원 명령</dd> <!-- 전투 역할 값을 표시한다. -->
+                                </div> <!-- 첫 번째 속성 묶음을 끝낸다. -->
+                                <div> <!-- 두 번째 속성 묶음을 만든다. -->
+                                    <dt>성격</dt> <!-- 속성 이름을 표시한다. -->
+                                    <dd id="detailPersonality">냉정함, 책임감, 현실주의</dd> <!-- 성격 값을 표시한다. -->
+                                </div> <!-- 두 번째 속성 묶음을 끝낸다. -->
+                                <div> <!-- 세 번째 속성 묶음을 만든다. -->
+                                    <dt>대표 대사</dt> <!-- 속성 이름을 표시한다. -->
+                                    <dd id="detailQuote">방어선이 무너지면, 도시도 무너진다.</dd> <!-- 대표 대사를 표시한다. -->
+                                </div> <!-- 세 번째 속성 묶음을 끝낸다. -->
+                            </dl> <!-- 캐릭터 속성 목록을 끝낸다. -->
+                        </div> <!-- 상세 정보 글 영역을 끝낸다. -->
+                    </aside> <!-- 캐릭터 상세 패널을 끝낸다. -->
+                </div> <!-- 캐릭터 카드와 상세 패널 영역을 끝낸다. -->
+            </section> <!-- 캐릭터 소개 영역을 끝낸다. -->
+            <section class="section-block relation-section"> <!-- 캐릭터 관계도 영역을 만든다. -->
+                <div class="section-heading"> <!-- 섹션 제목과 설명을 묶는 영역을 만든다. -->
+                    <p class="eyebrow">Relationship Note</p> <!-- 작은 분류 문구를 표시한다. -->
+                    <h2>관계 기록</h2> <!-- 섹션 제목을 표시한다. -->
+                    <p>현재는 임시 관계 구조입니다. 캐릭터가 확정되면 우호, 감시, 적대, 거래 관계로 세분화하면 좋습니다.</p> <!-- 관계도 설명을 표시한다. -->
+                </div> <!-- 섹션 제목 영역을 끝낸다. -->
+                <div class="relation-grid"> <!-- 관계 카드를 나열하는 영역을 만든다. -->
+                    <article class="relation-card"> <!-- 첫 번째 관계 카드를 만든다. -->
+                        <span>게이트 오더 ↔ 프론티어</span> <!-- 관계 대상을 표시한다. -->
+                        <p>공식적으로는 통제와 감시 관계이지만, 현장에서는 보급과 정보 거래가 이루어집니다.</p> <!-- 관계 설명을 표시한다. -->
+                    </article> <!-- 첫 번째 관계 카드를 끝낸다. -->
+                    <article class="relation-card"> <!-- 두 번째 관계 카드를 만든다. -->
+                        <span>게이트 오더 ↔ 아르카나</span> <!-- 관계 대상을 표시한다. -->
+                        <p>방어 기술 협력 관계이지만, 비윤리적 실험과 기술 독점 문제로 갈등합니다.</p> <!-- 관계 설명을 표시한다. -->
+                    </article> <!-- 두 번째 관계 카드를 끝낸다. -->
+                    <article class="relation-card"> <!-- 세 번째 관계 카드를 만든다. -->
+                        <span>각성자 ↔ 바스티온</span> <!-- 관계 대상을 표시한다. -->
+                        <p>시민이자 전력이라는 이중적 위치 때문에 보호와 동원이 함께 발생합니다.</p> <!-- 관계 설명을 표시한다. -->
+                    </article> <!-- 세 번째 관계 카드를 끝낸다. -->
+                </div> <!-- 관계 카드 영역을 끝낸다. -->
+            </section> <!-- 캐릭터 관계도 영역을 끝낸다. -->
+        </main> <!-- 페이지의 주요 내용을 끝낸다. -->
+        <footer class="site-footer"> <!-- 하단 영역을 만든다. -->
+            <p>Project D Character Archive · Multi Page Prototype</p> <!-- 페이지 이름과 용도를 표시한다. -->
+        </footer> <!-- 하단 영역을 끝낸다. -->
+    </div> <!-- 전체 페이지 너비 박스를 끝낸다. -->
+    <script src="characters.js"></script> <!-- 캐릭터 페이지 전용 자바스크립트 파일을 연결한다. -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 실제 화면에 보이는 영역을 끝낸다. -->
+</html> <!-- HTML 문서를 끝낸다. -->

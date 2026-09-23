@@ -1,0 +1,119 @@
+.shell /* 로그인 전체 영역 */
+{ /* 영역 시작 */
+    min-height: 100vh; /* 화면 높이 */
+    padding: 40px 20px; /* 바깥 여백 */
+    background: radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--pl-mint) 18%, transparent), transparent 34%), var(--pl-surface); /* 밝은 공간형 배경 */
+    color: var(--pl-ink); /* 기본 글자색 */
+    display: grid; /* 가운데 배치 */
+    place-items: center; /* 완전 가운데 정렬 */
+} /* 영역 끝 */
+
+.panel /* 로그인 카드 */
+{ /* 카드 시작 */
+    width: min(520px, 100%); /* 반응형 너비 */
+    padding: clamp(30px, 6vw, 54px); /* 반응형 여백 */
+    border: 1px solid var(--pl-border-strong); /* 카드 경계선 */
+    border-radius: var(--pl-radius-large); /* 카드 모서리 */
+    background: rgb(255 255 255 / 96%); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-medium); /* 카드 그림자 */
+} /* 카드 끝 */
+
+.brand /* 브랜드 링크 */
+{ /* 브랜드 시작 */
+    color: var(--pl-violet); /* 브랜드 색상 */
+    font-family: Consolas, monospace; /* 기술형 글꼴 */
+    font-weight: 800; /* 브랜드 굵기 */
+    letter-spacing: 0.18em; /* 글자 간격 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 브랜드 끝 */
+
+.eyebrow /* 영문 분류 */
+{ /* 분류 시작 */
+    margin: 40px 0 8px; /* 바깥 여백 */
+    color: var(--pl-violet); /* 강조색 */
+    font-family: Consolas, monospace; /* 기술형 글꼴 */
+} /* 분류 끝 */
+
+.panel h1 /* 로그인 제목 */
+{ /* 제목 시작 */
+    margin: 0 0 14px; /* 바깥 여백 */
+    font-size: clamp(2.2rem, 8vw, 3.8rem); /* 반응형 크기 */
+    letter-spacing: -0.05em; /* 글자 간격 */
+} /* 제목 끝 */
+
+.description, .notice /* 안내 문구 */
+{ /* 안내 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    line-height: 1.7; /* 줄 간격 */
+} /* 안내 끝 */
+
+.notice /* 시연 안내 */
+{ /* 시연 시작 */
+    padding: 14px; /* 안쪽 여백 */
+    border-left: 3px solid var(--pl-orange); /* 상태 강조선 */
+    background: color-mix(in srgb, var(--pl-orange) 12%, var(--pl-canvas)); /* 상태 배경 */
+} /* 시연 끝 */
+
+.form, .formStack /* 로그인 입력 묶음 */
+{ /* 입력 묶음 시작 */
+    margin-top: 28px; /* 위쪽 여백 */
+    display: grid; /* 세로 격자 */
+    gap: 12px; /* 요소 간격 */
+} /* 입력 묶음 끝 */
+
+.form label /* 입력 이름 */
+{ /* 이름 시작 */
+    color: var(--pl-ink); /* 이름 색상 */
+    font-size: 0.88rem; /* 이름 크기 */
+} /* 이름 끝 */
+
+.form input /* 로그인 입력 */
+{ /* 입력 시작 */
+    min-height: 48px; /* 선택 높이 */
+    padding: 0 14px; /* 좌우 여백 */
+    border: 1px solid var(--pl-border); /* 입력 경계선 */
+    border-radius: var(--pl-radius-small); /* 입력 모서리 */
+    background: var(--pl-canvas); /* 입력 배경 */
+    color: var(--pl-ink); /* 입력 글자색 */
+    font: inherit; /* 본문 글꼴 */
+} /* 입력 끝 */
+
+.primaryButton, .googleButton /* 로그인 버튼 */
+{ /* 버튼 시작 */
+    min-height: 48px; /* 선택 높이 */
+    margin-top: 10px; /* 위쪽 여백 */
+    border: 1px solid var(--pl-violet); /* 버튼 경계선 */
+    border-radius: var(--pl-radius-small); /* 버튼 모서리 */
+    background: var(--pl-violet); /* 버튼 배경 */
+    color: var(--pl-canvas); /* 버튼 글자색 */
+    font: inherit; /* 본문 글꼴 */
+    font-weight: 800; /* 버튼 굵기 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 버튼 끝 */
+
+.googleButton /* 구글 로그인 버튼 */
+{ /* 구글 버튼 시작 */
+    margin-top: 0; /* 위쪽 여백 제거 */
+    background: transparent; /* 투명 배경 */
+    color: var(--pl-violet); /* 버튼 글자색 */
+} /* 구글 버튼 끝 */
+
+.divider /* 로그인 구분 */
+{ /* 구분 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    text-align: center; /* 가운데 정렬 */
+} /* 구분 끝 */
+
+.error /* 오류 안내 */
+{ /* 오류 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-danger); /* 오류 글자색 */
+} /* 오류 끝 */
+
+.backLink /* 이전 화면 링크 */
+{ /* 링크 시작 */
+    margin-top: 26px; /* 위쪽 여백 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    display: inline-block; /* 여백 적용 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 링크 끝 */

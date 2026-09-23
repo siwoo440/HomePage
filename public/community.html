@@ -1,0 +1,153 @@
+<!DOCTYPE html> <!-- HTML5 문서 -->
+<html lang="ko"> <!-- 한국어 문서 -->
+<head> <!-- 문서 정보 시작 -->
+    <meta charset="UTF-8"> <!-- 한글 인코딩 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
+    <meta name="description" content="DEVFORGE 게임별 최신 영상과 커뮤니티 소식을 모아보는 소셜 허브"> <!-- 검색 설명 -->
+    <title>커뮤니티 · DEVFORGE</title> <!-- 브라우저 제목 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet"> <!-- 로고 글꼴 -->
+    <link rel="stylesheet" href="devlog.css"> <!-- 공통 페이지 스타일 -->
+    <link rel="stylesheet" href="community.css"> <!-- 커뮤니티 전용 스타일 -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+    <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
+</head> <!-- 문서 정보 끝 -->
+<body data-responsive-page="community" data-theme="playful-lab"> <!-- 플레이풀 랩 커뮤니티 본문 -->
+    <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 상단 고정 메뉴 -->
+        <a href="main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+        <ul class="nav-menu"> <!-- 메인 메뉴 목록 -->
+            <li><a href="main.html#games">게임</a></li> <!-- 게임 영역 이동 -->
+            <li><a href="goods.html">굿즈</a></li> <!-- 굿즈 전용 페이지 이동 -->
+            <li><a href="devlog.html">개발 뉴스</a></li> <!-- 개발 뉴스 이동 -->
+            <li><a href="community.html" aria-current="page">커뮤니티</a></li> <!-- 현재 커뮤니티 페이지 -->
+        </ul> <!-- 메인 메뉴 목록 끝 -->
+        <div class="nav-actions"> <!-- 상단 작업 묶음 -->
+            <a href="#platforms" class="btn-nav community-shortcut">채널 보기</a> <!-- 모바일 채널 바로가기 -->
+            <button class="btn-nav" id="contact-open" type="button">문의하기</button> <!-- 문의 창 열기 -->
+            <a href="/login" class="btn-nav member-login-link" data-member-action>로그인</a> <!-- 회원 로그인 이동 -->
+        </div> <!-- 상단 작업 묶음 끝 -->
+    </nav> <!-- 상단 고정 메뉴 끝 -->
+    <div class="page-shell"> <!-- 전체 너비 영역 -->
+        <header class="site-header community-hero"> <!-- 상단 소개 시작 -->
+            <div class="hero-copy"> <!-- 소개 문구 영역 -->
+                <p class="eyebrow">// COMMUNITY SIGNAL HUB</p> <!-- 영문 분류 -->
+                <h1>모든 <span>커뮤니티</span><br>한곳에서</h1> <!-- 페이지 제목 -->
+                <p>게임을 선택하면 해당 해시태그로 모인 영상과 소식을 플랫폼별로 확인할 수 있습니다.</p> <!-- 페이지 설명 -->
+            </div> <!-- 소개 문구 영역 끝 -->
+            <aside class="hero-signal" aria-label="커뮤니티 연동 상태"> <!-- 연동 상태 요약 -->
+                <span class="signal-dot" aria-hidden="true"></span> <!-- 상태 장식 -->
+                <strong>6개 채널 준비 중</strong> <!-- 채널 개수 -->
+                <p>YouTube는 API 키 연결 후 최신 콘텐츠로 자동 전환됩니다.</p> <!-- 연동 설명 -->
+            </aside> <!-- 연동 상태 요약 끝 -->
+        </header> <!-- 상단 소개 끝 -->
+        <main> <!-- 주요 내용 시작 -->
+            <section class="game-selector" aria-labelledby="game-filter-title"> <!-- 게임 선택 영역 -->
+                <div> <!-- 선택 안내 묶음 -->
+                    <p class="eyebrow">GAME HASHTAG FILTER</p> <!-- 필터 영문 분류 -->
+                    <h2 id="game-filter-title">어떤 게임의 소식을 볼까요?</h2> <!-- 필터 제목 -->
+                </div> <!-- 선택 안내 묶음 끝 -->
+                <label class="select-wrap" for="game-filter"> <!-- 게임 선택 레이블 -->
+                    <span>게임 선택</span> <!-- 선택 레이블 문구 -->
+                    <select id="game-filter" name="game"> <!-- 게임 선택 목록 -->
+                        <option value="all">전체 프로젝트</option> <!-- 전체 게임 선택 -->
+                    </select> <!-- 게임 선택 목록 끝 -->
+                </label> <!-- 게임 선택 레이블 끝 -->
+                <div class="active-tag"> <!-- 활성 해시태그 묶음 -->
+                    <span>현재 태그</span> <!-- 해시태그 레이블 -->
+                    <strong id="active-hashtag">#DEVFORGE</strong> <!-- 활성 해시태그 -->
+                    <button class="hashtag-copy-button" type="button" data-copy-community-hashtag>해시태그 복사</button> <!-- 해시태그 복사 버튼 -->
+                </div> <!-- 활성 해시태그 묶음 끝 -->
+                <p class="hashtag-copy-status" data-copy-community-status aria-live="polite"></p> <!-- 복사 결과 안내 -->
+                <p class="filter-status" id="community-status" aria-live="polite">전체 프로젝트의 시연 콘텐츠를 표시하고 있습니다.</p> <!-- 변경 상태 안내 -->
+                <a class="age-verification-link" id="age-verification-link" href="/age-verification" hidden>성인 확인 후 계속 →</a> <!-- 성인 확인 이동 링크 -->
+            </section> <!-- 게임 선택 영역 끝 -->
+            <section class="featured-feed" aria-labelledby="featured-title"> <!-- 주요 콘텐츠 영역 -->
+                <div class="featured-visual"> <!-- 대표 이미지 영역 -->
+                    <img id="featured-image" src="images/games/project-a.png" alt="프로젝트 A 커뮤니티 영상 시연 이미지"> <!-- 대표 시연 이미지 -->
+                    <span class="demo-badge" id="featured-badge">시연 화면</span> <!-- 시연 상태 배지 -->
+                    <span class="play-mark" aria-hidden="true">▶</span> <!-- 재생 장식 -->
+                </div> <!-- 대표 이미지 영역 끝 -->
+                <div class="featured-copy"> <!-- 대표 내용 영역 -->
+                    <p class="eyebrow">FEATURED SIGNAL</p> <!-- 대표 영문 분류 -->
+                    <span class="content-type">영상 미리보기</span> <!-- 콘텐츠 종류 -->
+                    <h2 id="featured-title">프로젝트 A의 새로운 개발 장면</h2> <!-- 대표 제목 -->
+                    <p id="featured-description">실제 YouTube API가 연결되면 선택한 게임의 최신 영상, 라이브, 쇼츠 후보가 이 자리에 표시됩니다.</p> <!-- 대표 설명 -->
+                    <div class="featured-meta" id="featured-meta">DEVFORGE · 연동 준비 중</div> <!-- 대표 작성 정보 -->
+                    <span class="channel-action is-disabled" id="featured-action" aria-disabled="true">영상 주소 준비 중</span> <!-- 비활성 영상 이동 -->
+                </div> <!-- 대표 내용 영역 끝 -->
+            </section> <!-- 주요 콘텐츠 영역 끝 -->
+            <section class="platforms-heading" id="platforms" aria-labelledby="platforms-title"> <!-- 플랫폼 목록 제목 -->
+                <div> <!-- 제목 묶음 -->
+                    <p class="eyebrow">SOCIAL CHANNELS</p> <!-- 목록 영문 분류 -->
+                    <h2 id="platforms-title">플랫폼별 최신 소식</h2> <!-- 목록 제목 -->
+                </div> <!-- 제목 묶음 끝 -->
+                <p>각 영역의 색상과 상태 표시로 채널을 빠르게 구분할 수 있습니다.</p> <!-- 목록 설명 -->
+            </section> <!-- 플랫폼 목록 제목 끝 -->
+            <div class="platform-stack"> <!-- 플랫폼 전체 묶음 -->
+                <section class="platform-section platform-discord" id="discord" data-platform="discord" aria-labelledby="discord-title"> <!-- 디스코드 영역 -->
+                    <div class="platform-heading"> <!-- 플랫폼 제목 묶음 -->
+                        <div class="platform-identity"><span class="platform-icon">D</span><div><p class="platform-kicker">REAL-TIME COMMUNITY</p><h2 id="discord-title">Discord</h2></div></div> <!-- 플랫폼 이름 -->
+                        <span class="connection-state" data-connection>연동 준비 중</span> <!-- 연동 상태 -->
+                    </div> <!-- 플랫폼 제목 묶음 끝 -->
+                    <div class="platform-grid" data-feed> <!-- 플랫폼 내용 격자 -->
+                        <article class="signal-card"><span class="card-label">최신 소식</span><h3>개발 공지와 베타 테스트 모집</h3><p>공식 서버 주소와 공지 채널 연동 후 최신 안내를 표시합니다.</p></article> <!-- 소식 카드 -->
+                        <article class="reaction-card"><span class="card-label">사람들 반응</span><div class="metric-row"><span><strong>—</strong> 온라인</span><span><strong>—</strong> 참여자</span></div><p>서버 위젯 연결 후 실시간 상태를 표시합니다.</p></article> <!-- 반응 카드 -->
+                    </div> <!-- 플랫폼 내용 격자 끝 -->
+                    <span class="channel-action is-disabled" aria-disabled="true">서버 주소 준비 중</span> <!-- 비활성 채널 이동 -->
+                </section> <!-- 디스코드 영역 끝 -->
+                <section class="platform-section platform-youtube" id="youtube" data-platform="youtube" aria-labelledby="youtube-title"> <!-- 유튜브 영역 -->
+                    <div class="platform-heading"> <!-- 플랫폼 제목 묶음 -->
+                        <div class="platform-identity"><span class="platform-icon">▶</span><div><p class="platform-kicker">VIDEO · LIVE · SHORTS</p><h2 id="youtube-title">YouTube</h2></div></div> <!-- 플랫폼 이름 -->
+                        <span class="connection-state" data-connection>API 키 대기 중</span> <!-- 연동 상태 -->
+                    </div> <!-- 플랫폼 제목 묶음 끝 -->
+                    <div class="platform-grid" data-feed> <!-- 플랫폼 내용 격자 -->
+                        <article class="media-card"><img src="images/games/project-a.png" alt="프로젝트 A 유튜브 시연 썸네일"><div><span class="demo-badge">시연 화면</span><h3>최신 개발 영상과 쇼츠 후보</h3><p>게임 해시태그를 기준으로 최근 업로드를 불러옵니다.</p></div></article> <!-- 영상 카드 -->
+                        <article class="reaction-card"><span class="card-label">사람들 반응</span><div class="metric-row"><span><strong>—</strong> 조회</span><span><strong>—</strong> 좋아요</span></div><p>실제 API 응답만 수치로 표시합니다.</p></article> <!-- 반응 카드 -->
+                    </div> <!-- 플랫폼 내용 격자 끝 -->
+                    <span class="channel-action is-disabled" aria-disabled="true">채널 주소 준비 중</span> <!-- 비활성 채널 이동 -->
+                </section> <!-- 유튜브 영역 끝 -->
+                <section class="platform-section platform-x" id="x" data-platform="x" aria-labelledby="x-title"> <!-- X 영역 -->
+                    <div class="platform-heading"> <!-- 플랫폼 제목 묶음 -->
+                        <div class="platform-identity"><span class="platform-icon">X</span><div><p class="platform-kicker">QUICK UPDATES</p><h2 id="x-title">X</h2></div></div> <!-- 플랫폼 이름 -->
+                        <span class="connection-state" data-connection>연동 준비 중</span> <!-- 연동 상태 -->
+                    </div> <!-- 플랫폼 제목 묶음 끝 -->
+                    <div class="platform-grid" data-feed><article class="signal-card"><span class="card-label">최신 소식</span><h3>개발 스크린샷과 빠른 업데이트</h3><p>공식 API 권한 연결 후 최근 7일의 관련 게시물을 표시합니다.</p></article><article class="reaction-card"><span class="card-label">사람들 반응</span><div class="metric-row"><span><strong>—</strong> 좋아요</span><span><strong>—</strong> 재게시</span><span><strong>—</strong> 답글</span></div><p>실제 게시물의 공개 수치만 표시합니다.</p></article></div> <!-- 플랫폼 내용 격자 -->
+                    <span class="channel-action is-disabled" aria-disabled="true">채널 주소 준비 중</span> <!-- 비활성 채널 이동 -->
+                </section> <!-- X 영역 끝 -->
+                <section class="platform-section platform-instagram" id="instagram" data-platform="instagram" aria-labelledby="instagram-title"> <!-- 인스타그램 영역 -->
+                    <div class="platform-heading"> <!-- 플랫폼 제목 묶음 -->
+                        <div class="platform-identity"><span class="platform-icon">◎</span><div><p class="platform-kicker">ART · REELS · STORIES</p><h2 id="instagram-title">Instagram</h2></div></div> <!-- 플랫폼 이름 -->
+                        <span class="connection-state" data-connection>연동 준비 중</span> <!-- 연동 상태 -->
+                    </div> <!-- 플랫폼 제목 묶음 끝 -->
+                    <div class="platform-grid" data-feed><article class="signal-card"><span class="card-label">최신 소식</span><h3>게임 아트와 개발 릴스</h3><p>전문 계정 권한 연결 후 공식 이미지와 릴스를 표시합니다.</p></article><article class="reaction-card"><span class="card-label">사람들 반응</span><div class="metric-row"><span><strong>—</strong> 좋아요</span><span><strong>—</strong> 댓글</span></div><p>공식 API가 제공하는 반응 정보를 표시합니다.</p></article></div> <!-- 플랫폼 내용 격자 -->
+                    <span class="channel-action is-disabled" aria-disabled="true">프로필 주소 준비 중</span> <!-- 비활성 채널 이동 -->
+                </section> <!-- 인스타그램 영역 끝 -->
+                <section class="platform-section platform-facebook" id="facebook" data-platform="facebook" aria-labelledby="facebook-title"> <!-- 페이스북 영역 -->
+                    <div class="platform-heading"> <!-- 플랫폼 제목 묶음 -->
+                        <div class="platform-identity"><span class="platform-icon">f</span><div><p class="platform-kicker">OFFICIAL PAGE NEWS</p><h2 id="facebook-title">Facebook</h2></div></div> <!-- 플랫폼 이름 -->
+                        <span class="connection-state" data-connection>연동 준비 중</span> <!-- 연동 상태 -->
+                    </div> <!-- 플랫폼 제목 묶음 끝 -->
+                    <div class="platform-grid" data-feed><article class="signal-card"><span class="card-label">최신 소식</span><h3>공식 페이지 공지와 행사 안내</h3><p>관리 중인 페이지 권한 연결 후 공식 게시물을 표시합니다.</p></article><article class="reaction-card"><span class="card-label">사람들 반응</span><div class="metric-row"><span><strong>—</strong> 반응</span><span><strong>—</strong> 댓글</span></div><p>실제 페이지 게시물의 공개 반응만 표시합니다.</p></article></div> <!-- 플랫폼 내용 격자 -->
+                    <span class="channel-action is-disabled" aria-disabled="true">페이지 주소 준비 중</span> <!-- 비활성 채널 이동 -->
+                </section> <!-- 페이스북 영역 끝 -->
+                <section class="platform-section platform-tiktok" id="tiktok" data-platform="tiktok" aria-labelledby="tiktok-title"> <!-- 틱톡 영역 -->
+                    <div class="platform-heading"> <!-- 플랫폼 제목 묶음 -->
+                        <div class="platform-identity"><span class="platform-icon">♪</span><div><p class="platform-kicker">SHORT GAME CLIPS</p><h2 id="tiktok-title">TikTok</h2></div></div> <!-- 플랫폼 이름 -->
+                        <span class="connection-state" data-connection>연동 준비 중</span> <!-- 연동 상태 -->
+                    </div> <!-- 플랫폼 제목 묶음 끝 -->
+                    <div class="platform-grid" data-feed><article class="signal-card"><span class="card-label">최신 소식</span><h3>게임플레이와 개발 숏폼</h3><p>승인한 공식 계정 연결 후 최근 영상을 표시합니다.</p></article><article class="reaction-card"><span class="card-label">사람들 반응</span><div class="metric-row"><span><strong>—</strong> 조회</span><span><strong>—</strong> 좋아요</span><span><strong>—</strong> 공유</span></div><p>공식 API에서 확인한 반응만 표시합니다.</p></article></div> <!-- 플랫폼 내용 격자 -->
+                    <span class="channel-action is-disabled" aria-disabled="true">프로필 주소 준비 중</span> <!-- 비활성 채널 이동 -->
+                </section> <!-- 틱톡 영역 끝 -->
+            </div> <!-- 플랫폼 전체 묶음 끝 -->
+        </main> <!-- 주요 내용 끝 -->
+        <footer class="site-footer"><span>DEVFORGE Community Signal Hub</span><a href="/admin/login">관리자 로그인</a></footer> <!-- 하단 정보 -->
+    </div> <!-- 전체 너비 영역 끝 -->
+    <dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-title"> <!-- 문의 대화상자 -->
+        <form method="dialog"><button class="dialog-close" type="submit" aria-label="문의 창 닫기">×</button><p class="eyebrow">// CONTACT</p><h2 id="contact-title">문의하기</h2><p>공식 문의 주소는 출시 준비 단계에서 연결됩니다.</p><span class="dialog-link">문의 채널 준비 중</span></form> <!-- 문의 내용 -->
+    </dialog> <!-- 문의 대화상자 끝 -->
+    <script type="module" src="community.mjs"></script> <!-- 커뮤니티 기능 연결 -->
+    <script type="module" src="member-session.mjs"></script> <!-- 회원 상태 연결 -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 화면 내용 끝 -->
+</html> <!-- HTML 문서 끝 -->
