@@ -1,0 +1,185 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식을 사용한다고 브라우저에 알려준다. -->
+<html lang="ko"> <!-- 문서의 기본 언어를 한국어로 설정한다. -->
+<head> <!-- 문서 정보 영역을 시작한다. -->
+    <meta charset="UTF-8"> <!-- 한글이 깨지지 않도록 문자 인코딩을 설정한다. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 화면에서도 올바르게 보이도록 설정한다. -->
+    <title>Project R 기획서</title> <!-- 브라우저 탭에 표시될 제목을 설정한다. -->
+    <link rel="stylesheet" href="ProjectR_Style.css"> <!-- 공용 CSS 파일을 연결한다. -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head> <!-- 문서 정보 영역을 끝낸다. -->
+<body> <!-- 실제 화면에 보이는 영역을 시작한다. -->
+    <div class="page-shell"> <!-- 전체 페이지 너비를 관리하는 큰 박스를 만든다. -->
+        <header class="hero-section" id="overview"> <!-- 상단 소개 영역을 만든다. -->
+            <nav class="top-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 상단 메뉴 영역을 만든다. -->
+                <!-- DEVFORGE 로고: 클릭 시 홈(main.html)으로 이동한다. -->
+                <a href="../main.html" class="top-nav-logo">DEVFORGE</a>
+                <!-- 오른쪽 링크 묶음 -->
+                <div class="top-nav-links">
+                    <a href="ProjectR_Main.html#overview">메인</a>
+                    <a href="ProjectR_Main.html#visual">이미지 기록</a>
+                    <a href="ProjectR_Main.html#archive">아카이브</a>
+                    <a href="ProjectR_Main.html#timeline">사건 기록</a>
+                    <a href="ProjectR_Main.html#glossary">용어</a>
+                </div>
+            </nav> <!-- 상단 메뉴 영역을 끝낸다. -->
+            <section class="hero-card image-panel" style="--image: url('images/world/hero-main.jpg');"> <!-- 메인 소개 카드를 만든다. -->
+                <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                <div class="hero-content"> <!-- 메인 소개 글을 담는 영역을 만든다. -->
+                    <p class="eyebrow">Project R — 레이싱</p> <!-- 작은 분류 문구를 표시한다. -->
+                    <h1>속도의 끝에서 승리가 기다린다</h1> <!-- 페이지의 큰 제목을 표시한다. -->
+                    <p class="hero-desc">한계를 넘는 속도, 완벽한 코너링, 그리고 치열한 순위 경쟁. 트랙 위에서 모든 것이 결정됩니다.</p> <!-- 세계관 핵심 설명을 표시한다. -->
+                    <div class="hero-meta"> <!-- 핵심 키워드를 담는 영역을 만든다. -->
+                        <span>극한 속도</span>
+                        <span>코스 전략</span>
+                        <span>순위 경쟁</span>
+                    </div> <!-- 핵심 키워드 영역을 끝낸다. -->
+                </div> <!-- 메인 소개 글 영역을 끝낸다. -->
+            </section> <!-- 메인 소개 카드를 끝낸다. -->
+        </header> <!-- 상단 소개 영역을 끝낸다. -->
+        <main> <!-- 페이지의 주요 내용을 시작한다. -->
+            <section id="visual" class="section-block visual-section"> <!-- 이미지 기록 영역을 만든다. -->
+                <div class="section-heading">
+                    <p class="eyebrow">Visual Archive</p>
+                    <h2>이미지 기록</h2>
+                    <p>실제 이미지 파일을 넣으면 게임 콘셉트, 세계관, 캐릭터 이미지를 바로 보여주는 영역입니다.</p>
+                </div>
+                <div class="visual-grid">
+                    <article class="visual-card visual-card-large image-panel" style="--image: url('images/world/race.jpg');"> <!-- Race 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div>
+                        <div class="visual-content">
+                            <span class="visual-label">Race</span>
+                            <h3>레이스 장면</h3>
+                            <p>고속으로 달리는 레이스 장면 이미지 자리입니다.</p>
+                        </div>
+                    </article>
+                    <article class="visual-card image-panel" style="--image: url('images/world/track.jpg');"> <!-- Track 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div>
+                        <div class="visual-content">
+                            <span class="visual-label">Track</span>
+                            <h3>서킷 트랙</h3>
+                            <p>다양한 서킷 트랙 이미지 자리입니다.</p>
+                        </div>
+                    </article>
+                    <article class="visual-card image-panel" style="--image: url('images/world/car.jpg');"> <!-- Car 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div>
+                        <div class="visual-content">
+                            <span class="visual-label">Car</span>
+                            <h3>차량 컬렉션</h3>
+                            <p>다양한 레이싱 차량들의 이미지 자리입니다.</p>
+                        </div>
+                    </article>
+                    <article class="visual-card image-panel" style="--image: url('images/world/podium.jpg');"> <!-- Podium 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div>
+                        <div class="visual-content">
+                            <span class="visual-label">Podium</span>
+                            <h3>시상대</h3>
+                            <p>레이스 결과 시상 장면 이미지 자리입니다.</p>
+                        </div>
+                    </article>
+                </div>
+            </section> <!-- 이미지 기록 영역을 끝낸다. -->
+            <section id="archive" class="section-block"> <!-- 정보 카드 아카이브 영역을 만든다. -->
+                <div class="section-heading">
+                    <p class="eyebrow">World Archive</p>
+                    <h2>세계관 정보 카드</h2>
+                    <p>각 정보 카드는 이미지와 설명을 함께 보여주며, 버튼과 검색창으로 빠르게 분류할 수 있습니다.</p>
+                </div>
+                <div class="tool-bar">
+                    <div class="filter-group" aria-label="분류">
+                        <button class="filter-button active" data-filter="전체" type="button">전체</button>
+                        <button class="filter-button" data-filter="핵심 개념" type="button">핵심 개념</button>
+                        <button class="filter-button" data-filter="주요 세력" type="button">주요 세력</button>
+                        <button class="filter-button" data-filter="사건" type="button">사건</button>
+                        <button class="filter-button" data-filter="배경 소재" type="button">배경 소재</button>
+                    </div>
+                    <label class="search-box" for="searchInput">
+                        <span>검색</span>
+                        <input id="searchInput" type="search" placeholder="키워드 검색">
+                    </label>
+                </div>
+                <p id="resultCount" class="result-count">0개의 항목</p>
+                <div class="carousel-shell" aria-label="카드 슬라이더">
+                    <button id="prevCardButton" class="carousel-button carousel-button-left" type="button" aria-label="이전 카드 보기">‹</button>
+                    <div class="carousel-viewport">
+                        <div id="cardGrid" class="card-track" aria-live="polite"></div>
+                    </div>
+                    <button id="nextCardButton" class="carousel-button carousel-button-right" type="button" aria-label="다음 카드 보기">›</button>
+                </div>
+                <div id="cardDots" class="card-dots" aria-label="카드 위치 버튼"></div>
+            </section> <!-- 정보 카드 아카이브 영역을 끝낸다. -->
+            <section id="timeline" class="section-block timeline-section"> <!-- 사건 기록 영역을 만든다. -->
+                <div class="section-heading">
+                    <p class="eyebrow">Incident Timeline</p>
+                    <h2>사건 기록</h2>
+                    <p>게임 세계관의 주요 사건들을 시간 순서로 정리한 기록입니다.</p>
+                </div>
+                <div class="timeline-list">
+                    <article class="timeline-item"> <!-- 01 사건을 만든다. -->
+                        <div class="timeline-image image-panel" style="--image: url('images/world/incident-01.jpg');"></div>
+                        <div class="timeline-text">
+                            <span>01</span>
+                            <h3>레이싱 시대</h3>
+                            <p>극한 속도 기술이 발전하며 레이싱이 최고의 스포츠가 됩니다.</p>
+                        </div>
+                    </article>
+                    <article class="timeline-item"> <!-- 02 사건을 만든다. -->
+                        <div class="timeline-image image-panel" style="--image: url('images/world/incident-02.jpg');"></div>
+                        <div class="timeline-text">
+                            <span>02</span>
+                            <h3>전설의 드라이버</h3>
+                            <p>누구도 이길 수 없는 전설적인 드라이버가 등장합니다.</p>
+                        </div>
+                    </article>
+                    <article class="timeline-item"> <!-- 03 사건을 만든다. -->
+                        <div class="timeline-image image-panel" style="--image: url('images/world/incident-03.jpg');"></div>
+                        <div class="timeline-text">
+                            <span>03</span>
+                            <h3>최후의 그랑프리</h3>
+                            <p>전설을 꺾을 수 있는 단 한 번의 기회, 결승 레이스가 시작됩니다.</p>
+                        </div>
+                    </article>
+                </div>
+            </section> <!-- 사건 기록 영역을 끝낸다. -->
+            <section id="glossary" class="section-block glossary-section"> <!-- 용어 정리 영역을 만든다. -->
+                <div class="section-heading">
+                    <p class="eyebrow">Glossary</p>
+                    <h2>핵심 용어</h2>
+                    <p>게임 세계관에서 자주 사용하는 핵심 용어 정리입니다.</p>
+                </div>
+                <dl class="glossary-list">
+                    <div>
+                        <dt>랩</dt>
+                        <dd>트랙을 한 바퀴 도는 단위입니다.</dd>
+                    </div>
+                    <div>
+                        <dt>슬립스트림</dt>
+                        <dd>앞 차량의 뒤에 붙어 공기 저항을 줄이는 주행 전술입니다.</dd>
+                    </div>
+                    <div>
+                        <dt>피트 스톱</dt>
+                        <dd>레이스 중 타이어 교체 등을 위해 정차하는 구역입니다.</dd>
+                    </div>
+                    <div>
+                        <dt>폴 포지션</dt>
+                        <dd>레이스 출발선의 최전방 자리로 예선 1위가 차지합니다.</dd>
+                    </div>
+                </dl>
+            </section> <!-- 용어 정리 영역을 끝낸다. -->
+        </main> <!-- 페이지의 주요 내용을 끝낸다. -->
+        <footer class="site-footer"> <!-- 하단 영역을 만든다. -->
+            <p>Project R 기획서 · DEVFORGE Studio</p>
+        </footer> <!-- 하단 영역을 끝낸다. -->
+    </div> <!-- 전체 페이지 너비 박스를 끝낸다. -->
+    <script>
+    /* 각 프로젝트 고유 카드 데이터 — 추후 기획서 내용으로 채워주세요. */
+    const loreData = [
+        { type:"핵심 개념", title:"기획 준비 중", body:"이 항목은 기획서 내용이 확정되면 업데이트됩니다. (Project R 기획서)", image:"", tags:["준비 중"] },
+        { type:"배경 소재", title:"세계관 구성 예정", body:"세계관 상세 내용이 추가될 예정입니다.", image:"", tags:["준비 중"] },
+    ];
+    </script>
+    <script src="ProjectR_Script.js"></script> <!-- 공용 카드 슬라이더 스크립트를 연결한다. -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 실제 화면에 보이는 영역을 끝낸다. -->
+</html> <!-- HTML 문서를 끝낸다. -->

@@ -1,0 +1,614 @@
+:root /* 커뮤니티 색상 */
+{ /* 색상 시작 */
+    --discord: #8b96ff; /* 디스코드 강조색 */
+    --discord-surface: rgba(88, 101, 242, 0.09); /* 디스코드 연한 배경 */
+    --youtube: #ff6666; /* 유튜브 강조색 */
+    --youtube-surface: rgba(255, 0, 0, 0.07); /* 유튜브 연한 배경 */
+    --x: #f3f5f8; /* X 강조색 */
+    --x-surface: rgba(255, 255, 255, 0.04); /* X 연한 배경 */
+    --instagram: #f26b9e; /* 인스타그램 강조색 */
+    --instagram-surface: rgba(225, 48, 108, 0.07); /* 인스타그램 연한 배경 */
+    --facebook: #72adff; /* 페이스북 강조색 */
+    --facebook-surface: rgba(24, 119, 242, 0.08); /* 페이스북 연한 배경 */
+    --tiktok: #69c9d0; /* 틱톡 강조색 */
+    --tiktok-secondary: #ee1d52; /* 틱톡 보조색 */
+    --tiktok-surface: rgba(105, 201, 208, 0.07); /* 틱톡 연한 배경 */
+} /* 색상 끝 */
+.community-shortcut /* 모바일 채널 바로가기 */
+{ /* 바로가기 시작 */
+    display: none; /* 데스크톱 중복 링크 숨김 */
+} /* 바로가기 끝 */
+.community-hero /* 커뮤니티 소개 */
+{ /* 소개 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 360px); /* 소개와 상태 배치 */
+    gap: 54px; /* 영역 간격 */
+    align-items: end; /* 아래 기준 정렬 */
+} /* 소개 끝 */
+.community-hero h1 /* 커뮤니티 제목 */
+{ /* 제목 시작 */
+    font-size: clamp(2.8rem, 7vw, 5.2rem); /* 반응형 제목 크기 */
+} /* 제목 끝 */
+.hero-signal /* 연동 상태 요약 */
+{ /* 상태 요약 시작 */
+    margin-bottom: 18px; /* 아래 여백 */
+    padding: 24px; /* 안쪽 여백 */
+    border: 1px solid rgba(0, 245, 212, 0.24); /* 사이언 테두리 */
+    background: linear-gradient(145deg, rgba(0, 245, 212, 0.08), rgba(176, 72, 255, 0.06)); /* 상태 배경 */
+} /* 상태 요약 끝 */
+.hero-signal strong /* 상태 제목 */
+{ /* 상태 제목 시작 */
+    display: block; /* 한 줄 배치 */
+    margin-bottom: 8px; /* 아래 여백 */
+    font-family: Orbitron, "Segoe UI", sans-serif; /* 기술 글꼴 */
+    letter-spacing: 0.06em; /* 글자 간격 */
+} /* 상태 제목 끝 */
+.hero-signal p /* 상태 설명 */
+{ /* 상태 설명 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--muted); /* 보조 글자색 */
+    font-size: 0.9rem; /* 설명 크기 */
+} /* 상태 설명 끝 */
+.signal-dot /* 연결 상태 점 */
+{ /* 상태 점 시작 */
+    display: inline-block; /* 인라인 원형 */
+    width: 9px; /* 원형 너비 */
+    height: 9px; /* 원형 높이 */
+    margin-right: 9px; /* 오른쪽 간격 */
+    border-radius: 50%; /* 원형 모양 */
+    background: var(--cyan); /* 사이언 상태색 */
+    box-shadow: 0 0 14px var(--cyan); /* 빛 효과 */
+} /* 상태 점 끝 */
+.game-selector /* 게임 선택 영역 */
+{ /* 선택 영역 시작 */
+    margin: 44px 0 30px; /* 바깥 여백 */
+    padding: 28px; /* 안쪽 여백 */
+    border: 1px solid var(--border); /* 영역 테두리 */
+    background: rgba(13, 21, 38, 0.76); /* 반투명 배경 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: minmax(260px, 1fr) minmax(220px, 300px) minmax(180px, 240px); /* 세 영역 배치 */
+    gap: 24px; /* 영역 간격 */
+    align-items: end; /* 아래 기준 정렬 */
+} /* 선택 영역 끝 */
+.game-selector h2 /* 게임 선택 제목 */
+{ /* 제목 시작 */
+    margin-bottom: 0; /* 아래 여백 제거 */
+    font-size: clamp(1.35rem, 2vw, 1.75rem); /* 반응형 제목 */
+} /* 제목 끝 */
+.select-wrap /* 선택 상자 묶음 */
+{ /* 선택 묶음 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 8px; /* 요소 간격 */
+    color: var(--muted); /* 보조 글자색 */
+    font-size: 0.8rem; /* 레이블 크기 */
+} /* 선택 묶음 끝 */
+.select-wrap select /* 게임 선택 상자 */
+{ /* 선택 상자 시작 */
+    width: 100%; /* 전체 너비 */
+    min-height: 48px; /* 선택 높이 */
+    padding: 0 42px 0 15px; /* 안쪽 여백 */
+    border: 1px solid var(--border); /* 상자 테두리 */
+    border-radius: 4px; /* 약한 모서리 */
+    background: var(--surface); /* 상자 배경 */
+    color: var(--text); /* 상자 글자색 */
+    font: inherit; /* 공통 글꼴 */
+} /* 선택 상자 끝 */
+.select-wrap select:focus-visible /* 선택 상자 초점 */
+{ /* 초점 시작 */
+    border-color: var(--cyan); /* 초점 테두리 */
+    outline: 2px solid rgba(0, 245, 212, 0.18); /* 보조 초점선 */
+} /* 초점 끝 */
+.active-tag /* 활성 해시태그 */
+{ /* 해시태그 시작 */
+    min-height: 72px; /* 영역 높이 */
+    padding: 12px 16px; /* 안쪽 여백 */
+    border-left: 2px solid var(--cyan); /* 왼쪽 강조선 */
+    background: rgba(0, 245, 212, 0.05); /* 연한 사이언 배경 */
+    display: flex; /* 세로 배치 준비 */
+    flex-direction: column; /* 세로 배치 */
+    justify-content: center; /* 세로 가운데 정렬 */
+} /* 해시태그 끝 */
+.active-tag span /* 해시태그 레이블 */
+{ /* 레이블 시작 */
+    color: var(--muted); /* 보조 글자색 */
+    font-size: 0.75rem; /* 레이블 크기 */
+} /* 레이블 끝 */
+.active-tag strong /* 해시태그 값 */
+{ /* 값 시작 */
+    color: var(--cyan); /* 사이언 글자색 */
+    font-family: Consolas, monospace; /* 코드 글꼴 */
+    overflow-wrap: anywhere; /* 긴 값 줄바꿈 */
+} /* 값 끝 */
+.filter-status /* 변경 상태 안내 */
+{ /* 상태 안내 시작 */
+    grid-column: 1 / -1; /* 전체 너비 */
+    margin: -8px 0 0; /* 위쪽 간격 축소 */
+    color: var(--muted); /* 보조 글자색 */
+    font-size: 0.84rem; /* 안내 크기 */
+} /* 상태 안내 끝 */
+.age-verification-link /* 성인 확인 이동 링크 */
+{ /* 성인 확인 링크 시작 */
+    display: inline-flex; /* 링크 배치 */
+    align-items: center; /* 세로 정렬 */
+    justify-content: center; /* 가로 정렬 */
+    min-height: 2.75rem; /* 링크 최소 높이 */
+    padding: 0 1rem; /* 링크 안쪽 여백 */
+    border: 1px solid rgba(255, 101, 123, 0.7); /* 링크 테두리 */
+    border-radius: 0.6rem; /* 링크 모서리 */
+    background: rgba(255, 101, 123, 0.1); /* 링크 배경 */
+    color: #ff9aab; /* 링크 글자색 */
+    font-weight: 800; /* 링크 글자 굵기 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+} /* 성인 확인 링크 끝 */
+.age-verification-link[hidden] /* 숨김 성인 확인 링크 */
+{ /* 숨김 링크 시작 */
+    display: none; /* 링크 숨김 */
+} /* 숨김 링크 끝 */
+.featured-feed /* 대표 콘텐츠 */
+{ /* 대표 콘텐츠 시작 */
+    margin-bottom: 72px; /* 아래 여백 */
+    border: 1px solid rgba(0, 245, 212, 0.24); /* 사이언 테두리 */
+    background: linear-gradient(130deg, rgba(0, 245, 212, 0.07), rgba(7, 11, 20, 0.8) 46%, rgba(176, 72, 255, 0.08)); /* 대표 배경 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr); /* 이미지와 설명 배치 */
+    overflow: hidden; /* 이미지 넘침 차단 */
+} /* 대표 콘텐츠 끝 */
+.featured-visual /* 대표 이미지 */
+{ /* 이미지 영역 시작 */
+    position: relative; /* 장식 기준 */
+    min-height: 360px; /* 최소 높이 */
+    background: var(--surface); /* 이미지 대체 배경 */
+    overflow: hidden; /* 이미지 넘침 차단 */
+} /* 이미지 영역 끝 */
+.featured-visual::after /* 이미지 명암 */
+{ /* 명암 시작 */
+    content: ""; /* 빈 장식 */
+    position: absolute; /* 전체 덮기 */
+    inset: 0; /* 가장자리 맞춤 */
+    background: linear-gradient(90deg, transparent 55%, rgba(7, 11, 20, 0.8)); /* 오른쪽 명암 */
+} /* 명암 끝 */
+.featured-visual img /* 대표 이미지 파일 */
+{ /* 이미지 시작 */
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    object-fit: cover; /* 영역 채우기 */
+    filter: saturate(0.78) brightness(0.72); /* 어두운 이미지 처리 */
+} /* 이미지 끝 */
+.demo-badge /* 시연 배지 */
+{ /* 배지 시작 */
+    display: inline-flex; /* 인라인 정렬 */
+    width: fit-content; /* 내용 너비 */
+    padding: 5px 9px; /* 안쪽 여백 */
+    border: 1px solid rgba(255, 138, 76, 0.5); /* 주황 테두리 */
+    background: rgba(255, 138, 76, 0.12); /* 주황 배경 */
+    color: #ffb188; /* 주황 글자색 */
+    font-family: Consolas, monospace; /* 코드 글꼴 */
+    font-size: 0.72rem; /* 배지 크기 */
+    font-weight: 700; /* 배지 굵기 */
+} /* 배지 끝 */
+.featured-visual .demo-badge /* 이미지 위 시연 배지 */
+{ /* 배지 위치 시작 */
+    position: absolute; /* 이미지 위 배치 */
+    top: 22px; /* 위쪽 위치 */
+    left: 22px; /* 왼쪽 위치 */
+    z-index: 2; /* 명암 위 배치 */
+} /* 배지 위치 끝 */
+.play-mark /* 재생 장식 */
+{ /* 재생 장식 시작 */
+    position: absolute; /* 이미지 중앙 배치 */
+    top: 50%; /* 세로 중앙 */
+    left: 50%; /* 가로 중앙 */
+    z-index: 2; /* 명암 위 배치 */
+    width: 68px; /* 원형 너비 */
+    height: 68px; /* 원형 높이 */
+    border: 1px solid rgba(255, 255, 255, 0.6); /* 흰 테두리 */
+    border-radius: 50%; /* 원형 모양 */
+    background: rgba(7, 11, 20, 0.62); /* 반투명 배경 */
+    display: grid; /* 가운데 배치 */
+    place-items: center; /* 완전 가운데 정렬 */
+    transform: translate(-50%, -50%); /* 중앙 보정 */
+} /* 재생 장식 끝 */
+.featured-copy /* 대표 내용 */
+{ /* 대표 내용 시작 */
+    padding: clamp(30px, 5vw, 54px); /* 반응형 안쪽 여백 */
+    display: flex; /* 세로 배치 준비 */
+    flex-direction: column; /* 세로 배치 */
+    justify-content: center; /* 세로 가운데 정렬 */
+} /* 대표 내용 끝 */
+.content-type /* 콘텐츠 종류 */
+{ /* 종류 시작 */
+    color: var(--cyan); /* 사이언 글자색 */
+    font-size: 0.78rem; /* 종류 크기 */
+    font-weight: 700; /* 종류 굵기 */
+} /* 종류 끝 */
+.featured-copy h2 /* 대표 제목 */
+{ /* 제목 시작 */
+    margin: 10px 0 14px; /* 제목 여백 */
+    font-size: clamp(1.55rem, 3vw, 2.4rem); /* 반응형 제목 */
+    line-height: 1.28; /* 제목 줄 간격 */
+} /* 제목 끝 */
+.featured-copy > p:not(.eyebrow) /* 대표 설명 */
+{ /* 설명 시작 */
+    color: var(--muted); /* 보조 글자색 */
+} /* 설명 끝 */
+.featured-meta /* 대표 작성 정보 */
+{ /* 작성 정보 시작 */
+    margin: 8px 0 22px; /* 바깥 여백 */
+    color: var(--muted); /* 보조 글자색 */
+    display: flex; /* 가로 배치 */
+    gap: 18px; /* 정보 간격 */
+    font-size: 0.82rem; /* 정보 크기 */
+} /* 작성 정보 끝 */
+.platforms-heading /* 플랫폼 목록 제목 */
+{ /* 목록 제목 시작 */
+    margin-bottom: 26px; /* 아래 여백 */
+    display: flex; /* 가로 배치 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 30px; /* 영역 간격 */
+    align-items: end; /* 아래 기준 정렬 */
+} /* 목록 제목 끝 */
+.platforms-heading h2 /* 목록 제목 글자 */
+{ /* 제목 글자 시작 */
+    margin-bottom: 0; /* 아래 여백 제거 */
+    font-size: clamp(1.8rem, 4vw, 2.7rem); /* 반응형 제목 */
+} /* 제목 글자 끝 */
+.platforms-heading > p /* 목록 설명 */
+{ /* 설명 시작 */
+    max-width: 430px; /* 읽기 너비 */
+    margin-bottom: 0; /* 아래 여백 제거 */
+    color: var(--muted); /* 보조 글자색 */
+    text-align: right; /* 오른쪽 정렬 */
+} /* 설명 끝 */
+.platform-stack /* 플랫폼 전체 묶음 */
+{ /* 묶음 시작 */
+    display: grid; /* 세로 격자 */
+    gap: 26px; /* 영역 간격 */
+} /* 묶음 끝 */
+.platform-section /* 플랫폼 영역 */
+{ /* 영역 시작 */
+    scroll-margin-top: 92px; /* 고정 메뉴 위치 보정 */
+    padding: clamp(24px, 4vw, 40px); /* 반응형 안쪽 여백 */
+    border: 1px solid var(--platform-border); /* 플랫폼 테두리 */
+    border-left-width: 3px; /* 왼쪽 강조선 */
+    background: var(--platform-surface); /* 플랫폼 연한 배경 */
+} /* 영역 끝 */
+.platform-discord /* 디스코드 영역 */
+{ /* 디스코드 시작 */
+    --platform-accent: var(--discord); /* 디스코드 강조색 연결 */
+    --platform-border: rgba(139, 150, 255, 0.34); /* 디스코드 테두리 */
+    --platform-surface: var(--discord-surface); /* 디스코드 배경 연결 */
+} /* 디스코드 끝 */
+.platform-youtube /* 유튜브 영역 */
+{ /* 유튜브 시작 */
+    --platform-accent: var(--youtube); /* 유튜브 강조색 연결 */
+    --platform-border: rgba(255, 102, 102, 0.32); /* 유튜브 테두리 */
+    --platform-surface: var(--youtube-surface); /* 유튜브 배경 연결 */
+} /* 유튜브 끝 */
+.platform-x /* X 영역 */
+{ /* X 시작 */
+    --platform-accent: var(--x); /* X 강조색 연결 */
+    --platform-border: rgba(255, 255, 255, 0.2); /* X 테두리 */
+    --platform-surface: var(--x-surface); /* X 배경 연결 */
+} /* X 끝 */
+.platform-instagram /* 인스타그램 영역 */
+{ /* 인스타그램 시작 */
+    --platform-accent: var(--instagram); /* 인스타그램 강조색 연결 */
+    --platform-border: rgba(242, 107, 158, 0.34); /* 인스타그램 테두리 */
+    --platform-surface: var(--instagram-surface); /* 인스타그램 배경 연결 */
+} /* 인스타그램 끝 */
+.platform-facebook /* 페이스북 영역 */
+{ /* 페이스북 시작 */
+    --platform-accent: var(--facebook); /* 페이스북 강조색 연결 */
+    --platform-border: rgba(114, 173, 255, 0.34); /* 페이스북 테두리 */
+    --platform-surface: var(--facebook-surface); /* 페이스북 배경 연결 */
+} /* 페이스북 끝 */
+.platform-tiktok /* 틱톡 영역 */
+{ /* 틱톡 시작 */
+    --platform-accent: var(--tiktok); /* 틱톡 강조색 연결 */
+    --platform-border: rgba(105, 201, 208, 0.38); /* 틱톡 테두리 */
+    --platform-surface: linear-gradient(135deg, var(--tiktok-surface), rgba(238, 29, 82, 0.04)); /* 틱톡 혼합 배경 */
+    box-shadow: inset -1px 0 rgba(238, 29, 82, 0.25); /* 틱톡 분홍 보조선 */
+} /* 틱톡 끝 */
+.platform-heading /* 플랫폼 제목 묶음 */
+{ /* 제목 묶음 시작 */
+    margin-bottom: 24px; /* 아래 여백 */
+    display: flex; /* 가로 배치 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 20px; /* 요소 간격 */
+    align-items: center; /* 세로 가운데 정렬 */
+} /* 제목 묶음 끝 */
+.platform-identity /* 플랫폼 이름 묶음 */
+{ /* 이름 묶음 시작 */
+    display: flex; /* 가로 배치 */
+    gap: 16px; /* 요소 간격 */
+    align-items: center; /* 세로 가운데 정렬 */
+} /* 이름 묶음 끝 */
+.platform-icon /* 플랫폼 아이콘 */
+{ /* 아이콘 시작 */
+    width: 50px; /* 아이콘 너비 */
+    height: 50px; /* 아이콘 높이 */
+    border: 1px solid var(--platform-border); /* 아이콘 테두리 */
+    border-radius: 14px; /* 둥근 모서리 */
+    background: rgba(7, 11, 20, 0.56); /* 아이콘 배경 */
+    color: var(--platform-accent); /* 아이콘 글자색 */
+    display: grid; /* 가운데 배치 */
+    place-items: center; /* 완전 가운데 정렬 */
+    font-family: Orbitron, "Segoe UI", sans-serif; /* 기술 글꼴 */
+    font-size: 1.15rem; /* 아이콘 크기 */
+    font-weight: 900; /* 아이콘 굵기 */
+} /* 아이콘 끝 */
+.platform-kicker /* 플랫폼 영문 분류 */
+{ /* 분류 시작 */
+    margin: 0 0 3px; /* 아래 여백 */
+    color: var(--platform-accent); /* 플랫폼 강조색 */
+    font-family: Consolas, monospace; /* 코드 글꼴 */
+    font-size: 0.7rem; /* 분류 크기 */
+    letter-spacing: 0.12em; /* 글자 간격 */
+} /* 분류 끝 */
+.platform-heading h2 /* 플랫폼 제목 */
+{ /* 플랫폼 제목 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    font-size: clamp(1.55rem, 3vw, 2.15rem); /* 반응형 제목 */
+} /* 플랫폼 제목 끝 */
+.connection-state /* 연동 상태 */
+{ /* 상태 시작 */
+    padding: 7px 11px; /* 안쪽 여백 */
+    border: 1px solid var(--platform-border); /* 플랫폼 테두리 */
+    border-radius: 999px; /* 둥근 배지 */
+    color: var(--platform-accent); /* 플랫폼 글자색 */
+    font-size: 0.74rem; /* 상태 크기 */
+    white-space: nowrap; /* 줄바꿈 차단 */
+} /* 상태 끝 */
+.platform-grid /* 플랫폼 내용 격자 */
+{ /* 내용 격자 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.55fr); /* 소식과 반응 배치 */
+    gap: 18px; /* 카드 간격 */
+} /* 내용 격자 끝 */
+.signal-card, .reaction-card, .media-card /* 플랫폼 카드 */
+{ /* 카드 시작 */
+    min-height: 156px; /* 카드 최소 높이 */
+    padding: 22px; /* 안쪽 여백 */
+    border: 1px solid rgba(132, 146, 170, 0.18); /* 중립 테두리 */
+    background: rgba(7, 11, 20, 0.52); /* 반투명 배경 */
+} /* 카드 끝 */
+.card-label /* 카드 분류 */
+{ /* 분류 시작 */
+    color: var(--platform-accent); /* 플랫폼 강조색 */
+    font-size: 0.73rem; /* 분류 크기 */
+    font-weight: 700; /* 분류 굵기 */
+    letter-spacing: 0.08em; /* 글자 간격 */
+} /* 분류 끝 */
+.signal-card h3, .media-card h3 /* 소식 제목 */
+{ /* 제목 시작 */
+    margin: 9px 0 8px; /* 제목 여백 */
+    font-size: 1.18rem; /* 제목 크기 */
+} /* 제목 끝 */
+.signal-card p, .reaction-card p, .media-card p /* 카드 설명 */
+{ /* 설명 시작 */
+    margin-bottom: 0; /* 아래 여백 제거 */
+    color: var(--muted); /* 보조 글자색 */
+    font-size: 0.9rem; /* 설명 크기 */
+} /* 설명 끝 */
+.media-card /* 영상 카드 */
+{ /* 영상 카드 시작 */
+    padding: 0; /* 기본 여백 제거 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: minmax(160px, 0.42fr) minmax(0, 0.58fr); /* 이미지와 설명 배치 */
+    overflow: hidden; /* 이미지 넘침 차단 */
+} /* 영상 카드 끝 */
+.media-card img /* 영상 썸네일 */
+{ /* 썸네일 시작 */
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    min-height: 176px; /* 최소 높이 */
+    object-fit: cover; /* 영역 채우기 */
+    filter: saturate(0.78) brightness(0.72); /* 어두운 이미지 */
+} /* 썸네일 끝 */
+.media-card > div /* 영상 설명 묶음 */
+{ /* 설명 묶음 시작 */
+    padding: 22px; /* 안쪽 여백 */
+} /* 설명 묶음 끝 */
+.metric-row /* 반응 수치 목록 */
+{ /* 수치 목록 시작 */
+    margin: 16px 0 12px; /* 바깥 여백 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 16px; /* 수치 간격 */
+    color: var(--muted); /* 보조 글자색 */
+    font-size: 0.78rem; /* 설명 크기 */
+} /* 수치 목록 끝 */
+.metric-row strong /* 반응 수치 */
+{ /* 수치 시작 */
+    display: block; /* 숫자 한 줄 */
+    color: var(--text); /* 기본 글자색 */
+    font-family: Orbitron, "Segoe UI", sans-serif; /* 기술 글꼴 */
+    font-size: 1.25rem; /* 숫자 크기 */
+} /* 수치 끝 */
+.channel-action /* 채널 이동 요소 */
+{ /* 이동 요소 시작 */
+    width: fit-content; /* 내용 너비 */
+    min-height: 42px; /* 선택 높이 */
+    margin-top: 20px; /* 위쪽 여백 */
+    padding: 9px 16px; /* 안쪽 여백 */
+    border: 1px solid var(--platform-border, var(--border)); /* 상태 테두리 */
+    color: var(--platform-accent, var(--muted)); /* 상태 글자색 */
+    display: inline-flex; /* 글자 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    font-size: 0.82rem; /* 글자 크기 */
+    font-weight: 700; /* 글자 굵기 */
+} /* 이동 요소 끝 */
+.channel-action.is-disabled /* 비활성 채널 이동 */
+{ /* 비활성 시작 */
+    cursor: not-allowed; /* 비활성 커서 */
+    opacity: 0.72; /* 흐린 상태 */
+} /* 비활성 끝 */
+@media (max-width: 940px) /* 태블릿 화면 */
+{ /* 태블릿 시작 */
+    .community-hero, .featured-feed /* 태블릿 큰 격자 */
+    { /* 큰 격자 시작 */
+        grid-template-columns: 1fr; /* 한 열 배치 */
+    } /* 큰 격자 끝 */
+    .hero-signal /* 태블릿 상태 요약 */
+    { /* 상태 요약 시작 */
+        margin-bottom: 30px; /* 아래 여백 */
+    } /* 상태 요약 끝 */
+    .game-selector /* 태블릿 게임 선택 */
+    { /* 선택 시작 */
+        grid-template-columns: 1fr 1fr; /* 두 열 배치 */
+    } /* 선택 끝 */
+    .game-selector > div:first-child, .filter-status /* 태블릿 넓은 항목 */
+    { /* 넓은 항목 시작 */
+        grid-column: 1 / -1; /* 전체 너비 */
+    } /* 넓은 항목 끝 */
+    .featured-visual /* 태블릿 대표 이미지 */
+    { /* 대표 이미지 시작 */
+        min-height: 320px; /* 이미지 높이 */
+    } /* 대표 이미지 끝 */
+} /* 태블릿 끝 */
+@media (max-width: 720px) /* 모바일 화면 */
+{ /* 모바일 시작 */
+    .community-shortcut /* 모바일 채널 바로가기 */
+    { /* 바로가기 시작 */
+        display: inline-flex; /* 모바일 바로가기 표시 */
+        align-items: center; /* 글자 가운데 정렬 */
+    } /* 바로가기 끝 */
+    .game-selector, .platform-grid, .media-card /* 모바일 격자 */
+    { /* 격자 시작 */
+        grid-template-columns: 1fr; /* 한 열 배치 */
+    } /* 격자 끝 */
+    .game-selector > div:first-child, .filter-status /* 모바일 전체 항목 */
+    { /* 전체 항목 시작 */
+        grid-column: auto; /* 기본 열 배치 */
+    } /* 전체 항목 끝 */
+    .platforms-heading /* 모바일 목록 제목 */
+    { /* 목록 제목 시작 */
+        align-items: flex-start; /* 왼쪽 정렬 */
+        flex-direction: column; /* 세로 배치 */
+    } /* 목록 제목 끝 */
+    .platforms-heading > p /* 모바일 목록 설명 */
+    { /* 설명 시작 */
+        text-align: left; /* 왼쪽 정렬 */
+    } /* 설명 끝 */
+    .platform-heading /* 모바일 플랫폼 제목 */
+    { /* 제목 시작 */
+        align-items: flex-start; /* 위쪽 정렬 */
+        flex-direction: column; /* 세로 배치 */
+    } /* 제목 끝 */
+    .media-card img /* 모바일 영상 이미지 */
+    { /* 이미지 시작 */
+        max-height: 230px; /* 이미지 최대 높이 */
+    } /* 이미지 끝 */
+} /* 모바일 끝 */
+@media (max-width: 520px) /* 작은 모바일 화면 */
+{ /* 작은 모바일 시작 */
+    .community-shortcut /* 작은 모바일 바로가기 */
+    { /* 바로가기 시작 */
+        display: none; /* 중복 바로가기 숨김 */
+    } /* 바로가기 끝 */
+    .game-selector, .platform-section /* 작은 모바일 영역 */
+    { /* 영역 시작 */
+        padding: 20px; /* 안쪽 여백 축소 */
+    } /* 영역 끝 */
+    .featured-visual /* 작은 모바일 대표 이미지 */
+    { /* 대표 이미지 시작 */
+        min-height: 240px; /* 이미지 높이 축소 */
+    } /* 대표 이미지 끝 */
+    .platform-identity /* 작은 모바일 플랫폼 이름 */
+    { /* 이름 시작 */
+        align-items: flex-start; /* 위쪽 정렬 */
+    } /* 이름 끝 */
+} /* 작은 모바일 끝 */
+
+@media (max-width: 767px) /* 커뮤니티 모바일 화면 */
+{ /* 구간 시작 */
+    .platform-stack /* 모바일 플랫폼 목록 */
+    { /* 규칙 시작 */
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 플랫폼 두 열 */
+        gap: 14px; /* 플랫폼 간격 */
+    } /* 규칙 끝 */
+
+    .platform-section /* 모바일 플랫폼 영역 */
+    { /* 규칙 시작 */
+        min-width: 0; /* 격자 넘침 차단 */
+        padding: 18px; /* 영역 안쪽 여백 */
+    } /* 규칙 끝 */
+
+    .platform-grid, /* 모바일 플랫폼 내용 */
+    .media-card /* 모바일 영상 카드 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr; /* 내용 한 열 */
+    } /* 규칙 끝 */
+
+    .channel-action /* 모바일 채널 이동 */
+    { /* 규칙 시작 */
+        justify-content: center; /* 글자 가운데 */
+        min-height: 44px; /* 터치 높이 */
+        width: 100%; /* 버튼 전체 너비 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (min-width: 768px) and (max-width: 1279px) /* 커뮤니티 태블릿 화면 */
+{ /* 구간 시작 */
+    .platform-stack /* 태블릿 플랫폼 목록 */
+    { /* 규칙 시작 */
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* 플랫폼 세 열 */
+        gap: 16px; /* 플랫폼 간격 */
+    } /* 규칙 끝 */
+
+    .platform-section /* 태블릿 플랫폼 영역 */
+    { /* 규칙 시작 */
+        min-width: 0; /* 격자 넘침 차단 */
+        padding: 20px; /* 영역 안쪽 여백 */
+    } /* 규칙 끝 */
+
+    .platform-heading /* 태블릿 플랫폼 제목 */
+    { /* 규칙 시작 */
+        align-items: flex-start; /* 위쪽 정렬 */
+        flex-direction: column; /* 제목 세로 배치 */
+    } /* 규칙 끝 */
+
+    .platform-grid, /* 태블릿 플랫폼 내용 */
+    .media-card /* 태블릿 영상 카드 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr; /* 내용 한 열 */
+    } /* 규칙 끝 */
+
+    .signal-card, /* 태블릿 소식 카드 */
+    .reaction-card, /* 태블릿 반응 카드 */
+    .media-card /* 태블릿 영상 카드 */
+    { /* 규칙 시작 */
+        min-height: 0; /* 카드 높이 자동 */
+        padding: 16px; /* 카드 안쪽 여백 */
+    } /* 규칙 끝 */
+
+    .media-card /* 태블릿 영상 카드 */
+    { /* 규칙 시작 */
+        padding: 0; /* 영상 바깥 여백 제거 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (max-width: 419px) /* 커뮤니티 작은 모바일 */
+{ /* 구간 시작 */
+    .platform-stack /* 작은 모바일 플랫폼 목록 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr; /* 플랫폼 한 열 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+.hashtag-copy-button /* 해시태그 복사 버튼 */
+{ /* 규칙 시작 */
+    background: rgba(7, 19, 34, 0.72); /* 버튼 배경 */
+    border: 1px solid rgba(94, 226, 202, 0.45); /* 버튼 테두리 */
+    border-radius: 999px; /* 둥근 모양 */
+    color: #e8fff9; /* 버튼 글자 */
+    cursor: pointer; /* 선택 표시 */
+    min-height: 44px; /* 터치 높이 */
+    padding: 0.6rem 0.9rem; /* 내부 여백 */
+} /* 규칙 끝 */
+
+.hashtag-copy-status /* 해시태그 복사 결과 */
+{ /* 규칙 시작 */
+    color: #75e8ce; /* 결과 색상 */
+    font-size: 0.85rem; /* 결과 크기 */
+    min-height: 1.4em; /* 상태 영역 높이 */
+} /* 규칙 끝 */

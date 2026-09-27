@@ -1,0 +1,294 @@
+.goods-shortcut /* 모바일 굿즈 바로가기 */
+{ /* 바로가기 시작 */
+    display: none; /* 데스크톱 중복 링크 숨김 */
+} /* 바로가기 끝 */
+
+.goods-heading /* 상품 목록 제목 */
+{ /* 상품 제목 시작 */
+    padding: 46px 0 24px; /* 제목 위아래 여백 */
+    display: flex; /* 가로 배치 */
+    align-items: end; /* 아래 기준 정렬 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 24px; /* 요소 간격 */
+} /* 상품 제목 끝 */
+
+.goods-heading h2 /* 상품 목록 이름 */
+{ /* 상품 목록 이름 시작 */
+    margin-bottom: 0; /* 아래 여백 제거 */
+    font-size: 1.7rem; /* 제목 크기 */
+} /* 상품 목록 이름 끝 */
+
+.goods-grid /* 상품 격자 */
+{ /* 상품 격자 시작 */
+    display: grid; /* 카드 격자 배치 */
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 세 열 배치 */
+    gap: 20px; /* 카드 간격 */
+    padding-bottom: 70px; /* 목록 아래 여백 */
+} /* 상품 격자 끝 */
+
+.goods-card /* 상품 카드 */
+{ /* 상품 카드 시작 */
+    position: relative; /* 배지 기준 위치 */
+    overflow: hidden; /* 카드 넘침 숨김 */
+    border: 1px solid var(--border); /* 카드 경계선 */
+    background: var(--surface); /* 카드 배경 */
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; /* 선택 전환 */
+} /* 상품 카드 끝 */
+
+a.goods-card:hover, a.goods-card:focus-visible /* 구매 카드 선택 */
+{ /* 구매 카드 선택 시작 */
+    transform: translateY(-5px); /* 카드 위 이동 */
+    border-color: var(--cyan); /* 강조 경계선 */
+    box-shadow: 0 15px 35px rgba(0, 245, 212, 0.12); /* 네온 그림자 */
+    outline: none; /* 기본 초점선 제거 */
+} /* 구매 카드 선택 끝 */
+
+.goods-thumb /* 상품 이미지 영역 */
+{ /* 이미지 영역 시작 */
+    position: relative; /* 배지 위치 기준 */
+    aspect-ratio: 4 / 3; /* 이미지 비율 */
+    overflow: hidden; /* 이미지 넘침 숨김 */
+    background: #090f1b; /* 이미지 대체 배경 */
+} /* 이미지 영역 끝 */
+
+.goods-image /* 상품 이미지 */
+{ /* 상품 이미지 시작 */
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    object-fit: cover; /* 영역 채움 */
+    transition: transform 0.35s ease, filter 0.35s ease; /* 이미지 전환 */
+} /* 상품 이미지 끝 */
+
+a.goods-card:hover .goods-image /* 구매 카드 이미지 선택 */
+{ /* 이미지 선택 시작 */
+    transform: scale(1.035); /* 이미지 확대 */
+} /* 이미지 선택 끝 */
+
+.state-sold_out .goods-image /* 품절 이미지 */
+{ /* 품절 이미지 시작 */
+    filter: grayscale(0.8) brightness(0.55); /* 품절 흐림 표현 */
+} /* 품절 이미지 끝 */
+
+.goods-badge, .goods-stock-badge /* 상품 상태 배지 */
+{ /* 상태 배지 시작 */
+    position: absolute; /* 이미지 위 배치 */
+    top: 12px; /* 위쪽 위치 */
+    padding: 5px 9px; /* 배지 여백 */
+    font-family: Consolas, monospace; /* 기술 글꼴 */
+    font-size: 0.67rem; /* 배지 글자 크기 */
+    font-weight: 800; /* 배지 굵기 */
+    letter-spacing: 0.08em; /* 배지 글자 간격 */
+} /* 상태 배지 끝 */
+
+.goods-badge /* 상품 배지 */
+{ /* 상품 배지 시작 */
+    left: 12px; /* 왼쪽 위치 */
+    background: var(--cyan); /* 배지 배경 */
+    color: var(--background); /* 배지 글자색 */
+} /* 상품 배지 끝 */
+
+.badge-hot /* 인기 배지 */
+{ /* 인기 배지 시작 */
+    background: var(--orange); /* 인기 배경 */
+} /* 인기 배지 끝 */
+
+.badge-limited /* 한정 배지 */
+{ /* 한정 배지 시작 */
+    background: var(--purple); /* 한정 배경 */
+    color: #ffffff; /* 한정 글자색 */
+} /* 한정 배지 끝 */
+
+.goods-stock-badge /* 재고 상태 배지 */
+{ /* 재고 배지 시작 */
+    right: 12px; /* 오른쪽 위치 */
+    border: 1px solid currentColor; /* 상태색 경계선 */
+    background: rgba(7, 11, 20, 0.88); /* 어두운 배경 */
+} /* 재고 배지 끝 */
+
+.state-in_stock /* 판매 중 색상 */
+{ /* 판매 중 색상 시작 */
+    color: var(--cyan); /* 청록 강조 */
+} /* 판매 중 색상 끝 */
+
+.state-low_stock /* 재고 부족 색상 */
+{ /* 재고 부족 색상 시작 */
+    color: #ffad42; /* 주황 강조 */
+} /* 재고 부족 색상 끝 */
+
+.state-sold_out /* 품절 색상 */
+{ /* 품절 색상 시작 */
+    color: #ff657a; /* 붉은 강조 */
+} /* 품절 색상 끝 */
+
+.state-preparing, .state-checking /* 준비 상태 색상 */
+{ /* 준비 상태 색상 시작 */
+    color: #bd8cff; /* 보라 강조 */
+} /* 준비 상태 색상 끝 */
+
+.goods-info /* 상품 정보 */
+{ /* 상품 정보 시작 */
+    padding: 20px; /* 정보 여백 */
+} /* 상품 정보 끝 */
+
+.goods-category, .goods-game, .goods-description, .goods-stock-text /* 상품 보조 정보 */
+{ /* 보조 정보 시작 */
+    color: var(--muted); /* 보조 글자색 */
+    font-size: 0.8rem; /* 보조 글자 크기 */
+} /* 보조 정보 끝 */
+
+.goods-name /* 상품명 */
+{ /* 상품명 시작 */
+    margin: 6px 0 2px; /* 상품명 여백 */
+    color: var(--text); /* 상품명 글자색 */
+    font-size: 1.05rem; /* 상품명 크기 */
+    font-weight: 750; /* 상품명 굵기 */
+} /* 상품명 끝 */
+
+.goods-description /* 상품 설명 */
+{ /* 상품 설명 시작 */
+    min-height: 42px; /* 설명 영역 높이 */
+    margin: 14px 0; /* 설명 여백 */
+} /* 상품 설명 끝 */
+
+.goods-price-row /* 가격과 버튼 */
+{ /* 가격 영역 시작 */
+    display: flex; /* 가로 배치 */
+    align-items: end; /* 아래 기준 정렬 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 12px; /* 요소 간격 */
+} /* 가격 영역 끝 */
+
+.goods-price-wrap /* 가격 묶음 */
+{ /* 가격 묶음 시작 */
+    display: grid; /* 가격 세로 배치 */
+    gap: 2px; /* 가격 간격 */
+} /* 가격 묶음 끝 */
+
+.goods-original-price /* 할인 전 가격 */
+{ /* 할인 전 가격 시작 */
+    color: var(--muted); /* 흐린 가격 */
+    font-size: 0.75rem; /* 작은 가격 */
+    text-decoration: line-through; /* 취소선 */
+} /* 할인 전 가격 끝 */
+
+.goods-price /* 판매가 */
+{ /* 판매가 시작 */
+    color: var(--text); /* 판매가 글자색 */
+    font-size: 1.1rem; /* 판매가 크기 */
+    font-weight: 800; /* 판매가 굵기 */
+} /* 판매가 끝 */
+
+.goods-buy-btn /* 구매 버튼 */
+{ /* 구매 버튼 시작 */
+    padding: 8px 11px; /* 버튼 여백 */
+    border: 1px solid var(--cyan); /* 버튼 경계선 */
+    color: var(--cyan); /* 버튼 글자색 */
+    font-size: 0.75rem; /* 버튼 글자 크기 */
+    font-weight: 800; /* 버튼 글자 굵기 */
+    white-space: nowrap; /* 버튼 줄바꿈 차단 */
+} /* 구매 버튼 끝 */
+
+.goods-buy-btn.is-disabled /* 비활성 구매 버튼 */
+{ /* 비활성 버튼 시작 */
+    border-color: var(--border); /* 흐린 경계선 */
+    color: var(--muted); /* 흐린 글자색 */
+} /* 비활성 버튼 끝 */
+
+@media (max-width: 900px) /* 중간 화면 */
+{ /* 중간 화면 시작 */
+    .goods-grid /* 중간 상품 격자 */
+    { /* 중간 격자 시작 */
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 두 열 배치 */
+    } /* 중간 격자 끝 */
+} /* 중간 화면 끝 */
+
+@media (max-width: 720px) /* 좁은 화면 */
+{ /* 좁은 화면 시작 */
+    .goods-shortcut /* 모바일 굿즈 바로가기 */
+    { /* 바로가기 시작 */
+        display: inline-flex; /* 바로가기 표시 */
+    } /* 바로가기 끝 */
+
+    .goods-heading /* 좁은 상품 제목 */
+    { /* 좁은 상품 제목 시작 */
+        align-items: flex-start; /* 왼쪽 기준 정렬 */
+        flex-direction: column; /* 세로 배치 */
+    } /* 좁은 상품 제목 끝 */
+
+    .goods-grid /* 좁은 상품 격자 */
+    { /* 좁은 상품 격자 시작 */
+        grid-template-columns: 1fr; /* 한 열 배치 */
+    } /* 좁은 상품 격자 끝 */
+} /* 좁은 화면 끝 */
+
+@media (max-width: 767px) /* 굿즈 모바일 화면 */
+{ /* 구간 시작 */
+    .goods-heading /* 모바일 상품 제목 */
+    { /* 규칙 시작 */
+        align-items: stretch; /* 전체 너비 정렬 */
+        flex-direction: column; /* 제목 세로 배치 */
+    } /* 규칙 끝 */
+
+    .goods-grid /* 모바일 상품 격자 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr; /* 상품 한 열 */
+    } /* 규칙 끝 */
+
+    .goods-price-row /* 모바일 가격 영역 */
+    { /* 규칙 시작 */
+        align-items: stretch; /* 요소 폭 맞춤 */
+        flex-direction: column; /* 가격과 동작 세로 배치 */
+    } /* 규칙 끝 */
+
+    .goods-buy-btn /* 모바일 구매 동작 */
+    { /* 규칙 시작 */
+        align-items: center; /* 세로 가운데 */
+        display: flex; /* 버튼 배치 */
+        justify-content: center; /* 가로 가운데 */
+        min-height: 44px; /* 터치 높이 */
+        width: 100%; /* 버튼 전체 너비 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (min-width: 768px) and (max-width: 1023px) /* 굿즈 작은 태블릿 */
+{ /* 구간 시작 */
+    .goods-grid /* 태블릿 상품 격자 */
+    { /* 규칙 시작 */
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 상품 두 열 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (min-width: 1024px) and (max-width: 1279px) /* 굿즈 큰 태블릿 */
+{ /* 구간 시작 */
+    .goods-grid /* 큰 태블릿 상품 격자 */
+    { /* 규칙 시작 */
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* 상품 세 열 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (min-width: 1280px) /* 굿즈 PC 화면 */
+{ /* 구간 시작 */
+    .goods-grid /* PC 상품 격자 */
+    { /* 규칙 시작 */
+        grid-template-columns: repeat(4, minmax(0, 1fr)); /* 상품 네 열 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (hover: none), (pointer: coarse) /* 굿즈 터치 환경 */
+{ /* 구간 시작 */
+    a.goods-card:hover, /* 링크 카드 터치 */
+    a.goods-card:focus-visible /* 링크 카드 초점 */
+    { /* 규칙 시작 */
+        transform: none; /* 카드 이동 제거 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+.goods-payment-notice /* 상품 결제 안내 */
+{ /* 규칙 시작 */
+    background: rgba(255, 190, 77, 0.1); /* 안내 배경 */
+    border: 1px solid rgba(255, 190, 77, 0.35); /* 안내 테두리 */
+    border-radius: 12px; /* 모서리 둥글기 */
+    color: #ffe0a6; /* 안내 글자 */
+    line-height: 1.65; /* 줄 간격 */
+    margin: 0 0 1.5rem; /* 아래쪽 여백 */
+    padding: 1rem; /* 내부 여백 */
+} /* 규칙 끝 */

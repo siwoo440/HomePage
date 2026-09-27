@@ -1,0 +1,221 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식을 사용한다고 브라우저에 알려준다. -->
+<html lang="ko"> <!-- 문서의 기본 언어를 한국어로 설정한다. -->
+<head> <!-- 문서 정보 영역을 시작한다. -->
+    <meta charset="UTF-8"> <!-- 한글이 깨지지 않도록 문자 인코딩을 설정한다. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 화면 크기에 맞춰 페이지를 조정한다. -->
+    <title>Project H — DEVFORGE</title> <!-- 브라우저 탭에 표시할 제목을 설정한다. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- 구글 폰트 서버와 미리 연결한다. -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- 구글 폰트 정적 서버와 미리 연결한다. -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"> <!-- 화면에 사용할 웹 폰트를 불러온다. -->
+    <link rel="stylesheet" href="ProjectH_Style.css"> <!-- 프로젝트 H 전용 CSS 파일을 연결한다. -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head> <!-- 문서 정보 영역을 끝낸다. -->
+<body> <!-- 실제 화면에 보이는 영역을 시작한다. -->
+    <canvas id="starCanvas" aria-hidden="true"></canvas> <!-- 배경 별빛 효과를 그릴 캔버스를 만든다. -->
+    <header class="site-header" data-responsive-nav-root> <!-- 상단 고정 메뉴 영역을 만든다. -->
+        <a class="brand" href="../main.html">DEVFORGE</a> <!-- 메인 사이트로 이동하는 로고 링크를 만든다. -->
+        <nav class="nav-links" aria-label="Project H 페이지 메뉴"> <!-- 페이지 내부 이동 메뉴를 만든다. -->
+            <a href="#overview">개요</a> <!-- 개요 섹션으로 이동하는 링크를 만든다. -->
+            <a href="#loop">루프</a> <!-- 게임 루프 섹션으로 이동하는 링크를 만든다. -->
+            <a href="#characters">캐릭터</a> <!-- 캐릭터 섹션으로 이동하는 링크를 만든다. -->
+            <a href="#systems">시스템</a> <!-- 시스템 섹션으로 이동하는 링크를 만든다. -->
+            <a href="#world">세계관</a> <!-- 세계관 섹션으로 이동하는 링크를 만든다. -->
+        </nav> <!-- 페이지 내부 이동 메뉴를 끝낸다. -->
+        <button class="nav-toggle" type="button" aria-label="메뉴 열기">☰</button> <!-- 작은 화면에서 메뉴를 열 버튼을 만든다. -->
+    </header> <!-- 상단 고정 메뉴 영역을 끝낸다. -->
+    <main> <!-- 주요 콘텐츠 영역을 시작한다. -->
+        <section id="overview" class="hero section-shell"> <!-- 첫 화면 소개 섹션을 만든다. -->
+            <div class="hero-copy"> <!-- 첫 화면 텍스트 묶음을 만든다. -->
+                <p class="eyebrow">PROJECT H</p> <!-- 프로젝트 분류 문구를 표시한다. -->
+                <h1>전술, 리듬 액션, 친밀도 성장이 하나로 이어지는 판타지 RPG</h1> <!-- 페이지의 가장 큰 제목을 표시한다. -->
+                <p class="hero-text">신의 부름을 받은 주인공은 아르데라 대륙을 여행하며 4인 파티를 편성하고, 자동 전투 위에 스킬 타이밍과 궁극기 입력을 더해 마왕 네메시스의 위협에 맞선다.</p> <!-- 핵심 소개 문장을 표시한다. -->
+                <div class="hero-actions"> <!-- 첫 화면 버튼 묶음을 만든다. -->
+                    <a class="primary-button" href="#loop">게임 구조 보기</a> <!-- 게임 구조 섹션으로 이동하는 버튼을 만든다. -->
+                    <a class="ghost-button" href="#characters">히로인 보기</a> <!-- 캐릭터 섹션으로 이동하는 버튼을 만든다. -->
+                </div> <!-- 첫 화면 버튼 묶음을 끝낸다. -->
+                <div class="hero-tags"> <!-- 핵심 태그 묶음을 만든다. -->
+                    <span>자동 전투 RPG</span> <!-- 첫 번째 태그를 표시한다. -->
+                    <span>리듬 입력</span> <!-- 두 번째 태그를 표시한다. -->
+                    <span>4인 파티</span> <!-- 세 번째 태그를 표시한다. -->
+                    <span>100일 목표</span> <!-- 네 번째 태그를 표시한다. -->
+                </div> <!-- 핵심 태그 묶음을 끝낸다. -->
+            </div> <!-- 첫 화면 텍스트 묶음을 끝낸다. -->
+            <div class="hero-panel"> <!-- 첫 화면 비주얼 패널을 만든다. -->
+                <div class="moon-orb"></div> <!-- 달빛 느낌의 장식 원을 만든다. -->
+                <div class="hero-card floating-card card-one"> <!-- 첫 번째 떠 있는 카드 박스를 만든다. -->
+                    <span>PARTY</span> <!-- 카드 분류를 표시한다. -->
+                    <strong>4인 편성</strong> <!-- 카드 핵심 문구를 표시한다. -->
+                    <p>역할과 활력을 고려해 오늘의 파티를 구성한다.</p> <!-- 카드 설명을 표시한다. -->
+                </div> <!-- 첫 번째 떠 있는 카드 박스를 끝낸다. -->
+                <div class="hero-card floating-card card-two"> <!-- 두 번째 떠 있는 카드 박스를 만든다. -->
+                    <span>RHYTHM</span> <!-- 카드 분류를 표시한다. -->
+                    <strong>타이밍 조작</strong> <!-- 카드 핵심 문구를 표시한다. -->
+                    <p>스킬과 궁극기는 플레이어의 박자 입력으로 강화된다.</p> <!-- 카드 설명을 표시한다. -->
+                </div> <!-- 두 번째 떠 있는 카드 박스를 끝낸다. -->
+                <div class="hero-card floating-card card-three"> <!-- 세 번째 떠 있는 카드 박스를 만든다. -->
+                    <span>BOND</span> <!-- 카드 분류를 표시한다. -->
+                    <strong>관계 성장</strong> <!-- 카드 핵심 문구를 표시한다. -->
+                    <p>선물, 대화, 이벤트가 전투 성장과 연결된다.</p> <!-- 카드 설명을 표시한다. -->
+                </div> <!-- 세 번째 떠 있는 카드 박스를 끝낸다. -->
+            </div> <!-- 첫 화면 비주얼 패널을 끝낸다. -->
+        </section> <!-- 첫 화면 소개 섹션을 끝낸다. -->
+        <section class="feature-strip section-shell"> <!-- 핵심 특징 카드 섹션을 만든다. -->
+            <article class="feature-card"> <!-- 첫 번째 특징 카드를 만든다. -->
+                <span>01</span> <!-- 특징 번호를 표시한다. -->
+                <h2>자동 전투 + 직접 개입</h2> <!-- 특징 제목을 표시한다. -->
+                <p>기본 전투는 자동으로 흐르지만, 중요한 순간의 스킬 타이밍과 궁극기 발동은 플레이어가 결정한다.</p> <!-- 특징 설명을 표시한다. -->
+            </article> <!-- 첫 번째 특징 카드를 끝낸다. -->
+            <article class="feature-card"> <!-- 두 번째 특징 카드를 만든다. -->
+                <span>02</span> <!-- 특징 번호를 표시한다. -->
+                <h2>날짜와 시간 관리</h2> <!-- 특징 제목을 표시한다. -->
+                <p>아침, 낮, 저녁, 밤의 행동 선택이 탐험, 상점, 이벤트, 성장 계획에 영향을 준다.</p> <!-- 특징 설명을 표시한다. -->
+            </article> <!-- 두 번째 특징 카드를 끝낸다. -->
+            <article class="feature-card"> <!-- 세 번째 특징 카드를 만든다. -->
+                <span>03</span> <!-- 특징 번호를 표시한다. -->
+                <h2>장비와 룬 성장</h2> <!-- 특징 제목을 표시한다. -->
+                <p>전투 보상으로 장비 강화, 장비 초월, 룬 세팅, 룬 합성을 이어가며 파티를 강화한다.</p> <!-- 특징 설명을 표시한다. -->
+            </article> <!-- 세 번째 특징 카드를 끝낸다. -->
+            <article class="feature-card"> <!-- 네 번째 특징 카드를 만든다. -->
+                <span>04</span> <!-- 특징 번호를 표시한다. -->
+                <h2>친밀도 기반 해금</h2> <!-- 특징 제목을 표시한다. -->
+                <p>캐릭터와의 관계가 깊어질수록 대화, 전용 이벤트, 전투 보너스, 의상 콘텐츠가 열린다.</p> <!-- 특징 설명을 표시한다. -->
+            </article> <!-- 네 번째 특징 카드를 끝낸다. -->
+        </section> <!-- 핵심 특징 카드 섹션을 끝낸다. -->
+        <section id="loop" class="section-shell content-section"> <!-- 게임 루프 설명 섹션을 만든다. -->
+            <div class="section-heading"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="eyebrow">CORE LOOP</p> <!-- 섹션 분류 문구를 표시한다. -->
+                <h2>하루 단위로 반복되는 탐험과 성장</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>Project H의 핵심은 로비에서 준비하고, 탐험으로 전투를 진행한 뒤, 보상으로 다음 날의 선택지를 넓히는 구조다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="loop-grid"> <!-- 루프 카드 그리드를 만든다. -->
+                <div class="loop-step">로비</div> <!-- 첫 번째 루프 단계를 표시한다. -->
+                <div class="loop-arrow">→</div> <!-- 단계 사이 화살표를 표시한다. -->
+                <div class="loop-step">파티 편성</div> <!-- 두 번째 루프 단계를 표시한다. -->
+                <div class="loop-arrow">→</div> <!-- 단계 사이 화살표를 표시한다. -->
+                <div class="loop-step">탐험 선택</div> <!-- 세 번째 루프 단계를 표시한다. -->
+                <div class="loop-arrow">→</div> <!-- 단계 사이 화살표를 표시한다. -->
+                <div class="loop-step">전투 진행</div> <!-- 네 번째 루프 단계를 표시한다. -->
+                <div class="loop-arrow">→</div> <!-- 단계 사이 화살표를 표시한다. -->
+                <div class="loop-step">보상 획득</div> <!-- 다섯 번째 루프 단계를 표시한다. -->
+                <div class="loop-arrow">→</div> <!-- 단계 사이 화살표를 표시한다. -->
+                <div class="loop-step">성장 투자</div> <!-- 여섯 번째 루프 단계를 표시한다. -->
+            </div> <!-- 루프 카드 그리드를 끝낸다. -->
+            <div class="battle-panels"> <!-- 전투와 일정 패널 묶음을 만든다. -->
+                <article class="info-panel"> <!-- 전투 루프 패널을 만든다. -->
+                    <h3>전투 루프</h3> <!-- 패널 제목을 표시한다. -->
+                    <p>스킬 생성 → 스킬 사용 → 궁극기 게이지 충전 → 궁극기 발동으로 이어진다.</p> <!-- 패널 설명을 표시한다. -->
+                </article> <!-- 전투 루프 패널을 끝낸다. -->
+                <article class="info-panel"> <!-- 로비 성장 패널을 만든다. -->
+                    <h3>로비 성장</h3> <!-- 패널 제목을 표시한다. -->
+                    <p>골드와 재화를 사용해 장비 강화, 룬 세팅, 친밀도 이벤트, 스탯 강화를 선택한다.</p> <!-- 패널 설명을 표시한다. -->
+                </article> <!-- 로비 성장 패널을 끝낸다. -->
+                <article class="info-panel"> <!-- 날짜 루프 패널을 만든다. -->
+                    <h3>날짜 루프</h3> <!-- 패널 제목을 표시한다. -->
+                    <p>하루는 시간 슬롯과 활력 관리로 진행되며, 100일 안에 마왕 토벌을 목표로 한다.</p> <!-- 패널 설명을 표시한다. -->
+                </article> <!-- 날짜 루프 패널을 끝낸다. -->
+            </div> <!-- 전투와 일정 패널 묶음을 끝낸다. -->
+        </section> <!-- 게임 루프 설명 섹션을 끝낸다. -->
+        <section id="characters" class="section-shell content-section companion-section"> <!-- 동료 소개 섹션을 새 구조로 다시 만든다. -->
+            <div class="section-heading split-heading"> <!-- 섹션 제목과 검색창을 나누어 배치한다. -->
+                <div> <!-- 제목 텍스트 묶음을 만든다. -->
+                    <p class="eyebrow">COMPANION ROSTER</p> <!-- 섹션 분류 문구를 표시한다. -->
+                    <h2>동료</h2> <!-- 섹션 제목을 표시한다. -->
+                    <p>각 동료를 한 명씩 넘겨 보며 이미지 영역과 캐릭터 설명을 확인하는 파트입니다.</p> <!-- 섹션 설명을 표시한다. -->
+                </div> <!-- 제목 텍스트 묶음을 끝낸다. -->
+                <label class="search-box" for="companionSearch"> <!-- 동료 검색 입력 영역을 만든다. -->
+                    <span>검색</span> <!-- 검색 라벨을 표시한다. -->
+                    <input id="companionSearch" type="search" placeholder="이름, 직군, 역할 검색"> <!-- 검색어 입력칸을 만든다. -->
+                </label> <!-- 동료 검색 입력 영역을 끝낸다. -->
+            </div> <!-- 섹션 제목과 검색창 묶음을 끝낸다. -->
+            <div class="companion-filter-row" aria-label="동료 역할 필터"> <!-- 동료 역할 필터 버튼 묶음을 만든다. -->
+                <button class="companion-filter-button active" type="button" data-role="전체">전체</button> <!-- 전체 필터 버튼을 만든다. -->
+                <button class="companion-filter-button" type="button" data-role="딜러">딜러</button> <!-- 딜러 필터 버튼을 만든다. -->
+                <button class="companion-filter-button" type="button" data-role="탱커">탱커</button> <!-- 탱커 필터 버튼을 만든다. -->
+                <button class="companion-filter-button" type="button" data-role="서포터">서포터</button> <!-- 서포터 필터 버튼을 만든다. -->
+                <button class="companion-filter-button" type="button" data-role="컨트롤">컨트롤</button> <!-- 컨트롤 필터 버튼을 만든다. -->
+            </div> <!-- 동료 역할 필터 버튼 묶음을 끝낸다. -->
+            <p id="companionCount" class="result-count">0명의 동료</p> <!-- 현재 표시 가능한 동료 수를 보여준다. -->
+            <div class="companion-carousel" aria-label="동료 캐러셀"> <!-- 동료 카드를 넘겨보는 캐러셀 영역을 만든다. -->
+                <button id="prevCompanionButton" class="companion-arrow companion-arrow-left" type="button" aria-label="이전 동료 보기">‹</button> <!-- 이전 동료로 이동하는 왼쪽 화살표를 만든다. -->
+                <div class="companion-viewport"> <!-- 동료 카드가 보이는 창을 만든다. -->
+                    <div id="companionCard" class="companion-card" aria-live="polite"> <!-- 동료 카드 내용이 들어갈 영역을 만든다. -->
+                        <div class="companion-image-slot" style="--companion-image: url('images/characters/serena.jpg');"> <!-- 왼쪽 캐릭터 이미지 자리 기본값을 만든다. -->
+                            <span class="companion-image-label">CHARACTER IMAGE</span> <!-- 이미지 자리 안내 문구를 표시한다. -->
+                            <span class="companion-image-initial">S</span> <!-- 이미지가 없을 때 보이는 이니셜을 표시한다. -->
+                        </div> <!-- 왼쪽 캐릭터 이미지 자리를 끝낸다. -->
+                        <div class="companion-info-slot"> <!-- 오른쪽 캐릭터 설명 자리를 만든다. -->
+                            <span class="companion-role">서포터</span> <!-- 캐릭터 역할 배지를 표시한다. -->
+                            <h3>세레나</h3> <!-- 캐릭터 이름을 표시한다. -->
+                            <p class="companion-job">Serena · 성녀 / 힐러</p> <!-- 캐릭터 영문명과 직군을 표시한다. -->
+                            <p class="companion-description">여신의 계시로 주인공을 처음 맞이한 성녀이며, 치유와 정화 능력으로 파티의 생존을 책임진다.</p> <!-- 캐릭터 설명을 표시한다. -->
+                            <div class="companion-tags"> <!-- 캐릭터 키워드 묶음을 만든다. -->
+                                <span>#온화함</span> <!-- 첫 번째 키워드를 표시한다. -->
+                                <span>#헌신</span> <!-- 두 번째 키워드를 표시한다. -->
+                                <span>#정화</span> <!-- 세 번째 키워드를 표시한다. -->
+                            </div> <!-- 캐릭터 키워드 묶음을 끝낸다. -->
+                        </div> <!-- 오른쪽 캐릭터 설명 자리를 끝낸다. -->
+                    </div> <!-- 동료 카드 내용 영역을 끝낸다. -->
+                </div> <!-- 동료 카드 표시 창을 끝낸다. -->
+                <button id="nextCompanionButton" class="companion-arrow companion-arrow-right" type="button" aria-label="다음 동료 보기">›</button> <!-- 다음 동료로 이동하는 오른쪽 화살표를 만든다. -->
+            </div> <!-- 동료 캐러셀 영역을 끝낸다. -->
+            <div id="companionDots" class="companion-dots" aria-label="동료 위치 버튼"></div> <!-- 동료 위치 점 버튼이 들어갈 영역을 만든다. -->
+        </section> <!-- 동료 소개 섹션을 끝낸다. -->
+        <section id="systems" class="section-shell content-section"> <!-- 시스템 섹션을 만든다. -->
+            <div class="section-heading"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="eyebrow">SYSTEM ARCHIVE</p> <!-- 섹션 분류 문구를 표시한다. -->
+                <h2>성장과 자원 관리 시스템</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>장비, 룬, 골드, 활력, 친밀도 아이템은 전투력과 일정 관리에 직접 연결된다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="tab-list" role="tablist" aria-label="시스템 탭"> <!-- 시스템 탭 버튼 묶음을 만든다. -->
+                <button class="tab-button active" type="button" data-tab="stamina">활력</button> <!-- 활력 탭 버튼을 만든다. -->
+                <button class="tab-button" type="button" data-tab="gold">골드</button> <!-- 골드 탭 버튼을 만든다. -->
+                <button class="tab-button" type="button" data-tab="rune">룬</button> <!-- 룬 탭 버튼을 만든다. -->
+                <button class="tab-button" type="button" data-tab="bond">친밀도</button> <!-- 친밀도 탭 버튼을 만든다. -->
+            </div> <!-- 시스템 탭 버튼 묶음을 끝낸다. -->
+            <div id="systemPanel" class="system-panel"></div> <!-- 선택된 시스템 설명이 들어갈 영역을 만든다. -->
+        </section> <!-- 시스템 섹션을 끝낸다. -->
+        <section id="world" class="section-shell content-section world-section"> <!-- 세계관 섹션을 만든다. -->
+            <div class="section-heading"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="eyebrow">ARDERA CONTINENT</p> <!-- 섹션 분류 문구를 표시한다. -->
+                <h2>여신의 축복이 흔들리는 대륙</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>아르데라 대륙은 마왕 네메시스의 침식으로 붉게 물들고 있으며, 각 지역은 서로 다른 문화와 전투 방식을 가진다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="region-grid"> <!-- 지역 카드 그리드를 만든다. -->
+                <article class="region-card"> <!-- 레티시아 카드를 만든다. -->
+                    <span>중앙</span> <!-- 지역 방향을 표시한다. -->
+                    <h3>레티시아 왕국</h3> <!-- 지역 이름을 표시한다. -->
+                    <p>성녀 세레나와 첫 동행이 시작되는 인간 왕국이다.</p> <!-- 지역 설명을 표시한다. -->
+                </article> <!-- 레티시아 카드를 끝낸다. -->
+                <article class="region-card"> <!-- 노아르 카드를 만든다. -->
+                    <span>동부</span> <!-- 지역 방향을 표시한다. -->
+                    <h3>노아르</h3> <!-- 지역 이름을 표시한다. -->
+                    <p>마탑과 마법사들이 모인 마법 도시다.</p> <!-- 지역 설명을 표시한다. -->
+                </article> <!-- 노아르 카드를 끝낸다. -->
+                <article class="region-card"> <!-- 실바란 숲 카드를 만든다. -->
+                    <span>서쪽</span> <!-- 지역 방향을 표시한다. -->
+                    <h3>실바란 숲</h3> <!-- 지역 이름을 표시한다. -->
+                    <p>엘프와 정령의 흔적이 남아 있는 숲 지역이다.</p> <!-- 지역 설명을 표시한다. -->
+                </article> <!-- 실바란 숲 카드를 끝낸다. -->
+                <article class="region-card"> <!-- 카르니안 제국 카드를 만든다. -->
+                    <span>서부</span> <!-- 지역 방향을 표시한다. -->
+                    <h3>카르니안 제국</h3> <!-- 지역 이름을 표시한다. -->
+                    <p>기사와 병사들이 모인 군사 국가다.</p> <!-- 지역 설명을 표시한다. -->
+                </article> <!-- 카르니안 제국 카드를 끝낸다. -->
+                <article class="region-card"> <!-- 남부 유적 카드를 만든다. -->
+                    <span>남부</span> <!-- 지역 방향을 표시한다. -->
+                    <h3>사막·고대 유적지</h3> <!-- 지역 이름을 표시한다. -->
+                    <p>오래전 사라진 문명의 흔적과 위험한 탐험지가 남아 있다.</p> <!-- 지역 설명을 표시한다. -->
+                </article> <!-- 남부 유적 카드를 끝낸다. -->
+            </div> <!-- 지역 카드 그리드를 끝낸다. -->
+        </section> <!-- 세계관 섹션을 끝낸다. -->
+    </main> <!-- 주요 콘텐츠 영역을 끝낸다. -->
+    <footer class="site-footer"> <!-- 하단 푸터 영역을 만든다. -->
+        <strong>PROJECT H</strong> <!-- 푸터 로고 텍스트를 표시한다. -->
+        <span>Fantasy Tactical Rhythm RPG Page</span> <!-- 푸터 설명을 표시한다. -->
+    </footer> <!-- 하단 푸터 영역을 끝낸다. -->
+    <script src="ProjectH_Script.js"></script> <!-- 프로젝트 H 전용 자바스크립트 파일을 연결한다. -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 실제 화면에 보이는 영역을 끝낸다. -->
+</html> <!-- HTML 문서를 끝낸다. -->

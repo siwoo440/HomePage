@@ -1,0 +1,91 @@
+.privacy-consent /* 동의 패널 */
+{ /* 패널 시작 */
+    position: fixed; /* 화면 고정 */
+    right: 1.25rem; /* 오른쪽 간격 */
+    bottom: 1.25rem; /* 아래 간격 */
+    z-index: 10000; /* 최상단 배치 */
+    width: min(32rem, calc(100vw - 2rem)); /* 반응형 너비 */
+    padding: 1.25rem; /* 내부 여백 */
+    border: 1px solid rgba(0, 245, 212, 0.45); /* 강조 테두리 */
+    border-radius: 1rem; /* 둥근 모서리 */
+    background: rgba(7, 11, 20, 0.97); /* 어두운 배경 */
+    color: #e8edf5; /* 기본 글자색 */
+    box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.45); /* 패널 그림자 */
+    font-family: "Noto Sans KR", sans-serif; /* 공통 글꼴 */
+} /* 패널 끝 */
+
+.privacy-consent[hidden] /* 숨김 패널 */
+{ /* 숨김 시작 */
+    display: none; /* 화면 제외 */
+} /* 숨김 끝 */
+
+.privacy-consent h2 /* 패널 제목 */
+{ /* 제목 시작 */
+    margin: 0 0 0.65rem; /* 제목 간격 */
+    font-size: 1.1rem; /* 제목 크기 */
+} /* 제목 끝 */
+
+.privacy-consent p /* 패널 본문 */
+{ /* 본문 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: #b6c2d9; /* 보조 글자색 */
+    line-height: 1.65; /* 본문 줄 간격 */
+} /* 본문 끝 */
+
+.privacy-consent__actions /* 버튼 영역 */
+{ /* 버튼 영역 시작 */
+    display: flex; /* 가로 배치 */
+    gap: 0.75rem; /* 버튼 간격 */
+    margin-top: 1rem; /* 위쪽 간격 */
+} /* 버튼 영역 끝 */
+
+.privacy-consent__button, /* 동의 버튼 */
+.privacy-consent-settings /* 설정 버튼 */
+{ /* 공통 버튼 시작 */
+    min-height: 2.75rem; /* 누르기 높이 */
+    padding: 0.65rem 1rem; /* 버튼 여백 */
+    border-radius: 0.65rem; /* 버튼 모서리 */
+    font: inherit; /* 글꼴 상속 */
+    font-weight: 700; /* 굵은 글자 */
+    cursor: pointer; /* 클릭 표시 */
+} /* 공통 버튼 끝 */
+
+.privacy-consent__button--primary /* 허용 버튼 */
+{ /* 허용 버튼 시작 */
+    border: 1px solid #00f5d4; /* 강조 테두리 */
+    background: #00f5d4; /* 강조 배경 */
+    color: #071014; /* 대비 글자색 */
+} /* 허용 버튼 끝 */
+
+.privacy-consent__button--secondary /* 거부 버튼 */
+{ /* 거부 버튼 시작 */
+    border: 1px solid #52627d; /* 보조 테두리 */
+    background: transparent; /* 투명 배경 */
+    color: #e8edf5; /* 밝은 글자색 */
+} /* 거부 버튼 끝 */
+
+.privacy-consent__status /* 상태 문구 */
+{ /* 상태 시작 */
+    margin-top: 0.75rem !important; /* 상태 간격 */
+    font-size: 0.8rem; /* 상태 크기 */
+} /* 상태 끝 */
+
+.privacy-consent-settings /* 설정 고정 버튼 */
+{ /* 설정 버튼 시작 */
+    position: fixed; /* 화면 고정 */
+    right: 1rem; /* 오른쪽 기본 간격 */
+    bottom: 1rem; /* 아래 간격 */
+    z-index: 9999; /* 패널 아래 배치 */
+    border: 1px solid rgba(0, 245, 212, 0.35); /* 설정 테두리 */
+    background: rgba(7, 11, 20, 0.9); /* 설정 배경 */
+    color: #00f5d4; /* 설정 글자색 */
+    font-size: 0.75rem; /* 설정 글자 크기 */
+} /* 설정 버튼 끝 */
+
+@media (max-width: 40rem) /* 모바일 화면 */
+{ /* 모바일 시작 */
+    .privacy-consent__actions /* 모바일 버튼 영역 */
+    { /* 모바일 버튼 시작 */
+        flex-direction: column-reverse; /* 세로 버튼 배치 */
+    } /* 모바일 버튼 끝 */
+} /* 모바일 끝 */

@@ -1,0 +1,180 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식을 사용한다고 브라우저에 알려준다. -->
+<html lang="ko"> <!-- 문서의 기본 언어를 한국어로 설정한다. -->
+<head> <!-- 문서 정보 영역을 시작한다. -->
+    <meta charset="UTF-8"> <!-- 한글이 깨지지 않도록 문자 인코딩을 설정한다. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 화면에서도 화면 크기에 맞게 보이도록 설정한다. -->
+    <title>Project D 메인 아카이브</title> <!-- 브라우저 탭에 표시될 제목을 설정한다. -->
+    <link rel="stylesheet" href="style.css"> <!-- 외부 CSS 파일을 연결한다. -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head> <!-- 문서 정보 영역을 끝낸다. -->
+<body> <!-- 실제 화면에 보이는 영역을 시작한다. -->
+    <div class="page-shell"> <!-- 전체 페이지 너비를 관리하는 큰 박스를 만든다. -->
+        <header class="hero-section" id="overview"> <!-- 상단 세계관 소개 영역을 만든다. -->
+            <nav class="top-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 상단 메뉴 영역을 만든다. -->
+                <!-- DEVFORGE 로고: 클릭 시 홈(main.html)으로 이동 -->
+                <a href="../main.html" class="top-nav-logo">DEVFORGE</a>
+                <!-- 오른쪽 링크 묶음 -->
+                <div class="top-nav-links">
+                    <a href="ProjectD_Main.html#overview">메인</a> <!-- 메인 페이지의 개요 영역으로 이동하는 링크를 만든다. -->
+                    <a href="characters.html">캐릭터</a> <!-- 캐릭터 소개 페이지로 이동하는 링크를 만든다. -->
+                    <a href="factions.html">세력</a> <!-- 세력 소개 페이지로 이동하는 링크를 만든다. -->
+                    <a href="ProjectD_Main.html#visual">이미지 기록</a> <!-- 이미지 기록 영역으로 이동하는 링크를 만든다. -->
+                    <a href="ProjectD_Main.html#archive">아카이브</a> <!-- 아카이브 영역으로 이동하는 링크를 만든다. -->
+                    <a href="ProjectD_Main.html#timeline">사건 기록</a> <!-- 사건 기록 영역으로 이동하는 링크를 만든다. -->
+                    <a href="ProjectD_Main.html#glossary">용어</a> <!-- 용어 영역으로 이동하는 링크를 만든다. -->
+                </div>
+            </nav> <!-- 상단 메뉴 영역을 끝낸다. -->
+            <section class="hero-card image-panel" style="--image: url('images/world/hero-bastion.jpg');"> <!-- 배경 이미지가 들어가는 메인 소개 카드를 만든다. -->
+                <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                <div class="hero-content"> <!-- 메인 소개 글을 담는 영역을 만든다. -->
+                    <p class="eyebrow">Unity Game Project D</p> <!-- 작은 분류 문구를 표시한다. -->
+                    <h1>게이트 이후의 세계, 바스티온에서 시작되는 방어전</h1> <!-- 페이지의 큰 제목을 표시한다. -->
+                    <p class="hero-desc">정체불명의 게이트가 열린 뒤, 인류는 이계화된 위험에 맞서 거점과 자원을 지키기 위해 싸웁니다.</p> <!-- 세계관 핵심 설명을 표시한다. -->
+                    <div class="hero-meta"> <!-- 세계관 핵심 키워드를 담는 영역을 만든다. -->
+                        <span>게이트 재난</span> <!-- 첫 번째 핵심 키워드를 표시한다. -->
+                        <span>거점 방어</span> <!-- 두 번째 핵심 키워드를 표시한다. -->
+                        <span>세력 갈등</span> <!-- 세 번째 핵심 키워드를 표시한다. -->
+                    </div> <!-- 세계관 핵심 키워드 영역을 끝낸다. -->
+                </div> <!-- 메인 소개 글 영역을 끝낸다. -->
+            </section> <!-- 메인 소개 카드를 끝낸다. -->
+        </header> <!-- 상단 세계관 소개 영역을 끝낸다. -->
+        <main> <!-- 페이지의 주요 내용을 시작한다. -->
+            <section id="visual" class="section-block visual-section"> <!-- 세계관 이미지 기록 영역을 만든다. -->
+                <div class="section-heading"> <!-- 섹션 제목과 설명을 묶는 영역을 만든다. -->
+                    <p class="eyebrow">Visual Archive</p> <!-- 작은 분류 문구를 표시한다. -->
+                    <h2>세계관 이미지 기록</h2> <!-- 섹션 제목을 표시한다. -->
+                    <p>나중에 실제 이미지 파일을 넣으면 배경 콘셉트, 세력, 사건 이미지를 바로 보여주는 영역입니다.</p> <!-- 섹션 설명을 표시한다. -->
+                </div> <!-- 섹션 제목 영역을 끝낸다. -->
+                <div class="visual-grid"> <!-- 큰 이미지와 작은 이미지를 배치하는 그리드를 만든다. -->
+                    <article class="visual-card visual-card-large image-panel" style="--image: url('images/world/world-map.jpg');"> <!-- 월드맵용 큰 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                        <div class="visual-content"> <!-- 이미지 설명 글 영역을 만든다. -->
+                            <span class="visual-label">World Map</span> <!-- 이미지 분류를 표시한다. -->
+                            <h3>게이트 이후 재편된 전장 지도</h3> <!-- 이미지 제목을 표시한다. -->
+                            <p>바스티온, 외곽 지역, 게이트 오염 구역을 한눈에 보여주는 핵심 이미지 자리입니다.</p> <!-- 이미지 설명을 표시한다. -->
+                        </div> <!-- 이미지 설명 글 영역을 끝낸다. -->
+                    </article> <!-- 월드맵용 큰 이미지 카드를 끝낸다. -->
+                    <article class="visual-card image-panel" style="--image: url('images/world/bastion-city.jpg');"> <!-- 바스티온 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                        <div class="visual-content"> <!-- 이미지 설명 글 영역을 만든다. -->
+                            <span class="visual-label">Bastion</span> <!-- 이미지 분류를 표시한다. -->
+                            <h3>방어 거점</h3> <!-- 이미지 제목을 표시한다. -->
+                            <p>플레이어가 지켜야 할 핵심 작전 기지입니다.</p> <!-- 이미지 설명을 표시한다. -->
+                        </div> <!-- 이미지 설명 글 영역을 끝낸다. -->
+                    </article> <!-- 바스티온 이미지 카드를 끝낸다. -->
+                    <article class="visual-card image-panel" style="--image: url('images/world/gate-zone.jpg');"> <!-- 게이트 오염 지역 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                        <div class="visual-content"> <!-- 이미지 설명 글 영역을 만든다. -->
+                            <span class="visual-label">Gate Zone</span> <!-- 이미지 분류를 표시한다. -->
+                            <h3>이계화 구역</h3> <!-- 이미지 제목을 표시한다. -->
+                            <p>현실의 법칙이 무너진 위험 지역입니다.</p> <!-- 이미지 설명을 표시한다. -->
+                        </div> <!-- 이미지 설명 글 영역을 끝낸다. -->
+                    </article> <!-- 게이트 오염 지역 이미지 카드를 끝낸다. -->
+                    <article class="visual-card image-panel" style="--image: url('images/world/arcana-lab.jpg');"> <!-- 아르카나 연구소 이미지 카드를 만든다. -->
+                        <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                        <div class="visual-content"> <!-- 이미지 설명 글 영역을 만든다. -->
+                            <span class="visual-label">Arcana</span> <!-- 이미지 분류를 표시한다. -->
+                            <h3>기술 연구소</h3> <!-- 이미지 제목을 표시한다. -->
+                            <p>게이트 기술과 윤리 갈등을 보여주는 이미지 자리입니다.</p> <!-- 이미지 설명을 표시한다. -->
+                        </div> <!-- 이미지 설명 글 영역을 끝낸다. -->
+                    </article> <!-- 아르카나 연구소 이미지 카드를 끝낸다. -->
+                </div> <!-- 이미지 그리드 영역을 끝낸다. -->
+            </section> <!-- 세계관 이미지 기록 영역을 끝낸다. -->
+            <section id="archive" class="section-block"> <!-- 세계관 카드 아카이브 영역을 만든다. -->
+                <div class="section-heading"> <!-- 섹션 제목과 설명을 묶는 영역을 만든다. -->
+                    <p class="eyebrow">World Archive</p> <!-- 작은 분류 문구를 표시한다. -->
+                    <h2>세계관 정보 카드</h2> <!-- 섹션 제목을 표시한다. -->
+                    <p>각 정보 카드는 이미지와 설명을 함께 보여주며, 버튼과 검색창으로 빠르게 분류할 수 있습니다.</p> <!-- 섹션 설명을 표시한다. -->
+                </div> <!-- 섹션 제목 영역을 끝낸다. -->
+                <div class="tool-bar"> <!-- 필터와 검색창을 담는 영역을 만든다. -->
+                    <div class="filter-group" aria-label="세계관 분류"> <!-- 분류 버튼들을 묶는 영역을 만든다. -->
+                        <button class="filter-button active" data-filter="전체" type="button">전체</button> <!-- 전체 카드를 보는 버튼을 만든다. -->
+                        <button class="filter-button" data-filter="핵심 개념" type="button">핵심 개념</button> <!-- 핵심 개념 카드를 보는 버튼을 만든다. -->
+                        <button class="filter-button" data-filter="주요 세력" type="button">주요 세력</button> <!-- 주요 세력 카드를 보는 버튼을 만든다. -->
+                        <button class="filter-button" data-filter="사건" type="button">사건</button> <!-- 사건 카드를 보는 버튼을 만든다. -->
+                        <button class="filter-button" data-filter="배경 소재" type="button">배경 소재</button> <!-- 배경 소재 카드를 보는 버튼을 만든다. -->
+                    </div> <!-- 분류 버튼 영역을 끝낸다. -->
+                    <label class="search-box" for="searchInput"> <!-- 검색창과 라벨을 연결한다. -->
+                        <span>검색</span> <!-- 검색 라벨을 표시한다. -->
+                        <input id="searchInput" type="search" placeholder="예: 게이트, 각성자, 아르카나"> <!-- 검색어 입력칸을 만든다. -->
+                    </label> <!-- 검색창 라벨을 끝낸다. -->
+                </div> <!-- 필터와 검색창 영역을 끝낸다. -->
+                <p id="resultCount" class="result-count">0개의 항목</p> <!-- 검색 결과 개수를 표시하는 영역을 만든다. -->
+                <div class="carousel-shell" aria-label="세계관 카드 슬라이더"> <!-- 카드 슬라이더 전체 영역을 만든다. -->
+                    <button id="prevCardButton" class="carousel-button carousel-button-left" type="button" aria-label="이전 카드 보기">‹</button> <!-- 이전 카드로 이동하는 버튼을 만든다. -->
+                    <div class="carousel-viewport"> <!-- 화면에 보이는 카드 영역을 만든다. -->
+                        <div id="cardGrid" class="card-track" aria-live="polite"></div> <!-- 자바스크립트가 카드들을 넣을 영역을 만든다. -->
+                    </div> <!-- 화면에 보이는 카드 영역을 끝낸다. -->
+                    <button id="nextCardButton" class="carousel-button carousel-button-right" type="button" aria-label="다음 카드 보기">›</button> <!-- 다음 카드로 이동하는 버튼을 만든다. -->
+                </div> <!-- 카드 슬라이더 전체 영역을 끝낸다. -->
+                <div id="cardDots" class="card-dots" aria-label="카드 위치 버튼"></div> <!-- 카드 위치 점 버튼 영역을 만든다. -->
+            </section> <!-- 세계관 카드 아카이브 영역을 끝낸다. -->
+            <section id="timeline" class="section-block timeline-section"> <!-- 사건 기록 영역을 만든다. -->
+                <div class="section-heading"> <!-- 섹션 제목과 설명을 묶는 영역을 만든다. -->
+                    <p class="eyebrow">Incident Timeline</p> <!-- 작은 분류 문구를 표시한다. -->
+                    <h2>사건 기록</h2> <!-- 섹션 제목을 표시한다. -->
+                    <p>각 사건마다 대표 이미지 자리를 두어 로딩 화면이나 세계관 설명 화면처럼 보이게 구성했습니다.</p> <!-- 섹션 설명을 표시한다. -->
+                </div> <!-- 섹션 제목 영역을 끝낸다. -->
+                <div class="timeline-list"> <!-- 사건 목록을 담는 영역을 만든다. -->
+                    <article class="timeline-item"> <!-- 첫 번째 사건 항목을 만든다. -->
+                        <div class="timeline-image image-panel" style="--image: url('images/world/incident-gate.jpg');"></div> <!-- 첫 번째 사건 이미지를 표시할 영역을 만든다. -->
+                        <div class="timeline-text"> <!-- 첫 번째 사건 글 영역을 만든다. -->
+                            <span>01</span> <!-- 사건 번호를 표시한다. -->
+                            <h3>게이트 출현</h3> <!-- 사건 제목을 표시한다. -->
+                            <p>정체불명의 통로가 세계 곳곳에 열리며 기존 질서가 흔들리기 시작합니다.</p> <!-- 사건 설명을 표시한다. -->
+                        </div> <!-- 첫 번째 사건 글 영역을 끝낸다. -->
+                    </article> <!-- 첫 번째 사건 항목을 끝낸다. -->
+                    <article class="timeline-item"> <!-- 두 번째 사건 항목을 만든다. -->
+                        <div class="timeline-image image-panel" style="--image: url('images/world/incident-bastion.jpg');"></div> <!-- 두 번째 사건 이미지를 표시할 영역을 만든다. -->
+                        <div class="timeline-text"> <!-- 두 번째 사건 글 영역을 만든다. -->
+                            <span>02</span> <!-- 사건 번호를 표시한다. -->
+                            <h3>바스티온 구축</h3> <!-- 사건 제목을 표시한다. -->
+                            <p>생존자와 방어 전력을 모으기 위한 거점이 형성됩니다.</p> <!-- 사건 설명을 표시한다. -->
+                        </div> <!-- 두 번째 사건 글 영역을 끝낸다. -->
+                    </article> <!-- 두 번째 사건 항목을 끝낸다. -->
+                    <article class="timeline-item"> <!-- 세 번째 사건 항목을 만든다. -->
+                        <div class="timeline-image image-panel" style="--image: url('images/world/incident-conflict.jpg');"></div> <!-- 세 번째 사건 이미지를 표시할 영역을 만든다. -->
+                        <div class="timeline-text"> <!-- 세 번째 사건 글 영역을 만든다. -->
+                            <span>03</span> <!-- 사건 번호를 표시한다. -->
+                            <h3>세력 충돌</h3> <!-- 사건 제목을 표시한다. -->
+                            <p>게이트를 통제하려는 세력과 이용하려는 세력, 생존하려는 세력이 충돌합니다.</p> <!-- 사건 설명을 표시한다. -->
+                        </div> <!-- 세 번째 사건 글 영역을 끝낸다. -->
+                    </article> <!-- 세 번째 사건 항목을 끝낸다. -->
+                </div> <!-- 사건 목록 영역을 끝낸다. -->
+            </section> <!-- 사건 기록 영역을 끝낸다. -->
+            <section id="glossary" class="section-block glossary-section"> <!-- 용어 정리 영역을 만든다. -->
+                <div class="section-heading"> <!-- 섹션 제목과 설명을 묶는 영역을 만든다. -->
+                    <p class="eyebrow">Glossary</p> <!-- 작은 분류 문구를 표시한다. -->
+                    <h2>핵심 용어</h2> <!-- 섹션 제목을 표시한다. -->
+                    <p>세계관 설명 페이지에서 반복적으로 사용할 기본 용어입니다.</p> <!-- 섹션 설명을 표시한다. -->
+                </div> <!-- 섹션 제목 영역을 끝낸다. -->
+                <dl class="glossary-list"> <!-- 용어와 설명을 담는 목록을 만든다. -->
+                    <div> <!-- 첫 번째 용어 묶음을 만든다. -->
+                        <dt>게이트</dt> <!-- 용어 이름을 표시한다. -->
+                        <dd>이계와 현실을 잇는 불안정한 통로입니다.</dd> <!-- 용어 설명을 표시한다. -->
+                    </div> <!-- 첫 번째 용어 묶음을 끝낸다. -->
+                    <div> <!-- 두 번째 용어 묶음을 만든다. -->
+                        <dt>이계화</dt> <!-- 용어 이름을 표시한다. -->
+                        <dd>게이트 영향으로 환경과 생물이 기존과 다르게 변하는 현상입니다.</dd> <!-- 용어 설명을 표시한다. -->
+                    </div> <!-- 두 번째 용어 묶음을 끝낸다. -->
+                    <div> <!-- 세 번째 용어 묶음을 만든다. -->
+                        <dt>각성자</dt> <!-- 용어 이름을 표시한다. -->
+                        <dd>게이트 사태 이후 특수한 힘이나 능력을 지닌 인물입니다.</dd> <!-- 용어 설명을 표시한다. -->
+                    </div> <!-- 세 번째 용어 묶음을 끝낸다. -->
+                    <div> <!-- 네 번째 용어 묶음을 만든다. -->
+                        <dt>바스티온</dt> <!-- 용어 이름을 표시한다. -->
+                        <dd>인류가 위협에 맞서기 위해 유지하는 핵심 방어 거점입니다.</dd> <!-- 용어 설명을 표시한다. -->
+                    </div> <!-- 네 번째 용어 묶음을 끝낸다. -->
+                </dl> <!-- 용어와 설명 목록을 끝낸다. -->
+            </section> <!-- 용어 정리 영역을 끝낸다. -->
+        </main> <!-- 페이지의 주요 내용을 끝낸다. -->
+        <footer class="site-footer"> <!-- 하단 영역을 만든다. -->
+            <p>Project D Main Archive · Multi Page Prototype</p> <!-- 페이지 이름과 용도를 표시한다. -->
+        </footer> <!-- 하단 영역을 끝낸다. -->
+    </div> <!-- 전체 페이지 너비 박스를 끝낸다. -->
+    <script src="script.js"></script> <!-- 외부 자바스크립트 파일을 연결한다. -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 실제 화면에 보이는 영역을 끝낸다. -->
+</html> <!-- HTML 문서를 끝낸다. -->

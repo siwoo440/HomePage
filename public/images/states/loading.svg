@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><!-- 로딩 벡터 시작 -->
+    <circle cx="32" cy="32" r="22" stroke="#D9D4FF" stroke-width="7"/><!-- 배경 궤도 -->
+    <path d="M32 10a22 22 0 0 1 20.7 14.6" stroke="#6F5CFF" stroke-width="7" stroke-linecap="round"/><!-- 진행 궤도 -->
+    <circle cx="52.7" cy="24.6" r="4" fill="#6FE6CF"/><!-- 민트 강조점 -->
+</svg><!-- 로딩 벡터 끝 -->

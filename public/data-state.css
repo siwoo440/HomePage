@@ -1,0 +1,126 @@
+.data-state-panel /* 공통 데이터 상태 패널 */
+{ /* 패널 설정 시작 */
+    --data-state-accent: var(--pl-violet, #6f5cff); /* 상태 강조색 */
+    width: 100%; /* 전체 너비 */
+    min-height: 92px; /* 안정된 최소 높이 */
+    margin: 18px 0; /* 패널 바깥 여백 */
+    padding: 16px 18px; /* 패널 안쪽 여백 */
+    border: 1px solid color-mix(in srgb, var(--data-state-accent) 45%, var(--pl-border, #ccd5e2)); /* 상태 경계선 */
+    border-radius: var(--pl-radius-medium, 18px); /* 패널 모서리 */
+    background: color-mix(in srgb, var(--data-state-accent) 7%, var(--pl-canvas, #ffffff)); /* 상태 배경 */
+    box-shadow: var(--pl-shadow-small, 0 8px 24px rgb(31 42 68 / 10%)); /* 상태 깊이 */
+    color: var(--pl-ink, #17213b); /* 상태 글자색 */
+    display: grid; /* 상태 격자 */
+    grid-template-columns: 52px minmax(0, 1fr) auto; /* 아이콘 문구 버튼 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 14px; /* 상태 요소 간격 */
+} /* 패널 설정 끝 */
+
+.data-state-panel[hidden] /* 숨긴 상태 패널 */
+{ /* 숨김 설정 시작 */
+    display: none !important; /* 화면 제거 */
+} /* 숨김 설정 끝 */
+
+.filter-panel > .data-state-panel, .goods-heading > .data-state-panel, .game-selector > .data-state-panel /* 격자 내부 상태 패널 */
+{ /* 격자 배치 시작 */
+    grid-column: 1 / -1; /* 전체 열 사용 */
+} /* 격자 배치 끝 */
+
+.data-state-panel[data-state="demo"] /* 데모 상태 패널 */
+{ /* 데모 설정 시작 */
+    --data-state-accent: var(--pl-mint, #20bfa9); /* 데모 강조색 */
+} /* 데모 설정 끝 */
+
+.data-state-panel[data-state="empty"] /* 빈 결과 상태 패널 */
+{ /* 빈 결과 설정 시작 */
+    --data-state-accent: var(--pl-orange, #f28b42); /* 빈 결과 강조색 */
+} /* 빈 결과 설정 끝 */
+
+.data-state-panel[data-state="error"] /* 오류 상태 패널 */
+{ /* 오류 설정 시작 */
+    --data-state-accent: var(--pl-danger, #c53b55); /* 오류 강조색 */
+} /* 오류 설정 끝 */
+
+.data-state-icon /* 상태 아이콘 */
+{ /* 아이콘 설정 시작 */
+    width: 52px; /* 아이콘 너비 */
+    height: 52px; /* 아이콘 높이 */
+    object-fit: contain; /* 아이콘 비율 유지 */
+} /* 아이콘 설정 끝 */
+
+.data-state-panel[data-state="loading"] .data-state-icon /* 로딩 아이콘 */
+{ /* 로딩 아이콘 설정 시작 */
+    animation: data-state-spin 1.6s linear infinite; /* 로딩 회전 */
+} /* 로딩 아이콘 설정 끝 */
+
+.data-state-copy /* 상태 문구 묶음 */
+{ /* 문구 묶음 시작 */
+    min-width: 0; /* 긴 문구 축소 허용 */
+} /* 문구 묶음 끝 */
+
+.data-state-title /* 상태 제목 */
+{ /* 제목 설정 시작 */
+    color: var(--pl-ink, #17213b); /* 제목 글자색 */
+    font-size: 1rem; /* 제목 크기 */
+    line-height: 1.4; /* 제목 줄 간격 */
+} /* 제목 설정 끝 */
+
+.data-state-message /* 상태 설명 */
+{ /* 설명 설정 시작 */
+    margin: 4px 0 0; /* 설명 위 여백 */
+    color: var(--pl-muted, #5b6680); /* 설명 글자색 */
+    line-height: 1.55; /* 설명 줄 간격 */
+} /* 설명 설정 끝 */
+
+.data-state-retry /* 상태 재시도 버튼 */
+{ /* 재시도 설정 시작 */
+    min-height: 44px; /* 터치 높이 */
+    padding: 9px 15px; /* 버튼 안쪽 여백 */
+    border: 1px solid var(--data-state-accent); /* 버튼 경계선 */
+    border-radius: 999px; /* 둥근 버튼 */
+    background: var(--pl-canvas, #ffffff); /* 버튼 배경 */
+    color: var(--pl-ink, #17213b); /* 버튼 글자색 */
+    font: inherit; /* 공통 글꼴 */
+    font-weight: 800; /* 버튼 굵기 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 재시도 설정 끝 */
+
+.data-state-retry:disabled /* 비활성 재시도 버튼 */
+{ /* 비활성 설정 시작 */
+    cursor: wait; /* 대기 커서 */
+    opacity: 0.55; /* 비활성 투명도 */
+} /* 비활성 설정 끝 */
+
+@keyframes data-state-spin /* 로딩 회전 효과 */
+{ /* 회전 효과 시작 */
+    to /* 마지막 회전 상태 */
+    { /* 마지막 상태 시작 */
+        transform: rotate(360deg); /* 한 바퀴 회전 */
+    } /* 마지막 상태 끝 */
+} /* 회전 효과 끝 */
+
+@media (max-width: 620px) /* 모바일 화면 */
+{ /* 모바일 설정 시작 */
+    .data-state-panel /* 모바일 상태 패널 */
+    { /* 패널 설정 시작 */
+        grid-template-columns: 1fr; /* 아이콘 문구 버튼 세로 배치 */
+        align-items: start; /* 위쪽 정렬 */
+    } /* 패널 설정 끝 */
+    .data-state-icon /* 모바일 상태 아이콘 */
+    { /* 아이콘 설정 시작 */
+        width: 44px; /* 아이콘 너비 축소 */
+        height: 44px; /* 아이콘 높이 축소 */
+    } /* 아이콘 설정 끝 */
+    .data-state-retry /* 모바일 재시도 버튼 */
+    { /* 버튼 설정 시작 */
+        width: 100%; /* 버튼 전체 너비 */
+    } /* 버튼 설정 끝 */
+} /* 모바일 설정 끝 */
+
+@media (prefers-reduced-motion: reduce) /* 움직임 축소 환경 */
+{ /* 움직임 설정 시작 */
+    .data-state-panel[data-state="loading"] .data-state-icon /* 축소 환경 로딩 아이콘 */
+    { /* 아이콘 설정 시작 */
+        animation: none; /* 회전 효과 제거 */
+    } /* 아이콘 설정 끝 */
+} /* 움직임 설정 끝 */

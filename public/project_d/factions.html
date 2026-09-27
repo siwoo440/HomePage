@@ -1,0 +1,183 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식을 사용한다고 브라우저에 알려준다. -->
+<html lang="ko"> <!-- 문서의 기본 언어를 한국어로 설정한다. -->
+<head> <!-- 문서 정보 영역을 시작한다. -->
+    <meta charset="UTF-8"> <!-- 한글이 깨지지 않도록 문자 인코딩을 설정한다. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 화면에서도 화면 크기에 맞게 보이도록 설정한다. -->
+    <title>Project D 세력 아카이브</title> <!-- 브라우저 탭에 표시될 제목을 설정한다. -->
+    <link rel="stylesheet" href="style.css"> <!-- 공통 스타일 파일을 연결한다. -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head> <!-- 문서 정보 영역을 끝낸다. -->
+<body> <!-- 실제 화면에 보이는 영역을 시작한다. -->
+    <div class="page-shell faction-page-shell"> <!-- 전체 페이지 너비를 관리하는 큰 박스를 만든다. -->
+        <header class="hero-section faction-hero" id="overview"> <!-- 세력 페이지 상단 영역을 만든다. -->
+            <nav class="top-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 상단 메뉴 영역을 만든다. -->
+                <!-- DEVFORGE 로고: 클릭 시 홈(main.html)으로 이동 -->
+                <a href="../main.html" class="top-nav-logo">DEVFORGE</a>
+                <!-- 오른쪽 링크 묶음 -->
+                <div class="top-nav-links">
+                    <a href="ProjectD_Main.html#overview">메인</a> <!-- 메인 페이지로 이동하는 링크를 만든다. -->
+                    <a href="characters.html">캐릭터</a> <!-- 캐릭터 소개 페이지로 이동하는 링크를 만든다. -->
+                    <a href="factions.html">세력</a> <!-- 현재 세력 소개 페이지로 이동하는 링크를 만든다. -->
+                    <a href="ProjectD_Main.html#archive">세계관</a> <!-- 세계관 정보 카드 영역으로 이동하는 링크를 만든다. -->
+                    <a href="ProjectD_Main.html#timeline">사건 기록</a> <!-- 사건 기록 영역으로 이동하는 링크를 만든다. -->
+                </div>
+            </nav> <!-- 상단 메뉴 영역을 끝낸다. -->
+            <section class="faction-map-stage image-panel" id="factionMap" style="--image: url('images/factions/faction-map.jpg');"> <!-- 액자식 세력 선택 화면을 만든다. -->
+                <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                <div class="faction-map-bg"></div> <!-- 지도 위에 장식용 그리드를 올린다. -->
+                <button class="faction-frame active" type="button" data-target="gateOrderPanel" style="--x: 14%; --y: 20%; --image: url('images/factions/gate-order.jpg');"> <!-- 게이트 오더 세력 버튼을 만든다. -->
+                    <span class="frame-code">01</span> <!-- 세력 번호를 표시한다. -->
+                    <strong>게이트 오더</strong> <!-- 세력 이름을 표시한다. -->
+                    <small>통제와 방어선</small> <!-- 세력 키워드를 표시한다. -->
+                </button> <!-- 게이트 오더 세력 버튼을 끝낸다. -->
+                <button class="faction-frame" type="button" data-target="frontierPanel" style="--x: 62%; --y: 22%; --image: url('images/factions/frontier.jpg');"> <!-- 프론티어 세력 버튼을 만든다. -->
+                    <span class="frame-code">02</span> <!-- 세력 번호를 표시한다. -->
+                    <strong>프론티어</strong> <!-- 세력 이름을 표시한다. -->
+                    <small>개척과 생존</small> <!-- 세력 키워드를 표시한다. -->
+                </button> <!-- 프론티어 세력 버튼을 끝낸다. -->
+                <button class="faction-frame" type="button" data-target="arcanaPanel" style="--x: 32%; --y: 55%; --image: url('images/factions/arcana.jpg');"> <!-- 아르카나 세력 버튼을 만든다. -->
+                    <span class="frame-code">03</span> <!-- 세력 번호를 표시한다. -->
+                    <strong>아르카나</strong> <!-- 세력 이름을 표시한다. -->
+                    <small>기술과 실험</small> <!-- 세력 키워드를 표시한다. -->
+                </button> <!-- 아르카나 세력 버튼을 끝낸다. -->
+                <button class="faction-frame" type="button" data-target="bastionPanel" style="--x: 72%; --y: 58%; --image: url('images/factions/bastion-council.jpg');"> <!-- 바스티온 의회 세력 버튼을 만든다. -->
+                    <span class="frame-code">04</span> <!-- 세력 번호를 표시한다. -->
+                    <strong>바스티온 의회</strong> <!-- 세력 이름을 표시한다. -->
+                    <small>정치와 자원</small> <!-- 세력 키워드를 표시한다. -->
+                </button> <!-- 바스티온 의회 세력 버튼을 끝낸다. -->
+                <button class="faction-frame" type="button" data-target="awakenedPanel" style="--x: 10%; --y: 70%; --image: url('images/factions/awakened-union.jpg');"> <!-- 각성자 연대 세력 버튼을 만든다. -->
+                    <span class="frame-code">05</span> <!-- 세력 번호를 표시한다. -->
+                    <strong>각성자 연대</strong> <!-- 세력 이름을 표시한다. -->
+                    <small>인권과 저항</small> <!-- 세력 키워드를 표시한다. -->
+                </button> <!-- 각성자 연대 세력 버튼을 끝낸다. -->
+            </section> <!-- 액자식 세력 선택 화면을 끝낸다. -->
+        </header> <!-- 세력 페이지 상단 영역을 끝낸다. -->
+        <main> <!-- 페이지의 주요 내용을 시작한다. -->
+            <section class="section-block faction-intro-section"> <!-- 세력 설명 영역의 안내 섹션을 만든다. -->
+                <div class="section-heading"> <!-- 섹션 제목과 설명을 묶는 영역을 만든다. -->
+                    <p class="eyebrow">Faction Records</p> <!-- 작은 분류 문구를 표시한다. -->
+                    <h2>세력 상세 기록</h2> <!-- 섹션 제목을 표시한다. -->
+                    <p>각 세력은 목적, 강점, 약점, 플레이어와의 관계를 기준으로 정리했습니다.</p> <!-- 세력 설명 기준을 표시한다. -->
+                </div> <!-- 섹션 제목 영역을 끝낸다. -->
+            </section> <!-- 세력 설명 안내 섹션을 끝낸다. -->
+            <section class="faction-detail-panel active image-panel" id="gateOrderPanel" style="--image: url('images/factions/gate-order-wide.jpg');"> <!-- 게이트 오더 상세 설명 패널을 만든다. -->
+                <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                <div class="faction-detail-content"> <!-- 세력 상세 글을 담는 영역을 만든다. -->
+                    <p class="eyebrow">01 · Gate Order</p> <!-- 세력 번호와 영문명을 표시한다. -->
+                    <h2>게이트 오더</h2> <!-- 세력 이름을 표시한다. -->
+                    <p>게이트 재난을 통제하고 바스티온 방어선을 유지하는 군사 행정 조직입니다. 질서와 통제를 명분으로 도시의 안전을 지키지만, 각성자와 외곽 생존자에 대한 강한 관리 정책 때문에 갈등을 만듭니다.</p> <!-- 세력 설명을 표시한다. -->
+                    <div class="faction-info-grid"> <!-- 세력 속성 카드를 배치하는 영역을 만든다. -->
+                        <article> <!-- 첫 번째 속성 카드를 만든다. -->
+                            <span>목적</span> <!-- 속성 제목을 표시한다. -->
+                            <p>게이트 봉쇄, 방어선 유지, 바스티온 질서 보존</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 첫 번째 속성 카드를 끝낸다. -->
+                        <article> <!-- 두 번째 속성 카드를 만든다. -->
+                            <span>강점</span> <!-- 속성 제목을 표시한다. -->
+                            <p>정규 병력, 방어 시설, 지휘 체계</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 두 번째 속성 카드를 끝낸다. -->
+                        <article> <!-- 세 번째 속성 카드를 만든다. -->
+                            <span>갈등</span> <!-- 속성 제목을 표시한다. -->
+                            <p>과도한 통제, 각성자 징발, 프론티어 감시</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 세 번째 속성 카드를 끝낸다. -->
+                    </div> <!-- 세력 속성 카드 영역을 끝낸다. -->
+                </div> <!-- 세력 상세 글 영역을 끝낸다. -->
+            </section> <!-- 게이트 오더 상세 설명 패널을 끝낸다. -->
+            <section class="faction-detail-panel image-panel" id="frontierPanel" style="--image: url('images/factions/frontier-wide.jpg');"> <!-- 프론티어 상세 설명 패널을 만든다. -->
+                <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                <div class="faction-detail-content"> <!-- 세력 상세 글을 담는 영역을 만든다. -->
+                    <p class="eyebrow">02 · Frontier</p> <!-- 세력 번호와 영문명을 표시한다. -->
+                    <h2>프론티어</h2> <!-- 세력 이름을 표시한다. -->
+                    <p>바스티온 외곽을 이동하며 폐허, 오염지대, 게이트 주변에서 자원을 회수하는 개척자 집단입니다. 공식 질서에서 벗어나 있지만, 누구보다 현장과 위험 지역을 잘 알고 있습니다.</p> <!-- 세력 설명을 표시한다. -->
+                    <div class="faction-info-grid"> <!-- 세력 속성 카드를 배치하는 영역을 만든다. -->
+                        <article> <!-- 첫 번째 속성 카드를 만든다. -->
+                            <span>목적</span> <!-- 속성 제목을 표시한다. -->
+                            <p>생존, 거래, 외곽 루트 개척</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 첫 번째 속성 카드를 끝낸다. -->
+                        <article> <!-- 두 번째 속성 카드를 만든다. -->
+                            <span>강점</span> <!-- 속성 제목을 표시한다. -->
+                            <p>탐색 능력, 비공식 정보망, 이동 거점</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 두 번째 속성 카드를 끝낸다. -->
+                        <article> <!-- 세 번째 속성 카드를 만든다. -->
+                            <span>갈등</span> <!-- 속성 제목을 표시한다. -->
+                            <p>밀수 의심, 게이트 오더의 통제, 암시장 연결</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 세 번째 속성 카드를 끝낸다. -->
+                    </div> <!-- 세력 속성 카드 영역을 끝낸다. -->
+                </div> <!-- 세력 상세 글 영역을 끝낸다. -->
+            </section> <!-- 프론티어 상세 설명 패널을 끝낸다. -->
+            <section class="faction-detail-panel image-panel" id="arcanaPanel" style="--image: url('images/factions/arcana-wide.jpg');"> <!-- 아르카나 상세 설명 패널을 만든다. -->
+                <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                <div class="faction-detail-content"> <!-- 세력 상세 글을 담는 영역을 만든다. -->
+                    <p class="eyebrow">03 · Arcana Corp</p> <!-- 세력 번호와 영문명을 표시한다. -->
+                    <h2>아르카나</h2> <!-- 세력 이름을 표시한다. -->
+                    <p>게이트와 이계 기술을 연구하고 상용화하려는 기업형 세력입니다. 방어 기술 발전에 기여하지만, 금지 실험과 기술 독점 때문에 세계관의 어두운 갈등을 담당합니다.</p> <!-- 세력 설명을 표시한다. -->
+                    <div class="faction-info-grid"> <!-- 세력 속성 카드를 배치하는 영역을 만든다. -->
+                        <article> <!-- 첫 번째 속성 카드를 만든다. -->
+                            <span>목적</span> <!-- 속성 제목을 표시한다. -->
+                            <p>이계 기술 확보, Arc-Cell 개발, 전장 장비 판매</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 첫 번째 속성 카드를 끝낸다. -->
+                        <article> <!-- 두 번째 속성 카드를 만든다. -->
+                            <span>강점</span> <!-- 속성 제목을 표시한다. -->
+                            <p>연구 시설, 실험 장비, 비밀 자금</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 두 번째 속성 카드를 끝낸다. -->
+                        <article> <!-- 세 번째 속성 카드를 만든다. -->
+                            <span>갈등</span> <!-- 속성 제목을 표시한다. -->
+                            <p>윤리 위반, 각성자 실험, 게이트 부산물 독점</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 세 번째 속성 카드를 끝낸다. -->
+                    </div> <!-- 세력 속성 카드 영역을 끝낸다. -->
+                </div> <!-- 세력 상세 글 영역을 끝낸다. -->
+            </section> <!-- 아르카나 상세 설명 패널을 끝낸다. -->
+            <section class="faction-detail-panel image-panel" id="bastionPanel" style="--image: url('images/factions/bastion-council-wide.jpg');"> <!-- 바스티온 의회 상세 설명 패널을 만든다. -->
+                <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                <div class="faction-detail-content"> <!-- 세력 상세 글을 담는 영역을 만든다. -->
+                    <p class="eyebrow">04 · Bastion Council</p> <!-- 세력 번호와 영문명을 표시한다. -->
+                    <h2>바스티온 의회</h2> <!-- 세력 이름을 표시한다. -->
+                    <p>바스티온 내부의 자원 분배, 시민 통제, 방어 예산을 결정하는 정치 세력입니다. 전투 현장에 직접 나서지는 않지만, 모든 작전의 조건과 제한을 만드는 세력입니다.</p> <!-- 세력 설명을 표시한다. -->
+                    <div class="faction-info-grid"> <!-- 세력 속성 카드를 배치하는 영역을 만든다. -->
+                        <article> <!-- 첫 번째 속성 카드를 만든다. -->
+                            <span>목적</span> <!-- 속성 제목을 표시한다. -->
+                            <p>도시 생존, 자원 통제, 민심 관리</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 첫 번째 속성 카드를 끝낸다. -->
+                        <article> <!-- 두 번째 속성 카드를 만든다. -->
+                            <span>강점</span> <!-- 속성 제목을 표시한다. -->
+                            <p>행정 권한, 보급 승인권, 여론 통제</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 두 번째 속성 카드를 끝낸다. -->
+                        <article> <!-- 세 번째 속성 카드를 만든다. -->
+                            <span>갈등</span> <!-- 속성 제목을 표시한다. -->
+                            <p>내부 파벌, 예산 삭감, 작전 개입</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 세 번째 속성 카드를 끝낸다. -->
+                    </div> <!-- 세력 속성 카드 영역을 끝낸다. -->
+                </div> <!-- 세력 상세 글 영역을 끝낸다. -->
+            </section> <!-- 바스티온 의회 상세 설명 패널을 끝낸다. -->
+            <section class="faction-detail-panel image-panel" id="awakenedPanel" style="--image: url('images/factions/awakened-union-wide.jpg');"> <!-- 각성자 연대 상세 설명 패널을 만든다. -->
+                <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
+                <div class="faction-detail-content"> <!-- 세력 상세 글을 담는 영역을 만든다. -->
+                    <p class="eyebrow">05 · Awakened Union</p> <!-- 세력 번호와 영문명을 표시한다. -->
+                    <h2>각성자 연대</h2> <!-- 세력 이름을 표시한다. -->
+                    <p>각성자를 단순 전력이나 실험체가 아닌 시민으로 인정받게 만들려는 느슨한 연대입니다. 공개 정치 세력이라기보다 보호 네트워크와 저항 조직에 가깝습니다.</p> <!-- 세력 설명을 표시한다. -->
+                    <div class="faction-info-grid"> <!-- 세력 속성 카드를 배치하는 영역을 만든다. -->
+                        <article> <!-- 첫 번째 속성 카드를 만든다. -->
+                            <span>목적</span> <!-- 속성 제목을 표시한다. -->
+                            <p>각성자 보호, 강제 징발 반대, 정보 공유</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 첫 번째 속성 카드를 끝낸다. -->
+                        <article> <!-- 두 번째 속성 카드를 만든다. -->
+                            <span>강점</span> <!-- 속성 제목을 표시한다. -->
+                            <p>특수 능력, 은밀한 네트워크, 시민 지지</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 두 번째 속성 카드를 끝낸다. -->
+                        <article> <!-- 세 번째 속성 카드를 만든다. -->
+                            <span>갈등</span> <!-- 속성 제목을 표시한다. -->
+                            <p>게이트 오더 감시, 아르카나 실험, 내부 급진파</p> <!-- 속성 설명을 표시한다. -->
+                        </article> <!-- 세 번째 속성 카드를 끝낸다. -->
+                    </div> <!-- 세력 속성 카드 영역을 끝낸다. -->
+                </div> <!-- 세력 상세 글 영역을 끝낸다. -->
+            </section> <!-- 각성자 연대 상세 설명 패널을 끝낸다. -->
+        </main> <!-- 페이지의 주요 내용을 끝낸다. -->
+        <footer class="site-footer"> <!-- 하단 영역을 만든다. -->
+            <p>Project D Faction Archive · Frame Select Prototype</p> <!-- 페이지 이름과 용도를 표시한다. -->
+        </footer> <!-- 하단 영역을 끝낸다. -->
+    </div> <!-- 전체 페이지 너비 박스를 끝낸다. -->
+    <script src="factions.js"></script> <!-- 세력 페이지 전용 자바스크립트 파일을 연결한다. -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 실제 화면에 보이는 영역을 끝낸다. -->
+</html> <!-- HTML 문서를 끝낸다. -->

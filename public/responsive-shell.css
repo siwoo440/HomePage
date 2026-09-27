@@ -1,0 +1,358 @@
+:root /* 공통 기준 */
+{ /* 규칙 시작 */
+    --responsive-nav-bg: #07101f; /* 메뉴 배경 */
+    --responsive-nav-panel: #0d1830; /* 패널 배경 */
+    --responsive-nav-line: rgba(114, 151, 211, 0.24); /* 구분선 색상 */
+    --responsive-nav-text: #e8f2ff; /* 기본 글자 */
+    --responsive-nav-muted: #9aabc6; /* 보조 글자 */
+    --responsive-nav-cyan: #15e7e0; /* 강조 색상 */
+    --responsive-nav-purple: #9a55ff; /* 보조 강조 */
+    --responsive-nav-layer: 1200; /* 메뉴 화면층 */
+} /* 규칙 끝 */
+
+.responsive-nav-toggle, /* 메뉴 버튼 */
+.responsive-nav-overlay, /* 메뉴 배경 */
+.responsive-nav-drawer, /* 메뉴 패널 */
+.responsive-nav-drawer * /* 패널 하위 요소 */
+{ /* 규칙 시작 */
+    box-sizing: border-box; /* 크기 계산 통일 */
+} /* 규칙 끝 */
+
+.responsive-nav-toggle, /* 메뉴 버튼 */
+.responsive-nav-overlay, /* 메뉴 배경 */
+.responsive-nav-drawer /* 메뉴 패널 */
+{ /* 규칙 시작 */
+    display: none; /* 기본 숨김 */
+} /* 규칙 끝 */
+
+.responsive-nav-toggle[hidden], /* 숨김 메뉴 버튼 */
+.responsive-nav-overlay[hidden], /* 숨김 메뉴 배경 */
+.responsive-nav-drawer[hidden] /* 숨김 메뉴 패널 */
+{ /* 규칙 시작 */
+    display: none !important; /* 숨김 상태 우선 */
+} /* 규칙 끝 */
+
+.responsive-nav-toggle:focus-visible, /* 메뉴 버튼 초점 */
+.responsive-nav-overlay:focus-visible, /* 메뉴 배경 초점 */
+.responsive-nav-drawer a:focus-visible, /* 메뉴 링크 초점 */
+.responsive-nav-drawer button:focus-visible /* 메뉴 조작 초점 */
+{ /* 규칙 시작 */
+    outline: 3px solid var(--responsive-nav-cyan); /* 초점 테두리 */
+    outline-offset: 3px; /* 초점 간격 */
+} /* 규칙 끝 */
+
+body.responsive-nav-open /* 열린 메뉴 본문 */
+{ /* 규칙 시작 */
+    overflow: hidden; /* 본문 스크롤 잠금 */
+    overscroll-behavior: none; /* 배경 스크롤 차단 */
+} /* 규칙 끝 */
+
+@media (max-width: 959px) /* 서랍 메뉴 화면 */
+{ /* 구간 시작 */
+    [data-responsive-nav-root] /* 메뉴 기준 요소 */
+    { /* 규칙 시작 */
+        position: relative; /* 버튼 배치 기준 */
+    } /* 규칙 끝 */
+
+    [data-responsive-nav-root] .responsive-nav-toggle /* 메뉴 버튼 */
+    { /* 규칙 시작 */
+        align-items: center; /* 세로 정렬 */
+        background: rgba(10, 24, 45, 0.92); /* 버튼 배경 */
+        border: 1px solid var(--responsive-nav-cyan); /* 버튼 테두리 */
+        border-radius: 8px; /* 버튼 모서리 */
+        color: var(--responsive-nav-cyan); /* 버튼 글자 */
+        cursor: pointer; /* 선택 커서 */
+        display: inline-flex; /* 버튼 표시 */
+        font: inherit; /* 글꼴 상속 */
+        font-size: 0.82rem; /* 버튼 글자 크기 */
+        font-weight: 800; /* 버튼 글자 굵기 */
+        justify-content: center; /* 가로 정렬 */
+        letter-spacing: 0.08em; /* 글자 간격 */
+        min-height: 44px; /* 터치 높이 */
+        min-width: 56px; /* 터치 너비 */
+        padding: 0 14px; /* 버튼 안쪽 */
+        text-transform: uppercase; /* 영문 강조 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-overlay /* 메뉴 배경 */
+    { /* 규칙 시작 */
+        appearance: none; /* 기본 버튼 제거 */
+        background: rgba(0, 5, 15, 0.72); /* 반투명 배경 */
+        border: 0; /* 테두리 제거 */
+        cursor: pointer; /* 선택 커서 */
+        display: block; /* 배경 표시 */
+        inset: 0; /* 화면 채움 */
+        margin: 0; /* 바깥 여백 제거 */
+        padding: 0; /* 안쪽 여백 제거 */
+        position: fixed; /* 화면 고정 */
+        z-index: var(--responsive-nav-layer); /* 배경 화면층 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-drawer /* 메뉴 패널 */
+    { /* 규칙 시작 */
+        background: linear-gradient(160deg, var(--responsive-nav-panel), var(--responsive-nav-bg)); /* 패널 배경 */
+        border-left: 1px solid var(--responsive-nav-line); /* 왼쪽 구분선 */
+        box-shadow: -24px 0 64px rgba(0, 0, 0, 0.42); /* 패널 그림자 */
+        color: var(--responsive-nav-text); /* 패널 글자 */
+        display: flex; /* 패널 배치 */
+        flex-direction: column; /* 세로 배치 */
+        height: 100dvh; /* 화면 높이 */
+        max-width: 88vw; /* 좁은 화면 폭 */
+        overflow-y: auto; /* 내부 세로 스크롤 */
+        padding: max(20px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom)); /* 안전 영역 여백 */
+        position: fixed; /* 화면 고정 */
+        right: 0; /* 오른쪽 배치 */
+        top: 0; /* 위쪽 배치 */
+        width: min(360px, 88vw); /* 패널 폭 */
+        z-index: calc(var(--responsive-nav-layer) + 1); /* 패널 화면층 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-drawer::before /* 패널 강조선 */
+    { /* 규칙 시작 */
+        background: linear-gradient(90deg, var(--responsive-nav-cyan), var(--responsive-nav-purple)); /* 강조선 배경 */
+        content: ""; /* 가상 요소 생성 */
+        height: 3px; /* 강조선 높이 */
+        left: 0; /* 왼쪽 배치 */
+        position: absolute; /* 패널 기준 배치 */
+        right: 0; /* 오른쪽 배치 */
+        top: 0; /* 위쪽 배치 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-drawer-header /* 패널 머리 */
+    { /* 규칙 시작 */
+        align-items: center; /* 세로 정렬 */
+        border-bottom: 1px solid var(--responsive-nav-line); /* 아래 구분선 */
+        display: flex; /* 가로 배치 */
+        gap: 16px; /* 요소 간격 */
+        justify-content: space-between; /* 양쪽 정렬 */
+        padding: 4px 0 18px; /* 머리 여백 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-drawer-title /* 패널 제목 */
+    { /* 규칙 시작 */
+        background: linear-gradient(90deg, var(--responsive-nav-cyan), var(--responsive-nav-purple)); /* 제목 색상 */
+        background-clip: text; /* 글자 배경 제한 */
+        color: transparent; /* 그라데이션 표시 */
+        font-size: 1.15rem; /* 제목 크기 */
+        letter-spacing: 0.18em; /* 제목 간격 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-close /* 닫기 버튼 */
+    { /* 규칙 시작 */
+        background: transparent; /* 버튼 배경 */
+        border: 1px solid var(--responsive-nav-line); /* 버튼 테두리 */
+        border-radius: 8px; /* 버튼 모서리 */
+        color: var(--responsive-nav-text); /* 버튼 글자 */
+        cursor: pointer; /* 선택 커서 */
+        font: inherit; /* 글꼴 상속 */
+        min-height: 44px; /* 터치 높이 */
+        min-width: 52px; /* 터치 너비 */
+        padding: 0 12px; /* 버튼 안쪽 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-links /* 메뉴 링크 영역 */
+    { /* 규칙 시작 */
+        display: grid; /* 링크 격자 */
+        gap: 8px; /* 링크 간격 */
+        padding-top: 18px; /* 위쪽 여백 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-link, /* 일반 메뉴 링크 */
+    .responsive-nav-login, /* 로그인 링크 */
+    .responsive-nav-theme-toggle /* 테마 버튼 */
+    { /* 규칙 시작 */
+        align-items: center; /* 세로 정렬 */
+        border: 1px solid transparent; /* 고정 테두리 */
+        border-radius: 9px; /* 링크 모서리 */
+        color: var(--responsive-nav-text); /* 링크 글자 */
+        display: flex; /* 링크 배치 */
+        font-size: 0.98rem; /* 링크 글자 크기 */
+        font-weight: 700; /* 링크 굵기 */
+        justify-content: space-between; /* 링크 양쪽 정렬 */
+        min-height: 48px; /* 터치 높이 */
+        padding: 10px 14px; /* 링크 안쪽 */
+        text-decoration: none; /* 밑줄 제거 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-link /* 일반 메뉴 카드 */
+    { /* 규칙 시작 */
+        background: rgba(255, 255, 255, 0.04); /* 카드 배경 */
+        border-color: var(--responsive-nav-line); /* 카드 테두리 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-link::after, /* 일반 링크 화살표 */
+    .responsive-nav-login::after /* 로그인 링크 화살표 */
+    { /* 규칙 시작 */
+        color: var(--responsive-nav-muted); /* 화살표 색상 */
+        content: "→"; /* 이동 표시 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-theme-toggle /* 테마 버튼 */
+    { /* 규칙 시작 */
+        background: rgba(255, 255, 255, 0.04); /* 버튼 배경 */
+        border-color: var(--responsive-nav-line); /* 버튼 테두리 */
+        cursor: pointer; /* 선택 커서 */
+        font: inherit; /* 글꼴 상속 */
+        text-align: left; /* 문구 왼쪽 정렬 */
+        width: 100%; /* 영역 전체 너비 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-theme-toggle::after /* 테마 상태 표시 */
+    { /* 규칙 시작 */
+        color: var(--responsive-nav-muted); /* 상태 표시 색상 */
+        content: "☀️"; /* 밝은 상태 표시 */
+        font-size: 1.2rem; /* 상태 표시 크기 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-theme-toggle[aria-pressed="true"] /* 다크 선택 버튼 */
+    { /* 규칙 시작 */
+        background: linear-gradient(100deg, rgba(21, 231, 224, 0.12), rgba(154, 85, 255, 0.12)); /* 다크 선택 배경 */
+        border-color: rgba(21, 231, 224, 0.34); /* 다크 선택 테두리 */
+        color: var(--responsive-nav-cyan); /* 다크 선택 글자 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-theme-toggle[aria-pressed="true"]::after /* 다크 상태 표시 */
+    { /* 규칙 시작 */
+        content: "🌙"; /* 다크 상태 표시 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-link:hover, /* 일반 링크 마우스 */
+    .responsive-nav-login:hover, /* 로그인 링크 마우스 */
+    .responsive-nav-link[aria-current="page"] /* 현재 메뉴 링크 */
+    { /* 규칙 시작 */
+        background: rgba(21, 231, 224, 0.08); /* 링크 강조 배경 */
+        border-color: rgba(21, 231, 224, 0.28); /* 링크 강조 테두리 */
+        color: var(--responsive-nav-cyan); /* 링크 강조 글자 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-login /* 로그인 링크 */
+    { /* 규칙 시작 */
+        background: linear-gradient(100deg, rgba(21, 231, 224, 0.12), rgba(154, 85, 255, 0.12)); /* 로그인 배경 */
+        border-color: rgba(154, 85, 255, 0.34); /* 로그인 테두리 */
+        margin-top: 10px; /* 위쪽 간격 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (max-width: 767px) /* 모바일 공통 화면 */
+{ /* 구간 시작 */
+    [data-responsive-nav-root] > .nav-menu, /* 기본 메뉴 목록 */
+    [data-responsive-nav-root] > .nav-cta /* 에타 행동 링크 */
+    { /* 규칙 시작 */
+        display: none !important; /* 좁은 화면 메뉴 숨김 */
+    } /* 규칙 끝 */
+
+    [data-responsive-nav-root] .nav-actions > :not([data-member-action]):not(.responsive-nav-toggle):not([data-preview-control]) /* 중복 상단 동작 */
+    { /* 규칙 시작 */
+        display: none !important; /* 중복 동작 숨김 */
+    } /* 규칙 끝 */
+
+    [data-responsive-nav-root] /* 모바일 메뉴 기준 */
+    { /* 규칙 시작 */
+        gap: 10px; /* 헤더 간격 축소 */
+        padding-left: 16px; /* 왼쪽 여백 */
+        padding-right: 16px; /* 오른쪽 여백 */
+    } /* 규칙 끝 */
+
+    [data-responsive-nav-root] .nav-logo, /* 기본 로고 */
+    [data-responsive-nav-root] .eta-brand /* 에타 로고 */
+    { /* 규칙 시작 */
+        font-size: clamp(0.9rem, 4vw, 1.1rem); /* 로고 크기 축소 */
+        letter-spacing: 0.12em; /* 로고 간격 축소 */
+        white-space: nowrap; /* 로고 줄바꿈 차단 */
+    } /* 규칙 끝 */
+
+    [data-responsive-nav-root] [data-member-action] /* 회원 링크 */
+    { /* 규칙 시작 */
+        align-items: center; /* 세로 정렬 */
+        display: inline-flex; /* 회원 링크 표시 */
+        justify-content: center; /* 가로 정렬 */
+        min-height: 44px; /* 터치 높이 */
+        padding: 0 12px; /* 회원 링크 여백 */
+    } /* 규칙 끝 */
+
+    .modal-box, /* 기본 모달 */
+    .modal-box.legal, /* 약관 모달 */
+    .contact-dialog, /* 문의 대화상자 */
+    .privacy-consent /* 개인정보 선택창 */
+    { /* 규칙 시작 */
+        max-height: calc(100dvh - 32px); /* 화면 안전 높이 */
+        max-width: none; /* 고정 최대 폭 해제 */
+        overflow: auto; /* 내부 내용 이동 */
+        width: calc(100vw - 32px); /* 화면 안전 너비 */
+    } /* 규칙 끝 */
+
+    .modal-box /* 모바일 기본 모달 */
+    { /* 규칙 시작 */
+        padding: 28px 20px; /* 모달 안쪽 여백 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-toggle, /* 메뉴 버튼 */
+    .responsive-nav-close, /* 닫기 버튼 */
+    .responsive-nav-link, /* 메뉴 링크 */
+    .responsive-nav-login, /* 로그인 링크 */
+    .responsive-nav-theme-toggle /* 테마 버튼 */
+    { /* 규칙 시작 */
+        min-height: 44px; /* 최소 터치 높이 */
+        min-width: 44px; /* 최소 터치 너비 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (min-width: 768px) and (max-width: 959px) /* 좁은 태블릿 공통 화면 */
+{ /* 구간 시작 */
+    [data-responsive-nav-root] > .nav-menu, /* 기본 메뉴 목록 */
+    [data-responsive-nav-root] > .nav-cta /* 에타 행동 링크 */
+    { /* 규칙 시작 */
+        display: none !important; /* 서랍 전환 메뉴 숨김 */
+    } /* 규칙 끝 */
+
+    [data-responsive-nav-root] .nav-actions > :not([data-member-action]):not(.responsive-nav-toggle):not([data-preview-control]) /* 중복 상단 동작 */
+    { /* 규칙 시작 */
+        display: none !important; /* 중복 동작 숨김 */
+    } /* 규칙 끝 */
+
+    [data-responsive-nav-root] /* 태블릿 메뉴 기준 */
+    { /* 규칙 시작 */
+        gap: 18px; /* 헤더 간격 축소 */
+        padding-left: 28px; /* 왼쪽 여백 */
+        padding-right: 28px; /* 오른쪽 여백 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (min-width: 960px) and (max-width: 1279px) /* 태블릿 가로 헤더 */
+{ /* 구간 시작 */
+    [data-responsive-nav-root] /* 메뉴 기준 요소 */
+    { /* 규칙 시작 */
+        column-gap: clamp(12px, 2vw, 28px); /* 헤더 간격 축소 */
+        padding-left: clamp(18px, 3vw, 40px); /* 왼쪽 여백 축소 */
+        padding-right: clamp(18px, 3vw, 40px); /* 오른쪽 여백 축소 */
+    } /* 규칙 끝 */
+
+    [data-responsive-nav-root] a, /* 헤더 링크 */
+    [data-responsive-nav-root] button /* 헤더 버튼 */
+    { /* 규칙 시작 */
+        font-size: clamp(0.76rem, 1.3vw, 0.92rem); /* 헤더 글자 축소 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (min-width: 1280px) /* PC 화면 */
+{ /* 구간 시작 */
+    .responsive-nav-toggle, /* PC 메뉴 버튼 */
+    .responsive-nav-overlay, /* PC 메뉴 배경 */
+    .responsive-nav-drawer /* PC 메뉴 패널 */
+    { /* 규칙 시작 */
+        display: none !important; /* PC 숨김 유지 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (prefers-reduced-motion: reduce) /* 움직임 축소 환경 */
+{ /* 구간 시작 */
+    .responsive-nav-toggle, /* 메뉴 버튼 움직임 */
+    .responsive-nav-overlay, /* 메뉴 배경 움직임 */
+    .responsive-nav-drawer, /* 메뉴 패널 움직임 */
+    .responsive-nav-drawer * /* 패널 하위 움직임 */
+    { /* 규칙 시작 */
+        animation-duration: 0.01ms !important; /* 애니메이션 축소 */
+        scroll-behavior: auto !important; /* 스크롤 움직임 제거 */
+        transition-duration: 0.01ms !important; /* 전환 움직임 축소 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */

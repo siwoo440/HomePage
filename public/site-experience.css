@@ -1,0 +1,691 @@
+.skip-link /* 본문 건너뛰기 링크 */
+{ /* 규칙 시작 */
+    background: #58e4c7; /* 링크 배경 */
+    color: #061119; /* 링크 글자 */
+    font-weight: 800; /* 링크 강조 */
+    left: 1rem; /* 왼쪽 위치 */
+    padding: 0.75rem 1rem; /* 내부 여백 */
+    position: fixed; /* 화면 고정 */
+    top: 1rem; /* 위쪽 위치 */
+    transform: translateY(-200%); /* 기본 숨김 */
+    z-index: 20000; /* 최상단 배치 */
+} /* 규칙 끝 */
+
+.skip-link:focus /* 본문 링크 초점 */
+{ /* 규칙 시작 */
+    transform: translateY(0); /* 초점 시 표시 */
+} /* 규칙 끝 */
+
+.game-filter-options .filter-btn, /* 게임 필터 버튼 */
+.game-load-more /* 프로젝트 더 보기 */
+{ /* 규칙 시작 */
+    min-height: 44px; /* 터치 높이 */
+} /* 규칙 끝 */
+
+a:focus-visible, /* 키보드 링크 초점 */
+button:focus-visible, /* 키보드 버튼 초점 */
+summary:focus-visible, /* 키보드 질문 초점 */
+select:focus-visible /* 키보드 선택 초점 */
+{ /* 규칙 시작 */
+    outline: 3px solid #58e4c7; /* 초점 테두리 */
+    outline-offset: 3px; /* 초점 간격 */
+} /* 규칙 끝 */
+
+.hero-subtitle /* 히어로 설명 대비 */
+{ /* 규칙 시작 */
+    color: #b5c2d4; /* 읽기 색상 */
+} /* 규칙 끝 */
+
+.hero-carousel /* 히어로 전환 영역 */
+{ /* 규칙 시작 */
+    padding-bottom: 6.5rem; /* 하단 제어 영역 여백 */
+    position: relative; /* 전환 버튼 위치 기준 */
+} /* 규칙 끝 */
+
+.hero-carousel-viewport /* 히어로 화면 틀 */
+{ /* 규칙 시작 */
+    overflow: hidden; /* 화면 밖 내용 숨김 */
+    width: 100%; /* 전체 너비 */
+} /* 규칙 끝 */
+
+.hero-carousel-track /* 히어로 이동 트랙 */
+{ /* 규칙 시작 */
+    display: grid; /* 화면 겹침 배치 */
+    width: 100%; /* 전체 너비 */
+} /* 규칙 끝 */
+
+.hero-slide /* 히어로 개별 화면 */
+{ /* 규칙 시작 */
+    align-items: center; /* 가운데 정렬 */
+    display: flex; /* 세로 배치 준비 */
+    flex-direction: column; /* 세로 배치 */
+    grid-area: 1 / 1; /* 동일 화면 칸 배치 */
+    justify-content: center; /* 세로 가운데 정렬 */
+    min-height: 400px; /* 화면 높이 통일 */
+    opacity: 0; /* 기본 화면 숨김 */
+    padding: 0 4rem; /* 전환 버튼 안전 여백 */
+    pointer-events: none; /* 숨긴 화면 조작 차단 */
+    transform: translate3d(0, 0, 0); /* 기본 화면 위치 */
+    transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); /* 방향 전환 움직임 */
+    visibility: hidden; /* 기본 화면 비표시 */
+    will-change: opacity, transform; /* 전환 렌더링 최적화 */
+    width: 100%; /* 전체 너비 */
+} /* 규칙 끝 */
+
+.hero-slide.is-active /* 활성 히어로 화면 */
+{ /* 규칙 시작 */
+    opacity: 1; /* 활성 화면 표시 */
+    pointer-events: auto; /* 활성 화면 조작 허용 */
+    transform: translate3d(0, 0, 0); /* 활성 화면 중앙 배치 */
+    visibility: visible; /* 활성 화면 공개 */
+    z-index: 2; /* 활성 화면 상단 배치 */
+} /* 규칙 끝 */
+
+.hero-slide.is-entering-right /* 오른쪽 진입 준비 */
+{ /* 규칙 시작 */
+    opacity: 0; /* 진입 전 투명도 */
+    transform: translate3d(100%, 0, 0); /* 오른쪽 시작 위치 */
+    transition: none; /* 준비 위치 즉시 반영 */
+    visibility: visible; /* 진입 화면 표시 */
+} /* 규칙 끝 */
+
+.hero-slide.is-entering-left /* 왼쪽 진입 준비 */
+{ /* 규칙 시작 */
+    opacity: 0; /* 진입 전 투명도 */
+    transform: translate3d(-100%, 0, 0); /* 왼쪽 시작 위치 */
+    transition: none; /* 준비 위치 즉시 반영 */
+    visibility: visible; /* 진입 화면 표시 */
+} /* 규칙 끝 */
+
+.hero-slide.is-exiting-left /* 왼쪽 퇴장 화면 */
+{ /* 규칙 시작 */
+    opacity: 0; /* 퇴장 화면 투명화 */
+    transform: translate3d(-100%, 0, 0); /* 왼쪽 종료 위치 */
+    visibility: visible; /* 퇴장 중 화면 유지 */
+    z-index: 1; /* 활성 화면 아래 배치 */
+} /* 규칙 끝 */
+
+.hero-slide.is-exiting-right /* 오른쪽 퇴장 화면 */
+{ /* 규칙 시작 */
+    opacity: 0; /* 퇴장 화면 투명화 */
+    transform: translate3d(100%, 0, 0); /* 오른쪽 종료 위치 */
+    visibility: visible; /* 퇴장 중 화면 유지 */
+    z-index: 1; /* 활성 화면 아래 배치 */
+} /* 규칙 끝 */
+
+.hero-carousel-control /* 히어로 전환 버튼 */
+{ /* 규칙 시작 */
+    align-items: center; /* 세로 정렬 */
+    background: rgba(8, 20, 35, 0.86); /* 버튼 배경 */
+    border: 1px solid rgba(88, 228, 199, 0.58); /* 버튼 테두리 */
+    border-radius: 50%; /* 원형 버튼 */
+    color: #72efd5; /* 화살표 색상 */
+    cursor: pointer; /* 선택 표시 */
+    display: inline-flex; /* 내부 정렬 */
+    font-size: 2rem; /* 화살표 크기 */
+    height: 52px; /* 버튼 높이 */
+    justify-content: center; /* 가로 정렬 */
+    line-height: 1; /* 화살표 줄 높이 */
+    min-height: 52px; /* 터치 높이 */
+    min-width: 52px; /* 터치 너비 */
+    position: absolute; /* 화면 양쪽 배치 */
+    bottom: 0; /* 하단 버튼 행 배치 */
+    transform: none; /* 위치 보정 해제 */
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; /* 버튼 전환 */
+    width: 52px; /* 버튼 너비 */
+    z-index: 3; /* 화면 위 표시 */
+} /* 규칙 끝 */
+
+.hero-carousel-control:hover /* 히어로 전환 버튼 선택 */
+{ /* 규칙 시작 */
+    background: rgba(88, 228, 199, 0.18); /* 선택 배경 */
+    border-color: #72efd5; /* 선택 테두리 */
+} /* 규칙 끝 */
+
+.hero-carousel-previous /* 이전 전환 버튼 */
+{ /* 규칙 시작 */
+    left: calc(50% - 84px); /* 가운데 왼쪽 배치 */
+} /* 규칙 끝 */
+
+.hero-carousel-next /* 다음 전환 버튼 */
+{ /* 규칙 시작 */
+    right: calc(50% - 84px); /* 가운데 오른쪽 배치 */
+} /* 규칙 끝 */
+
+.hero-carousel-status /* 히어로 화면 위치 */
+{ /* 규칙 시작 */
+    color: #92a4ba; /* 상태 색상 */
+    font-family: "Share Tech Mono", monospace; /* 상태 글꼴 */
+    font-size: 0.8rem; /* 상태 크기 */
+    letter-spacing: 0.18em; /* 숫자 간격 */
+    bottom: 1rem; /* 버튼 사이 배치 */
+    margin: 0; /* 기본 여백 제거 */
+    position: absolute; /* 하단 상태 배치 */
+} /* 규칙 끝 */
+
+.hero-carousel-timer /* 자동 전환 상태 영역 */
+{ /* 규칙 시작 */
+    bottom: 3.5rem; /* 넘김 버튼 위 배치 */
+    max-width: 520px; /* 게이지 최대 너비 */
+    position: absolute; /* 제어 영역 고정 */
+    width: calc(100% - 2rem); /* 화면 안전 너비 */
+} /* 규칙 끝 */
+
+.hero-carousel-progress-track /* 자동 전환 게이지 틀 */
+{ /* 규칙 시작 */
+    background: rgba(126, 151, 181, 0.2); /* 게이지 바탕 */
+    border: 1px solid rgba(113, 239, 213, 0.25); /* 게이지 테두리 */
+    border-radius: 999px; /* 둥근 게이지 */
+    height: 6px; /* 게이지 높이 */
+    overflow: hidden; /* 막대 영역 제한 */
+} /* 규칙 끝 */
+
+.hero-carousel-progress-fill /* 자동 전환 게이지 막대 */
+{ /* 규칙 시작 */
+    background: linear-gradient(90deg, #58e4c7, #8077ff); /* 진행 색상 */
+    display: block; /* 막대 영역 표시 */
+    height: 100%; /* 틀 높이 채움 */
+    transform: scaleX(0); /* 초기 진행 상태 */
+    transform-origin: left center; /* 왼쪽 시작 기준 */
+    width: 100%; /* 전체 진행 너비 */
+} /* 규칙 끝 */
+
+.hero-carousel-progress-fill.is-running /* 실행 중 게이지 막대 */
+{ /* 규칙 시작 */
+    animation: hero-carousel-progress 7s linear forwards; /* 시간 진행 움직임 */
+} /* 규칙 끝 */
+
+@keyframes hero-carousel-progress /* 자동 전환 진행 움직임 */
+{ /* 움직임 시작 */
+    from /* 시작 상태 */
+    { /* 단계 시작 */
+        transform: scaleX(0); /* 시작 진행률 */
+    } /* 단계 끝 */
+
+    to /* 종료 상태 */
+    { /* 단계 시작 */
+        transform: scaleX(1); /* 완료 진행률 */
+    } /* 단계 끝 */
+} /* 움직임 끝 */
+
+.hero-promo-label /* 챗봇 분류 문구 */
+{ /* 규칙 시작 */
+    color: #72efd5; /* 분류 색상 */
+    font-family: "Share Tech Mono", monospace; /* 분류 글꼴 */
+    font-size: 0.8rem; /* 분류 크기 */
+    letter-spacing: 0.14em; /* 분류 간격 */
+    margin-bottom: 1rem; /* 제목 간격 */
+} /* 규칙 끝 */
+
+.hero-chatbot-description /* 챗봇 설명 */
+{ /* 규칙 시작 */
+    font-size: 0.95rem; /* 설명 크기 */
+    max-width: 540px; /* 읽기 너비 */
+} /* 규칙 끝 */
+
+.hero-promo-features /* 챗봇 특징 목록 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 0.55rem; /* 특징 간격 */
+    justify-content: center; /* 가운데 정렬 */
+    margin-top: 1rem; /* 위쪽 간격 */
+} /* 규칙 끝 */
+
+.hero-promo-features span /* 챗봇 특징 항목 */
+{ /* 규칙 시작 */
+    background: rgba(117, 104, 255, 0.12); /* 특징 배경 */
+    border: 1px solid rgba(117, 104, 255, 0.35); /* 특징 테두리 */
+    border-radius: 999px; /* 둥근 모양 */
+    color: #d8d4ff; /* 특징 글자 */
+    font-size: 0.78rem; /* 특징 크기 */
+    padding: 0.45rem 0.75rem; /* 내부 여백 */
+} /* 규칙 끝 */
+
+.hero-local-notice /* 챗봇 임시 주소 안내 */
+{ /* 규칙 시작 */
+    color: #7f90a6; /* 안내 색상 */
+    font-size: 0.72rem; /* 안내 크기 */
+    margin-top: 0.85rem; /* 위쪽 간격 */
+} /* 규칙 끝 */
+
+.hero-actions /* 히어로 행동 영역 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 0.8rem; /* 버튼 간격 */
+    justify-content: center; /* 가운데 정렬 */
+    margin-top: 2rem; /* 위쪽 간격 */
+} /* 규칙 끝 */
+
+.hero-action /* 히어로 행동 버튼 */
+{ /* 규칙 시작 */
+    align-items: center; /* 세로 정렬 */
+    border: 1px solid rgba(78, 230, 198, 0.7); /* 테두리 색상 */
+    border-radius: 999px; /* 둥근 모양 */
+    color: #e8fffa; /* 글자 색상 */
+    display: inline-flex; /* 내부 정렬 */
+    font-weight: 700; /* 글자 굵기 */
+    justify-content: center; /* 가로 정렬 */
+    min-height: 48px; /* 터치 높이 */
+    padding: 0.75rem 1.4rem; /* 내부 여백 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 규칙 끝 */
+
+.hero-action.primary /* 대표 행동 버튼 */
+{ /* 규칙 시작 */
+    background: linear-gradient(135deg, #37d9bd, #7568ff); /* 강조 배경 */
+    border-color: transparent; /* 중복 테두리 제거 */
+    color: #061018; /* 강조 글자 */
+} /* 규칙 끝 */
+
+.hero-stats /* 히어로 현황 목록 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    gap: 0.7rem; /* 항목 간격 */
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 세 열 배치 */
+    margin: 1.5rem auto 0; /* 바깥 여백 */
+    max-width: 560px; /* 최대 너비 */
+} /* 규칙 끝 */
+
+.hero-stat /* 히어로 현황 항목 */
+{ /* 규칙 시작 */
+    background: rgba(9, 22, 38, 0.76); /* 반투명 배경 */
+    border: 1px solid rgba(93, 226, 202, 0.22); /* 옅은 테두리 */
+    border-radius: 12px; /* 모서리 둥글기 */
+    padding: 0.8rem; /* 내부 여백 */
+    text-align: center; /* 가운데 정렬 */
+} /* 규칙 끝 */
+
+.hero-stat strong /* 현황 숫자 */
+{ /* 규칙 시작 */
+    color: #66f2d2; /* 강조 색상 */
+    display: block; /* 줄 분리 */
+    font-size: 1.35rem; /* 숫자 크기 */
+} /* 규칙 끝 */
+
+.hero-stat span /* 현황 설명 */
+{ /* 규칙 시작 */
+    color: #c6d3e3; /* 보조 색상 */
+    font-size: 0.78rem; /* 설명 크기 */
+} /* 규칙 끝 */
+
+.experience-section /* 신규 정보 구역 */
+{ /* 규칙 시작 */
+    position: relative; /* 배경 기준 */
+    z-index: 1; /* 배경 위 표시 */
+} /* 규칙 끝 */
+
+.experience-lead /* 소개 요약 */
+{ /* 규칙 시작 */
+    color: #c6d3e3; /* 읽기 색상 */
+    font-size: clamp(1rem, 2vw, 1.25rem); /* 반응형 크기 */
+    line-height: 1.8; /* 줄 간격 */
+    margin: 0 auto 2rem; /* 가운데 여백 */
+    max-width: 760px; /* 읽기 너비 */
+    text-align: center; /* 가운데 정렬 */
+} /* 규칙 끝 */
+
+.studio-grid /* 소개 카드 목록 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    gap: 1rem; /* 카드 간격 */
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 세 열 배치 */
+} /* 규칙 끝 */
+
+.experience-card /* 소개 카드 */
+{ /* 규칙 시작 */
+    background: linear-gradient(145deg, rgba(17, 29, 49, 0.94), rgba(10, 18, 32, 0.94)); /* 카드 배경 */
+    border: 1px solid rgba(94, 226, 202, 0.18); /* 카드 테두리 */
+    border-radius: 16px; /* 모서리 둥글기 */
+    min-height: 220px; /* 카드 높이 */
+    padding: 1.5rem; /* 내부 여백 */
+} /* 규칙 끝 */
+
+.experience-card > span /* 카드 번호 */
+{ /* 규칙 시작 */
+    color: #66f2d2; /* 번호 색상 */
+    font-family: "Share Tech Mono", monospace; /* 번호 글꼴 */
+    letter-spacing: 0.14em; /* 번호 간격 */
+} /* 규칙 끝 */
+
+.experience-card h3 /* 카드 제목 */
+{ /* 규칙 시작 */
+    color: #f3f7ff; /* 제목 색상 */
+    font-size: 1.15rem; /* 제목 크기 */
+    margin: 1rem 0 0.7rem; /* 제목 여백 */
+} /* 규칙 끝 */
+
+.experience-card p /* 카드 설명 */
+{ /* 규칙 시작 */
+    color: #9eacc0; /* 설명 색상 */
+    line-height: 1.75; /* 설명 줄 간격 */
+} /* 규칙 끝 */
+
+.project-status-board /* 프로젝트 현황판 */
+{ /* 규칙 시작 */
+    background: rgba(8, 18, 32, 0.88); /* 현황판 배경 */
+    border: 1px solid rgba(117, 104, 255, 0.25); /* 현황판 테두리 */
+    border-radius: 18px; /* 모서리 둥글기 */
+    margin-top: 1.2rem; /* 위쪽 간격 */
+    padding: 1.5rem; /* 내부 여백 */
+} /* 규칙 끝 */
+
+.status-board-heading /* 현황판 제목 영역 */
+{ /* 규칙 시작 */
+    align-items: end; /* 아래 정렬 */
+    display: flex; /* 가로 배치 */
+    gap: 1rem; /* 요소 간격 */
+    justify-content: space-between; /* 양쪽 배치 */
+} /* 규칙 끝 */
+
+.status-board-heading h3 /* 현황판 제목 */
+{ /* 규칙 시작 */
+    color: #f4f7ff; /* 제목 색상 */
+    font-size: 1.2rem; /* 제목 크기 */
+} /* 규칙 끝 */
+
+.status-board-heading p /* 현황판 설명 */
+{ /* 규칙 시작 */
+    color: #8d9db2; /* 설명 색상 */
+    font-size: 0.85rem; /* 설명 크기 */
+} /* 규칙 끝 */
+
+.status-board-grid /* 현황 카드 목록 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    gap: 0.8rem; /* 카드 간격 */
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* 세 열 배치 */
+    margin-top: 1.2rem; /* 위쪽 간격 */
+} /* 규칙 끝 */
+
+.status-board-grid article /* 현황 카드 */
+{ /* 규칙 시작 */
+    background: rgba(20, 34, 57, 0.72); /* 카드 배경 */
+    border-radius: 12px; /* 모서리 둥글기 */
+    padding: 1rem; /* 내부 여백 */
+    text-align: center; /* 가운데 정렬 */
+} /* 규칙 끝 */
+
+.status-board-grid strong /* 현황 숫자 */
+{ /* 규칙 시작 */
+    color: #66f2d2; /* 숫자 색상 */
+    display: block; /* 줄 분리 */
+    font-size: 1.8rem; /* 숫자 크기 */
+} /* 규칙 끝 */
+
+.status-board-grid span /* 현황 이름 */
+{ /* 규칙 시작 */
+    color: #b8c4d4; /* 이름 색상 */
+    font-size: 0.85rem; /* 이름 크기 */
+} /* 규칙 끝 */
+
+.faq-list /* 질문 목록 */
+{ /* 규칙 시작 */
+    display: grid; /* 목록 배치 */
+    gap: 0.8rem; /* 질문 간격 */
+    margin: 0 auto; /* 가운데 배치 */
+    max-width: 900px; /* 최대 너비 */
+} /* 규칙 끝 */
+
+.faq-list details /* 질문 항목 */
+{ /* 규칙 시작 */
+    background: rgba(13, 24, 42, 0.92); /* 항목 배경 */
+    border: 1px solid rgba(94, 226, 202, 0.16); /* 항목 테두리 */
+    border-radius: 12px; /* 모서리 둥글기 */
+    padding: 0.25rem 1.1rem; /* 내부 여백 */
+} /* 규칙 끝 */
+
+.faq-list summary /* 질문 문구 */
+{ /* 규칙 시작 */
+    color: #edf6ff; /* 질문 색상 */
+    cursor: pointer; /* 선택 표시 */
+    font-weight: 700; /* 질문 굵기 */
+    min-height: 52px; /* 터치 높이 */
+    padding: 0.9rem 0; /* 질문 여백 */
+} /* 규칙 끝 */
+
+.faq-list p /* 답변 문구 */
+{ /* 규칙 시작 */
+    color: #aebdd0; /* 답변 색상 */
+    line-height: 1.75; /* 답변 줄 간격 */
+    padding: 0 0 1rem; /* 답변 여백 */
+} /* 규칙 끝 */
+
+.project-shelf /* 프로젝트 보관함 */
+{ /* 규칙 시작 */
+    background: linear-gradient(180deg, rgba(8, 19, 34, 0.98), rgba(13, 24, 42, 0.98)); /* 보관함 배경 */
+} /* 규칙 끝 */
+
+.project-shelf-grid /* 보관함 목록 배치 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    gap: 1rem; /* 목록 간격 */
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* 두 열 배치 */
+    margin: 0 auto; /* 가운데 배치 */
+    max-width: 1000px; /* 최대 너비 */
+} /* 규칙 끝 */
+
+.project-shelf-panel /* 보관함 목록 카드 */
+{ /* 규칙 시작 */
+    background: rgba(16, 29, 49, 0.88); /* 목록 배경 */
+    border: 1px solid rgba(94, 226, 202, 0.18); /* 목록 테두리 */
+    border-radius: 16px; /* 모서리 둥글기 */
+    min-height: 250px; /* 목록 최소 높이 */
+    padding: 1.25rem; /* 내부 여백 */
+} /* 규칙 끝 */
+
+.project-shelf-panel h3 /* 보관함 목록 제목 */
+{ /* 규칙 시작 */
+    color: #f4f8ff; /* 제목 색상 */
+    margin: 0; /* 기본 여백 제거 */
+} /* 규칙 끝 */
+
+.project-shelf-note /* 보관함 사용 안내 */
+{ /* 규칙 시작 */
+    color: #8fa0b6; /* 안내 색상 */
+    font-size: 0.85rem; /* 안내 크기 */
+    margin: 0.45rem 0 1rem; /* 안내 여백 */
+} /* 규칙 끝 */
+
+.project-shelf-list /* 보관함 링크 목록 */
+{ /* 규칙 시작 */
+    display: grid; /* 목록 배치 */
+    gap: 0.65rem; /* 링크 간격 */
+} /* 규칙 끝 */
+
+.shelf-project-link /* 보관함 프로젝트 링크 */
+{ /* 규칙 시작 */
+    background: rgba(7, 17, 30, 0.78); /* 링크 배경 */
+    border: 1px solid rgba(117, 104, 255, 0.2); /* 링크 테두리 */
+    border-radius: 10px; /* 모서리 둥글기 */
+    color: #eff6ff; /* 링크 색상 */
+    display: block; /* 전체 영역 선택 */
+    min-height: 58px; /* 터치 높이 */
+    padding: 0.75rem 0.9rem; /* 내부 여백 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 규칙 끝 */
+
+.shelf-project-link strong /* 보관함 프로젝트 제목 */
+{ /* 규칙 시작 */
+    display: block; /* 제목 줄 분리 */
+} /* 규칙 끝 */
+
+.shelf-project-link span /* 보관함 프로젝트 설명 */
+{ /* 규칙 시작 */
+    color: #91a2b8; /* 설명 색상 */
+    display: block; /* 설명 줄 분리 */
+    font-size: 0.78rem; /* 설명 크기 */
+    margin-top: 0.2rem; /* 제목 간격 */
+} /* 규칙 끝 */
+
+.project-shelf-empty /* 보관함 빈 상태 */
+{ /* 규칙 시작 */
+    color: #8fa0b6; /* 빈 상태 색상 */
+    line-height: 1.7; /* 줄 간격 */
+    margin: 2rem 0 0; /* 위쪽 여백 */
+    text-align: center; /* 가운데 정렬 */
+} /* 규칙 끝 */
+
+.project-shelf-clear /* 보관함 삭제 버튼 */
+{ /* 규칙 시작 */
+    background: transparent; /* 투명 배경 */
+    border: 1px solid rgba(160, 174, 194, 0.38); /* 버튼 테두리 */
+    border-radius: 999px; /* 둥근 버튼 */
+    color: #b9c5d5; /* 버튼 글자 */
+    cursor: pointer; /* 선택 표시 */
+    display: block; /* 독립 배치 */
+    margin: 1.2rem auto 0; /* 가운데 여백 */
+    min-height: 44px; /* 터치 높이 */
+    padding: 0.65rem 1.2rem; /* 내부 여백 */
+} /* 규칙 끝 */
+
+.game-thumb /* 즐겨찾기 위치 기준 */
+{ /* 규칙 시작 */
+    position: relative; /* 버튼 위치 기준 */
+} /* 규칙 끝 */
+
+.project-favorite-button /* 관심 프로젝트 버튼 */
+{ /* 규칙 시작 */
+    align-items: center; /* 별 세로 정렬 */
+    background: rgba(7, 16, 29, 0.9); /* 버튼 배경 */
+    border: 1px solid rgba(94, 226, 202, 0.48); /* 버튼 테두리 */
+    border-radius: 999px; /* 둥근 버튼 */
+    color: #ecfff9; /* 버튼 글자 */
+    cursor: pointer; /* 선택 표시 */
+    display: inline-grid; /* 별 가운데 배치 */
+    font-size: 1.35rem; /* 별 아이콘 크기 */
+    font-weight: 700; /* 글자 굵기 */
+    height: 44px; /* 터치 높이 */
+    justify-items: center; /* 별 가로 정렬 */
+    line-height: 1; /* 별 줄 높이 */
+    min-height: 44px; /* 터치 높이 */
+    min-width: 44px; /* 터치 너비 */
+    padding: 0; /* 내부 여백 제거 */
+    position: absolute; /* 이미지 위 배치 */
+    right: 0.65rem; /* 오른쪽 간격 */
+    top: 0.65rem; /* 위쪽 간격 */
+    width: 44px; /* 원형 너비 */
+    z-index: 3; /* 이미지 위 표시 */
+} /* 규칙 끝 */
+
+.project-favorite-button[aria-pressed="true"] /* 선택된 관심 버튼 */
+{ /* 규칙 시작 */
+    background: #47dec1; /* 선택 배경 */
+    color: #061119; /* 선택 글자 */
+} /* 규칙 끝 */
+
+.favorite-feedback /* 관심 결과 하단 안내 */
+{ /* 안내 시작 */
+    background: rgba(7, 16, 29, 0.94); /* 안내 배경 */
+    border: 1px solid rgba(94, 226, 202, 0.48); /* 안내 경계선 */
+    border-radius: 999px; /* 안내 모서리 */
+    bottom: 1.5rem; /* 화면 하단 간격 */
+    color: #ecfff9; /* 안내 글자색 */
+    font-size: 0.9rem; /* 안내 글자 크기 */
+    font-weight: 700; /* 안내 글자 굵기 */
+    left: 50%; /* 화면 가로 중앙 */
+    margin: 0; /* 기본 여백 제거 */
+    max-width: calc(100vw - 2rem); /* 작은 화면 안전 너비 */
+    padding: 0.75rem 1.1rem; /* 안내 안쪽 여백 */
+    pointer-events: none; /* 화면 조작 통과 */
+    position: fixed; /* 화면 하단 고정 */
+    text-align: center; /* 안내 가운데 정렬 */
+    transform: translate(-50%, 0); /* 가로 중앙 보정 */
+    z-index: 15000; /* 공통 화면 위 배치 */
+} /* 안내 끝 */
+
+.favorite-feedback[hidden] /* 숨긴 관심 안내 */
+{ /* 숨김 시작 */
+    display: none; /* 화면 제외 */
+} /* 숨김 끝 */
+
+@media (prefers-reduced-motion: reduce) /* 움직임 축소 환경 */
+{ /* 구간 시작 */
+    .hero-slide /* 히어로 개별 화면 */
+    { /* 규칙 시작 */
+        transition: none; /* 전환 애니메이션 해제 */
+    } /* 규칙 끝 */
+
+    .hero-carousel-progress-fill.is-running /* 자동 전환 게이지 막대 */
+    { /* 규칙 시작 */
+        animation: none; /* 진행 애니메이션 해제 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (max-width: 767px) /* 모바일 화면 */
+{ /* 구간 시작 */
+    .hero-carousel /* 모바일 히어로 전환 */
+    { /* 규칙 시작 */
+        padding-bottom: 6.5rem; /* 하단 제어 영역 여백 */
+    } /* 규칙 끝 */
+
+    .hero-slide /* 모바일 히어로 화면 */
+    { /* 규칙 시작 */
+        min-height: 430px; /* 모바일 화면 높이 */
+        padding: 0; /* 좌우 여백 해제 */
+    } /* 규칙 끝 */
+
+    .hero-carousel-control /* 모바일 전환 버튼 */
+    { /* 규칙 시작 */
+        bottom: 0; /* 하단 버튼 행 배치 */
+        height: 44px; /* 모바일 버튼 높이 */
+        min-height: 44px; /* 모바일 터치 높이 */
+        min-width: 44px; /* 모바일 터치 너비 */
+        top: auto; /* 세로 중앙 해제 */
+        transform: none; /* 위치 보정 해제 */
+        width: 44px; /* 모바일 버튼 너비 */
+    } /* 규칙 끝 */
+
+    .hero-carousel-previous /* 모바일 이전 버튼 */
+    { /* 규칙 시작 */
+        left: calc(50% - 78px); /* 가운데 왼쪽 배치 */
+    } /* 규칙 끝 */
+
+    .hero-carousel-next /* 모바일 다음 버튼 */
+    { /* 규칙 시작 */
+        right: calc(50% - 78px); /* 가운데 오른쪽 배치 */
+    } /* 규칙 끝 */
+
+    .hero-carousel-status /* 모바일 화면 위치 */
+    { /* 규칙 시작 */
+        bottom: 0.8rem; /* 버튼 사이 배치 */
+        margin: 0; /* 기본 여백 제거 */
+        position: absolute; /* 하단 고정 */
+    } /* 규칙 끝 */
+
+    .hero-carousel-timer /* 모바일 자동 전환 상태 */
+    { /* 규칙 시작 */
+        bottom: 3.5rem; /* 넘김 버튼 위 배치 */
+        margin: 0; /* 기본 여백 제거 */
+        position: absolute; /* 하단 고정 */
+        width: calc(100% - 2rem); /* 모바일 안전 너비 */
+    } /* 규칙 끝 */
+
+    .hero-actions /* 모바일 행동 영역 */
+    { /* 규칙 시작 */
+        align-items: stretch; /* 너비 확장 */
+        flex-direction: column; /* 세로 배치 */
+    } /* 규칙 끝 */
+
+    .hero-stats /* 모바일 현황 목록 */
+    { /* 규칙 시작 */
+        gap: 0.45rem; /* 좁은 간격 */
+    } /* 규칙 끝 */
+
+    .studio-grid /* 모바일 소개 카드 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr; /* 한 열 배치 */
+    } /* 규칙 끝 */
+
+    .status-board-heading /* 모바일 현황 제목 */
+    { /* 규칙 시작 */
+        align-items: flex-start; /* 왼쪽 정렬 */
+        flex-direction: column; /* 세로 배치 */
+    } /* 규칙 끝 */
+
+    .project-shelf-grid /* 모바일 보관함 목록 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr; /* 한 열 배치 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */

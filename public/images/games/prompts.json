@@ -1,0 +1,145 @@
+{
+  "tool": "built-in image_gen",
+  "images": [
+    {
+      "id": "a",
+      "file": "project-a.png",
+      "prompt": "Use case: stylized-concept. Create one wide cinematic game thumbnail illustration for a fantasy tactical RPG called Astroia, no text. A silver armored knight with luminous cyan sword overlooking floating citadels beneath a violet starry sky, dramatic polished indie game key art, readable at small size, landscape 16:9. No letters, logos, borders, UI. Save as project asset."
+    },
+    {
+      "id": "b",
+      "file": "project-b.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A friendly powerful robot adventuring with small mechanical companions through overgrown ancient ruins, emerald and amber, auto battler RPG. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "c",
+      "file": "project-c.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. Enchanted tarot cards floating around a hooded adventurer in a mysterious purple dungeon, card roguelike. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "d",
+      "file": "project-d.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A bastion with glowing defensive towers holding back shadow monsters in a green mountain valley, tower defense. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "e",
+      "file": "project-e.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A wizard summoning a magnificent dragon from collectible magical cards above an ornate duel table, blue violet. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "f",
+      "file": "project-f.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A futuristic armored speed runner wielding a plasma rifle in a neon industrial arena, hyper FPS. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "g",
+      "file": "project-g.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A mysterious open storybook releasing luminous paper birds inside an atmospheric midnight library. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "h",
+      "file": "project-h.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. Romantic fantasy RPG, two stylish fully clothed adult adventurers meeting in a rose garden under moonlight, tasteful anime key art. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "i",
+      "file": "project-i.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. Lone astronaut discovering bioluminescent alien caverns and an ancient portal. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "j",
+      "file": "project-j.png",
+      "prompt": "Single landscape 16:9 game thumbnail illustration. Tactical fantasy heroes on an isometric battlefield of floating stone hexagons. Polished cinematic game art. No text, logos or UI."
+    },
+    {
+      "id": "k",
+      "file": "project-k.png",
+      "prompt": "Single landscape 16:9 game thumbnail illustration. Battle royale competitors descending with gliders above a tropical island and glowing storm ring. Polished cinematic game art. No text, logos or UI."
+    },
+    {
+      "id": "l",
+      "file": "project-l.png",
+      "prompt": "Single landscape 16:9 game thumbnail illustration. Rhythm action heroine dancing through vivid cyan magenta music trails on a futuristic concert stage. Polished cinematic game art. No text, logos or UI."
+    },
+    {
+      "id": "m",
+      "file": "project-m.png",
+      "prompt": "Single landscape 16:9 game thumbnail illustration. Impossible geometric stairways and a glowing puzzle cube in a surreal temple. Polished cinematic game art. No text, logos or UI."
+    },
+    {
+      "id": "n",
+      "file": "project-n.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A cloaked survivor surrounded by hundreds of tiny shadow creatures with spiraling magical projectiles. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "o",
+      "file": "project-o.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A traveler overlooking a vast open world with rolling green hills waterfalls and distant mountains. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "p",
+      "file": "project-p.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. Colorful faceted gemstones arranged in a playful match three puzzle scene with magical sparkles. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "q",
+      "file": "project-q.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A small spaceship weaving through beautiful symmetrical bullet patterns and floating magical cards. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "r",
+      "file": "project-r.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A sleek racing car drifting around a rain soaked neon city circuit. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "s",
+      "file": "project-s.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A lone survivor's tent and campfire beside a pine forest lake under stars. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "t",
+      "file": "project-t.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. Playful miniature party game island with dice obstacle courses and cheerful toy characters. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "u",
+      "file": "project-u.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. An imaginative sandbox world with modular houses bridges and terrain being built, charming isometric art. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "v",
+      "file": "project-v.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A grand tactical duel board with enchanted cards and fantasy miniature armies. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "w",
+      "file": "project-w.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A cozy fantasy shop with a friendly shopkeeper potion bottles bread and a warm glowing window. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "x",
+      "file": "project-x.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. Noir supernatural detective investigating a deserted Korean city alley at midnight, flashlight and mysterious clues. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "y",
+      "file": "project-y.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A fantasy adventuring party approaching a colossal ancient tree and luminous crystal ruins. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "z",
+      "file": "project-z.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. An agile adventurer discovering a golden key in an ancient trap filled jungle temple. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "alpha",
+      "file": "project-alpha.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. An eerie abandoned mansion in blue fog with a subtle ghost in a window, atmospheric horror no gore. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    },
+    {
+      "id": "beta",
+      "file": "project-beta.png",
+      "prompt": "Use case: stylized-concept. Single landscape 16:9 game thumbnail, polished cinematic game concept illustration. A futuristic strategy command table with holographic miniature armies, mobile game key art. Strong readable focal point, rich lighting. No text, logos, UI, borders. Non-graphic."
+    }
+  ]
+}

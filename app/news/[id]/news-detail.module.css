@@ -1,0 +1,333 @@
+.shell /* 뉴스 상세 전체 영역 */
+{ /* 전체 영역 설정 시작 */
+    width: min(960px, 92%); /* 반응형 최대 너비 */
+    min-height: 100vh; /* 최소 화면 높이 */
+    margin: 0 auto; /* 가운데 배치 */
+    background: var(--pl-surface); /* 뉴스 상세 배경 */
+    box-shadow: 0 0 0 100vmax var(--pl-surface); /* 화면 전체 배경 확장 */
+    clip-path: inset(0 -100vmax); /* 확장 배경 영역 표시 */
+    color: var(--pl-ink); /* 기본 글자색 */
+} /* 전체 영역 설정 끝 */
+
+.navigation /* 상단 이동 메뉴 */
+{ /* 메뉴 설정 시작 */
+    min-height: 82px; /* 메뉴 높이 */
+    border-bottom: 1px solid var(--pl-border); /* 메뉴 구분선 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 24px; /* 메뉴 간격 */
+} /* 메뉴 설정 끝 */
+
+.brand /* 브랜드 링크 */
+{ /* 브랜드 설정 시작 */
+    color: var(--pl-violet); /* 브랜드 강조색 */
+    font-family: Consolas, monospace; /* 기술형 글꼴 */
+    font-weight: 800; /* 브랜드 굵기 */
+    letter-spacing: 0.18em; /* 브랜드 글자 간격 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+} /* 브랜드 설정 끝 */
+
+.backLink /* 복귀 링크 */
+{ /* 복귀 링크 설정 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+} /* 복귀 링크 설정 끝 */
+
+.article /* 뉴스 본문 */
+{ /* 본문 설정 시작 */
+    margin: clamp(32px, 6vw, 64px) 0 28px; /* 반응형 본문 여백 */
+    padding: clamp(32px, 7vw, 72px); /* 본문 안쪽 여백 */
+    border: 1px solid var(--pl-border-strong); /* 본문 경계선 */
+    border-radius: var(--pl-radius-large); /* 본문 모서리 */
+    background: var(--pl-canvas); /* 본문 배경 */
+    box-shadow: var(--pl-shadow-small); /* 본문 그림자 */
+} /* 본문 설정 끝 */
+
+.article h1 /* 뉴스 제목 */
+{ /* 제목 설정 시작 */
+    max-width: 850px; /* 제목 읽기 너비 */
+    margin: 18px 0; /* 제목 여백 */
+    font-size: clamp(2.3rem, 7vw, 4.8rem); /* 반응형 제목 크기 */
+    line-height: 1.12; /* 제목 줄 간격 */
+    letter-spacing: -0.055em; /* 제목 글자 간격 */
+} /* 제목 설정 끝 */
+
+.article time /* 공개 날짜 */
+{ /* 날짜 설정 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    font-family: Consolas, monospace; /* 날짜 글꼴 */
+} /* 날짜 설정 끝 */
+
+.tags /* 태그 목록 */
+{ /* 태그 설정 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 9px; /* 태그 간격 */
+} /* 태그 설정 끝 */
+
+.tags span /* 개별 태그 */
+{ /* 개별 태그 설정 시작 */
+    padding: 5px 10px; /* 태그 안쪽 여백 */
+    border: 1px solid var(--pl-border); /* 태그 경계선 */
+    border-radius: 999px; /* 둥근 태그 */
+    background: var(--pl-panel); /* 태그 배경 */
+    color: var(--pl-violet); /* 태그 글자색 */
+    font-size: 0.78rem; /* 태그 글자 크기 */
+} /* 개별 태그 설정 끝 */
+
+.cover /* 대표 이미지 */
+{ /* 이미지 설정 시작 */
+    width: 100%; /* 이미지 전체 너비 */
+    max-height: 560px; /* 이미지 최대 높이 */
+    margin: 46px 0; /* 이미지 바깥 여백 */
+    border: 1px solid var(--pl-border); /* 이미지 경계선 */
+    border-radius: var(--pl-radius-medium); /* 이미지 모서리 */
+    object-fit: cover; /* 이미지 영역 채우기 */
+} /* 이미지 설정 끝 */
+
+.content /* 뉴스 본문 내용 */
+{ /* 내용 설정 시작 */
+    max-width: 780px; /* 본문 읽기 너비 */
+    margin-top: 48px; /* 본문 위 여백 */
+    color: var(--pl-muted); /* 본문 글자색 */
+    font-size: 1.05rem; /* 본문 글자 크기 */
+    line-height: 1.9; /* 본문 줄 간격 */
+    white-space: pre-wrap; /* 입력 줄바꿈 유지 */
+    overflow-wrap: anywhere; /* 긴 문자열 줄바꿈 */
+} /* 내용 설정 끝 */
+
+.comments /* 댓글 전체 영역 */
+{ /* 댓글 영역 시작 */
+    margin-bottom: 80px; /* 아래 여백 */
+    padding: clamp(28px, 6vw, 56px); /* 댓글 안쪽 여백 */
+    border: 1px solid var(--pl-border-strong); /* 댓글 경계선 */
+    border-radius: var(--pl-radius-large); /* 댓글 모서리 */
+    background: var(--pl-canvas); /* 댓글 배경 */
+    box-shadow: var(--pl-shadow-small); /* 댓글 그림자 */
+} /* 댓글 영역 끝 */
+
+.commentsHeading /* 댓글 제목 묶음 */
+{ /* 제목 묶음 시작 */
+    display: flex; /* 가로 배치 */
+    align-items: end; /* 아래 기준 정렬 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 24px; /* 요소 간격 */
+} /* 제목 묶음 끝 */
+
+.commentsHeading h2 /* 댓글 제목 */
+{ /* 제목 시작 */
+    margin: 5px 0 0; /* 위쪽 여백 */
+    font-size: clamp(1.8rem, 4vw, 2.8rem); /* 반응형 제목 */
+} /* 제목 끝 */
+
+.commentsHeading > span, .commentEyebrow /* 댓글 보조 정보 */
+{ /* 보조 정보 시작 */
+    color: var(--pl-violet); /* 강조 글자색 */
+    font-family: Consolas, monospace; /* 기술형 글꼴 */
+} /* 보조 정보 끝 */
+
+.commentEyebrow /* 댓글 영문 분류 */
+{ /* 분류 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    font-size: 0.82rem; /* 분류 글자 크기 */
+} /* 분류 끝 */
+
+.demoNotice /* 시연 상태 안내 */
+{ /* 안내 시작 */
+    margin: 20px 0 26px; /* 바깥 여백 */
+    padding: 12px 14px; /* 안쪽 여백 */
+    border-left: 3px solid var(--pl-orange); /* 상태 강조선 */
+    background: color-mix(in srgb, var(--pl-orange) 12%, var(--pl-canvas)); /* 상태 배경 */
+    color: var(--pl-ink); /* 상태 글자색 */
+} /* 안내 끝 */
+
+.commentForm /* 댓글 입력 폼 */
+{ /* 폼 시작 */
+    padding: 24px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border); /* 폼 경계선 */
+    border-radius: var(--pl-radius-medium); /* 폼 모서리 */
+    background: var(--pl-panel); /* 폼 배경 */
+    display: grid; /* 세로 격자 */
+    gap: 12px; /* 요소 간격 */
+} /* 폼 끝 */
+
+.commentForm textarea /* 댓글 내용 입력 */
+{ /* 입력 시작 */
+    min-height: 120px; /* 입력 높이 */
+    padding: 14px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border); /* 입력 경계선 */
+    border-radius: var(--pl-radius-small); /* 입력 모서리 */
+    background: var(--pl-canvas); /* 입력 배경 */
+    color: var(--pl-ink); /* 입력 글자색 */
+    font: inherit; /* 본문 글꼴 */
+    resize: vertical; /* 세로 크기 조절 */
+} /* 입력 끝 */
+
+.cancelReply /* 답글 취소 버튼 */
+{ /* 취소 시작 */
+    width: fit-content; /* 내용 너비 */
+    border: 0; /* 테두리 제거 */
+    background: transparent; /* 투명 배경 */
+    color: var(--pl-danger); /* 취소 글자색 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 취소 끝 */
+
+.formActions /* 입력 작업 묶음 */
+{ /* 작업 시작 */
+    display: flex; /* 가로 배치 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 12px; /* 요소 간격 */
+} /* 작업 끝 */
+
+.imageButton, .submitButton, .loginPrompt /* 주요 선택 요소 */
+{ /* 선택 요소 시작 */
+    min-height: 42px; /* 선택 높이 */
+    padding: 9px 16px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-violet); /* 강조 경계선 */
+    border-radius: var(--pl-radius-small); /* 선택 모서리 */
+    color: var(--pl-violet); /* 강조 글자색 */
+    display: inline-flex; /* 글자 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 선택 요소 끝 */
+
+.submitButton /* 댓글 등록 버튼 */
+{ /* 등록 시작 */
+    background: var(--pl-violet); /* 강조 배경 */
+    color: var(--pl-canvas); /* 밝은 글자색 */
+    font: inherit; /* 본문 글꼴 */
+    font-weight: 800; /* 버튼 굵기 */
+} /* 등록 끝 */
+
+.hiddenInput /* 숨긴 파일 입력 */
+{ /* 숨김 시작 */
+    position: absolute; /* 화면 흐름 제외 */
+    width: 1px; /* 최소 너비 */
+    height: 1px; /* 최소 높이 */
+    overflow: hidden; /* 내용 숨김 */
+    clip: rect(0 0 0 0); /* 화면 숨김 */
+} /* 숨김 끝 */
+
+.imagePreview, .commentImage /* 댓글 이미지 */
+{ /* 이미지 시작 */
+    width: min(320px, 100%); /* 반응형 너비 */
+    max-height: 260px; /* 최대 높이 */
+    border: 1px solid var(--pl-border); /* 이미지 경계선 */
+    border-radius: var(--pl-radius-small); /* 이미지 모서리 */
+    object-fit: cover; /* 영역 채우기 */
+} /* 이미지 끝 */
+
+.loginPrompt /* 로그인 안내 링크 */
+{ /* 링크 시작 */
+    width: fit-content; /* 내용 너비 */
+    margin: 24px 0; /* 바깥 여백 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 링크 끝 */
+
+.commentMessage /* 댓글 입력 안내 */
+{ /* 안내 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 안내 끝 */
+
+.commentList, .commentThread /* 댓글 목록 묶음 */
+{ /* 목록 시작 */
+    display: grid; /* 세로 격자 */
+    gap: 14px; /* 항목 간격 */
+} /* 목록 끝 */
+
+.commentList /* 전체 댓글 목록 */
+{ /* 전체 목록 시작 */
+    margin-top: 30px; /* 위쪽 여백 */
+    gap: 22px; /* 댓글 묶음 간격 */
+} /* 전체 목록 끝 */
+
+.commentCard /* 댓글 카드 */
+{ /* 카드 시작 */
+    padding: 22px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border); /* 카드 경계선 */
+    border-radius: var(--pl-radius-medium); /* 카드 모서리 */
+    background: var(--pl-canvas); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
+} /* 카드 끝 */
+
+.replyCard /* 답글 카드 */
+{ /* 답글 시작 */
+    margin-left: 42px; /* 답글 들여쓰기 */
+    border-left: 3px solid var(--pl-violet); /* 답글 강조선 */
+} /* 답글 끝 */
+
+.commentHeader /* 댓글 작성 정보 */
+{ /* 작성 정보 시작 */
+    display: flex; /* 가로 배치 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 18px; /* 요소 간격 */
+} /* 작성 정보 끝 */
+
+.commentHeader time /* 댓글 작성 시각 */
+{ /* 시각 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    font-size: 0.78rem; /* 시각 글자 크기 */
+} /* 시각 끝 */
+
+.commentContent /* 댓글 내용 */
+{ /* 내용 시작 */
+    margin: 14px 0; /* 바깥 여백 */
+    color: var(--pl-muted); /* 내용 글자색 */
+    white-space: pre-wrap; /* 줄바꿈 유지 */
+    overflow-wrap: anywhere; /* 긴 글자 줄바꿈 */
+} /* 내용 끝 */
+
+.commentActions /* 댓글 작업 묶음 */
+{ /* 작업 시작 */
+    margin-top: 16px; /* 위쪽 여백 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 8px; /* 버튼 간격 */
+} /* 작업 끝 */
+
+.commentActions button /* 댓글 작업 버튼 */
+{ /* 버튼 시작 */
+    padding: 6px 10px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border); /* 버튼 경계선 */
+    border-radius: 999px; /* 둥근 버튼 */
+    background: transparent; /* 투명 배경 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 버튼 끝 */
+
+.commentActions button[aria-pressed="true"] /* 선택 반응 버튼 */
+{ /* 선택 시작 */
+    border-color: var(--pl-violet); /* 강조 경계선 */
+    color: var(--pl-violet); /* 강조 글자색 */
+} /* 선택 끝 */
+
+.reportSelect /* 신고 사유 선택 */
+{ /* 선택 시작 */
+    margin-top: 10px; /* 위쪽 여백 */
+    padding: 6px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border); /* 선택 경계선 */
+    background: var(--pl-canvas); /* 선택 배경 */
+    color: var(--pl-muted); /* 선택 글자색 */
+} /* 선택 끝 */
+
+@media (max-width: 620px) /* 모바일 화면 */
+{ /* 모바일 설정 시작 */
+    .navigation /* 모바일 상단 메뉴 */
+    { /* 메뉴 설정 시작 */
+        align-items: flex-start; /* 왼쪽 기준 정렬 */
+        flex-direction: column; /* 세로 배치 */
+        justify-content: center; /* 세로 가운데 정렬 */
+        padding: 20px 0; /* 메뉴 여백 */
+    } /* 메뉴 설정 끝 */
+    .replyCard /* 모바일 답글 카드 */
+    { /* 답글 설정 시작 */
+        margin-left: 16px; /* 들여쓰기 축소 */
+    } /* 답글 설정 끝 */
+    .commentHeader, .formActions /* 모바일 가로 묶음 */
+    { /* 묶음 설정 시작 */
+        align-items: flex-start; /* 왼쪽 기준 정렬 */
+        flex-direction: column; /* 세로 배치 */
+    } /* 묶음 설정 끝 */
+} /* 모바일 설정 끝 */

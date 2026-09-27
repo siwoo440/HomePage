@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><!-- 빈 결과 벡터 시작 -->
+    <path d="M12 24h40v27a5 5 0 0 1-5 5H17a5 5 0 0 1-5-5z" fill="#FFF4E8" stroke="#F28B42" stroke-width="4" stroke-linejoin="round"/><!-- 빈 자료 상자 -->
+    <path d="M12 24l8-14h24l8 14M24 35h16" stroke="#6F5CFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><!-- 상자 덮개와 빈 표시 -->
+    <circle cx="48" cy="14" r="4" fill="#6FE6CF"/><!-- 상태 강조점 -->
+</svg><!-- 빈 결과 벡터 끝 -->

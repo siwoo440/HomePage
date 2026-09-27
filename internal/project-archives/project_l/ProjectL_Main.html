@@ -1,0 +1,168 @@
+<!DOCTYPE html> <!-- HTML5 문서 형식을 사용한다고 브라우저에 알려준다. -->
+<html lang="ko"> <!-- 문서의 기본 언어를 한국어로 설정한다. -->
+<head> <!-- 문서의 정보 영역을 시작한다. -->
+    <meta charset="UTF-8"> <!-- 한글이 깨지지 않도록 문자 인코딩을 설정한다. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 화면에서도 화면 크기에 맞게 보이도록 설정한다. -->
+    <title>Project L — DEVFORGE</title> <!-- 브라우저 탭에 표시될 제목을 설정한다. -->
+    <link rel="stylesheet" href="ProjectL_Style.css"> <!-- Project L 전용 CSS 파일을 연결한다. -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+</head> <!-- 문서의 정보 영역을 끝낸다. -->
+<body> <!-- 실제 화면에 보이는 영역을 시작한다. -->
+    <div class="page-background" aria-hidden="true"></div> <!-- 배경 장식 레이어를 만든다. -->
+    <header class="top-header" data-responsive-nav-root> <!-- 상단 고정 헤더를 만든다. -->
+        <a class="brand-logo" href="../main.html">DEVFORGE</a> <!-- 메인 사이트로 돌아가는 로고 링크를 만든다. -->
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="메뉴 열기">MENU</button> <!-- 모바일 메뉴 버튼을 만든다. -->
+        <nav class="top-nav" id="topNav" aria-label="Project L 메뉴"> <!-- 페이지 내부 이동 메뉴를 만든다. -->
+            <a href="#overview">개요</a> <!-- 개요 영역으로 이동하는 링크를 만든다. -->
+            <a href="#features">특징</a> <!-- 특징 영역으로 이동하는 링크를 만든다. -->
+            <a href="#combat">전투</a> <!-- 전투 영역으로 이동하는 링크를 만든다. -->
+            <a href="#characters">캐릭터</a> <!-- 캐릭터 영역으로 이동하는 링크를 만든다. -->
+            <a href="#modes">모드</a> <!-- 모드 영역으로 이동하는 링크를 만든다. -->
+            <a href="#archive">아카이브</a> <!-- 아카이브 영역으로 이동하는 링크를 만든다. -->
+        </nav> <!-- 페이지 내부 이동 메뉴를 끝낸다. -->
+    </header> <!-- 상단 고정 헤더를 끝낸다. -->
+    <main> <!-- 페이지의 주요 내용을 시작한다. -->
+        <section class="hero-section" id="overview"> <!-- 첫 화면 소개 영역을 만든다. -->
+            <div class="hero-copy reveal-item"> <!-- 첫 화면 텍스트 묶음을 만든다. -->
+                <p class="section-kicker">Project L · Rhythm Action RPG</p> <!-- 장르와 프로젝트명을 표시한다. -->
+                <h1>음악 한 곡이<br>하나의 전투가 된다</h1> <!-- 페이지의 핵심 문구를 표시한다. -->
+                <p class="hero-desc">리듬 입력의 타이밍과 정확도가 공격, 회피, 스킬 발동을 직접 결정하는 리듬 액션 RPG입니다. 노트 성공은 곧 전투 판정이 되고, 콤보와 피버는 전투의 흐름을 폭발시킵니다.</p> <!-- 게임 설명을 표시한다. -->
+                <div class="hero-buttons"> <!-- 첫 화면 버튼 묶음을 만든다. -->
+                    <a class="primary-button" href="#combat">전투 시스템 보기</a> <!-- 전투 영역으로 이동하는 버튼을 만든다. -->
+                    <a class="ghost-button" href="#characters">캐릭터 보기</a> <!-- 캐릭터 영역으로 이동하는 버튼을 만든다. -->
+                </div> <!-- 첫 화면 버튼 묶음을 끝낸다. -->
+            </div> <!-- 첫 화면 텍스트 묶음을 끝낸다. -->
+            <div class="hero-visual reveal-item"> <!-- 첫 화면 비주얼 패널을 만든다. -->
+                <div class="rhythm-lane"> <!-- 리듬 노트 레인 장식을 만든다. -->
+                    <span></span> <!-- 첫 번째 노트를 만든다. -->
+                    <span></span> <!-- 두 번째 노트를 만든다. -->
+                    <span></span> <!-- 세 번째 노트를 만든다. -->
+                    <span></span> <!-- 네 번째 노트를 만든다. -->
+                </div> <!-- 리듬 노트 레인 장식을 끝낸다. -->
+                <div class="boss-card"> <!-- 보스 전투 카드 장식을 만든다. -->
+                    <p>BOSS PHASE</p> <!-- 보스 페이즈 라벨을 표시한다. -->
+                    <h2>NOISE</h2> <!-- 적 세력 이름을 표시한다. -->
+                    <div class="hp-bar"><span></span></div> <!-- 보스 체력바 장식을 만든다. -->
+                </div> <!-- 보스 전투 카드 장식을 끝낸다. -->
+                <div class="perfect-card">PERFECT x 128</div> <!-- 판정 카드 장식을 만든다. -->
+            </div> <!-- 첫 화면 비주얼 패널을 끝낸다. -->
+        </section> <!-- 첫 화면 소개 영역을 끝낸다. -->
+        <section class="section-block" id="features"> <!-- 핵심 특징 영역을 만든다. -->
+            <div class="section-heading reveal-item"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="section-kicker">Core Selling Point</p> <!-- 작은 섹션 라벨을 표시한다. -->
+                <h2>리듬과 액션 RPG의 결합</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>Project L은 단순 점수 경쟁보다, 리듬 판정이 전투 결과와 캐릭터 성장으로 이어지는 구조를 강조합니다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="feature-grid"> <!-- 특징 카드 그리드를 만든다. -->
+                <article class="feature-card reveal-item"> <!-- 첫 번째 특징 카드를 만든다. -->
+                    <span>01</span> <!-- 카드 번호를 표시한다. -->
+                    <h3>음악 트랙 = 전투 스테이지</h3> <!-- 카드 제목을 표시한다. -->
+                    <p>인트로, 드롭, 아웃트로의 곡 구조가 보스 패턴과 연결됩니다.</p> <!-- 카드 설명을 표시한다. -->
+                </article> <!-- 첫 번째 특징 카드를 끝낸다. -->
+                <article class="feature-card reveal-item"> <!-- 두 번째 특징 카드를 만든다. -->
+                    <span>02</span> <!-- 카드 번호를 표시한다. -->
+                    <h3>노트 성공 = 전투 판정</h3> <!-- 카드 제목을 표시한다. -->
+                    <p>Tap, Hold, Flick, Slide, Drag 입력이 공격, 방어, 회피, 스킬로 이어집니다.</p> <!-- 카드 설명을 표시한다. -->
+                </article> <!-- 두 번째 특징 카드를 끝낸다. -->
+                <article class="feature-card reveal-item"> <!-- 세 번째 특징 카드를 만든다. -->
+                    <span>03</span> <!-- 카드 번호를 표시한다. -->
+                    <h3>콤보와 피버 연출</h3> <!-- 카드 제목을 표시한다. -->
+                    <p>연속 입력 성공은 점수 배율, 공격력 보너스, 피버 타임으로 확장됩니다.</p> <!-- 카드 설명을 표시한다. -->
+                </article> <!-- 세 번째 특징 카드를 끝낸다. -->
+                <article class="feature-card reveal-item"> <!-- 네 번째 특징 카드를 만든다. -->
+                    <span>04</span> <!-- 카드 번호를 표시한다. -->
+                    <h3>성장형 리듬 RPG</h3> <!-- 카드 제목을 표시한다. -->
+                    <p>캐릭터 레벨, 장비 강화, 스킬 트리, 곡 해금으로 장기 플레이를 만듭니다.</p> <!-- 카드 설명을 표시한다. -->
+                </article> <!-- 네 번째 특징 카드를 끝낸다. -->
+            </div> <!-- 특징 카드 그리드를 끝낸다. -->
+        </section> <!-- 핵심 특징 영역을 끝낸다. -->
+        <section class="section-block combat-section" id="combat"> <!-- 전투 시스템 영역을 만든다. -->
+            <div class="section-heading reveal-item"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="section-kicker">Combat Flow</p> <!-- 작은 섹션 라벨을 표시한다. -->
+                <h2>입력 하나가 전투 행동이 된다</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>전투 입력 설명을 한 장씩 넘겨 보며 확인할 수 있습니다. 좌우 화살표를 누르면 다음 입력 방식과 대응 튜토리얼 이미지가 함께 표시됩니다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="combat-layout"> <!-- 전투 튜토리얼 슬라이드를 배치하는 영역을 만든다. -->
+                <div class="combat-carousel reveal-item"> <!-- 전투 튜토리얼 캐러셀을 만든다. -->
+                    <button class="combat-arrow-button" id="combatPrev" type="button" aria-label="이전 입력">‹</button> <!-- 이전 입력으로 이동하는 버튼을 만든다. -->
+                    <article class="combat-slide-card" id="combatSlideCard"> <!-- 현재 입력 정보를 보여주는 카드 영역을 만든다. -->
+                        <div class="combat-slide-top"> <!-- 카드 상단 정보를 배치하는 영역을 만든다. -->
+                            <span class="combat-step" id="combatStep">1 / 5</span> <!-- 현재 페이지 번호를 표시할 영역을 만든다. -->
+                            <span class="combat-type" id="combatType">입력 타입 : 탭</span> <!-- 현재 입력 타입을 표시할 영역을 만든다. -->
+                        </div> <!-- 카드 상단 정보 영역을 끝낸다. -->
+                        <div class="combat-image-box"> <!-- 튜토리얼 이미지를 보여줄 영역을 만든다. -->
+                            <img id="combatImage" src="" alt="전투 입력 튜토리얼 이미지"> <!-- 현재 입력의 튜토리얼 이미지를 표시한다. -->
+                        </div> <!-- 튜토리얼 이미지 영역을 끝낸다. -->
+                        <div class="combat-copy-box"> <!-- 텍스트 설명 영역을 만든다. -->
+                            <span class="input-key" id="combatKey">Tap</span> <!-- 입력 키 라벨을 표시할 영역을 만든다. -->
+                            <h3 id="combatTitle">기본 공격</h3> <!-- 입력 제목을 표시할 영역을 만든다. -->
+                            <p class="combat-guide-text" id="combatGuide">해당 키 단타 입력</p> <!-- 입력 조작 요약을 표시할 영역을 만든다. -->
+                            <p class="combat-desc-text" id="combatDesc">노트가 판정선에 닿는 순간 한 번 눌러 기본 공격을 발동합니다.</p> <!-- 입력 상세 설명을 표시할 영역을 만든다. -->
+                        </div> <!-- 텍스트 설명 영역을 끝낸다. -->
+                    </article> <!-- 현재 입력 정보를 보여주는 카드 영역을 끝낸다. -->
+                    <button class="combat-arrow-button" id="combatNext" type="button" aria-label="다음 입력">›</button> <!-- 다음 입력으로 이동하는 버튼을 만든다. -->
+                </div> <!-- 전투 튜토리얼 캐러셀을 끝낸다. -->
+                <div class="combat-dots reveal-item" id="combatDots"></div> <!-- 현재 페이지 위치를 표시하는 점 목록을 만든다. -->
+            </div> <!-- 전투 튜토리얼 슬라이드 배치 영역을 끝낸다. -->
+        </section> <!-- 전투 시스템 영역을 끝낸다. -->
+        <section class="section-block" id="characters"> <!-- 캐릭터 영역을 만든다. -->
+            <div class="section-heading reveal-item"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="section-kicker">Playable Characters</p> <!-- 작은 섹션 라벨을 표시한다. -->
+                <h2>역할이 다른 4종 캐릭터</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>출시 버전 기준 4종 캐릭터가 제공되며, 리듬 입력 방식은 같지만 전투 연계 효과와 성장 방향이 달라집니다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="character-showcase reveal-item"> <!-- 캐릭터 소개 슬라이드 전체 영역을 만든다. -->
+                <button class="character-arrow character-arrow-left" id="characterPrev" type="button" aria-label="이전 캐릭터">‹</button> <!-- 이전 캐릭터로 이동하는 버튼을 만든다. -->
+                <div class="character-visual-panel"> <!-- 캐릭터 일러스트와 장식을 배치하는 영역을 만든다. -->
+                    <div class="character-symbol" id="characterSymbol"></div> <!-- 캐릭터 상징 문양을 표시할 영역을 만든다. -->
+                    <div class="character-portrait" id="characterPortrait"></div> <!-- 캐릭터 일러스트 대체 비주얼을 표시할 영역을 만든다. -->
+                </div> <!-- 캐릭터 일러스트 영역을 끝낸다. -->
+                <div class="character-info-panel"> <!-- 캐릭터 설명 정보를 배치하는 영역을 만든다. -->
+                    <div class="character-thumbnails" id="characterThumbnails"></div> <!-- 캐릭터 썸네일 버튼을 넣을 영역을 만든다. -->
+                    <p class="character-code" id="characterCode"></p> <!-- 캐릭터 영문 코드명을 표시할 영역을 만든다. -->
+                    <h3 id="characterName"></h3> <!-- 캐릭터 이름을 표시할 영역을 만든다. -->
+                    <p class="character-role-line" id="characterRole"></p> <!-- 캐릭터 역할을 표시할 영역을 만든다. -->
+                    <blockquote id="characterQuote"></blockquote> <!-- 캐릭터 대사를 표시할 영역을 만든다. -->
+                    <p class="character-desc-text" id="characterDesc"></p> <!-- 캐릭터 설명을 표시할 영역을 만든다. -->
+                    <div class="character-stat-panel" id="characterStats"></div> <!-- 캐릭터 능력치를 표시할 영역을 만든다. -->
+                </div> <!-- 캐릭터 설명 영역을 끝낸다. -->
+                <button class="character-arrow character-arrow-right" id="characterNext" type="button" aria-label="다음 캐릭터">›</button> <!-- 다음 캐릭터로 이동하는 버튼을 만든다. -->
+            </div> <!-- 캐릭터 소개 슬라이드 전체 영역을 끝낸다. -->
+        </section> <!-- 캐릭터 영역을 끝낸다. -->
+        <section class="section-block mode-section" id="modes"> <!-- 모드 영역을 만든다. -->
+            <div class="section-heading reveal-item"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="section-kicker">Game Modes</p> <!-- 작은 섹션 라벨을 표시한다. -->
+                <h2>스토리, 배틀, 협동, 시즌</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>리듬 게임의 접근성을 유지하면서 RPG 성장과 멀티플레이 경쟁 요소를 더한 구조입니다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="mode-tabs reveal-item"> <!-- 모드 탭 버튼 묶음을 만든다. -->
+                <button class="mode-tab active" type="button" data-mode="story">스토리</button> <!-- 스토리 모드 버튼을 만든다. -->
+                <button class="mode-tab" type="button" data-mode="battle">1vs1 배틀</button> <!-- 배틀 모드 버튼을 만든다. -->
+                <button class="mode-tab" type="button" data-mode="coop">협동</button> <!-- 협동 모드 버튼을 만든다. -->
+                <button class="mode-tab" type="button" data-mode="season">시즌 이벤트</button> <!-- 시즌 모드 버튼을 만든다. -->
+            </div> <!-- 모드 탭 버튼 묶음을 끝낸다. -->
+            <article class="mode-detail reveal-item" id="modeDetail"></article> <!-- 선택된 모드 설명을 표시할 영역을 만든다. -->
+        </section> <!-- 모드 영역을 끝낸다. -->
+        <section class="section-block archive-section" id="archive"> <!-- 아카이브 영역을 만든다. -->
+            <div class="section-heading reveal-item"> <!-- 섹션 제목 묶음을 만든다. -->
+                <p class="section-kicker">World Archive</p> <!-- 작은 섹션 라벨을 표시한다. -->
+                <h2>리소넌트와 노이즈의 세계</h2> <!-- 섹션 제목을 표시한다. -->
+                <p>현대와 판타지가 섞인 근미래 세계에서, 음악을 왜곡하는 노이즈와 이를 정화하는 리소넌트의 대립을 소개합니다.</p> <!-- 섹션 설명을 표시한다. -->
+            </div> <!-- 섹션 제목 묶음을 끝낸다. -->
+            <div class="archive-tools reveal-item"> <!-- 아카이브 도구 영역을 만든다. -->
+                <div class="filter-group" id="filterGroup"></div> <!-- 자바스크립트로 필터 버튼을 넣을 영역을 만든다. -->
+                <label class="search-box" for="archiveSearch">검색 <input id="archiveSearch" type="search" placeholder="리소넌트, 노이즈, 스킬 검색"></label> <!-- 검색 입력 영역을 만든다. -->
+            </div> <!-- 아카이브 도구 영역을 끝낸다. -->
+            <p class="result-count" id="archiveCount">0개의 항목</p> <!-- 검색 결과 개수를 표시한다. -->
+            <div class="archive-grid" id="archiveGrid"></div> <!-- 자바스크립트로 아카이브 카드를 넣을 영역을 만든다. -->
+        </section> <!-- 아카이브 영역을 끝낸다. -->
+    </main> <!-- 페이지의 주요 내용을 끝낸다. -->
+    <footer class="site-footer"> <!-- 하단 푸터 영역을 만든다. -->
+        <p>Project L · Rhythm Action RPG · DEVFORGE</p> <!-- 푸터 문구를 표시한다. -->
+    </footer> <!-- 하단 푸터 영역을 끝낸다. -->
+    <script src="ProjectL_Script.js"></script> <!-- Project L 전용 자바스크립트 파일을 연결한다. -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 실제 화면에 보이는 영역을 끝낸다. -->
+</html> <!-- HTML 문서를 끝낸다. -->

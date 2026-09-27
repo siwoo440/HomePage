@@ -1,0 +1,777 @@
+[data-theme="playful-lab"] /* 공통 테마 범위 */
+{ /* 토큰 시작 */
+    --pl-canvas: #FFFFFF; /* 기본 배경 */
+    --pl-surface: #F7FBFF; /* 보조 배경 */
+    --pl-panel: #EEF3F8; /* 카드 배경 */
+    --pl-ink: #172A49; /* 주요 글자 */
+    --pl-muted: #53677E; /* 보조 글자 */
+    --pl-border: #DCE7F0; /* 공통 경계선 */
+    --pl-border-strong: #AEBFD0; /* 주요 영역 경계선 */
+    --pl-mint: #43D7C3; /* 미술 강조 */
+    --pl-violet: #7768F8; /* 게임 강조 */
+    --pl-orange: #FF9256; /* 기계 강조 */
+    --pl-danger: #D94B64; /* 오류 강조 */
+    --pl-success: #218A76; /* 성공 강조 */
+    --pl-link: #5746D9; /* 밝은 링크 글자 */
+    --pl-on-accent: #172A49; /* 강조 배경 글자 */
+    --pl-radius-small: 0.75rem; /* 작은 모서리 */
+    --pl-radius-medium: 1.25rem; /* 중간 모서리 */
+    --pl-radius-large: 2rem; /* 큰 모서리 */
+    --pl-shadow-small: 0 0.5rem 1.5rem rgba(23, 42, 73, 0.1); /* 작은 그림자 */
+    --pl-shadow-medium: 0 1.25rem 3.5rem rgba(23, 42, 73, 0.12); /* 중간 그림자 */
+    --pl-focus: 0 0 0 0.2rem rgba(119, 104, 248, 0.32); /* 초점 그림자 */
+    --pl-focus-ring: 0.18rem solid var(--pl-violet); /* 초점 외곽선 */
+    --pl-duration: 220ms; /* 기본 전환 시간 */
+    background: var(--pl-canvas); /* 기본 화면 배경 */
+    color: var(--pl-ink); /* 기본 글자색 */
+    color-scheme: light; /* 밝은 화면 체계 */
+} /* 토큰 끝 */
+
+[data-theme="playful-lab"][data-color-mode="dark"] /* 다크 테마 범위 */
+{ /* 다크 토큰 시작 */
+    --pl-canvas: #0B1220; /* 다크 기본 배경 */
+    --pl-surface: #101A2C; /* 다크 보조 배경 */
+    --pl-panel: #17243A; /* 다크 카드 배경 */
+    --pl-ink: #F4F7FB; /* 다크 주요 글자 */
+    --pl-muted: #A9B7C9; /* 다크 보조 글자 */
+    --pl-border: #2A3A52; /* 다크 공통 경계선 */
+    --pl-border-strong: #526985; /* 다크 주요 영역 경계선 */
+    --pl-mint: #69E3D2; /* 다크 민트 강조 */
+    --pl-violet: #9B8CFF; /* 다크 바이올렛 강조 */
+    --pl-orange: #FFAA78; /* 다크 오렌지 강조 */
+    --pl-danger: #FF8295; /* 다크 오류 강조 */
+    --pl-success: #5DD6BE; /* 다크 성공 강조 */
+    --pl-link: #B5AAFF; /* 다크 링크 글자 */
+    --pl-shadow-small: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.28); /* 다크 작은 그림자 */
+    --pl-shadow-medium: 0 1.25rem 3.5rem rgba(0, 0, 0, 0.34); /* 다크 중간 그림자 */
+    color-scheme: dark; /* 다크 화면 체계 */
+} /* 다크 토큰 끝 */
+
+[data-theme="playful-lab"] :focus-visible /* 키보드 초점 */
+{ /* 초점 시작 */
+    outline: 0.18rem solid var(--pl-violet); /* 초점 외곽선 */
+    outline-offset: 0.2rem; /* 초점 간격 */
+} /* 초점 끝 */
+
+[data-theme="playful-lab"] .navbar /* 공통 상단 메뉴 */
+{ /* 메뉴 시작 */
+    border-bottom: 0.0625rem solid var(--pl-border); /* 하단 경계선 */
+    background: color-mix(in srgb, var(--pl-canvas) 92%, transparent); /* 토큰 반투명 배경 */
+    box-shadow: var(--pl-shadow-small); /* 낮은 그림자 */
+    color: var(--pl-ink); /* 메뉴 글자색 */
+} /* 메뉴 끝 */
+
+[data-theme="playful-lab"] .nav-logo /* 브랜드 링크 */
+{ /* 브랜드 시작 */
+    color: var(--pl-ink); /* 브랜드 글자색 */
+    text-shadow: 0.12rem 0.12rem 0 var(--pl-mint); /* 미술형 강조 */
+} /* 브랜드 끝 */
+
+[data-theme="playful-lab"] :is(.btn-nav, .hero-action, .filter-btn, .dialog-link) /* 공통 행동 요소 */
+{ /* 행동 시작 */
+    border: 0.0625rem solid var(--pl-violet); /* 행동 경계선 */
+    border-radius: 999rem; /* 캡슐 모서리 */
+    background: var(--pl-canvas); /* 행동 배경 */
+    color: var(--pl-ink); /* 행동 글자색 */
+    transition: background var(--pl-duration), color var(--pl-duration), transform var(--pl-duration); /* 행동 전환 */
+} /* 행동 끝 */
+
+[data-theme="playful-lab"] :is(input, textarea, select) /* 공통 입력 요소 */
+{ /* 입력 시작 */
+    border: 0.0625rem solid var(--pl-border); /* 입력 경계선 */
+    border-radius: var(--pl-radius-small); /* 입력 모서리 */
+    background: var(--pl-canvas); /* 입력 배경 */
+    color: var(--pl-ink); /* 입력 글자색 */
+    color-scheme: light; /* 밝은 입력 체계 */
+} /* 입력 끝 */
+
+[data-theme="playful-lab"][data-color-mode="dark"] :is(input, textarea, select) /* 다크 입력 요소 */
+{ /* 다크 입력 시작 */
+    color-scheme: dark; /* 다크 입력 체계 */
+} /* 다크 입력 끝 */
+
+[data-theme="playful-lab"] :is(.goods-card, .community-card, .news-row) /* 공통 카드 */
+{ /* 카드 시작 */
+    border-color: var(--pl-border-strong); /* 카드 경계선 */
+    border-radius: var(--pl-radius-medium); /* 카드 모서리 */
+    background: var(--pl-canvas); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
+    color: var(--pl-ink); /* 카드 글자색 */
+} /* 카드 끝 */
+
+[data-theme="playful-lab"] :is(.contact-dialog, .modal-box) /* 공통 대화상자 */
+{ /* 대화상자 시작 */
+    border: 0.0625rem solid var(--pl-border-strong); /* 대화상자 경계선 */
+    border-radius: var(--pl-radius-large); /* 대화상자 모서리 */
+    background: var(--pl-canvas); /* 대화상자 배경 */
+    box-shadow: var(--pl-shadow-medium); /* 대화상자 그림자 */
+    color: var(--pl-ink); /* 대화상자 글자색 */
+} /* 대화상자 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] /* 메인 화면 */
+{ /* 메인 시작 */
+    background: var(--pl-canvas); /* 메인 배경 */
+    color: var(--pl-ink); /* 메인 글자색 */
+} /* 메인 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] #particles-canvas /* 메인 입자 캔버스 */
+{ /* 캔버스 시작 */
+    opacity: 0.28; /* 입자 투명도 */
+} /* 캔버스 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .hero /* 메인 히어로 */
+{ /* 히어로 시작 */
+    background: radial-gradient(circle at 18% 18%, rgba(67, 215, 195, 0.2), transparent 26%), radial-gradient(circle at 82% 24%, rgba(119, 104, 248, 0.16), transparent 24%), linear-gradient(145deg, var(--pl-canvas), var(--pl-surface)); /* 예술형 밝은 배경 */
+    color: var(--pl-ink); /* 히어로 글자색 */
+} /* 히어로 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .hero-bg /* 히어로 장식 배경 */
+{ /* 장식 시작 */
+    background: radial-gradient(circle at 50% 35%, rgba(255, 146, 86, 0.12), transparent 42%); /* 기계형 오렌지 광원 */
+} /* 장식 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .hero-grid /* 히어로 격자 */
+{ /* 격자 시작 */
+    background-image: linear-gradient(rgba(23, 42, 73, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(23, 42, 73, 0.045) 1px, transparent 1px); /* 정밀 격자 */
+} /* 격자 끝 */
+
+[data-theme="playful-lab"] .hero-title .line1 /* 히어로 첫 제목 */
+{ /* 첫 제목 시작 */
+    color: var(--pl-ink); /* 첫 제목 색상 */
+    text-shadow: 0.16rem 0.16rem 0 rgba(67, 215, 195, 0.34); /* 민트 입체감 */
+} /* 첫 제목 끝 */
+
+[data-theme="playful-lab"] .hero-title .line2 /* 히어로 둘째 제목 */
+{ /* 둘째 제목 시작 */
+    background: linear-gradient(90deg, var(--pl-violet), var(--pl-mint)); /* 게임형 제목 그라디언트 */
+    background-clip: text; /* 글자 배경 제한 */
+    color: transparent; /* 그라디언트 글자 */
+    -webkit-background-clip: text; /* 웹킷 글자 배경 */
+    -webkit-text-fill-color: transparent; /* 웹킷 투명 글자 */
+} /* 둘째 제목 끝 */
+
+[data-theme="playful-lab"] .hero-subtitle /* 히어로 설명 */
+{ /* 설명 시작 */
+    color: var(--pl-muted); /* 설명 글자색 */
+} /* 설명 끝 */
+
+[data-theme="playful-lab"] .hero-action.primary /* 히어로 주요 행동 */
+{ /* 주요 행동 시작 */
+    border-color: var(--pl-violet); /* 주요 경계선 */
+    background: linear-gradient(135deg, var(--pl-mint), var(--pl-violet)); /* 주요 그라디언트 */
+    color: var(--pl-on-accent); /* 주요 글자색 */
+    box-shadow: 0 0.75rem 2rem rgba(119, 104, 248, 0.24); /* 주요 그림자 */
+} /* 주요 행동 끝 */
+
+[data-theme="playful-lab"] .hero-stat /* 히어로 현황 카드 */
+{ /* 현황 시작 */
+    border-color: var(--pl-border); /* 현황 경계선 */
+    background: color-mix(in srgb, var(--pl-canvas) 88%, transparent); /* 현황 배경 */
+    box-shadow: var(--pl-shadow-small); /* 현황 그림자 */
+    color: var(--pl-ink); /* 현황 글자색 */
+} /* 현황 끝 */
+
+[data-theme="playful-lab"] .hero-stat strong /* 히어로 현황 수치 */
+{ /* 수치 시작 */
+    color: var(--pl-violet); /* 수치 색상 */
+} /* 수치 끝 */
+
+[data-theme="playful-lab"] .hero-stat span /* 히어로 현황 이름 */
+{ /* 이름 시작 */
+    color: var(--pl-muted); /* 이름 색상 */
+} /* 이름 끝 */
+
+[data-theme="playful-lab"] .hero-carousel-progress-track /* 캐러셀 진행 바탕 */
+{ /* 진행 바탕 시작 */
+    border: 0.0625rem solid rgba(23, 42, 73, 0.08); /* 진행 경계선 */
+    background: var(--pl-border); /* 남은 시간 배경 */
+} /* 진행 바탕 끝 */
+
+[data-theme="playful-lab"] .hero-carousel-progress-fill /* 캐러셀 진행 표시 */
+{ /* 진행 표시 시작 */
+    background: linear-gradient(90deg, var(--pl-mint), var(--pl-violet), var(--pl-orange)); /* 시간 진행 색상 */
+} /* 진행 표시 끝 */
+
+[data-theme="playful-lab"] .hero-carousel-control /* 캐러셀 방향 버튼 */
+{ /* 방향 버튼 시작 */
+    border-color: var(--pl-border); /* 방향 경계선 */
+    background: color-mix(in srgb, var(--pl-canvas) 94%, transparent); /* 방향 배경 */
+    color: var(--pl-ink); /* 방향 글자색 */
+    box-shadow: var(--pl-shadow-small); /* 방향 그림자 */
+} /* 방향 버튼 끝 */
+
+[data-theme="playful-lab"] :is(.hero-promo-label, .hero-carousel-status) /* 히어로 보조 문구 */
+{ /* 보조 문구 시작 */
+    color: var(--pl-muted); /* 보조 문구 색상 */
+} /* 보조 문구 끝 */
+
+[data-theme="playful-lab"] .hero-promo-features span /* 챗봇 특징 */
+{ /* 특징 시작 */
+    border-color: var(--pl-border); /* 특징 경계선 */
+    background: var(--pl-panel); /* 특징 배경 */
+    color: var(--pl-ink); /* 특징 글자색 */
+} /* 특징 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] :is(.section, footer) /* 메인 콘텐츠 구역 */
+{ /* 구역 시작 */
+    background: var(--pl-surface); /* 구역 배경 */
+    color: var(--pl-ink); /* 구역 글자색 */
+} /* 구역 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] :is(.games-section, .goods-section, .community-section) /* 메인 강조 구역 */
+{ /* 강조 시작 */
+    background: linear-gradient(180deg, var(--pl-canvas), var(--pl-surface)); /* 강조 구역 배경 */
+} /* 강조 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .community-grid /* 메인 커뮤니티 유동 격자 */
+{ /* 격자 시작 */
+    display: grid; /* 유동 격자 배치 */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 10rem)); /* 카드 크기 제한 */
+    align-items: start; /* 카드 위쪽 정렬 */
+    justify-content: center; /* 남는 공간 가운데 정렬 */
+    gap: clamp(0.75rem, 2vw, 1.5rem); /* 화면별 카드 간격 */
+    width: 100%; /* 영역 전체 너비 */
+} /* 격자 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .community-card /* 메인 커뮤니티 유동 카드 */
+{ /* 카드 시작 */
+    aspect-ratio: 1 / 1; /* 정사각형 비율 */
+    justify-self: center; /* 단일 카드 가운데 정렬 */
+    max-width: 10rem; /* 카드 최대 너비 */
+    min-width: 0; /* 좁은 화면 축소 허용 */
+    padding: clamp(0.75rem, 2vw, 1rem); /* 화면별 내부 여백 */
+    width: 100%; /* 격자 칸 너비 사용 */
+} /* 카드 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .community-icon-wrap /* 메인 커뮤니티 유동 아이콘 */
+{ /* 아이콘 시작 */
+    border-radius: clamp(1rem, 3vw, 1.375rem); /* 화면별 아이콘 모서리 */
+    height: clamp(3rem, 8vw, 5rem); /* 아이콘 최대 높이 */
+    width: clamp(3rem, 8vw, 5rem); /* 아이콘 최대 너비 */
+} /* 아이콘 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .community-icon-wrap svg /* 메인 커뮤니티 유동 그림 */
+{ /* 그림 시작 */
+    height: clamp(1.75rem, 4vw, 2.625rem); /* 그림 최대 높이 */
+    width: clamp(1.75rem, 4vw, 2.625rem); /* 그림 최대 너비 */
+} /* 그림 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .community-text /* 메인 커뮤니티 유동 문구 */
+{ /* 문구 시작 */
+    padding-inline: clamp(0.25rem, 1vw, 0.8rem); /* 화면별 문구 여백 */
+} /* 문구 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .community-name /* 메인 커뮤니티 유동 제목 */
+{ /* 제목 시작 */
+    font-size: clamp(0.65rem, 1.4vw, 0.75rem); /* 화면별 제목 크기 */
+} /* 제목 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .community-desc /* 메인 커뮤니티 유동 설명 */
+{ /* 설명 시작 */
+    font-size: clamp(0.58rem, 1.2vw, 0.65rem); /* 화면별 설명 크기 */
+} /* 설명 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] :is(.games-subheading, .goods-name, .community-name) /* 메인 카드 제목 */
+{ /* 제목 시작 */
+    color: var(--pl-ink); /* 제목 글자색 */
+} /* 제목 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] :is(.experience-lead, .goods-game, .community-desc) /* 메인 카드 설명 */
+{ /* 설명 시작 */
+    color: var(--pl-muted); /* 설명 글자색 */
+} /* 설명 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] :is(.game-link, .goods-price, .section-detail-link) /* 메인 카드 링크 */
+{ /* 링크 시작 */
+    border-color: var(--pl-link); /* 링크 경계선 */
+    color: var(--pl-link); /* 링크 글자색 */
+} /* 링크 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .goods-original-price /* 메인 추가 설명 */
+{ /* 추가 설명 시작 */
+    color: var(--pl-muted); /* 추가 설명 색상 */
+} /* 추가 설명 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .project-shelf-clear /* 보관 기록 버튼 */
+{ /* 버튼 시작 */
+    border-color: var(--pl-border); /* 버튼 경계선 */
+    color: var(--pl-ink); /* 버튼 글자색 */
+} /* 버튼 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-catalog-toolbar /* 게임 검색 필터 카드 */
+{ /* 필터 카드 시작 */
+    border: 0.0625rem solid var(--pl-border-strong); /* 카드 경계선 */
+    border-radius: var(--pl-radius-medium); /* 카드 모서리 */
+    background: var(--pl-canvas); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
+    gap: 1.25rem; /* 필터 세로 간격 */
+    padding: clamp(1rem, 2vw, 1.5rem); /* 반응형 안쪽 여백 */
+} /* 필터 카드 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-search-field /* 게임 검색창 */
+{ /* 검색창 시작 */
+    border: 0.0625rem solid var(--pl-border); /* 검색창 경계선 */
+    border-radius: var(--pl-radius-small); /* 검색창 모서리 */
+    background: var(--pl-surface); /* 검색창 배경 */
+    min-height: 3.5rem; /* 검색창 높이 */
+    padding-inline: 1rem; /* 검색창 좌우 여백 */
+    transition: border-color var(--pl-duration), box-shadow var(--pl-duration), background var(--pl-duration); /* 검색창 전환 */
+} /* 검색창 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-search-field:focus-within /* 게임 검색창 초점 */
+{ /* 검색 초점 시작 */
+    border-color: var(--pl-violet); /* 초점 경계선 */
+    background: var(--pl-canvas); /* 초점 배경 */
+    box-shadow: var(--pl-focus); /* 초점 그림자 */
+} /* 검색 초점 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-search-icon /* 게임 검색 아이콘 */
+{ /* 검색 아이콘 시작 */
+    color: var(--pl-link); /* 검색 아이콘 색상 */
+} /* 검색 아이콘 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-search-input /* 게임 검색 입력 */
+{ /* 검색 입력 시작 */
+    border: 0; /* 내부 경계선 제거 */
+    border-radius: 0; /* 내부 모서리 제거 */
+    background: transparent; /* 내부 배경 제거 */
+    color: var(--pl-ink); /* 검색 글자색 */
+    min-height: 2.75rem; /* 입력 높이 */
+    padding: 0; /* 내부 여백 제거 */
+} /* 검색 입력 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-search-input::placeholder /* 게임 검색 안내 */
+{ /* 검색 안내 시작 */
+    color: var(--pl-muted); /* 안내 글자색 */
+    opacity: 1; /* 안내 불투명도 */
+} /* 검색 안내 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-search-input:focus-visible /* 게임 검색 내부 초점 */
+{ /* 내부 초점 시작 */
+    outline: none; /* 중복 외곽선 제거 */
+} /* 내부 초점 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-filter-group /* 게임 필터 묶음 */
+{ /* 필터 묶음 시작 */
+    gap: 0.65rem; /* 제목과 버튼 간격 */
+    grid-template-columns: minmax(0, 1fr); /* 필터 한 열 배치 */
+} /* 필터 묶음 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-filter-label /* 게임 필터 제목 */
+{ /* 필터 제목 시작 */
+    color: var(--pl-muted); /* 필터 제목색 */
+    font-size: 0.82rem; /* 필터 제목 크기 */
+    font-weight: 700; /* 필터 제목 굵기 */
+    letter-spacing: 0.02em; /* 필터 제목 자간 */
+    padding-top: 0; /* 기존 위 여백 제거 */
+} /* 필터 제목 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-filter-options /* 게임 필터 버튼 영역 */
+{ /* 필터 버튼 영역 시작 */
+    gap: 0.6rem; /* 버튼 간격 */
+} /* 필터 버튼 영역 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-catalog-toolbar .filter-btn /* 게임 필터 버튼 */
+{ /* 필터 버튼 시작 */
+    border-color: var(--pl-border); /* 버튼 경계선 */
+    background: var(--pl-surface); /* 버튼 배경 */
+    color: var(--pl-ink); /* 버튼 글자색 */
+    font-weight: 700; /* 버튼 글자 굵기 */
+    padding-inline: 1.2rem; /* 버튼 좌우 여백 */
+} /* 필터 버튼 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-catalog-toolbar .filter-btn:is(:hover, :focus-visible) /* 게임 필터 버튼 반응 */
+{ /* 버튼 반응 시작 */
+    border-color: var(--pl-violet); /* 반응 경계선 */
+    background: color-mix(in srgb, var(--pl-violet) 10%, var(--pl-canvas)); /* 반응 배경 */
+    transform: translateY(-0.08rem); /* 반응 이동 */
+} /* 버튼 반응 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-catalog-toolbar .filter-btn.active /* 선택된 게임 필터 */
+{ /* 선택 버튼 시작 */
+    border-color: var(--pl-link); /* 선택 경계선 */
+    background: var(--pl-link); /* 선택 배경 */
+    box-shadow: 0 0.4rem 1rem color-mix(in srgb, var(--pl-violet) 22%, transparent); /* 선택 그림자 */
+    color: var(--pl-canvas); /* 선택 글자색 */
+} /* 선택 버튼 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .games-subheading span /* 게임 제목 강조 */
+{ /* 강조 시작 */
+    color: var(--pl-link); /* 강조 글자색 */
+} /* 강조 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-genre span[style*="accent-orange"] /* 성인 게임 표시 */
+{ /* 표시 시작 */
+    color: var(--pl-ink) !important; /* 표시 글자색 */
+} /* 표시 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .goods-discount /* 굿즈 할인율 */
+{ /* 할인율 시작 */
+    color: var(--pl-on-accent); /* 할인율 글자색 */
+} /* 할인율 끝 */
+
+[data-theme="playful-lab"] .section-tag /* 구역 영문 태그 */
+{ /* 태그 시작 */
+    color: var(--pl-violet); /* 태그 글자색 */
+} /* 태그 끝 */
+
+[data-theme="playful-lab"] .section-title /* 구역 제목 */
+{ /* 제목 시작 */
+    color: var(--pl-ink); /* 제목 글자색 */
+} /* 제목 끝 */
+
+[data-theme="playful-lab"] .section-title span /* 구역 제목 강조 */
+{ /* 강조 시작 */
+    color: var(--pl-violet); /* 강조 글자색 */
+} /* 강조 끝 */
+
+[data-theme="playful-lab"] .section-line /* 구역 장식선 */
+{ /* 장식선 시작 */
+    background: linear-gradient(90deg, var(--pl-mint), var(--pl-violet), var(--pl-orange)); /* 삼색 장식선 */
+} /* 장식선 끝 */
+
+[data-theme="playful-lab"] :is(.game-card, .hero-stat) /* 게임과 현황 카드 */
+{ /* 카드 시작 */
+    border-color: var(--pl-border-strong); /* 카드 경계선 */
+    background: var(--pl-canvas); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
+    color: var(--pl-ink); /* 카드 글자색 */
+} /* 카드 끝 */
+
+[data-theme="playful-lab"] .game-info /* 게임 정보 */
+{ /* 정보 시작 */
+    background: var(--pl-canvas); /* 정보 배경 */
+} /* 정보 끝 */
+
+[data-theme="playful-lab"] .game-name /* 게임 이름 */
+{ /* 이름 시작 */
+    color: var(--pl-ink); /* 이름 글자색 */
+} /* 이름 끝 */
+
+[data-theme="playful-lab"] :is(.game-genre, .game-desc, .game-meta) /* 게임 보조 정보 */
+{ /* 보조 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 보조 끝 */
+
+[data-theme="playful-lab"] :is(.platform-tag, .game-status) /* 게임 상태 배지 */
+{ /* 배지 시작 */
+    border-color: var(--pl-border); /* 배지 경계선 */
+    background: var(--pl-panel); /* 배지 배경 */
+    color: var(--pl-ink); /* 배지 글자색 */
+} /* 배지 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .game-status /* 메인 게임 상태 배지 */
+{ /* 상태 배지 시작 */
+    left: 0.75rem; /* 이미지 왼쪽 배치 */
+    right: auto; /* 기존 오른쪽 배치 해제 */
+} /* 상태 배지 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .project-favorite-button /* 메인 관심 버튼 */
+{ /* 관심 버튼 시작 */
+    border-color: color-mix(in srgb, var(--pl-mint) 72%, var(--pl-border)); /* 관심 경계선 */
+    background: color-mix(in srgb, var(--pl-ink) 86%, transparent); /* 관심 배경 */
+    box-shadow: var(--pl-shadow-small); /* 관심 그림자 */
+    color: var(--pl-canvas); /* 관심 별 색상 */
+    transition: background var(--pl-duration), color var(--pl-duration), transform var(--pl-duration); /* 관심 전환 */
+} /* 관심 버튼 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .project-favorite-button:is(:hover, :focus-visible) /* 메인 관심 버튼 반응 */
+{ /* 관심 반응 시작 */
+    transform: translateY(-0.08rem) scale(1.04); /* 관심 반응 이동 */
+} /* 관심 반응 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .project-favorite-button[aria-pressed="true"] /* 선택된 메인 관심 버튼 */
+{ /* 선택 관심 시작 */
+    border-color: var(--pl-link); /* 선택 경계선 */
+    background: var(--pl-link); /* 선택 배경 */
+    color: var(--pl-canvas); /* 선택 별 색상 */
+} /* 선택 관심 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="main"] .favorite-feedback /* 메인 관심 결과 안내 */
+{ /* 관심 안내 시작 */
+    border-color: var(--pl-border); /* 안내 경계선 */
+    background: var(--pl-ink); /* 안내 배경 */
+    box-shadow: var(--pl-shadow-medium); /* 안내 그림자 */
+    color: var(--pl-canvas); /* 안내 글자색 */
+} /* 관심 안내 끝 */
+
+[data-theme="playful-lab"] .faq-list details /* 질문 카드 */
+{ /* 질문 시작 */
+    border-color: var(--pl-border-strong); /* 질문 경계선 */
+    background: var(--pl-panel); /* 질문 배경 */
+    color: var(--pl-ink); /* 질문 글자색 */
+} /* 질문 끝 */
+
+[data-theme="playful-lab"] .faq-list summary /* 질문 제목 */
+{ /* 제목 시작 */
+    color: var(--pl-ink); /* 제목 글자색 */
+} /* 제목 끝 */
+
+[data-theme="playful-lab"] .faq-list p /* 질문 답변 */
+{ /* 답변 시작 */
+    color: var(--pl-muted); /* 답변 글자색 */
+} /* 답변 끝 */
+
+[data-theme="playful-lab"] footer /* 메인 하단 */
+{ /* 하단 시작 */
+    border-top-color: var(--pl-border); /* 하단 경계선 */
+} /* 하단 끝 */
+
+[data-theme="playful-lab"] .footer-logo /* 하단 브랜드 */
+{ /* 브랜드 시작 */
+    color: var(--pl-ink); /* 브랜드 글자색 */
+    text-shadow: 0.14rem 0.14rem 0 var(--pl-mint); /* 브랜드 입체감 */
+} /* 브랜드 끝 */
+
+[data-theme="playful-lab"] :is(.footer-copy, .footer-links a) /* 하단 보조 문구 */
+{ /* 문구 시작 */
+    color: var(--pl-muted); /* 문구 글자색 */
+} /* 문구 끝 */
+
+[data-theme="playful-lab"] :is(.page-shell, .legal-shell) /* 하위 페이지 바탕 */
+{ /* 바탕 시작 */
+    background: var(--pl-surface); /* 밝은 바탕색 */
+    color: var(--pl-ink); /* 기본 글자색 */
+} /* 바탕 끝 */
+
+[data-theme="playful-lab"] :is(.site-header, .legal-nav) /* 하위 페이지 머리글 */
+{ /* 머리글 시작 */
+    border-color: var(--pl-border); /* 머리글 경계선 */
+    background: color-mix(in srgb, var(--pl-canvas) 92%, transparent); /* 토큰 반투명 배경 */
+    box-shadow: var(--pl-shadow-small); /* 머리글 그림자 */
+    color: var(--pl-ink); /* 머리글 글자색 */
+} /* 머리글 끝 */
+
+[data-theme="playful-lab"] :is(.page-hero, .community-hero) h1 /* 하위 페이지 제목 */
+{ /* 제목 시작 */
+    color: var(--pl-ink); /* 제목 글자색 */
+} /* 제목 끝 */
+
+[data-theme="playful-lab"] :is(.page-hero, .community-hero) p /* 하위 페이지 설명 */
+{ /* 설명 시작 */
+    color: var(--pl-muted); /* 설명 글자색 */
+} /* 설명 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="goods"] .goods-card /* 상품 카드 */
+{ /* 상품 카드 시작 */
+    border-color: var(--pl-border-strong); /* 카드 경계선 */
+    background: var(--pl-canvas); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
+} /* 상품 카드 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="goods"] :is(.goods-heading h2, .goods-name) /* 상품 제목 */
+{ /* 상품 제목 시작 */
+    color: var(--pl-ink); /* 제목 글자색 */
+} /* 상품 제목 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="goods"] .goods-info /* 상품 정보 */
+{ /* 상품 정보 시작 */
+    background: var(--pl-canvas); /* 정보 배경 */
+    color: var(--pl-ink); /* 정보 글자색 */
+} /* 상품 정보 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="goods"] :is(.goods-game, .goods-description, .goods-stock-text) /* 상품 보조 정보 */
+{ /* 보조 정보 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 보조 정보 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="goods"] :is(.goods-price, .goods-category) /* 상품 강조 정보 */
+{ /* 강조 정보 시작 */
+    color: var(--pl-violet); /* 강조 글자색 */
+} /* 강조 정보 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="goods"] .goods-payment-notice /* 결제 안내 */
+{ /* 결제 안내 시작 */
+    border-color: var(--pl-border); /* 안내 경계선 */
+    background: var(--pl-panel); /* 안내 배경 */
+    color: var(--pl-muted); /* 안내 글자색 */
+} /* 결제 안내 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .filter-panel /* 뉴스 필터 */
+{ /* 필터 시작 */
+    border-color: var(--pl-border-strong); /* 필터 경계선 */
+    background: var(--pl-canvas); /* 필터 배경 */
+    box-shadow: var(--pl-shadow-small); /* 필터 그림자 */
+} /* 필터 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .filter-button /* 필터 버튼 */
+{ /* 버튼 시작 */
+    border-color: var(--pl-border); /* 버튼 경계선 */
+    background: var(--pl-canvas); /* 버튼 배경 */
+    color: var(--pl-ink); /* 버튼 글자색 */
+} /* 버튼 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .filter-button.active /* 선택 필터 */
+{ /* 선택 시작 */
+    border-color: var(--pl-violet); /* 선택 경계선 */
+    background: var(--pl-violet); /* 선택 배경 */
+    color: var(--pl-canvas); /* 선택 글자색 */
+} /* 선택 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .news-row /* 뉴스 행 */
+{ /* 뉴스 행 시작 */
+    border-color: var(--pl-border-strong); /* 뉴스 경계선 */
+    background: var(--pl-canvas); /* 뉴스 배경 */
+    box-shadow: var(--pl-shadow-small); /* 뉴스 그림자 */
+    color: var(--pl-ink); /* 뉴스 글자색 */
+} /* 뉴스 행 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .news-content h2 /* 뉴스 제목 */
+{ /* 뉴스 제목 시작 */
+    color: var(--pl-ink); /* 제목 글자색 */
+} /* 뉴스 제목 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] :is(.news-content p, .news-date) /* 뉴스 보조 정보 */
+{ /* 뉴스 보조 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 뉴스 보조 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .news-tag /* 뉴스 태그 */
+{ /* 뉴스 태그 시작 */
+    border-color: var(--pl-border); /* 태그 경계선 */
+    background: var(--pl-panel); /* 태그 배경 */
+    color: var(--pl-violet); /* 태그 글자색 */
+} /* 뉴스 태그 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="community"] :is(.game-selector, .featured-feed, .platform-section) /* 커뮤니티 큰 카드 */
+{ /* 큰 카드 시작 */
+    border-color: var(--pl-border-strong); /* 카드 경계선 */
+    background: linear-gradient(135deg, var(--pl-canvas), var(--pl-panel)); /* 밝은 카드 배경 */
+    box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
+    color: var(--pl-ink); /* 카드 글자색 */
+} /* 큰 카드 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="community"] :is(.signal-card, .reaction-card, .video-card, .hero-signal) /* 커뮤니티 정보 카드 */
+{ /* 정보 카드 시작 */
+    border-color: var(--pl-border-strong); /* 카드 경계선 */
+    background: var(--pl-canvas); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
+    color: var(--pl-ink); /* 카드 글자색 */
+} /* 정보 카드 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="community"] :is(.platforms-heading, .platform-heading, .platform-identity) /* 커뮤니티 제목 */
+{ /* 커뮤니티 제목 시작 */
+    color: var(--pl-ink); /* 제목 글자색 */
+} /* 커뮤니티 제목 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="community"] :is(.platform-kicker, .filter-status) /* 커뮤니티 보조 정보 */
+{ /* 커뮤니티 보조 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 커뮤니티 보조 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="legal"] .legal-document /* 법적 문서 */
+{ /* 법적 문서 시작 */
+    border: 0.0625rem solid var(--pl-border-strong); /* 문서 경계선 */
+    border-radius: var(--pl-radius-large); /* 문서 모서리 */
+    background: var(--pl-canvas); /* 문서 배경 */
+    box-shadow: var(--pl-shadow-medium); /* 문서 그림자 */
+    color: var(--pl-ink); /* 문서 글자색 */
+} /* 법적 문서 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="legal"] .legal-nav-logo /* 법적 문서 브랜드 */
+{ /* 브랜드 시작 */
+    color: var(--pl-ink); /* 브랜드 글자색 */
+    text-shadow: 0.12rem 0.12rem 0 var(--pl-mint); /* 브랜드 입체감 */
+} /* 브랜드 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="legal"] :is(.legal-back, .legal-updated, .legal-document p, .legal-document li) /* 법적 문서 보조 글자 */
+{ /* 보조 글자 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 보조 글자 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="legal"] .legal-draft /* 초안 표시 */
+{ /* 초안 시작 */
+    border-color: var(--pl-orange); /* 초안 경계선 */
+    background: color-mix(in srgb, var(--pl-orange) 14%, var(--pl-canvas)); /* 초안 배경 */
+    color: var(--pl-ink); /* 초안 글자색 */
+} /* 초안 끝 */
+
+[data-theme="playful-lab"] .state-preparing /* 준비 상태 */
+{ /* 준비 상태 시작 */
+    border-color: var(--pl-orange); /* 준비 경계선 */
+    color: var(--pl-ink); /* 준비 글자색 */
+} /* 준비 상태 끝 */
+
+[data-theme="playful-lab"] .load-status /* 조회 상태 */
+{ /* 조회 상태 시작 */
+    color: var(--pl-muted); /* 상태 글자색 */
+} /* 조회 상태 끝 */
+
+[data-theme="playful-lab"] :is(button, .btn-nav, .hero-action, .filter-btn, .dialog-link, .admin-primary-button, .admin-button-link, input, select) /* 상호작용 요소 */
+{ /* 요소 시작 */
+    min-height: 44px; /* 최소 터치 높이 */
+} /* 요소 끝 */
+
+[data-theme="playful-lab"] :is(.load-status, .admin-empty-state) /* 로딩과 빈 상태 */
+{ /* 상태 시작 */
+    border: 0.0625rem dashed var(--pl-border); /* 상태 경계선 */
+    border-radius: var(--pl-radius-medium); /* 상태 모서리 */
+    background: var(--pl-panel); /* 상태 배경 */
+    color: var(--pl-muted); /* 상태 글자색 */
+} /* 상태 끝 */
+
+[data-theme="playful-lab"] :is(.error, .admin-message-error, .field-error) /* 오류 상태 */
+{ /* 오류 시작 */
+    color: var(--pl-danger); /* 오류 글자색 */
+} /* 오류 끝 */
+
+@media (max-width: 767px) /* 모바일 화면 */
+{ /* 모바일 시작 */
+    [data-theme="playful-lab"] .hero-carousel-timer /* 모바일 진행 게이지 */
+    { /* 게이지 시작 */
+        bottom: 4.75rem; /* 방향 버튼 위 배치 */
+        width: min(15rem, calc(100vw - 6rem)); /* 안전 너비 */
+    } /* 게이지 끝 */
+
+    [data-theme="playful-lab"] :is(.modal-box, .contact-dialog) /* 모바일 대화상자 */
+    { /* 대화상자 시작 */
+        width: calc(100vw - 2rem); /* 화면 안쪽 너비 */
+        max-height: calc(100dvh - 2rem); /* 화면 안쪽 높이 */
+        overflow-y: auto; /* 세로 이동 */
+    } /* 대화상자 끝 */
+
+    [data-theme="playful-lab"] :is(.page-shell, .legal-shell) /* 모바일 하위 페이지 */
+    { /* 하위 페이지 시작 */
+        overflow-x: clip; /* 가로 넘침 방지 */
+    } /* 하위 페이지 끝 */
+
+    [data-theme="playful-lab"] :is(.goods-grid, .games-grid, .community-grid) /* 모바일 카드 격자 */
+    { /* 격자 시작 */
+        grid-template-columns: minmax(0, 1fr); /* 한 열 배치 */
+    } /* 격자 끝 */
+} /* 모바일 끝 */
+
+@media (min-width: 768px) and (max-width: 1279px) /* 태블릿 화면 */
+{ /* 태블릿 시작 */
+    [data-theme="playful-lab"] :is(.goods-grid, .games-grid) /* 태블릿 카드 격자 */
+    { /* 격자 시작 */
+        gap: clamp(1rem, 2vw, 1.5rem); /* 카드 간격 */
+    } /* 격자 끝 */
+
+    [data-theme="playful-lab"] :is(.page-shell, .legal-shell) /* 태블릿 하위 페이지 */
+    { /* 하위 페이지 시작 */
+        padding-inline: clamp(1.5rem, 4vw, 3rem); /* 안전 좌우 여백 */
+    } /* 하위 페이지 끝 */
+} /* 태블릿 끝 */
+
+@media (min-width: 1280px) /* 데스크톱 화면 */
+{ /* 데스크톱 시작 */
+    [data-theme="playful-lab"] :is(.section, .legal-shell) /* 넓은 화면 영역 */
+    { /* 영역 시작 */
+        max-width: 90rem; /* 최대 콘텐츠 너비 */
+        margin-inline: auto; /* 가운데 정렬 */
+    } /* 영역 끝 */
+} /* 데스크톱 끝 */
+
+@media (prefers-reduced-motion: reduce) /* 움직임 축소 환경 */
+{ /* 축소 시작 */
+    [data-theme="playful-lab"] *, /* 모든 하위 요소 */
+    [data-theme="playful-lab"] *::before, /* 앞 장식 요소 */
+    [data-theme="playful-lab"] *::after /* 뒤 장식 요소 */
+    { /* 요소 시작 */
+        animation-duration: 0.01ms !important; /* 애니메이션 제거 */
+        animation-iteration-count: 1 !important; /* 반복 제거 */
+        scroll-behavior: auto !important; /* 즉시 이동 */
+        transition-duration: 0.01ms !important; /* 전환 제거 */
+    } /* 요소 끝 */
+} /* 축소 끝 */

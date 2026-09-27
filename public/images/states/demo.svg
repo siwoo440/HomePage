@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><!-- 데모 벡터 시작 -->
+    <path d="M25 10h14M28 10v15L16 45a7 7 0 0 0 6 10h20a7 7 0 0 0 6-10L36 25V10" stroke="#6F5CFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><!-- 플라스크 외곽 -->
+    <path d="M20 43h24l4 7a7 7 0 0 1-6 5H22a7 7 0 0 1-6-5z" fill="#6FE6CF" opacity=".8"/><!-- 실험 액체 -->
+    <circle cx="29" cy="39" r="3" fill="#F2A65A"/><!-- 실험 기포 -->
+</svg><!-- 데모 벡터 끝 -->

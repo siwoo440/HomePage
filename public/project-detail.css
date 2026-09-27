@@ -1,0 +1,131 @@
+:root /* 공통 색상 */
+{ /* 색상 시작 */
+    color-scheme: dark; /* 어두운 기본 화면 */
+    font-family: "Segoe UI", "Malgun Gothic", sans-serif; /* 한글 기본 글꼴 */
+    background: #080d17; /* 페이지 배경 */
+    color: #e8edf5; /* 기본 글자색 */
+} /* 색상 끝 */
+* /* 모든 요소 */
+{ /* 크기 설정 시작 */
+    box-sizing: border-box; /* 테두리를 포함한 크기 */
+} /* 크기 설정 끝 */
+body /* 문서 본문 */
+{ /* 본문 설정 시작 */
+    margin: 0; /* 바깥 여백 제거 */
+    line-height: 1.7; /* 본문 줄 간격 */
+} /* 본문 설정 끝 */
+a /* 모든 링크 */
+{ /* 링크 설정 시작 */
+    color: inherit; /* 주변 글자색 유지 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 링크 설정 끝 */
+a:hover, a:focus-visible /* 링크 선택 상태 */
+{ /* 선택 설정 시작 */
+    color: #63e5d3; /* 선택 강조색 */
+} /* 선택 설정 끝 */
+.page-shell /* 페이지 너비 */
+{ /* 너비 설정 시작 */
+    width: min(1180px, 92%); /* 반응형 최대 너비 */
+    margin: auto; /* 가운데 배치 */
+} /* 너비 설정 끝 */
+.top-nav, .top-nav-links, .hero-meta /* 가로 묶음 */
+{ /* 묶음 설정 시작 */
+    display: flex; /* 가로 배치 */
+    gap: 24px; /* 요소 사이 간격 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    align-items: center; /* 세로 가운데 정렬 */
+} /* 묶음 설정 끝 */
+.top-nav /* 상단 메뉴 */
+{ /* 메뉴 설정 시작 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    padding: 26px 0; /* 메뉴 위아래 여백 */
+} /* 메뉴 설정 끝 */
+.top-nav-logo, .eyebrow /* 브랜드와 분류 */
+{ /* 강조 설정 시작 */
+    color: #63e5d3; /* 청록 강조색 */
+    letter-spacing: 0.12em; /* 글자 간격 */
+    font-weight: 700; /* 굵은 글자 */
+} /* 강조 설정 끝 */
+.hero-card /* 대표 소개 */
+{ /* 소개 설정 시작 */
+    position: relative; /* 이미지 배치 기준 */
+    overflow: hidden; /* 이미지 넘침 차단 */
+    border: 1px solid #263246; /* 카드 테두리 */
+    border-radius: 20px; /* 둥근 모서리 */
+    min-height: 520px; /* 대표 영역 높이 */
+    display: flex; /* 소개문 정렬 */
+    align-items: end; /* 소개문 아래 배치 */
+} /* 소개 설정 끝 */
+.hero-image /* 대표 이미지 */
+{ /* 이미지 설정 시작 */
+    position: absolute; /* 배경처럼 배치 */
+    inset: 0; /* 전체 영역 채우기 */
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    object-fit: cover; /* 비율 유지 */
+} /* 이미지 설정 끝 */
+.hero-content /* 대표 소개문 */
+{ /* 소개문 설정 시작 */
+    position: relative; /* 이미지 위 배치 */
+    width: 100%; /* 전체 너비 */
+    padding: 110px 40px 40px; /* 소개문 여백 */
+    background: linear-gradient(transparent, rgba(5, 10, 20, 0.96)); /* 글자 가독성 배경 */
+} /* 소개문 설정 끝 */
+h1 /* 대표 제목 */
+{ /* 제목 설정 시작 */
+    font-size: clamp(30px, 5vw, 56px); /* 화면별 제목 크기 */
+    line-height: 1.2; /* 제목 줄 간격 */
+    margin: 12px 0 20px; /* 제목 여백 */
+} /* 제목 설정 끝 */
+.hero-meta span /* 프로젝트 배지 */
+{ /* 배지 설정 시작 */
+    border: 1px solid #53647c; /* 배지 테두리 */
+    border-radius: 20px; /* 둥근 배지 */
+    padding: 5px 14px; /* 배지 안쪽 여백 */
+    background: #111b2b; /* 배지 배경 */
+} /* 배지 설정 끝 */
+.section-block /* 본문 구역 */
+{ /* 구역 설정 시작 */
+    margin: 64px 0; /* 구역 사이 간격 */
+    border-top: 1px solid #263246; /* 제목 위 구분선 */
+    padding-top: 24px; /* 제목 위 여백 */
+} /* 구역 설정 끝 */
+.info-grid /* 정보 카드 묶음 */
+{ /* 그리드 설정 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); /* 화면별 카드 수 */
+    gap: 20px; /* 카드 사이 간격 */
+} /* 그리드 설정 끝 */
+.info-card /* 개별 정보 카드 */
+{ /* 카드 설정 시작 */
+    padding: 24px; /* 카드 안쪽 여백 */
+    border: 1px solid #263246; /* 카드 경계선 */
+    border-radius: 14px; /* 둥근 카드 */
+    background: #101827; /* 카드 배경 */
+} /* 카드 설정 끝 */
+.visual-image /* 이미지 기록 */
+{ /* 기록 설정 시작 */
+    width: 100%; /* 영역 너비 채우기 */
+    display: block; /* 아래 빈틈 제거 */
+    border-radius: 16px; /* 둥근 이미지 */
+} /* 기록 설정 끝 */
+figure /* 이미지 묶음 */
+{ /* 묶음 설정 시작 */
+    margin: 0; /* 기본 여백 제거 */
+} /* 묶음 설정 끝 */
+figcaption, footer /* 보조 설명 */
+{ /* 설명 설정 시작 */
+    color: #a4b2c7; /* 보조 글자색 */
+    padding: 20px 0; /* 위아래 여백 */
+} /* 설명 설정 끝 */
+@media (max-width: 600px) /* 작은 화면 */
+{ /* 모바일 설정 시작 */
+    .hero-content /* 모바일 소개문 */
+    { /* 소개문 설정 시작 */
+        padding: 100px 22px 28px; /* 모바일 안쪽 여백 */
+    } /* 소개문 설정 끝 */
+    .top-nav-links /* 모바일 메뉴 */
+    { /* 메뉴 설정 시작 */
+        gap: 14px; /* 메뉴 간격 축소 */
+    } /* 메뉴 설정 끝 */
+} /* 모바일 설정 끝 */

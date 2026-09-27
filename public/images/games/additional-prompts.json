@@ -1,0 +1,33 @@
+{
+  "tool": "built-in image_gen",
+  "images": [
+    {
+      "file": "project-gamma.png",
+      "prompt": "Use case: stylized-concept. Create a single 16:9 landscape game thumbnail. Stock market simulation game, an elegant futuristic trading desk with abstract luminous candlestick charts and miniature city skyline, teal and gold, no readable numbers. Cinematic polished game key art, strong focal point, no text, no logos, no UI or border."
+    },
+    {
+      "file": "project-delta.png",
+      "prompt": "Use case: stylized-concept. Create a single 16:9 landscape game thumbnail. Dungeon roguelike game, armored adventurer descending into a sinister crimson underground labyrinth with a glowing doorway, dark fantasy, no gore. Cinematic polished game key art, strong focal point, no text, no logos, no UI or border."
+    },
+    {
+      "file": "project-epsilon.png",
+      "prompt": "Use case: stylized-concept. Create a single 16:9 landscape game thumbnail. Survivor-like action game, a mage holding back swarms of shadow creatures with orbiting magical orbs in a moonlit field. Cinematic polished game key art, strong focal point, no text, no logos, no UI or border."
+    },
+    {
+      "file": "project-zeta.png",
+      "prompt": "Use case: stylized-concept. Create a single 16:9 landscape game thumbnail. Digging game, a cheerful explorer with a shovel uncovering layers of earth crystals and underground ruins, charming colorful cutaway illustration. Cinematic polished game key art, strong focal point, no text, no logos, no UI or border."
+    },
+    {
+      "file": "project-eta.png",
+      "prompt": "Use case: stylized-concept. Create a single 16:9 landscape game thumbnail. Chess and cards strategy game, ornate black and white chess pieces alongside enchanted playing cards on a dramatic violet glowing board. Cinematic polished game key art, strong focal point, no text, no logos, no UI or border."
+    },
+    {
+      "file": "project-theta.png",
+      "prompt": "Use case: stylized-concept. Create a single 16:9 landscape game thumbnail. Eye contact romance game, two fully clothed stylish adult characters exchanging a meaningful glance across a beautiful neon city cafe, tasteful anime style. Cinematic polished game key art, strong focal point, no text, no logos, no UI or border."
+    },
+    {
+      "file": "project-iota.png",
+      "prompt": "Use case: stylized-concept. Create a single 16:9 landscape game thumbnail. Russian roulette suspense game, an unattended antique revolver and brass cartridges on a green felt table beneath a single hanging lamp, empty chairs and smoky shadows, no people, no injury. Cinematic polished game key art, strong focal point, no text, no logos, no UI or border."
+    }
+  ]
+}
