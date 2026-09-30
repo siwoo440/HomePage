@@ -10,7 +10,24 @@
     --responsive-nav-layer: 1200; /* 메뉴 화면층 */
 } /* 규칙 끝 */
 
+body[data-responsive-page]:not([data-responsive-page="project"]) :where(main, section, article, aside, header, footer, nav, div, form, fieldset) /* 공통 유동 영역 */
+{ /* 규칙 시작 */
+    min-inline-size: 0; /* 격자 최소 폭 해제 */
+} /* 규칙 끝 */
+
+body[data-responsive-page]:not([data-responsive-page="project"]) :where(h1, h2, h3, h4, p, li, a, button, label, legend, summary, th, td) /* 공통 문구 요소 */
+{ /* 규칙 시작 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+} /* 규칙 끝 */
+
+body[data-responsive-page]:not([data-responsive-page="project"]) :where(img, video, canvas, svg) /* 공통 미디어 요소 */
+{ /* 규칙 시작 */
+    max-inline-size: 100%; /* 미디어 폭 제한 */
+} /* 규칙 끝 */
+
 .responsive-nav-toggle, /* 메뉴 버튼 */
+.nav-actions [data-member-action], /* 기본 헤더 회원 버튼 */
+.project-nav-actions [data-member-action], /* 프로젝트 회원 버튼 */
 .responsive-nav-overlay, /* 메뉴 배경 */
 .responsive-nav-drawer, /* 메뉴 패널 */
 .responsive-nav-drawer * /* 패널 하위 요소 */
@@ -47,6 +64,12 @@ body.responsive-nav-open /* 열린 메뉴 본문 */
     overscroll-behavior: none; /* 배경 스크롤 차단 */
 } /* 규칙 끝 */
 
+body.dialog-open /* 열린 대화상자 본문 */
+{ /* 규칙 시작 */
+    overflow: hidden; /* 본문 스크롤 잠금 */
+    overscroll-behavior: none; /* 배경 스크롤 차단 */
+} /* 규칙 끝 */
+
 @media (max-width: 959px) /* 서랍 메뉴 화면 */
 { /* 구간 시작 */
     [data-responsive-nav-root] /* 메뉴 기준 요소 */
@@ -54,7 +77,18 @@ body.responsive-nav-open /* 열린 메뉴 본문 */
         position: relative; /* 버튼 배치 기준 */
     } /* 규칙 끝 */
 
-    [data-responsive-nav-root] .responsive-nav-toggle /* 메뉴 버튼 */
+    [data-responsive-nav-root] :is(.nav-actions, .project-nav-actions) /* 헤더 조작 묶음 */
+    { /* 규칙 시작 */
+        align-items: center; /* 버튼 세로 정렬 */
+        display: flex; /* 버튼 가로 배치 */
+        flex: 0 1 auto; /* 남은 폭 안쪽 축소 */
+        gap: 8px; /* 버튼 인접 간격 */
+        margin-left: auto; /* 조작 묶음 오른쪽 정렬 */
+        min-width: 0; /* 긴 이름 축소 허용 */
+    } /* 규칙 끝 */
+
+    [data-responsive-nav-root] .responsive-nav-toggle, /* 메뉴 버튼 */
+    [data-responsive-nav-root] :is(.nav-actions, .project-nav-actions) [data-member-action] /* 로그인 버튼 */
     { /* 규칙 시작 */
         align-items: center; /* 세로 정렬 */
         background: rgba(10, 24, 45, 0.92); /* 버튼 배경 */
@@ -71,7 +105,27 @@ body.responsive-nav-open /* 열린 메뉴 본문 */
         min-height: 44px; /* 터치 높이 */
         min-width: 56px; /* 터치 너비 */
         padding: 0 14px; /* 버튼 안쪽 */
+        text-decoration: none; /* 링크 밑줄 제거 */
         text-transform: uppercase; /* 영문 강조 */
+        white-space: nowrap; /* 버튼 문구 한 줄 */
+    } /* 규칙 끝 */
+
+    [data-responsive-nav-root] :is(.nav-actions, .project-nav-actions) [data-member-action] /* 긴 회원 이름 제한 */
+    { /* 규칙 시작 */
+        display: block; /* 말줄임 상자 표시 */
+        line-height: 42px; /* 버튼 문구 세로 정렬 */
+        max-width: clamp(64px, 22vw, 136px); /* 좁은 화면 너비 제한 */
+        overflow: hidden; /* 넘친 회원 이름 숨김 */
+        text-align: center; /* 회원 이름 가운데 정렬 */
+        text-overflow: ellipsis; /* 긴 회원 이름 말줄임 */
+    } /* 규칙 끝 */
+
+    [data-responsive-nav-root] .responsive-nav-toggle:hover, /* 메뉴 버튼 마우스 */
+    [data-responsive-nav-root] :is(.nav-actions, .project-nav-actions) [data-member-action]:hover /* 로그인 버튼 마우스 */
+    { /* 규칙 시작 */
+        background: rgba(21, 231, 224, 0.12); /* 공통 선택 배경 */
+        box-shadow: none; /* 기존 강조 그림자 제거 */
+        color: var(--responsive-nav-cyan); /* 공통 선택 글자 */
     } /* 규칙 끝 */
 
     .responsive-nav-overlay /* 메뉴 배경 */
@@ -236,12 +290,13 @@ body.responsive-nav-open /* 열린 메뉴 본문 */
 @media (max-width: 767px) /* 모바일 공통 화면 */
 { /* 구간 시작 */
     [data-responsive-nav-root] > .nav-menu, /* 기본 메뉴 목록 */
-    [data-responsive-nav-root] > .nav-cta /* 에타 행동 링크 */
+    [data-responsive-nav-root] > .nav-cta, /* 에타 행동 링크 */
+    [data-responsive-nav-root] > .project-nav-links /* 프로젝트 메뉴 목록 */
     { /* 규칙 시작 */
         display: none !important; /* 좁은 화면 메뉴 숨김 */
     } /* 규칙 끝 */
 
-    [data-responsive-nav-root] .nav-actions > :not([data-member-action]):not(.responsive-nav-toggle):not([data-preview-control]) /* 중복 상단 동작 */
+    [data-responsive-nav-root] :is(.nav-actions, .project-nav-actions) > :not([data-member-action]):not(.responsive-nav-toggle):not([data-preview-control]) /* 중복 상단 동작 */
     { /* 규칙 시작 */
         display: none !important; /* 중복 동작 숨김 */
     } /* 규칙 끝 */
@@ -278,7 +333,7 @@ body.responsive-nav-open /* 열린 메뉴 본문 */
         max-height: calc(100dvh - 32px); /* 화면 안전 높이 */
         max-width: none; /* 고정 최대 폭 해제 */
         overflow: auto; /* 내부 내용 이동 */
-        width: calc(100vw - 32px); /* 화면 안전 너비 */
+        width: calc(100% - 32px); /* 포함 영역 안전 너비 */
     } /* 규칙 끝 */
 
     .modal-box /* 모바일 기본 모달 */
@@ -297,15 +352,40 @@ body.responsive-nav-open /* 열린 메뉴 본문 */
     } /* 규칙 끝 */
 } /* 구간 끝 */
 
+@media (max-height: 520px) and (max-width: 959px) /* 짧은 가로 화면 */
+{ /* 구간 시작 */
+    .responsive-nav-drawer /* 짧은 화면 메뉴 */
+    { /* 규칙 시작 */
+        padding-bottom: max(12px, env(safe-area-inset-bottom)); /* 아래 안전 여백 */
+        padding-top: max(12px, env(safe-area-inset-top)); /* 위 안전 여백 */
+    } /* 규칙 끝 */
+
+    .modal-overlay.open /* 짧은 화면 모달 배경 */
+    { /* 규칙 시작 */
+        align-items: flex-start; /* 위 기준 배치 */
+        overflow-y: auto; /* 배경 세로 이동 */
+        padding-block: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-bottom)); /* 세로 안전 여백 */
+    } /* 규칙 끝 */
+
+    .modal-box, /* 짧은 화면 기본 모달 */
+    .contact-dialog, /* 짧은 화면 문의창 */
+    .privacy-consent /* 짧은 화면 개인정보 패널 */
+    { /* 규칙 시작 */
+        max-height: calc(100dvh - 24px); /* 짧은 화면 안전 높이 */
+        overflow-y: auto; /* 내부 세로 이동 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
 @media (min-width: 768px) and (max-width: 959px) /* 좁은 태블릿 공통 화면 */
 { /* 구간 시작 */
     [data-responsive-nav-root] > .nav-menu, /* 기본 메뉴 목록 */
-    [data-responsive-nav-root] > .nav-cta /* 에타 행동 링크 */
+    [data-responsive-nav-root] > .nav-cta, /* 에타 행동 링크 */
+    [data-responsive-nav-root] > .project-nav-links /* 프로젝트 메뉴 목록 */
     { /* 규칙 시작 */
         display: none !important; /* 서랍 전환 메뉴 숨김 */
     } /* 규칙 끝 */
 
-    [data-responsive-nav-root] .nav-actions > :not([data-member-action]):not(.responsive-nav-toggle):not([data-preview-control]) /* 중복 상단 동작 */
+    [data-responsive-nav-root] :is(.nav-actions, .project-nav-actions) > :not([data-member-action]):not(.responsive-nav-toggle):not([data-preview-control]) /* 중복 상단 동작 */
     { /* 규칙 시작 */
         display: none !important; /* 중복 동작 숨김 */
     } /* 규칙 끝 */

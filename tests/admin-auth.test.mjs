@@ -1,7 +1,7 @@
 import test from "node:test"; // 테스트 실행기
 import assert from "node:assert/strict"; // 엄격한 검증 도구
 import { isAdminUser } from "../lib/auth/admin-policy.ts"; // 관리자 판정 함수
-import { getLoginMessage } from "../lib/auth/login-message.ts"; // 로그인 안내 판정 함수
+import { getLoginMessage, isCredentialInputError } from "../lib/auth/login-message.ts"; // 로그인 안내 판정 함수
 
 test("이메일과 관리자 역할이 모두 일치해야 관리자다", () => // 이중 권한 검사
 { // 테스트 본문 시작
@@ -33,3 +33,12 @@ test("Supabase 미설정 상태를 로그인 화면에서 즉시 안내한다", 
     assert.equal(getLoginMessage(true, "forbidden"), "이 계정에는 관리자 권한이 없습니다."); // 권한 안내 검증
     assert.equal(getLoginMessage(true, ""), ""); // 정상 초기 상태 검증
 }); // 테스트 본문 끝
+
+test("실제 자격 증명 실패만 로그인 입력 오류로 분류한다", () => // 인증 오류 분류 검사
+{ // 테스트 시작
+    assert.equal(isCredentialInputError({ code: "invalid_credentials", status: 400 }), true); // 자격 증명 오류 확인
+    assert.equal(isCredentialInputError({ name: "AuthRetryableFetchError", status: 0 }), false); // 통신 오류 제외 확인
+    assert.equal(isCredentialInputError({ code: "unexpected_failure", status: 500 }), false); // 서버 오류 제외 확인
+    assert.equal(isCredentialInputError({ code: "over_request_rate_limit", status: 429 }), false); // 요청 제한 제외 확인
+    assert.equal(isCredentialInputError(null), false); // 빈 오류 제외 확인
+}); // 테스트 끝

@@ -55,6 +55,30 @@ test("960px 전환 시 메뉴와 스크롤 잠금을 해제한다", () => // 너
     assert.equal(environment.drawer.hidden, true); // 메뉴 닫힘 확인
 }); // 테스트 끝
 
+test("모바일 로그인은 사이트 메뉴 왼쪽에 붙고 같은 버튼 외형을 사용한다", async () => // 모바일 헤더 배치 테스트
+{ // 테스트 시작
+    const environment = createNavigationEnvironment(); // 모바일 메뉴 환경 생성
+    const projectEnvironment = createNavigationEnvironment({ actionClass: "project-nav-actions" }); // 프로젝트 메뉴 환경 생성
+    initializeResponsiveNavigation(environment.root, environment.view); // 메뉴 초기화
+    initializeResponsiveNavigation(projectEnvironment.root, projectEnvironment.view); // 프로젝트 메뉴 초기화
+    const cssUrl = new URL("../public/responsive-shell.css", import.meta.url); // 공통 메뉴 스타일 경로
+    const css = await import("node:fs/promises").then(({ readFile }) => readFile(cssUrl, "utf8")); // 공통 메뉴 스타일 읽기
+    const drawerSection = css.match(/@media \(max-width: 959px\)[\s\S]*?\} \/\* 구간 끝 \*\//)?.[0] ?? ""; // 서랍 화면 스타일 추출
+    const actionGroup = drawerSection.match(/:is\(\.nav-actions, \.project-nav-actions\)[\s\S]*?\} \/\* 규칙 끝 \*\//)?.[0] ?? ""; // 조작 묶음 규칙 추출
+    const sharedButton = drawerSection.match(/\.responsive-nav-toggle,[\s\S]*?\[data-member-action\][\s\S]*?\} \/\* 규칙 끝 \*\//)?.[0] ?? ""; // 공통 버튼 규칙 추출
+    const loginButton = drawerSection.match(/\[data-member-action\] \/\* 긴 회원 이름 제한 \*\/[\s\S]*?\} \/\* 규칙 끝 \*\//)?.[0] ?? ""; // 로그인 너비 규칙 추출
+    assert.deepEqual(environment.navActions.children, [environment.loginLink, environment.toggle]); // 로그인과 메뉴 인접 순서 확인
+    assert.deepEqual(projectEnvironment.navActions.children, [projectEnvironment.loginLink, projectEnvironment.toggle]); // 프로젝트 로그인과 메뉴 순서 확인
+    assert.match(actionGroup, /margin-left:\s*auto/); // 오른쪽 조작 묶음 확인
+    assert.match(actionGroup, /gap:\s*8px/); // 버튼 인접 간격 확인
+    assert.match(sharedButton, /background:\s*rgba\(10, 24, 45, 0\.92\)/); // 공통 버튼 배경 확인
+    assert.match(sharedButton, /border:\s*1px solid var\(--responsive-nav-cyan\)/); // 공통 버튼 테두리 확인
+    assert.match(sharedButton, /min-height:\s*44px/); // 공통 버튼 높이 확인
+    assert.match(loginButton, /max-width:\s*clamp\(64px, 22vw, 136px\)/); // 긴 회원 이름 너비 제한 확인
+    assert.match(loginButton, /overflow:\s*hidden/); // 긴 회원 이름 숨김 확인
+    assert.match(loginButton, /text-overflow:\s*ellipsis/); // 긴 회원 이름 말줄임 확인
+}); // 테스트 끝
+
 test("Escape와 닫기 동작은 메뉴 버튼으로 초점을 돌려준다", () => // 닫기 초점 테스트
 { // 테스트 시작
     const environment = createNavigationEnvironment(); // 문서 대역 생성
@@ -101,6 +125,8 @@ test("문의 모달이 있으면 contact 해시로 창을 열고 해시를 정�
 { // 테스트 시작
     const environment = createNavigationEnvironment({ pathname: "/main.html", hash: "#contact", withContact: true }); // 문의창 환경 생성
     initializeResponsiveNavigation(environment.root, environment.view); // 메뉴 초기화
+    assert.deepEqual(environment.dialogOpenCalls, ["contact-modal"]); // 공통 제어기 호출 확인
+    assert.equal(environment.contactModal.hidden, false); // 문의창 표시 확인
     assert.equal(environment.contactModal.classList.contains("open"), true); // 문의창 열림 확인
     assert.equal(environment.view.location.hash, "#"); // 해시 정리 확인
 }); // 테스트 끝

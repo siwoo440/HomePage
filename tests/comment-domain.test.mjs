@@ -6,6 +6,7 @@ test("빈 댓글과 너무 긴 댓글을 거부한다", () => // 댓글 길이 �
 { // 테스트 시작
     assert.equal(validateCommentContent("   ").ok, false); // 빈 댓글 거부
     assert.equal(validateCommentContent("a".repeat(2001)).ok, false); // 긴 댓글 거부
+    assert.equal(validateCommentContent("a".repeat(2000)).ok, true); // 최대 길이 댓글 허용
     assert.deepEqual(validateCommentContent("  반가워요  "), { ok: true, value: "반가워요" }); // 정상 댓글 정리
 }); // 테스트 끝
 

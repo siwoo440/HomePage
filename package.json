@@ -1,14 +1,20 @@
 {
   "name": "my-project",
   "version": "0.1.0",
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=22.13"
+  },
   "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
-    "test": "node --test tests/*.test.mjs"
+    "lint": "eslint app lib scripts tests proxy.ts next.config.mjs postcss.config.mjs eslint.config.mjs --max-warnings=0",
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit --incremental false",
+    "check": "pnpm test && pnpm typecheck && pnpm lint && pnpm build"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
@@ -25,13 +31,10 @@
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.2.6",
     "postcss": "^8.5",
     "tailwindcss": "^4.2.0",
     "typescript": "5.7.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "hono": "4.12.25"
-    }
   }
 }

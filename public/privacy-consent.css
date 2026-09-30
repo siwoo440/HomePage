@@ -1,10 +1,14 @@
 .privacy-consent /* 동의 패널 */
 { /* 패널 시작 */
+    box-sizing: border-box; /* 크기 계산 통일 */
     position: fixed; /* 화면 고정 */
     right: 1.25rem; /* 오른쪽 간격 */
     bottom: 1.25rem; /* 아래 간격 */
     z-index: 10000; /* 최상단 배치 */
     width: min(32rem, calc(100vw - 2rem)); /* 반응형 너비 */
+    max-height: calc(100dvh - 2rem); /* 화면 안전 높이 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+    overflow-y: auto; /* 내부 세로 이동 */
     padding: 1.25rem; /* 내부 여백 */
     border: 1px solid rgba(0, 245, 212, 0.45); /* 강조 테두리 */
     border-radius: 1rem; /* 둥근 모서리 */
@@ -80,12 +84,35 @@
     background: rgba(7, 11, 20, 0.9); /* 설정 배경 */
     color: #00f5d4; /* 설정 글자색 */
     font-size: 0.75rem; /* 설정 글자 크기 */
+    max-width: calc(100% - 2rem); /* 화면 안전 너비 */
+    overflow-wrap: anywhere; /* 긴 버튼 문구 줄바꿈 */
 } /* 설정 버튼 끝 */
 
 @media (max-width: 40rem) /* 모바일 화면 */
 { /* 모바일 시작 */
+    .privacy-consent /* 모바일 동의 패널 */
+    { /* 모바일 패널 시작 */
+        bottom: max(1rem, env(safe-area-inset-bottom)); /* 아래 안전 여백 */
+        left: 1rem; /* 왼쪽 안전 여백 */
+        max-width: none; /* 고정 최대 폭 해제 */
+        right: 1rem; /* 오른쪽 안전 여백 */
+        width: auto; /* 양쪽 여백 기준 폭 */
+    } /* 모바일 패널 끝 */
+
     .privacy-consent__actions /* 모바일 버튼 영역 */
     { /* 모바일 버튼 시작 */
         flex-direction: column-reverse; /* 세로 버튼 배치 */
     } /* 모바일 버튼 끝 */
+
+    .privacy-consent__button /* 모바일 동의 버튼 */
+    { /* 모바일 버튼 시작 */
+        min-width: 0; /* 버튼 최소 폭 해제 */
+        width: 100%; /* 버튼 전체 너비 */
+    } /* 모바일 버튼 끝 */
+
+    .privacy-consent-settings /* 모바일 설정 버튼 */
+    { /* 모바일 설정 시작 */
+        bottom: max(1rem, env(safe-area-inset-bottom)); /* 아래 안전 여백 */
+        right: max(1rem, env(safe-area-inset-right)); /* 오른쪽 안전 여백 */
+    } /* 모바일 설정 끝 */
 } /* 모바일 끝 */

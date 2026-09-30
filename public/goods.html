@@ -22,7 +22,7 @@
         </ul> <!-- 메인 메뉴 목록 끝 -->
         <div class="nav-actions"> <!-- 상단 작업 묶음 -->
             <a href="goods.html" class="btn-nav goods-shortcut" aria-current="page">굿즈</a> <!-- 모바일 굿즈 바로가기 -->
-            <button class="btn-nav" id="contact-open" type="button">문의하기</button> <!-- 문의 창 열기 -->
+            <button class="btn-nav" id="contact-open" data-dialog-open="contact-dialog" type="button">문의하기</button> <!-- 문의 창 열기 -->
             <a href="/login" class="btn-nav member-login-link" data-member-action>로그인</a> <!-- 회원 로그인 이동 -->
         </div> <!-- 상단 작업 묶음 끝 -->
     </nav> <!-- 상단 고정 메뉴 끝 -->
@@ -56,11 +56,12 @@
         </main> <!-- 주요 내용 끝 -->
         <footer class="site-footer"><span>DEVFORGE Official Merchandise</span><a href="/admin/login">관리자 로그인</a></footer> <!-- 하단 정보 -->
     </div> <!-- 전체 너비 영역 끝 -->
-    <dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-title"> <!-- 문의 대화상자 -->
-        <form method="dialog"><button class="dialog-close" type="submit" aria-label="문의 창 닫기">×</button><p class="eyebrow">// CONTACT</p><h2 id="contact-title">문의하기</h2><p>상품과 협업 관련 문의는 공식 커뮤니티 정보를 이용해 주세요.</p><a class="dialog-link" href="community.html">커뮤니티 및 문의 정보 보기</a></form> <!-- 문의 내용 -->
+    <dialog class="contact-dialog" id="contact-dialog" data-dialog aria-labelledby="contact-title"> <!-- 문의 대화상자 -->
+        <form method="dialog"><button class="dialog-close" type="submit" data-dialog-close aria-label="문의 창 닫기">×</button><p class="eyebrow">// CONTACT</p><h2 id="contact-title">문의하기</h2><p>상품과 협업 관련 문의는 공식 커뮤니티 정보를 이용해 주세요.</p><a class="dialog-link" href="community.html">커뮤니티 및 문의 정보 보기</a></form> <!-- 문의 내용 -->
     </dialog> <!-- 문의 대화상자 끝 -->
     <script type="module" src="goods.mjs"></script> <!-- 상품 기능 연결 -->
     <script type="module" src="member-session.mjs"></script> <!-- 회원 상태 연결 -->
+    <script type="module" src="/dialog-accessibility.mjs"></script> <!-- 공통 대화상자 접근성 연결 -->
     <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
     <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
     <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->

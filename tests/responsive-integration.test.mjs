@@ -50,6 +50,78 @@ test("메인 페이지가 홈 로고와 문의 해시 대상 창을 제공한다
     assert.match(html, /id="contact-modal"/); // 문의창 식별자 확인
 }); // 테스트 끝
 
+test("공통 페이지는 같은 대화상자 접근성 모듈을 사용한다", () => // 대화상자 모듈 연결 테스트
+{ // 테스트 시작
+    const files = ["main.html", "goods.html", "devlog.html", "community.html"]; // 공통 페이지 목록
+    for (const file of files) // 페이지 반복
+    { // 반복 시작
+        const html = readPublicFile(file); // HTML 읽기
+        assert.equal((html.match(/dialog-accessibility\.mjs/g) ?? []).length, 1, file); // 모듈 단일 연결 확인
+    } // 반복 끝
+}); // 테스트 끝
+
+test("공통 스타일은 대화상자 배경 스크롤을 잠근다", () => // 대화상자 스크롤 계약
+{ // 테스트 시작
+    const css = readPublicFile("responsive-shell.css"); // 공통 스타일 읽기
+    const dialogLockRule = css.match(/body\.dialog-open[\s\S]*?\}/)?.[0] ?? ""; // 대화상자 잠금 규칙 조회
+    assert.match(dialogLockRule, /overflow:\s*hidden/); // 스크롤 잠금 확인
+    assert.match(dialogLockRule, /overscroll-behavior:\s*none/); // 초과 스크롤 차단 확인
+}); // 테스트 끝
+
+test("메인 사용자 정의 모달은 역할과 데이터 동작을 제공한다", () => // 메인 모달 계약 테스트
+{ // 테스트 시작
+    const html = readPublicFile("main.html"); // 메인 HTML 읽기
+    const dialogIds = ["game-modal", "contact-modal", "terms-modal", "privacy-modal"]; // 모달 식별자 목록
+    for (const dialogId of dialogIds) // 모달 반복
+    { // 반복 시작
+        const openingTag = html.match(new RegExp(`<div[^>]*id="${dialogId}"[^>]*>`))?.[0] ?? ""; // 모달 시작 태그 조회
+        assert.match(openingTag, /data-dialog/); // 데이터 계약 확인
+        assert.match(openingTag, /role="dialog"/); // 역할 확인
+        assert.match(openingTag, /aria-modal="true"/); // 모달 상태 확인
+        assert.match(openingTag, /aria-labelledby="[^"]+"/); // 제목 연결 확인
+    } // 반복 끝
+    assert.match(html, /data-dialog-open="contact-modal"/); // 문의 실행 요소 확인
+    assert.match(html, /data-dialog-close/); // 닫기 데이터 확인
+    assert.doesNotMatch(html, /getElementById\('contact-modal'\)\.classList\.add\('open'\)/); // 인라인 열기 제거 확인
+    assert.doesNotMatch(html, /classList\.remove\('open'\)/); // 인라인 닫기 제거 확인
+}); // 테스트 끝
+
+test("메인 상세 이동 버튼은 모든 화면에서 작게 오른쪽 정렬된다", () => // 상세 버튼 배치 테스트
+{ // 테스트 시작
+    const html = readPublicFile("main.html"); // 메인 HTML 읽기
+    const destinations = ["goods.html", "devlog.html", "community.html"]; // 상세 페이지 목록
+    const buttonRule = html.match(/\.section-detail-link \/\* 상세 페이지 이동 버튼 \*\/[\s\S]*?\} \/\* 이동 버튼 끝 \*\//)?.[0] ?? ""; // 기본 버튼 규칙 추출
+    const mobileRules = html.match(/\.section-detail-link \/\* 모바일[^}]+\{[\s\S]*?\}/g) ?? []; // 모바일 버튼 규칙 추출
+    for (const destination of destinations) // 상세 페이지 반복
+    { // 반복 시작
+        const headingPattern = new RegExp(`<div class="section-heading-row"[^>]*>(?:(?!<\\/div>)[\\s\\S])*?<a class="section-detail-link" href="${destination}">상세 페이지로 이동 →<\\/a>(?:(?!<\\/div>)[\\s\\S])*?<\\/div>`); // 제목 행 배치 규칙
+        assert.match(html, headingPattern, `${destination}: 제목 오른쪽 버튼 누락`); // 제목 행 배치 확인
+    } // 반복 종료
+    assert.match(buttonRule, /min-height:\s*34px/); // 작은 버튼 높이 확인
+    assert.match(buttonRule, /margin-left:\s*auto/); // 오른쪽 자동 여백 확인
+    assert.match(buttonRule, /font-size:\s*0\.72rem/); // 작은 글자 크기 확인
+    assert.equal(mobileRules.length, 2); // 모바일 규칙 수 확인
+    for (const mobileRule of mobileRules) // 모바일 규칙 반복
+    { // 반복 시작
+        assert.match(mobileRule, /align-self:\s*flex-end/); // 모바일 오른쪽 정렬 확인
+        assert.match(mobileRule, /width:\s*auto/); // 모바일 내용 너비 확인
+        assert.doesNotMatch(mobileRule, /width:\s*100%/); // 모바일 전체 너비 방지
+    } // 반복 종료
+}); // 테스트 끝
+
+test("상세 이동 제목 행과 장식선은 FAQ와 같은 높이 간격을 유지한다", () => // 제목 높이 테스트
+{ // 테스트 시작
+    const html = readPublicFile("main.html"); // 메인 HTML 읽기
+    const headingRule = html.match(/\.section-heading-row \/\* 제목과 이동 버튼 묶음 \*\/[\s\S]*?\} \/\* 제목 행 끝 \*\//)?.[0] ?? ""; // 기본 제목 행 규칙 추출
+    const mobileHeadingRule = html.match(/\.section-heading-row \/\* 모바일 제목 행 \*\/[\s\S]*?\} \/\* 모바일 제목 행 끝 \*\//)?.[0] ?? ""; // 모바일 제목 행 규칙 추출
+    const lineRule = html.match(/\.section-line\s*\{[\s\S]*?\}/)?.[0] ?? ""; // 장식선 규칙 추출
+    assert.match(headingRule, /align-items:\s*center/); // 기본 세로 중앙 정렬 확인
+    assert.match(mobileHeadingRule, /align-items:\s*center/); // 모바일 세로 중앙 정렬 확인
+    assert.match(mobileHeadingRule, /flex-direction:\s*row/); // 모바일 가로 행 확인
+    assert.doesNotMatch(mobileHeadingRule, /flex-direction:\s*column/); // 모바일 세로 행 방지
+    assert.match(lineRule, /margin-top:\s*1rem/); // FAQ 기준 장식선 간격 확인
+}); // 테스트 끝
+
 test("공개 메인 헤더는 개발용 기기 선택기를 노출하지 않는다", () => // 공개 헤더 테스트
 { // 테스트 시작
     const html = readPublicFile("main.html"); // 메인 HTML 읽기
@@ -78,12 +150,20 @@ test("메인 페이지가 키보드 이동과 충분한 터치 영역을 제공�
 test("공통 스타일이 모바일 태블릿 PC 경계를 모두 정의한다", () => // 공통 화면 구간 테스트
 { // 테스트 시작
     const css = readPublicFile("responsive-shell.css"); // 공통 CSS 읽기
+    const privacyCss = readPublicFile("privacy-consent.css"); // 개인정보 스타일 읽기
+    const themeCss = readPublicFile("playful-lab-theme.css"); // 공통 테마 읽기
     assert.match(css, /@media \(max-width: 767px\)/); // 모바일 상한 확인
     assert.match(css, /@media \(min-width: 768px\) and \(max-width: 959px\)/); // 서랍 태블릿 구간 확인
     assert.match(css, /@media \(min-width: 960px\) and \(max-width: 1279px\)/); // 가로 태블릿 구간 확인
     assert.match(css, /@media \(min-width: 1280px\)/); // PC 하한 확인
-    assert.match(css, /width:\s*calc\(100vw - 32px\)/); // 모바일 모달 너비 확인
+    assert.match(css, /width:\s*calc\(100% - 32px\)/); // 포함 영역 모달 너비 확인
+    assert.doesNotMatch(css, /width:\s*calc\(100vw - 32px\)/); // 스크롤바 포함 너비 방지
     assert.match(css, /max-height:\s*calc\(100dvh - 32px\)/); // 모바일 모달 높이 확인
+    assert.match(privacyCss, /max-height:\s*calc\(100dvh - 2rem\)/); // 개인정보 높이 안전 영역 확인
+    assert.match(privacyCss, /left:\s*1rem[\s\S]*?right:\s*1rem[\s\S]*?width:\s*auto/); // 개인정보 모바일 좌우 여백 확인
+    assert.match(privacyCss, /overflow-y:\s*auto/); // 개인정보 내부 이동 확인
+    assert.match(themeCss, /:is\(\.modal-box, \.contact-dialog\)[\s\S]*?width:\s*calc\(100% - 2rem\)/); // 최종 테마 모달 너비 확인
+    assert.doesNotMatch(themeCss, /:is\(\.modal-box, \.contact-dialog\)[\s\S]*?width:\s*calc\(100vw - 2rem\)/); // 최종 테마 스크롤바 폭 방지
 }); // 테스트 끝
 
 test("메인과 굿즈가 모바일 한 열과 태블릿 두세 열을 제공한다", () => // 카드 격자 테스트
@@ -96,6 +176,41 @@ test("메인과 굿즈가 모바일 한 열과 태블릿 두세 열을 제공한
     assert.match(goodsCss, /@media \(max-width: 767px\)[\s\S]*?\.goods-grid[\s\S]*?grid-template-columns:\s*1fr/); // 굿즈 모바일 한 열 확인
     assert.match(goodsCss, /@media \(min-width: 768px\) and \(max-width: 1023px\)[\s\S]*?\.goods-grid[\s\S]*?repeat\(2,/); // 굿즈 태블릿 두 열 확인
     assert.match(goodsCss, /@media \(min-width: 1024px\) and \(max-width: 1279px\)[\s\S]*?\.goods-grid[\s\S]*?repeat\(3,/); // 굿즈 태블릿 세 열 확인
+}); // 테스트 끝
+
+test("공통 카드와 긴 한국어 문구는 컨테이너 폭 안에서 줄바꿈된다", () => // 긴 문구 안정성 테스트
+{ // 테스트 시작
+    const shellCss = readPublicFile("responsive-shell.css"); // 공통 스타일 읽기
+    const mainHtml = readPublicFile("main.html"); // 메인 문서 읽기
+    const experienceCss = readPublicFile("site-experience.css"); // 경험 스타일 읽기
+    const goodsCss = readPublicFile("goods.css"); // 굿즈 스타일 읽기
+    const newsCss = readPublicFile("devlog.css"); // 뉴스 스타일 읽기
+    const communityCss = readPublicFile("community.css"); // 커뮤니티 스타일 읽기
+    const legalCss = readPublicFile("legal.css"); // 법적 문서 스타일 읽기
+    assert.match(shellCss, /min-inline-size:\s*0/); // 공통 최소 폭 확인
+    assert.match(shellCss, /overflow-wrap:\s*anywhere/); // 공통 긴 문구 확인
+    assert.match(mainHtml, /\.section-heading-row > \.section-title[\s\S]*?min-width:\s*0/); // 메인 제목 최소 폭 확인
+    assert.match(experienceCss, /\.favorite-feedback[\s\S]*?max-width:\s*calc\(100% - 2rem\)/); // 하단 안내 안전 폭 확인
+    assert.match(goodsCss, /\.goods-price-row[\s\S]*?flex-wrap:\s*wrap/); // 상품 가격 줄바꿈 확인
+    assert.match(newsCss, /\.news-content[\s\S]*?min-width:\s*0/); // 뉴스 내용 최소 폭 확인
+    assert.match(communityCss, /\.platform-section[\s\S]*?overflow-wrap:\s*anywhere/); // 커뮤니티 문구 줄바꿈 확인
+    assert.match(legalCss, /\.legal-document[\s\S]*?overflow-wrap:\s*anywhere/); // 법적 문서 줄바꿈 확인
+}); // 테스트 끝
+
+test("Next 입력과 관리 화면은 동적 높이와 긴 문구를 안전하게 처리한다", () => // Next 화면 안정성 테스트
+{ // 테스트 시작
+    const loginCss = fs.readFileSync("app/login/member-login.module.css", "utf8"); // 로그인 스타일 읽기
+    const ageCss = fs.readFileSync("app/age-verification/age-verification.module.css", "utf8"); // 성인 확인 스타일 읽기
+    const newsCss = fs.readFileSync("app/news/[id]/news-detail.module.css", "utf8"); // 뉴스 상세 스타일 읽기
+    const adminCss = fs.readFileSync("app/admin/admin.css", "utf8"); // 관리자 스타일 읽기
+    assert.match(loginCss, /min-height:\s*100dvh/); // 로그인 동적 높이 확인
+    assert.match(loginCss, /\.panel[\s\S]*?min-width:\s*0[\s\S]*?overflow-wrap:\s*anywhere/); // 로그인 긴 문구 확인
+    assert.match(ageCss, /min-height:\s*100dvh/); // 성인 확인 동적 높이 확인
+    assert.match(ageCss, /\.card[\s\S]*?min-width:\s*0[\s\S]*?overflow-wrap:\s*anywhere/); // 성인 확인 긴 문구 확인
+    assert.match(newsCss, /\.article[\s\S]*?min-width:\s*0/); // 뉴스 본문 최소 폭 확인
+    assert.match(newsCss, /\.article h1[\s\S]*?overflow-wrap:\s*anywhere/); // 뉴스 긴 제목 확인
+    assert.match(adminCss, /\.admin-shell[\s\S]*?min-width:\s*0/); // 관리자 전체 최소 폭 확인
+    assert.match(adminCss, /@media \(max-width: 520px\)[\s\S]*?\.admin-row-actions[\s\S]*?width:\s*100%/); // 관리자 모바일 작업 폭 확인
 }); // 테스트 끝
 
 test("뉴스 커뮤니티 에타가 기기별 안전한 구성을 제공한다", () => // 특수 화면 테스트

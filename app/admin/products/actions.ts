@@ -4,19 +4,8 @@ import { redirect } from "next/navigation"; // 서버 이동 도구
 import { revalidatePath } from "next/cache"; // 캐시 갱신 도구
 import { requireAdmin } from "@/lib/auth/admin"; // 관리자 보호 함수
 import { createServerSupabaseClient } from "@/lib/supabase/server"; // 서버 데이터 도구
-import { validateProduct, validateProductImage } from "@/lib/products/validation"; // 상품 입력 검증
+import { readProductImage, readProductValues, validateProduct, validateProductImage } from "@/lib/products/validation"; // 상품 입력 검증
 import type { ProductActionState, ProductEditorInitialValue, ValidatedProduct } from "@/lib/products/types"; // 상품 액션 형식
-
-function readProductValues(formData: FormData): ProductEditorInitialValue // 상품 폼 입력 읽기
-{ // 함수 시작
-    return { name: String(formData.get("name") ?? ""), category: String(formData.get("category") ?? ""), gameName: String(formData.get("gameName") ?? ""), description: String(formData.get("description") ?? ""), price: String(formData.get("price") ?? ""), originalPrice: String(formData.get("originalPrice") ?? ""), badge: String(formData.get("badge") ?? "none"), salesUrl: String(formData.get("salesUrl") ?? ""), stockMode: String(formData.get("stockMode") ?? "manual"), stockQuantity: String(formData.get("stockQuantity") ?? "0"), externalProvider: String(formData.get("externalProvider") ?? ""), externalProductId: String(formData.get("externalProductId") ?? ""), publicationStatus: String(formData.get("publicationStatus") ?? "hidden"), displayOrder: String(formData.get("displayOrder") ?? "0") }; // 입력 값 반환
-} // 함수 끝
-
-function readProductImage(formData: FormData): File | null // 상품 이미지 읽기
-{ // 함수 시작
-    const value = formData.get("productImage"); // 이미지 값 읽기
-    return value instanceof File && value.size > 0 ? value : null; // 실제 이미지 반환
-} // 함수 끝
 
 function getImageExtension(type: string): string // 이미지 확장자 판정
 { // 함수 시작

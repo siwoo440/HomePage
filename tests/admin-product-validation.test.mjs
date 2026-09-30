@@ -1,6 +1,6 @@
 import test from "node:test"; // 테스트 실행기
 import assert from "node:assert/strict"; // 엄격한 검증 도구
-import { validateProduct, validateProductImage } from "../lib/products/validation.ts"; // 상품 검증 함수
+import { readProductImage, readProductValues, validateProduct, validateProductImage } from "../lib/products/validation.ts"; // 상품 검증 함수
 
 function validProduct(overrides = {}) // 정상 상품 입력 생성
 { // 함수 시작
@@ -67,5 +67,36 @@ test("5MB 초과 상품 이미지와 잘못된 형식을 거부한다", () => //
     assert.equal(validateProductImage({ size: 5 * 1024 * 1024 + 1, type: "image/png" }), "이미지는 5MB 이하여야 합니다."); // 크기 오류 확인
     assert.equal(validateProductImage({ size: 1024, type: "image/gif" }), "JPG, PNG, WebP 이미지만 사용할 수 있습니다."); // 형식 오류 확인
     assert.equal(validateProductImage({ size: 1024, type: "image/webp" }), null); // 정상 이미지 확인
+    assert.equal(validateProductImage({ size: 5 * 1024 * 1024, type: "image/png" }), null); // 최대 크기 이미지 확인
     assert.equal(validateProductImage(null), null); // 이미지 없음 확인
+}); // 테스트 끝
+
+test("상품 폼 데이터를 도메인 입력으로 변환한다", () => // 폼 변환 검증
+{ // 테스트 시작
+    const formData = new FormData(); // 폼 데이터 생성
+    const productImage = new File(["image"], "product.png", { type: "image/png" }); // 상품 이미지 생성
+    const source = validProduct(); // 정상 상품 입력 생성
+    Object.entries(source).forEach(([name, value]) => formData.set(name, String(value))); // 폼 값 설정
+    formData.set("productImage", productImage); // 이미지 설정
+    assert.deepEqual(readProductValues(formData), source); // 입력 변환 확인
+    assert.equal(readProductImage(formData), productImage); // 이미지 변환 확인
+    const emptyFormData = new FormData(); // 빈 이미지 폼 생성
+    emptyFormData.set("productImage", new File([], "empty.png", { type: "image/png" })); // 빈 이미지 설정
+    assert.equal(readProductImage(emptyFormData), null); // 빈 이미지 제외 확인
+}); // 테스트 끝
+
+test("안전 정수 범위를 넘는 상품 숫자를 거부한다", () => // 안전 정수 경계 검증
+{ // 테스트 시작
+    const unsafeInteger = String(Number.MAX_SAFE_INTEGER + 1); // 안전 범위 초과 값
+    const result = validateProduct(validProduct({ price: unsafeInteger, stockQuantity: unsafeInteger, displayOrder: unsafeInteger })); // 초과 숫자 검증
+    assert.equal(result.errors.price, "판매가는 0 이상의 정수여야 합니다."); // 판매가 초과 확인
+    assert.equal(result.errors.stockQuantity, "재고는 0 이상의 정수여야 합니다."); // 재고 초과 확인
+    assert.equal(result.errors.displayOrder, "노출 순서는 0 이상의 정수여야 합니다."); // 노출 순서 초과 확인
+}); // 테스트 끝
+
+test("안전 정수 최댓값을 상품 숫자로 허용한다", () => // 안전 정수 최댓값 검증
+{ // 테스트 시작
+    const safeInteger = String(Number.MAX_SAFE_INTEGER); // 안전 범위 최댓값
+    const result = validateProduct(validProduct({ price: safeInteger, stockQuantity: safeInteger, displayOrder: safeInteger })); // 최댓값 검증
+    assert.deepEqual(result.errors, {}); // 안전 정수 허용 확인
 }); // 테스트 끝

@@ -38,6 +38,7 @@
   ],
   "exclude": [
     "node_modules",
+    "ChatBot",
     "ChatBot-text-play-download",
     "Text-Play",
     "imported-chatbot",

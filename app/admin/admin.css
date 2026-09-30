@@ -20,7 +20,7 @@
 body /* 관리자 문서 */
 { /* 본문 설정 시작 */
     margin: 0; /* 기본 여백 제거 */
-    min-height: 100vh; /* 최소 화면 높이 */
+    min-height: 100dvh; /* 동적 화면 높이 */
     background: radial-gradient(circle at 14% 0%, color-mix(in srgb, var(--pl-orange) 13%, transparent), transparent 30%), radial-gradient(circle at 90% 8%, color-mix(in srgb, var(--pl-violet) 12%, transparent), transparent 32%), var(--admin-background); /* 공간감 배경 */
     color: var(--admin-text); /* 기본 글자색 */
 } /* 본문 설정 끝 */
@@ -28,7 +28,9 @@ body /* 관리자 문서 */
 .admin-shell /* 관리자 전체 영역 */
 { /* 전체 영역 설정 시작 */
     width: min(1180px, 92%); /* 반응형 최대 너비 */
-    min-height: 100vh; /* 최소 화면 높이 */
+    min-height: 100dvh; /* 동적 화면 높이 */
+    min-width: 0; /* 전체 최소 폭 해제 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
     margin: 0 auto; /* 가운데 배치 */
     padding-bottom: 64px; /* 아래 여백 */
 } /* 전체 영역 설정 끝 */
@@ -98,6 +100,7 @@ body /* 관리자 문서 */
 .admin-login-form input, .editor-field input, .editor-field textarea, .editor-field select /* 입력 요소 */
 { /* 입력 요소 설정 시작 */
     width: 100%; /* 입력 전체 너비 */
+    min-width: 0; /* 입력 최소 폭 해제 */
     border: 1px solid var(--admin-border); /* 입력 경계선 */
     border-radius: 6px; /* 입력 모서리 */
     background: var(--admin-surface-soft); /* 입력 배경 */
@@ -251,6 +254,7 @@ body /* 관리자 문서 */
     align-items: center; /* 세로 가운데 정렬 */
     justify-content: space-between; /* 양쪽 정렬 */
     gap: 24px; /* 행 내용 간격 */
+    min-width: 0; /* 행 최소 폭 해제 */
 } /* 행 설정 끝 */
 
 .admin-post-row h2 /* 게시물 제목 */
@@ -363,6 +367,7 @@ body /* 관리자 문서 */
     padding: 14px; /* 내부 여백 */
     border: 1px solid var(--admin-border); /* 행 경계선 */
     background: var(--admin-surface); /* 행 배경 */
+    min-width: 0; /* 행 최소 폭 해제 */
 } /* 관리자 상품 행 끝 */
 
 .admin-product-row img /* 상품 미리보기 */
@@ -445,6 +450,13 @@ body /* 관리자 문서 */
     color: var(--admin-danger) !important; /* 오류 글자색 */
 } /* 필드 오류 설정 끝 */
 
+.editor-field :is(input, textarea, select)[aria-invalid="true"], fieldset[aria-invalid="true"] /* 오류 입력 강조 */
+{ /* 오류 입력 설정 시작 */
+    border-color: var(--admin-danger); /* 오류 경계선 */
+    outline: 2px solid color-mix(in srgb, var(--admin-danger) 20%, transparent); /* 오류 외곽선 */
+    outline-offset: 1px; /* 외곽선 간격 */
+} /* 오류 입력 설정 끝 */
+
 @media (max-width: 820px) /* 좁은 화면 */
 { /* 좁은 화면 시작 */
     .admin-header, .admin-page-heading, .admin-post-row /* 좁은 가로 영역 */
@@ -478,6 +490,38 @@ body /* 관리자 문서 */
         grid-column: 1 / -1; /* 전체 너비 사용 */
     } /* 좁은 상품 작업 끝 */
 } /* 좁은 화면 끝 */
+
+@media (max-width: 520px) /* 작은 모바일 화면 */
+{ /* 작은 화면 시작 */
+    .admin-shell /* 작은 관리자 전체 영역 */
+    { /* 전체 영역 시작 */
+        width: calc(100% - 24px); /* 화면 안전 너비 */
+    } /* 전체 영역 끝 */
+
+    .admin-product-row /* 작은 상품 행 */
+    { /* 상품 행 시작 */
+        grid-template-columns: 1fr; /* 상품 한 열 배치 */
+    } /* 상품 행 끝 */
+
+    .admin-product-row img /* 작은 상품 이미지 */
+    { /* 상품 이미지 시작 */
+        width: min(100%, 160px); /* 이미지 안전 너비 */
+    } /* 상품 이미지 끝 */
+
+    .admin-nav, .admin-row-actions /* 작은 화면 작업 영역 */
+    { /* 작업 영역 시작 */
+        align-items: stretch; /* 작업 너비 맞춤 */
+        flex-direction: column; /* 작업 세로 배치 */
+        width: 100%; /* 작업 전체 너비 */
+    } /* 작업 영역 끝 */
+
+    .admin-nav a, .admin-nav button, .admin-row-actions a, .admin-row-actions button /* 작은 화면 작업 요소 */
+    { /* 작업 요소 시작 */
+        min-height: 44px; /* 터치 높이 */
+        overflow-wrap: anywhere; /* 긴 작업 문구 줄바꿈 */
+        text-align: left; /* 작업 문구 왼쪽 정렬 */
+    } /* 작업 요소 끝 */
+} /* 작은 화면 끝 */
 
 @media (prefers-reduced-motion: reduce) /* 움직임 최소화 환경 */
 { /* 접근성 설정 시작 */

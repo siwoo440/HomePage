@@ -120,6 +120,8 @@ export function initializePrivacyConsent(root = document, storage = window.local
     panel.dataset.privacyConsent = "true"; // 패널 식별자 설정
     panel.setAttribute("role", "dialog"); // 대화 상자 역할 설정
     panel.setAttribute("aria-labelledby", "privacy-consent-title"); // 제목 연결
+    panel.setAttribute("aria-describedby", "privacy-consent-description"); // 설명 연결
+    panel.tabIndex = -1; // 프로그램 초점 허용
     panel.hidden = readPrivacyConsent(storage) !== null; // 최초 노출 결정
 
     const title = root.createElement("h2"); // 제목 생성
@@ -127,6 +129,7 @@ export function initializePrivacyConsent(root = document, storage = window.local
     title.textContent = "개인정보 선택"; // 제목 문구 설정
 
     const description = root.createElement("p"); // 설명 생성
+    description.id = "privacy-consent-description"; // 설명 식별자 설정
     description.textContent = "필수 기능은 항상 사용하며, 방문 분석은 동의한 경우에만 실행합니다."; // 설명 문구 설정
 
     const actions = root.createElement("div"); // 버튼 영역 생성
@@ -168,6 +171,7 @@ export function initializePrivacyConsent(root = document, storage = window.local
         panel.hidden = true; // 패널 숨김
         status.textContent = action === "accept" ? "분석 사용에 동의했습니다." : "선택 기능을 사용하지 않습니다."; // 결과 안내 표시
         notifyConsentChanged(consent, view); // 변경 이벤트 전달
+        settings.focus?.(); // 설정 버튼 초점 복원
     }); // 처리 끝
 
     return panel; // 패널 반환

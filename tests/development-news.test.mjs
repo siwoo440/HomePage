@@ -32,7 +32,8 @@ test("개발 뉴스 페이지에 메인과 동일한 상단 메뉴가 있다", a
     assert.match(newsHtml, /href="goods\.html">굿즈<\/a>/, "굿즈 전용 페이지 이동 링크 누락"); // 굿즈 링크 검증
     assert.match(newsHtml, /href="devlog\.html" aria-current="page">개발 뉴스<\/a>/, "현재 뉴스 링크 누락"); // 뉴스 링크 검증
     assert.match(newsHtml, /href="community\.html">커뮤니티<\/a>/, "커뮤니티 전용 페이지 이동 링크 누락"); // 커뮤니티 링크 검증
-    assert.match(newsHtml, /id="contact-open"[^>]*>문의하기<\/button>/, "문의 버튼 누락"); // 문의 버튼 검증
+    assert.match(newsHtml, /id="contact-open"[^>]*data-dialog-open="contact-dialog"[^>]*>문의하기<\/button>/, "문의 버튼 접근성 계약 누락"); // 문의 버튼 검증
+    assert.match(newsHtml, /id="contact-dialog"[^>]*data-dialog/, "문의 대화상자 접근성 계약 누락"); // 문의 대화상자 검증
 }); // 테스트 본문 끝
 
 test("개발 뉴스 페이지가 네 개의 가로 뉴스와 필터 상태를 제공한다", async () => // 뉴스 목록 계약 검사

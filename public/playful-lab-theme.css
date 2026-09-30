@@ -192,13 +192,17 @@
     background: linear-gradient(90deg, var(--pl-mint), var(--pl-violet), var(--pl-orange)); /* 시간 진행 색상 */
 } /* 진행 표시 끝 */
 
-[data-theme="playful-lab"] .hero-carousel-control /* 캐러셀 방향 버튼 */
+[data-theme="playful-lab"] .hero-carousel-control::before /* 캐러셀 방향 버튼 */
 { /* 방향 버튼 시작 */
     border-color: var(--pl-border); /* 방향 경계선 */
     background: color-mix(in srgb, var(--pl-canvas) 94%, transparent); /* 방향 배경 */
-    color: var(--pl-ink); /* 방향 글자색 */
     box-shadow: var(--pl-shadow-small); /* 방향 그림자 */
 } /* 방향 버튼 끝 */
+
+[data-theme="playful-lab"] .hero-carousel-control /* 캐러셀 방향 화살표 */
+{ /* 방향 화살표 시작 */
+    color: var(--pl-ink); /* 방향 글자색 */
+} /* 방향 화살표 끝 */
 
 [data-theme="playful-lab"] :is(.hero-promo-label, .hero-carousel-status) /* 히어로 보조 문구 */
 { /* 보조 문구 시작 */
@@ -725,7 +729,7 @@
 
     [data-theme="playful-lab"] :is(.modal-box, .contact-dialog) /* 모바일 대화상자 */
     { /* 대화상자 시작 */
-        width: calc(100vw - 2rem); /* 화면 안쪽 너비 */
+        width: calc(100% - 2rem); /* 포함 영역 안쪽 너비 */
         max-height: calc(100dvh - 2rem); /* 화면 안쪽 높이 */
         overflow-y: auto; /* 세로 이동 */
     } /* 대화상자 끝 */

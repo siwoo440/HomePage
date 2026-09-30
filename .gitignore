@@ -17,6 +17,7 @@ bridge/
 # Common ignores
 node_modules
 .next/
+next-env.d.ts
 tsconfig.tsbuildinfo
 .DS_Store
 
@@ -30,6 +31,7 @@ NEXT-SESSION-HANDOFF-*.md
 google-docs-trusted-read-*/
 
 # Separate Text-Play and ChatBot workspaces
+ChatBot/
 Text-Play/
 ChatBot-text-play-download/
 imported-chatbot/

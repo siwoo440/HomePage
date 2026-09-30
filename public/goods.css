@@ -29,6 +29,7 @@
 .goods-card /* 상품 카드 */
 { /* 상품 카드 시작 */
     position: relative; /* 배지 기준 위치 */
+    min-width: 0; /* 카드 최소 폭 해제 */
     overflow: hidden; /* 카드 넘침 숨김 */
     border: 1px solid var(--border); /* 카드 경계선 */
     background: var(--surface); /* 카드 배경 */
@@ -134,6 +135,7 @@ a.goods-card:hover .goods-image /* 구매 카드 이미지 선택 */
 { /* 보조 정보 시작 */
     color: var(--muted); /* 보조 글자색 */
     font-size: 0.8rem; /* 보조 글자 크기 */
+    overflow-wrap: anywhere; /* 긴 보조 문구 줄바꿈 */
 } /* 보조 정보 끝 */
 
 .goods-name /* 상품명 */
@@ -142,6 +144,7 @@ a.goods-card:hover .goods-image /* 구매 카드 이미지 선택 */
     color: var(--text); /* 상품명 글자색 */
     font-size: 1.05rem; /* 상품명 크기 */
     font-weight: 750; /* 상품명 굵기 */
+    overflow-wrap: anywhere; /* 긴 상품명 줄바꿈 */
 } /* 상품명 끝 */
 
 .goods-description /* 상품 설명 */
@@ -154,6 +157,7 @@ a.goods-card:hover .goods-image /* 구매 카드 이미지 선택 */
 { /* 가격 영역 시작 */
     display: flex; /* 가로 배치 */
     align-items: end; /* 아래 기준 정렬 */
+    flex-wrap: wrap; /* 좁은 가격 영역 줄바꿈 */
     justify-content: space-between; /* 양쪽 정렬 */
     gap: 12px; /* 요소 간격 */
 } /* 가격 영역 끝 */
@@ -162,6 +166,7 @@ a.goods-card:hover .goods-image /* 구매 카드 이미지 선택 */
 { /* 가격 묶음 시작 */
     display: grid; /* 가격 세로 배치 */
     gap: 2px; /* 가격 간격 */
+    min-width: 0; /* 가격 최소 폭 해제 */
 } /* 가격 묶음 끝 */
 
 .goods-original-price /* 할인 전 가격 */
@@ -185,7 +190,9 @@ a.goods-card:hover .goods-image /* 구매 카드 이미지 선택 */
     color: var(--cyan); /* 버튼 글자색 */
     font-size: 0.75rem; /* 버튼 글자 크기 */
     font-weight: 800; /* 버튼 글자 굵기 */
-    white-space: nowrap; /* 버튼 줄바꿈 차단 */
+    max-width: 100%; /* 카드 폭 제한 */
+    overflow-wrap: anywhere; /* 긴 버튼 문구 줄바꿈 */
+    white-space: normal; /* 버튼 줄바꿈 허용 */
 } /* 구매 버튼 끝 */
 
 .goods-buy-btn.is-disabled /* 비활성 구매 버튼 */

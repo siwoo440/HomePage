@@ -21,6 +21,8 @@ test("커뮤니티 페이지는 공통 헤더와 게임 선택기를 제공한�
     assert.match(html, /id="active-hashtag"/); // 해시태그 표시 확인
     assert.match(html, /aria-live="polite"/); // 상태 안내 확인
     assert.match(html, /type="module" src="community\.mjs"/); // 화면 기능 연결 확인
+    assert.match(html, /id="contact-open"[^>]*data-dialog-open="contact-dialog"/); // 문의 열기 계약 확인
+    assert.match(html, /id="contact-dialog"[^>]*data-dialog/); // 문의 창 계약 확인
 }); // 테스트 끝
 
 test("여섯 플랫폼 영역과 직접 이동 지점을 제공한다", async () => // 플랫폼 구조 검증

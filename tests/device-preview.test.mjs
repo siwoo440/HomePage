@@ -12,7 +12,14 @@ class FakeClassList // 클래스 목록 대역
     toggle(name, force) // 클래스 전환
     { // 전환 시작
         const enabled = force ?? !this.values.has(name); // 전환 상태 계산
-        enabled ? this.values.add(name) : this.values.delete(name); // 클래스 상태 반영
+        if (enabled) // 활성 상태 확인
+        { // 활성 분기 시작
+            this.values.add(name); // 클래스 추가
+        } // 활성 분기 끝
+        else // 비활성 상태 처리
+        { // 비활성 분기 시작
+            this.values.delete(name); // 클래스 제거
+        } // 비활성 분기 끝
         return enabled; // 전환 상태 반환
     } // 전환 끝
 

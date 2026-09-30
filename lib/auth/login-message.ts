@@ -13,3 +13,13 @@ export function getLoginMessage(configured: boolean, errorCode: string): string 
 
     return ERROR_MESSAGES[errorCode] ?? ""; // 오류 코드 안내
 } // 함수 끝
+
+export function isCredentialInputError(error: unknown): boolean // 자격 증명 오류 판정
+{ // 함수 시작
+    if (!error || typeof error !== "object") // 오류 객체 확인
+    { // 조건 시작
+        return false; // 입력 오류 아님 반환
+    } // 조건 끝
+
+    return "code" in error && error.code === "invalid_credentials"; // 자격 증명 코드 판정
+} // 함수 끝

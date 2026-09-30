@@ -267,6 +267,8 @@
 .platform-section /* 플랫폼 영역 */
 { /* 영역 시작 */
     scroll-margin-top: 92px; /* 고정 메뉴 위치 보정 */
+    min-width: 0; /* 영역 최소 폭 해제 */
+    overflow-wrap: anywhere; /* 긴 채널 문구 줄바꿈 */
     padding: clamp(24px, 4vw, 40px); /* 반응형 안쪽 여백 */
     border: 1px solid var(--platform-border); /* 플랫폼 테두리 */
     border-left-width: 3px; /* 왼쪽 강조선 */
@@ -316,12 +318,14 @@
     justify-content: space-between; /* 양쪽 정렬 */
     gap: 20px; /* 요소 간격 */
     align-items: center; /* 세로 가운데 정렬 */
+    min-width: 0; /* 제목 묶음 최소 폭 해제 */
 } /* 제목 묶음 끝 */
 .platform-identity /* 플랫폼 이름 묶음 */
 { /* 이름 묶음 시작 */
     display: flex; /* 가로 배치 */
     gap: 16px; /* 요소 간격 */
     align-items: center; /* 세로 가운데 정렬 */
+    min-width: 0; /* 이름 묶음 최소 폭 해제 */
 } /* 이름 묶음 끝 */
 .platform-icon /* 플랫폼 아이콘 */
 { /* 아이콘 시작 */
@@ -368,6 +372,7 @@
 .signal-card, .reaction-card, .media-card /* 플랫폼 카드 */
 { /* 카드 시작 */
     min-height: 156px; /* 카드 최소 높이 */
+    min-width: 0; /* 카드 최소 폭 해제 */
     padding: 22px; /* 안쪽 여백 */
     border: 1px solid rgba(132, 146, 170, 0.18); /* 중립 테두리 */
     background: rgba(7, 11, 20, 0.52); /* 반투명 배경 */

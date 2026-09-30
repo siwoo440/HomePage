@@ -1,7 +1,9 @@
 .shell /* 뉴스 상세 전체 영역 */
 { /* 전체 영역 설정 시작 */
     width: min(960px, 92%); /* 반응형 최대 너비 */
-    min-height: 100vh; /* 최소 화면 높이 */
+    min-height: 100dvh; /* 동적 화면 높이 */
+    min-width: 0; /* 전체 최소 폭 해제 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
     margin: 0 auto; /* 가운데 배치 */
     background: var(--pl-surface); /* 뉴스 상세 배경 */
     box-shadow: 0 0 0 100vmax var(--pl-surface); /* 화면 전체 배경 확장 */
@@ -42,6 +44,7 @@
     border-radius: var(--pl-radius-large); /* 본문 모서리 */
     background: var(--pl-canvas); /* 본문 배경 */
     box-shadow: var(--pl-shadow-small); /* 본문 그림자 */
+    min-width: 0; /* 본문 최소 폭 해제 */
 } /* 본문 설정 끝 */
 
 .article h1 /* 뉴스 제목 */
@@ -51,6 +54,7 @@
     font-size: clamp(2.3rem, 7vw, 4.8rem); /* 반응형 제목 크기 */
     line-height: 1.12; /* 제목 줄 간격 */
     letter-spacing: -0.055em; /* 제목 글자 간격 */
+    overflow-wrap: anywhere; /* 긴 제목 줄바꿈 */
 } /* 제목 설정 끝 */
 
 .article time /* 공개 날짜 */
@@ -105,6 +109,7 @@
     border-radius: var(--pl-radius-large); /* 댓글 모서리 */
     background: var(--pl-canvas); /* 댓글 배경 */
     box-shadow: var(--pl-shadow-small); /* 댓글 그림자 */
+    min-width: 0; /* 댓글 최소 폭 해제 */
 } /* 댓글 영역 끝 */
 
 .commentsHeading /* 댓글 제목 묶음 */
@@ -164,6 +169,20 @@
     resize: vertical; /* 세로 크기 조절 */
 } /* 입력 끝 */
 
+.commentForm textarea[aria-invalid="true"] /* 댓글 오류 입력 */
+{ /* 오류 입력 시작 */
+    border-color: var(--pl-danger); /* 오류 경계선 */
+    outline: 2px solid color-mix(in srgb, var(--pl-danger) 20%, transparent); /* 오류 외곽선 */
+    outline-offset: 1px; /* 외곽선 간격 */
+} /* 오류 입력 끝 */
+
+.fieldError /* 댓글 필드 오류 */
+{ /* 필드 오류 시작 */
+    color: var(--pl-danger); /* 오류 글자색 */
+    font-size: 0.86rem; /* 오류 글자 크기 */
+    font-weight: 700; /* 오류 글자 굵기 */
+} /* 필드 오류 끝 */
+
 .cancelReply /* 답글 취소 버튼 */
 { /* 취소 시작 */
     width: fit-content; /* 내용 너비 */
@@ -193,6 +212,18 @@
     cursor: pointer; /* 클릭 커서 */
 } /* 선택 요소 끝 */
 
+.imageButton:focus-within /* 이미지 선택 포커스 */
+{ /* 포커스 시작 */
+    outline: 3px solid color-mix(in srgb, var(--pl-violet) 45%, transparent); /* 포커스 외곽선 */
+    outline-offset: 3px; /* 외곽선 간격 */
+} /* 포커스 끝 */
+
+.imageButton[aria-disabled="true"] /* 이미지 선택 비활성 */
+{ /* 비활성 시작 */
+    cursor: wait; /* 대기 커서 */
+    opacity: 0.65; /* 비활성 투명도 */
+} /* 비활성 끝 */
+
 .submitButton /* 댓글 등록 버튼 */
 { /* 등록 시작 */
     background: var(--pl-violet); /* 강조 배경 */
@@ -200,6 +231,12 @@
     font: inherit; /* 본문 글꼴 */
     font-weight: 800; /* 버튼 굵기 */
 } /* 등록 끝 */
+
+.submitButton:disabled /* 댓글 등록 비활성 */
+{ /* 비활성 시작 */
+    cursor: wait; /* 대기 커서 */
+    opacity: 0.65; /* 비활성 투명도 */
+} /* 비활성 끝 */
 
 .hiddenInput /* 숨긴 파일 입력 */
 { /* 숨김 시작 */
@@ -330,4 +367,9 @@
         align-items: flex-start; /* 왼쪽 기준 정렬 */
         flex-direction: column; /* 세로 배치 */
     } /* 묶음 설정 끝 */
+
+    .imageButton, .submitButton, .loginPrompt /* 모바일 주요 선택 요소 */
+    { /* 선택 요소 시작 */
+        width: 100%; /* 선택 요소 전체 너비 */
+    } /* 선택 요소 끝 */
 } /* 모바일 설정 끝 */

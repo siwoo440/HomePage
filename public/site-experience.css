@@ -31,6 +31,16 @@ select:focus-visible /* 키보드 선택 초점 */
     outline-offset: 3px; /* 초점 간격 */
 } /* 규칙 끝 */
 
+.hero-slide, /* 히어로 화면 */
+.experience-card, /* 소개 카드 */
+.project-status-board, /* 현황판 */
+.project-shelf-panel, /* 보관함 카드 */
+.shelf-project-link /* 보관함 링크 */
+{ /* 규칙 시작 */
+    min-width: 0; /* 유동 영역 최소 폭 해제 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+} /* 규칙 끝 */
+
 .hero-subtitle /* 히어로 설명 대비 */
 { /* 규칙 시작 */
     color: #b5c2d4; /* 읽기 색상 */
@@ -40,6 +50,18 @@ select:focus-visible /* 키보드 선택 초점 */
 { /* 규칙 시작 */
     padding-bottom: 6.5rem; /* 하단 제어 영역 여백 */
     position: relative; /* 전환 버튼 위치 기준 */
+} /* 규칙 끝 */
+
+.hero-bg::before /* 히어로 배경 이미지 */
+{ /* 규칙 시작 */
+    background-image: linear-gradient(90deg, color-mix(in srgb, var(--pl-canvas, #0b1220) 68%, transparent), color-mix(in srgb, var(--pl-canvas, #0b1220) 54%, transparent), color-mix(in srgb, var(--pl-canvas, #0b1220) 68%, transparent)), url("/images/hero/devforge-world.jpg"); /* 배경 가독성 층 */
+    background-position: center; /* 이미지 중앙 배치 */
+    background-size: cover; /* 영역 전체 채움 */
+    content: ""; /* 장식 요소 생성 */
+    filter: saturate(0.92) contrast(1.04); /* 배경 색감 정리 */
+    inset: 0; /* 배경 전체 확장 */
+    opacity: 0.9; /* 이미지 농도 */
+    position: absolute; /* 배경 독립 배치 */
 } /* 규칙 끝 */
 
 .hero-carousel-viewport /* 히어로 화면 틀 */
@@ -116,27 +138,53 @@ select:focus-visible /* 키보드 선택 초점 */
 .hero-carousel-control /* 히어로 전환 버튼 */
 { /* 규칙 시작 */
     align-items: center; /* 세로 정렬 */
-    background: rgba(8, 20, 35, 0.86); /* 버튼 배경 */
-    border: 1px solid rgba(88, 228, 199, 0.58); /* 버튼 테두리 */
-    border-radius: 50%; /* 원형 버튼 */
+    background: transparent; /* 터치 영역 투명화 */
+    border: 0; /* 기본 테두리 제거 */
     color: #72efd5; /* 화살표 색상 */
     cursor: pointer; /* 선택 표시 */
     display: inline-flex; /* 내부 정렬 */
-    font-size: 2rem; /* 화살표 크기 */
-    height: 52px; /* 버튼 높이 */
+    font-size: 0; /* 문자 기준선 제거 */
+    height: 44px; /* 터치 높이 */
     justify-content: center; /* 가로 정렬 */
-    line-height: 1; /* 화살표 줄 높이 */
-    min-height: 52px; /* 터치 높이 */
-    min-width: 52px; /* 터치 너비 */
+    min-height: 44px; /* 최소 터치 높이 */
+    min-width: 44px; /* 최소 터치 너비 */
+    padding: 0; /* 기본 안쪽 여백 제거 */
     position: absolute; /* 화면 양쪽 배치 */
     bottom: 0; /* 하단 버튼 행 배치 */
     transform: none; /* 위치 보정 해제 */
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; /* 버튼 전환 */
-    width: 52px; /* 버튼 너비 */
+    width: 44px; /* 터치 너비 */
     z-index: 3; /* 화면 위 표시 */
 } /* 규칙 끝 */
 
-.hero-carousel-control:hover /* 히어로 전환 버튼 선택 */
+.hero-carousel-control::before /* 히어로 전환 원 */
+{ /* 규칙 시작 */
+    background: rgba(8, 20, 35, 0.86); /* 원형 버튼 배경 */
+    border: 1px solid rgba(88, 228, 199, 0.58); /* 원형 버튼 테두리 */
+    border-radius: 50%; /* 원형 모양 */
+    content: ""; /* 원형 장식 생성 */
+    height: 36px; /* 작은 시각 높이 */
+    left: 50%; /* 가로 중앙 기준 */
+    position: absolute; /* 터치 영역 안쪽 배치 */
+    top: 50%; /* 세로 중앙 기준 */
+    transform: translate(-50%, -50%); /* 정확한 중앙 보정 */
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; /* 원형 버튼 전환 */
+    width: 36px; /* 작은 시각 너비 */
+} /* 규칙 끝 */
+
+.hero-carousel-icon /* 히어로 화살표 */
+{ /* 규칙 시작 */
+    align-self: center; /* 세로 중앙 고정 */
+    border-bottom: 2px solid currentColor; /* 화살표 아래 선 */
+    border-right: 2px solid currentColor; /* 화살표 오른쪽 선 */
+    flex: 0 0 auto; /* 화살표 크기 고정 */
+    height: 8px; /* 화살표 높이 */
+    position: relative; /* 원형 위 표시 */
+    width: 8px; /* 화살표 너비 */
+    z-index: 1; /* 원형 위 배치 */
+} /* 규칙 끝 */
+
+.hero-carousel-control:hover::before, /* 마우스 선택 원 */
+.hero-carousel-control:focus-visible::before /* 키보드 선택 원 */
 { /* 규칙 시작 */
     background: rgba(88, 228, 199, 0.18); /* 선택 배경 */
     border-color: #72efd5; /* 선택 테두리 */
@@ -144,12 +192,22 @@ select:focus-visible /* 키보드 선택 초점 */
 
 .hero-carousel-previous /* 이전 전환 버튼 */
 { /* 규칙 시작 */
-    left: calc(50% - 84px); /* 가운데 왼쪽 배치 */
+    left: calc(50% - 76px); /* 가운데 왼쪽 배치 */
+} /* 규칙 끝 */
+
+.hero-carousel-previous .hero-carousel-icon /* 이전 화살표 */
+{ /* 규칙 시작 */
+    transform: rotate(135deg); /* 왼쪽 방향 회전 */
 } /* 규칙 끝 */
 
 .hero-carousel-next /* 다음 전환 버튼 */
 { /* 규칙 시작 */
-    right: calc(50% - 84px); /* 가운데 오른쪽 배치 */
+    right: calc(50% - 76px); /* 가운데 오른쪽 배치 */
+} /* 규칙 끝 */
+
+.hero-carousel-next .hero-carousel-icon /* 다음 화살표 */
+{ /* 규칙 시작 */
+    transform: rotate(-45deg); /* 오른쪽 방향 회전 */
 } /* 규칙 끝 */
 
 .hero-carousel-status /* 히어로 화면 위치 */
@@ -580,13 +638,14 @@ select:focus-visible /* 키보드 선택 초점 */
     background: rgba(7, 16, 29, 0.94); /* 안내 배경 */
     border: 1px solid rgba(94, 226, 202, 0.48); /* 안내 경계선 */
     border-radius: 999px; /* 안내 모서리 */
-    bottom: 1.5rem; /* 화면 하단 간격 */
+    bottom: max(1.5rem, env(safe-area-inset-bottom)); /* 화면 하단 안전 간격 */
     color: #ecfff9; /* 안내 글자색 */
     font-size: 0.9rem; /* 안내 글자 크기 */
     font-weight: 700; /* 안내 글자 굵기 */
     left: 50%; /* 화면 가로 중앙 */
     margin: 0; /* 기본 여백 제거 */
-    max-width: calc(100vw - 2rem); /* 작은 화면 안전 너비 */
+    max-width: calc(100% - 2rem); /* 포함 영역 안전 너비 */
+    overflow-wrap: anywhere; /* 긴 안내 줄바꿈 */
     padding: 0.75rem 1.1rem; /* 안내 안쪽 여백 */
     pointer-events: none; /* 화면 조작 통과 */
     position: fixed; /* 화면 하단 고정 */
@@ -615,6 +674,12 @@ select:focus-visible /* 키보드 선택 초점 */
 
 @media (max-width: 767px) /* 모바일 화면 */
 { /* 구간 시작 */
+    .hero-bg::before /* 모바일 히어로 배경 */
+    { /* 규칙 시작 */
+        background-image: linear-gradient(180deg, color-mix(in srgb, var(--pl-canvas, #0b1220) 62%, transparent), color-mix(in srgb, var(--pl-canvas, #0b1220) 52%, transparent), color-mix(in srgb, var(--pl-canvas, #0b1220) 62%, transparent)), url("/images/hero/devforge-world-mobile.jpg"); /* 모바일 가독성 층 */
+        background-position: center; /* 모바일 중앙 배치 */
+    } /* 규칙 끝 */
+
     .hero-carousel /* 모바일 히어로 전환 */
     { /* 규칙 시작 */
         padding-bottom: 6.5rem; /* 하단 제어 영역 여백 */
@@ -639,12 +704,12 @@ select:focus-visible /* 키보드 선택 초점 */
 
     .hero-carousel-previous /* 모바일 이전 버튼 */
     { /* 규칙 시작 */
-        left: calc(50% - 78px); /* 가운데 왼쪽 배치 */
+        left: calc(50% - 70px); /* 가운데 왼쪽 배치 */
     } /* 규칙 끝 */
 
     .hero-carousel-next /* 모바일 다음 버튼 */
     { /* 규칙 시작 */
-        right: calc(50% - 78px); /* 가운데 오른쪽 배치 */
+        right: calc(50% - 70px); /* 가운데 오른쪽 배치 */
     } /* 규칙 끝 */
 
     .hero-carousel-status /* 모바일 화면 위치 */

@@ -55,6 +55,16 @@ class FakeElement // 요소 대역
         } // 반복 끝
     } // 연결 끝
 
+    querySelector(selector) // 하위 요소 조회
+    { // 조회 시작
+        if (selector === ".nav-actions, .project-nav-actions") // 헤더 조작 묶음 확인
+        { // 조건 시작
+            return this.children.find((child) => ["nav-actions", "project-nav-actions"].includes(child.className)) ?? null; // 조작 묶음 반환
+        } // 조건 끝
+
+        return null; // 요소 없음 반환
+    } // 조회 끝
+
     remove() // 요소 제거
     { // 제거 시작
         if (!this.parentNode) // 부모 확인
@@ -170,14 +180,32 @@ export function createNavigationEnvironment(options = {}) // 내비게이션 환
     }; // 문서 대역 끝
     const header = root.createElement("nav"); // 헤더 요소
     header.dataset.responsiveNavRoot = "true"; // 헤더 식별자
+    const navActions = root.createElement("div"); // 헤더 조작 묶음
+    navActions.className = options.actionClass ?? "nav-actions"; // 조작 묶음 클래스
+    const loginLink = root.createElement("a"); // 헤더 로그인 링크
+    loginLink.dataset.memberAction = "login"; // 회원 동작 표시
+    navActions.append(loginLink); // 로그인 링크 연결
+    header.append(navActions); // 헤더 조작 묶음 연결
     const body = root.createElement("body"); // 본문 요소
     root.body = body; // 본문 연결
     body.dataset.theme = options.theme ?? ""; // 테마 식별자
     const contactModal = options.withContact === true ? root.createElement("dialog") : null; // 문의창 요소
+    const dialogOpenCalls = []; // 대화상자 열기 기록
 
     if (contactModal) // 문의창 확인
     { // 조건 시작
         contactModal.id = "contact-modal"; // 문의창 식별자
+        contactModal.hidden = true; // 초기 숨김 상태
+        root.__devforgeDialogController = // 대화상자 제어기 대역
+        { // 제어기 시작
+            open(dialogId) // 대화상자 열기
+            { // 열기 시작
+                dialogOpenCalls.push(dialogId); // 열기 기록 추가
+                contactModal.hidden = false; // 문의창 표시
+                contactModal.classList.add("open"); // 열림 클래스 추가
+                return dialogId === contactModal.id; // 열기 결과 반환
+            }, // 열기 끝
+        }; // 제어기 끝
     } // 조건 끝
 
     const location = // 주소 대역
@@ -275,8 +303,11 @@ export function createNavigationEnvironment(options = {}) // 내비게이션 환
         root, // 문서 대역
         view, // 창 대역
         header, // 헤더 요소
+        navActions, // 헤더 조작 묶음
+        loginLink, // 헤더 로그인 링크
         contactModal, // 문의창 요소
         historyCalls, // 주소 변경 기록
+        dialogOpenCalls, // 대화상자 열기 기록
         storageWrites, // 저장 변경 기록
         createdByRole, // 역할 조회 기능
         resizeTo, // 너비 변경 기능

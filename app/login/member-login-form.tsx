@@ -1,9 +1,10 @@
 "use client"; // 브라우저 입력 모듈
 
-import { useState, type FormEvent } from "react"; // 입력 상태 도구
+import { useEffect, useRef, useState, type FormEvent } from "react"; // 입력 상태 도구
 import { createDemoMemberProfile, MEMBER_DEMO_STORAGE_KEY } from "@/lib/member/demo-session"; // 시연 회원 도구
 import type { MemberMode } from "@/lib/member/config"; // 회원 모드 형식
 import { createBrowserSupabaseClient } from "@/lib/supabase/client"; // 브라우저 인증 도구
+import { isCredentialInputError } from "@/lib/auth/login-message"; // 인증 오류 판정 도구
 import styles from "./member-login.module.css"; // 로그인 화면 스타일
 
 interface MemberLoginFormProps // 로그인 폼 속성
@@ -19,6 +20,16 @@ export default function MemberLoginForm({ mode, returnTo }: MemberLoginFormProps
     const [password, setPassword] = useState(""); // 비밀번호 상태
     const [message, setMessage] = useState(""); // 안내 문구 상태
     const [isSubmitting, setIsSubmitting] = useState(false); // 제출 상태
+    const [credentialError, setCredentialError] = useState(false); // 자격 증명 오류 상태
+    const emailRef = useRef<HTMLInputElement>(null); // 이메일 입력 참조
+
+    useEffect(() => // 자격 증명 오류 포커스 처리
+    { // 효과 시작
+        if (credentialError && !isSubmitting) // 입력 활성 오류 확인
+        { // 조건 시작
+            emailRef.current?.focus(); // 이메일 입력 포커스
+        } // 조건 끝
+    }, [credentialError, isSubmitting]); // 오류와 제출 상태 감시
 
     function handleDemoSubmit(event: FormEvent<HTMLFormElement>) // 시연 로그인 처리
     { // 함수 시작
@@ -33,6 +44,7 @@ export default function MemberLoginForm({ mode, returnTo }: MemberLoginFormProps
         event.preventDefault(); // 기본 제출 차단
         setIsSubmitting(true); // 제출 상태 시작
         setMessage(""); // 이전 안내 제거
+        setCredentialError(false); // 이전 입력 오류 제거
 
         try // 로그인 시도
         { // 시도 시작
@@ -41,7 +53,16 @@ export default function MemberLoginForm({ mode, returnTo }: MemberLoginFormProps
 
             if (result.error) // 로그인 실패 확인
             { // 조건 시작
-                setMessage("이메일 또는 비밀번호를 확인해 주세요."); // 실패 안내
+                if (isCredentialInputError(result.error)) // 자격 증명 오류 확인
+                { // 조건 시작
+                    setCredentialError(true); // 자격 증명 오류 표시
+                    setMessage("이메일 또는 비밀번호를 확인해 주세요."); // 입력 실패 안내
+                } // 조건 끝
+                else // 서비스 오류 확인
+                { // 대안 시작
+                    setCredentialError(false); // 입력 오류 제외
+                    setMessage("로그인 서버에 연결할 수 없습니다."); // 서비스 실패 안내
+                } // 대안 끝
                 setIsSubmitting(false); // 제출 상태 종료
                 return; // 실패 처리 종료
             } // 조건 끝
@@ -50,6 +71,7 @@ export default function MemberLoginForm({ mode, returnTo }: MemberLoginFormProps
         } // 시도 끝
         catch // 연결 오류 처리
         { // 오류 처리 시작
+            setCredentialError(false); // 통신 오류 분리
             setMessage("로그인 서버에 연결할 수 없습니다."); // 연결 실패 안내
             setIsSubmitting(false); // 제출 상태 종료
         } // 오류 처리 끝
@@ -59,6 +81,7 @@ export default function MemberLoginForm({ mode, returnTo }: MemberLoginFormProps
     { // 함수 시작
         setIsSubmitting(true); // 제출 상태 시작
         setMessage(""); // 이전 안내 제거
+        setCredentialError(false); // 이메일 입력 오류 제거
 
         try // 로그인 시도
         { // 시도 시작
@@ -74,6 +97,7 @@ export default function MemberLoginForm({ mode, returnTo }: MemberLoginFormProps
         } // 시도 끝
         catch // 연결 오류 처리
         { // 오류 처리 시작
+            setCredentialError(false); // 통신 오류 분리
             setMessage("로그인 서버에 연결할 수 없습니다."); // 연결 실패 안내
             setIsSubmitting(false); // 제출 상태 종료
         } // 오류 처리 끝
@@ -92,16 +116,16 @@ export default function MemberLoginForm({ mode, returnTo }: MemberLoginFormProps
 
     return ( // 실제 로그인 반환
         <div className={styles.formStack}> {/* 실제 로그인 묶음 */}
-            <form className={styles.form} onSubmit={handleEmailSubmit}> {/* 이메일 로그인 폼 */}
+            <form className={styles.form} onSubmit={handleEmailSubmit} aria-busy={isSubmitting}> {/* 이메일 로그인 폼 */}
                 <label htmlFor="member-email">이메일</label> {/* 이메일 이름 */}
-                <input id="member-email" type="email" autoComplete="username" value={email} onChange={(event) => setEmail(event.target.value)} required disabled={isSubmitting} /> {/* 이메일 입력 */}
+                <input id="member-email" ref={emailRef} aria-invalid={credentialError} aria-describedby={credentialError ? "member-login-error" : undefined} type="email" autoComplete="username" value={email} onChange={(event) => setEmail(event.target.value)} required disabled={isSubmitting} /> {/* 이메일 입력 */}
                 <label htmlFor="member-password">비밀번호</label> {/* 비밀번호 이름 */}
-                <input id="member-password" type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required disabled={isSubmitting} /> {/* 비밀번호 입력 */}
+                <input id="member-password" aria-invalid={credentialError} aria-describedby={credentialError ? "member-login-error" : undefined} type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required disabled={isSubmitting} /> {/* 비밀번호 입력 */}
                 <button className={styles.primaryButton} type="submit" disabled={isSubmitting}>{isSubmitting ? "확인 중…" : "이메일로 로그인"}</button> {/* 이메일 로그인 버튼 */}
             </form> {/* 이메일 로그인 폼 끝 */}
             <span className={styles.divider}>또는</span> {/* 로그인 구분 */}
             <button className={styles.googleButton} type="button" onClick={handleGoogleLogin} disabled={isSubmitting}>Google로 로그인</button> {/* 구글 로그인 버튼 */}
-            {message ? <p className={styles.error} role="alert">{message}</p> : null} {/* 오류 안내 */}
+            {message ? <p id="member-login-error" className={styles.error} role="alert">{message}</p> : null} {/* 오류 안내 */}
         </div> // 실제 로그인 묶음 끝
     ); // 실제 로그인 반환 끝
 } // 함수 끝

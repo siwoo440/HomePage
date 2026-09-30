@@ -11,7 +11,7 @@ export default async function NewProductPage() // 새 상품 화면
     return ( // 화면 반환
         <main className="admin-shell"> {/* 관리자 전체 영역 */}
             <AdminHeader /> {/* 관리자 공통 메뉴 */}
-            <section className="admin-page-heading"><div><p className="admin-eyebrow">// NEW GOODS</p><h1>새 상품 등록</h1></div></section> {/* 화면 제목 */}
+            <section className="admin-page-heading"><div><p className="admin-eyebrow">{"// NEW GOODS"}</p><h1>새 상품 등록</h1></div></section> {/* 화면 제목 */}
             <ProductEditor action={createProduct} submitLabel="상품 저장" /> {/* 상품 편집기 */}
         </main> // 관리자 전체 영역 끝
     ); // 화면 반환 끝

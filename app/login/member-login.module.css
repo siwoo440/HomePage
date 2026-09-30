@@ -1,6 +1,6 @@
 .shell /* 로그인 전체 영역 */
 { /* 영역 시작 */
-    min-height: 100vh; /* 화면 높이 */
+    min-height: 100dvh; /* 동적 화면 높이 */
     padding: 40px 20px; /* 바깥 여백 */
     background: radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--pl-mint) 18%, transparent), transparent 34%), var(--pl-surface); /* 밝은 공간형 배경 */
     color: var(--pl-ink); /* 기본 글자색 */
@@ -11,6 +11,8 @@
 .panel /* 로그인 카드 */
 { /* 카드 시작 */
     width: min(520px, 100%); /* 반응형 너비 */
+    min-width: 0; /* 카드 최소 폭 해제 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
     padding: clamp(30px, 6vw, 54px); /* 반응형 여백 */
     border: 1px solid var(--pl-border-strong); /* 카드 경계선 */
     border-radius: var(--pl-radius-large); /* 카드 모서리 */
@@ -69,6 +71,8 @@
 
 .form input /* 로그인 입력 */
 { /* 입력 시작 */
+    width: 100%; /* 입력 전체 너비 */
+    min-width: 0; /* 입력 최소 폭 해제 */
     min-height: 48px; /* 선택 높이 */
     padding: 0 14px; /* 좌우 여백 */
     border: 1px solid var(--pl-border); /* 입력 경계선 */
@@ -89,7 +93,23 @@
     font: inherit; /* 본문 글꼴 */
     font-weight: 800; /* 버튼 굵기 */
     cursor: pointer; /* 클릭 커서 */
+    overflow-wrap: anywhere; /* 긴 버튼 문구 줄바꿈 */
+    padding-inline: 1rem; /* 버튼 좌우 여백 */
 } /* 버튼 끝 */
+
+@media (max-width: 36rem) /* 모바일 화면 */
+{ /* 모바일 시작 */
+    .shell /* 모바일 로그인 영역 */
+    { /* 모바일 영역 시작 */
+        padding: 1rem; /* 모바일 바깥 여백 */
+        place-items: start center; /* 위 기준 중앙 배치 */
+    } /* 모바일 영역 끝 */
+
+    .panel /* 모바일 로그인 카드 */
+    { /* 모바일 카드 시작 */
+        padding: clamp(1.5rem, 8vw, 2.25rem); /* 모바일 카드 여백 */
+    } /* 모바일 카드 끝 */
+} /* 모바일 끝 */
 
 .googleButton /* 구글 로그인 버튼 */
 { /* 구글 버튼 시작 */

@@ -91,13 +91,18 @@ function handleContactHash(root, view) // 문의 해시 처리
     } // 조건 끝
 
     const contactModal = root.querySelector("#contact-modal"); // 문의창 조회
+    const dialogController = root.__devforgeDialogController; // 공통 대화상자 제어기
 
-    if (!contactModal) // 문의창 누락 확인
+    if (!contactModal || typeof dialogController?.open !== "function") // 문의창 또는 제어기 누락 확인
     { // 조건 시작
         return; // 해시 유지
     } // 조건 끝
 
-    contactModal.classList.add("open"); // 문의창 표시
+    const opened = dialogController.open("contact-modal"); // 공통 제어기로 문의창 표시
+    if (!opened) // 열기 실패 확인
+    { // 조건 시작
+        return; // 해시 유지
+    } // 조건 끝
     view.history?.replaceState(null, "", view.location.pathname + "#"); // 문의 해시 정리
 } // 함수 끝
 
@@ -178,7 +183,8 @@ export function initializeResponsiveNavigation(root = document, view = window) /
     drawerLinks.append(loginLink); // 로그인 링크 연결
     controls.push(loginLink); // 초점 목록 연결
     drawer.append(drawerHeader, drawerLinks); // 패널 내용 연결
-    navRoot.append(toggle); // 헤더에 메뉴 버튼 연결
+    const toggleHost = navRoot.querySelector(".nav-actions, .project-nav-actions") ?? navRoot; // 헤더 조작 묶음 조회
+    toggleHost.append(toggle); // 로그인 오른쪽에 메뉴 버튼 연결
     root.body.append(overlay, drawer); // 본문에 메뉴 요소 연결
 
     function open() // 메뉴 열기

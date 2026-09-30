@@ -28,7 +28,7 @@ export default async function ProductsAdminPage({ searchParams }: ProductsAdminP
     return ( // 관리 화면 반환
         <main className="admin-shell"> {/* 관리자 전체 영역 */}
             <AdminHeader /> {/* 관리자 공통 메뉴 */}
-            <section className="admin-page-heading"><div><p className="admin-eyebrow">// GOODS CONTROL</p><h1>상품 관리</h1></div><Link className="admin-primary-button admin-button-link" href="/admin/products/new">새 상품 등록</Link></section> {/* 화면 제목 */}
+            <section className="admin-page-heading"><div><p className="admin-eyebrow">{"// GOODS CONTROL"}</p><h1>상품 관리</h1></div><Link className="admin-primary-button admin-button-link" href="/admin/products/new">새 상품 등록</Link></section> {/* 화면 제목 */}
             {STATUS_MESSAGES[status] ? <p className={`admin-message ${status === "delete-error" ? "admin-message-error" : "admin-message-success"}`} role="status">{STATUS_MESSAGES[status]}</p> : null} {/* 처리 안내 */}
             {result.error ? <p className="admin-message admin-message-error" role="alert">상품 목록을 불러오지 못했습니다.</p> : null} {/* 조회 실패 안내 */}
             {!result.error && products.length === 0 ? <p className="admin-empty-state">등록된 상품이 없습니다.</p> : null} {/* 빈 목록 안내 */}

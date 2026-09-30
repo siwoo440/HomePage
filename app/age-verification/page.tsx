@@ -17,7 +17,7 @@ export default async function AgeVerificationPage({ searchParams }: AgeVerificat
         <main className={styles.shell}> {/* 전체 화면 */}
             <section className={styles.card} aria-labelledby="age-verification-title"> {/* 확인 카드 */}
                 <Link className={styles.brand} href="/main.html">DEVFORGE</Link> {/* 메인 이동 브랜드 */}
-                <p className={styles.eyebrow}>// AGE CHECK</p> {/* 화면 분류 */}
+                <p className={styles.eyebrow}>{"// AGE CHECK"}</p> {/* 화면 분류 */}
                 <div className={styles.badge} aria-hidden="true">19+</div> {/* 성인 표시 */}
                 <h1 id="age-verification-title">성인 콘텐츠 확인</h1> {/* 화면 제목 */}
                 <p className={styles.description}>이 페이지는 만 19세 이상만 열람할 수 있습니다.</p> {/* 연령 안내 */}

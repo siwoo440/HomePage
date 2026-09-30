@@ -8,14 +8,18 @@ DEVFORGE 게임 개발 스튜디오 홈페이지 저장소입니다. 정적 공�
 ---
 ## 처음 시작하는 순서
 
+요구 버전은 Node.js `>=22.13`, pnpm `11.19.0`입니다.
+
 ```powershell
-# 의존성 설치
-pnpm install
+# 잠금 파일 기준 의존성 설치
+pnpm install --frozen-lockfile
 # 개발 서버 실행
 pnpm dev
+# 전체 품질 검사
+pnpm check
 ```
 
-브라우저에서 `http://localhost:3000/main.html`을 엽니다. 외부 계정 없이 메인, 프로젝트, 데모 뉴스·상품, 커뮤니티, 라이트·다크 모드와 로컬 관심 목록을 확인할 수 있습니다.
+브라우저에서 `http://localhost:3000/main.html`을 엽니다. 외부 계정이나 API 키 없이 메인, 프로젝트, 데모 뉴스·상품, 커뮤니티, 라이트·다크 모드와 로컬 관심 목록을 실행하고 전체 품질 검사를 완료할 수 있습니다. `ChatBot/`과 `Text-Play/`은 별도 프로젝트이므로 홈페이지 검사와 커밋에서 제외됩니다.
 
 ---
 ## 개발 문서
@@ -23,6 +27,7 @@ pnpm dev
 - [`docs/DEVELOPMENT-GUIDE.md`](docs/DEVELOPMENT-GUIDE.md): 구조, 기능, 데이터 흐름, 보안, 테스트와 배포 안내
 - [`docs/DEVELOPMENT-NOTES.md`](docs/DEVELOPMENT-NOTES.md): 로컬·외부 API·유료 작업 분류와 우선순위
 - [`docs/FILE-MAP.md`](docs/FILE-MAP.md): 폴더와 주요 파일의 역할
+- [`CLAUDE-HANDOFF.md`](CLAUDE-HANDOFF.md): 다른 컴퓨터에서 Claude로 이어서 작업할 때 전달할 시작 문구와 확인 기준
 - [`TRANSFER-GUIDE.md`](TRANSFER-GUIDE.md): 기존 인수인계 정보
 - [`docs/superpowers/specs/`](docs/superpowers/specs/): 승인된 기능 설계 기록
 - [`docs/superpowers/plans/`](docs/superpowers/plans/): 기능별 구현 계획 기록
@@ -63,8 +68,12 @@ export const GA_MEASUREMENT_ID = "G-XXXXXXXX"; // 운영 GA4 측정 ID
 ## 로컬 실행 상세
 
 ```powershell
-pnpm install
+# 잠금 파일 기준 의존성 설치
+pnpm install --frozen-lockfile
+# 개발 서버 실행
 pnpm dev
+# 전체 품질 검사
+pnpm check
 ```
 
 브라우저에서 `http://localhost:3000/main.html`을 열면 메인 사이트가 표시됩니다. 관리자 로그인 화면은 `http://localhost:3000/admin/login`입니다.
@@ -239,13 +248,27 @@ Production, Preview, Development 환경 가운데 실제로 사용할 환경을 
 
 ## 자동 검사
 
+공식 완료 검사는 다음 통합 명령입니다.
+
 ```powershell
-pnpm test
-node node_modules/typescript/bin/tsc --noEmit --incremental false
-pnpm build
+# 테스트·타입·린트·빌드 통합 검사
+pnpm check
 ```
 
-Supabase 프로젝트가 없는 상태에서는 로컬 코드와 빌드만 검사됩니다. 로그인, 데이터 저장, 이미지 업로드, RLS의 실제 동작은 Supabase 설정 후 별도로 확인해야 합니다.
+Supabase 프로젝트와 외부 API 키가 없는 상태에서도 로컬 코드와 운영 빌드를 검사할 수 있습니다. 로그인, 데이터 저장, 이미지 업로드, RLS의 실제 동작은 Supabase 설정 후 별도로 확인해야 합니다.
+
+문제 원인을 나누어 확인할 때만 다음 하위 명령을 사용합니다.
+
+```powershell
+# 자동 테스트만 실행
+pnpm test
+# TypeScript 검사만 실행
+pnpm typecheck
+# ESLint 검사만 실행
+pnpm lint
+# 운영 빌드만 실행
+pnpm build
+```
 
 공개 방문자 기능의 집중 검사는 다음 명령으로 실행합니다.
 
@@ -283,7 +306,6 @@ node scripts/generate-project-pages.mjs
 검증 명령은 다음과 같습니다.
 
 ```powershell
-pnpm test # 전체 기능 검사
-node node_modules/typescript/bin/tsc --noEmit --incremental false # 타입 검사
-pnpm build # 운영 빌드 검사
+# 테스트·타입·린트·빌드 통합 검사
+pnpm check
 ```

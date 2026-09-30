@@ -190,7 +190,7 @@ test("공통 테마가 반응형·상태·움직임 축소 계약을 제공한�
     assert.match(css, /:is\(\.error, \.admin-message-error, \.field-error\)/); // 오류 상태 확인
     assert.match(css, /min-height:\s*44px/); // 터치 높이 확인
     assert.match(css, /@media \(max-width:\s*767px\)[\s\S]*?\.hero-carousel-timer[\s\S]*?bottom:\s*4\.75rem/); // 모바일 게이지 위치 확인
-    assert.match(css, /@media \(max-width:\s*767px\)[\s\S]*?:is\(\.modal-box, \.contact-dialog\)[\s\S]*?width:\s*calc\(100vw - 2rem\)/); // 모바일 대화상자 너비 확인
+    assert.match(css, /@media \(max-width:\s*767px\)[\s\S]*?:is\(\.modal-box, \.contact-dialog\)[\s\S]*?width:\s*calc\(100% - 2rem\)/); // 모바일 대화상자 포함 폭 확인
 }); // 테스트 끝
 
 test("메인 커뮤니티 카드는 화면 폭이 바뀌어도 최대 크기를 넘지 않는다", async () => // 커뮤니티 크기 회귀 검사

@@ -62,7 +62,16 @@ body /* 문서 본문 */
     border: 1px solid var(--legal-border); /* 카드 경계 */
     border-radius: 18px; /* 모서리 둥글기 */
     margin-top: 1rem; /* 위쪽 간격 */
+    min-width: 0; /* 문서 최소 폭 해제 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
     padding: clamp(1.25rem, 4vw, 2.5rem); /* 반응형 여백 */
+} /* 규칙 끝 */
+
+.legal-document table /* 법적 문서 표 */
+{ /* 규칙 시작 */
+    display: block; /* 독립 스크롤 영역 */
+    max-width: 100%; /* 문서 폭 제한 */
+    overflow-x: auto; /* 긴 표 가로 이동 */
 } /* 규칙 끝 */
 
 .legal-draft /* 초안 표시 */

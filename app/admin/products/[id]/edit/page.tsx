@@ -30,7 +30,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
     return ( // 화면 반환
         <main className="admin-shell"> {/* 관리자 전체 영역 */}
             <AdminHeader /> {/* 관리자 공통 메뉴 */}
-            <section className="admin-page-heading"><div><p className="admin-eyebrow">// EDIT GOODS</p><h1>상품 수정</h1></div></section> {/* 화면 제목 */}
+            <section className="admin-page-heading"><div><p className="admin-eyebrow">{"// EDIT GOODS"}</p><h1>상품 수정</h1></div></section> {/* 화면 제목 */}
             <ProductEditor action={action} initialValue={initialValue} submitLabel="변경 저장" /> {/* 상품 편집기 */}
         </main> // 관리자 전체 영역 끝
     ); // 화면 반환 끝

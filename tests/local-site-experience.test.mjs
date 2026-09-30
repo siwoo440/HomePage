@@ -301,3 +301,25 @@ test("히어로가 ChatBot 홍보 화면과 임시 로컬 주소를 제공한다
     assert.match(siteExperienceCss, /\.hero-carousel-control[^}]+bottom:\s*0/s); // 넘김 버튼 하단 배치 확인
     assert.match(mainHtml, /href="http:\/\/localhost:3001\/"[^>]*>ChatBot 시작하기/); // 챗봇 이동 확인
 }); // 테스트 끝
+
+test("히어로 넘김 버튼은 작은 원과 중앙 화살표를 사용하고 배경 이미지를 제공한다", async () => // 히어로 장식 테스트
+{ // 테스트 시작
+    const heroImage = await readFile(new URL("../public/images/hero/devforge-world.jpg", import.meta.url)); // PC 히어로 배경 읽기
+    const mobileHeroImage = await readFile(new URL("../public/images/hero/devforge-world-mobile.jpg", import.meta.url)); // 모바일 히어로 배경 읽기
+    const controlRule = siteExperienceCss.match(/\.hero-carousel-control \/\* 히어로 전환 버튼 \*\/[\s\S]*?\} \/\* 규칙 끝 \*\//)?.[0] ?? ""; // 터치 영역 스타일 추출
+    const arrowRule = siteExperienceCss.match(/\.hero-carousel-icon[\s\S]*?\} \/\* 규칙 끝 \*\//)?.[0] ?? ""; // 화살표 스타일 추출
+    assert.match(mainHtml, /data-hero-carousel-previous[^>]*><span class="hero-carousel-icon" aria-hidden="true"><\/span><\/button>/); // 이전 화살표 구조 확인
+    assert.match(mainHtml, /data-hero-carousel-next[^>]*><span class="hero-carousel-icon" aria-hidden="true"><\/span><\/button>/); // 다음 화살표 구조 확인
+    assert.match(controlRule, /height:\s*44px/); // 터치 영역 높이 확인
+    assert.match(controlRule, /width:\s*44px/); // 터치 영역 너비 확인
+    assert.match(siteExperienceCss, /\.hero-carousel-control::before[\s\S]*?height:\s*36px[\s\S]*?width:\s*36px/); // 작은 시각 원 확인
+    assert.match(arrowRule, /align-self:\s*center/); // 화살표 세로 중앙 확인
+    assert.match(arrowRule, /border-right:\s*2px solid currentColor/); // 화살표 오른쪽 선 확인
+    assert.match(arrowRule, /border-bottom:\s*2px solid currentColor/); // 화살표 아래 선 확인
+    assert.match(siteExperienceCss, /url\("\/images\/hero\/devforge-world\.jpg"\)/); // PC 배경 이미지 연결 확인
+    assert.match(siteExperienceCss, /url\("\/images\/hero\/devforge-world-mobile\.jpg"\)/); // 모바일 배경 이미지 연결 확인
+    assert.deepEqual([...heroImage.subarray(0, 3)], [255, 216, 255]); // PC JPEG 서명 확인
+    assert.deepEqual([...mobileHeroImage.subarray(0, 3)], [255, 216, 255]); // 모바일 JPEG 서명 확인
+    assert.equal(heroImage.byteLength < 350000, true); // PC 이미지 최대 용량 확인
+    assert.equal(mobileHeroImage.byteLength < 150000, true); // 모바일 이미지 최대 용량 확인
+}); // 테스트 끝

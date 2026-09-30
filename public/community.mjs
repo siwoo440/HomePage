@@ -374,8 +374,6 @@ async function updateSelection(gameId, updateUrl = true) // 선택 화면 갱신
 function initializeCommunityPage() // 커뮤니티 화면 초기화
 { // 함수 시작
     const filter = document.getElementById("game-filter"); // 게임 선택 상자 조회
-    const contactOpen = document.getElementById("contact-open"); // 문의 열기 버튼 조회
-    const contactDialog = document.getElementById("contact-dialog"); // 문의 창 조회
     const copyButton = document.querySelector("[data-copy-community-hashtag]"); // 해시태그 복사 버튼 조회
     const copyStatus = document.querySelector("[data-copy-community-status]"); // 복사 상태 요소 조회
 
@@ -395,13 +393,6 @@ function initializeCommunityPage() // 커뮤니티 화면 초기화
     filter.addEventListener("change", () => // 선택 변경 처리
     { // 처리 시작
         void updateSelection(filter.value); // 화면 비동기 갱신
-    }); // 처리 끝
-    contactOpen?.addEventListener("click", () => // 문의 열기 처리
-    { // 처리 시작
-        if (contactDialog instanceof HTMLDialogElement) // 문의 창 확인
-        { // 조건 시작
-            contactDialog.showModal(); // 문의 창 표시
-        } // 조건 끝
     }); // 처리 끝
     copyButton?.addEventListener("click", async () => // 해시태그 복사 처리
     { // 처리 시작

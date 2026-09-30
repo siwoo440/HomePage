@@ -1,5 +1,5 @@
 import { PRODUCT_BADGES, PRODUCT_PUBLICATION_STATUSES, PRODUCT_STOCK_MODES } from "./types.ts"; // 상품 허용 값
-import type { ImageLike, ProductBadge, ProductInput, ProductPublicationStatus, ProductStockMode, ProductValidationErrors, ProductValidationResult, ValidatedProduct } from "./types.ts"; // 상품 형식 목록
+import type { ImageLike, ProductBadge, ProductEditorInitialValue, ProductInput, ProductPublicationStatus, ProductStockMode, ProductValidationErrors, ProductValidationResult, ValidatedProduct } from "./types.ts"; // 상품 형식 목록
 
 const MAX_NAME_LENGTH = 120; // 상품명 최대 길이
 const MAX_CATEGORY_LENGTH = 40; // 분류 최대 길이
@@ -43,6 +43,32 @@ function isSecureSalesUrl(value: string): boolean // 안전한 판매 주소 판
     { // 오류 처리 시작
         return false; // 잘못된 주소 반환
     } // 오류 처리 끝
+} // 함수 끝
+
+export function readProductValues(formData: FormData): ProductEditorInitialValue // 상품 폼 입력 읽기
+{ // 함수 시작
+    return { // 입력 값 시작
+        name: String(formData.get("name") ?? ""), // 상품명 읽기
+        category: String(formData.get("category") ?? ""), // 분류 읽기
+        gameName: String(formData.get("gameName") ?? ""), // 관련 게임 읽기
+        description: String(formData.get("description") ?? ""), // 설명 읽기
+        price: String(formData.get("price") ?? ""), // 판매가 읽기
+        originalPrice: String(formData.get("originalPrice") ?? ""), // 기존 가격 읽기
+        badge: String(formData.get("badge") ?? "none"), // 배지 읽기
+        salesUrl: String(formData.get("salesUrl") ?? ""), // 판매 주소 읽기
+        stockMode: String(formData.get("stockMode") ?? "manual"), // 재고 방식 읽기
+        stockQuantity: String(formData.get("stockQuantity") ?? "0"), // 재고 수량 읽기
+        externalProvider: String(formData.get("externalProvider") ?? ""), // 외부 판매처 읽기
+        externalProductId: String(formData.get("externalProductId") ?? ""), // 외부 상품 식별자 읽기
+        publicationStatus: String(formData.get("publicationStatus") ?? "hidden"), // 공개 상태 읽기
+        displayOrder: String(formData.get("displayOrder") ?? "0"), // 노출 순서 읽기
+    }; // 입력 값 반환
+} // 함수 끝
+
+export function readProductImage(formData: FormData): File | null // 상품 이미지 읽기
+{ // 함수 시작
+    const value = formData.get("productImage"); // 이미지 값 읽기
+    return value instanceof File && value.size > 0 ? value : null; // 실제 이미지 반환
 } // 함수 끝
 
 export function validateProduct(input: ProductInput): ProductValidationResult // 상품 입력 검증

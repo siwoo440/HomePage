@@ -14,7 +14,7 @@ export default async function NewNewsPage() // 새 뉴스 화면
             <AdminHeader /> {/* 관리자 상단 메뉴 */}
             <section className="admin-page-heading"> {/* 화면 제목 영역 */}
                 <div> {/* 제목 묶음 */}
-                    <p className="admin-eyebrow">// WRITE NEWS</p> {/* 영문 분류 */}
+                    <p className="admin-eyebrow">{"// WRITE NEWS"}</p> {/* 영문 분류 */}
                     <h1>새 개발 뉴스</h1> {/* 화면 제목 */}
                 </div> {/* 제목 묶음 끝 */}
             </section> {/* 화면 제목 영역 끝 */}

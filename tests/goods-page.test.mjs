@@ -50,6 +50,8 @@ test("굿즈 전용 페이지에 공통 헤더와 전체 상품 영역이 있다
     assert.match(html, /id="goods-list"/); // 상품 목록 확인
     assert.match(html, /id="goods-load-status"/); // 불러오기 상태 확인
     assert.match(html, /id="contact-dialog"/); // 문의 대화상자 확인
+    assert.match(html, /id="contact-open"[^>]*data-dialog-open="contact-dialog"/); // 문의 열기 계약 확인
+    assert.match(html, /id="contact-dialog"[^>]*data-dialog/); // 문의 창 계약 확인
     assert.match(html, /href="\/admin\/login"/); // 관리자 로그인 확인
 }); // 테스트 끝
 

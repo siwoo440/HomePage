@@ -1,6 +1,6 @@
 .shell /* 전체 화면 */
 { /* 화면 시작 */
-    min-height: 100vh; /* 최소 화면 높이 */
+    min-height: 100dvh; /* 동적 화면 높이 */
     display: grid; /* 중앙 배치 방식 */
     place-items: center; /* 중앙 정렬 */
     padding: 2rem 1rem; /* 바깥 여백 */
@@ -11,6 +11,8 @@
 .card /* 확인 카드 */
 { /* 카드 시작 */
     width: min(100%, 34rem); /* 카드 너비 */
+    min-width: 0; /* 카드 최소 폭 해제 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
     padding: clamp(1.5rem, 5vw, 3rem); /* 카드 안쪽 여백 */
     border: 1px solid var(--pl-border-strong); /* 카드 테두리 */
     border-radius: var(--pl-radius-large); /* 카드 모서리 */
@@ -93,6 +95,7 @@
 .input /* 날짜 입력 */
 { /* 입력 시작 */
     width: 100%; /* 입력 너비 */
+    min-width: 0; /* 입력 최소 폭 해제 */
     min-height: 3.25rem; /* 입력 높이 */
     padding: 0 1rem; /* 입력 안쪽 여백 */
     border: 1px solid var(--pl-border); /* 입력 테두리 */
@@ -121,6 +124,7 @@
 
 .checkboxLabel input /* 동의 입력 */
 { /* 동의 입력 시작 */
+    flex: 0 0 auto; /* 선택 상자 크기 유지 */
     width: 1.1rem; /* 입력 너비 */
     height: 1.1rem; /* 입력 높이 */
     margin-top: 0.18rem; /* 입력 위 여백 */
@@ -148,6 +152,8 @@
     font: inherit; /* 본문 글꼴 */
     font-weight: 900; /* 제출 굵기 */
     cursor: pointer; /* 클릭 커서 */
+    overflow-wrap: anywhere; /* 긴 버튼 문구 줄바꿈 */
+    padding-inline: 1rem; /* 버튼 좌우 여백 */
 } /* 제출 끝 */
 
 .submit:hover:not(:disabled) /* 제출 버튼 올림 */

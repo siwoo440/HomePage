@@ -192,30 +192,7 @@ function initializeDevelopmentNews() // 개발 뉴스 초기화
     void loadNews(); // 첫 뉴스 조회 시작
 } // 초기화 함수 끝
 
-function initializeContactDialog() // 문의 창 초기화
-{ // 초기화 함수 시작
-    const openButton = document.querySelector("#contact-open"); // 문의 열기 버튼
-    const dialog = document.querySelector("#contact-dialog"); // 문의 대화상자
-
-    if (!openButton || !dialog) // 필수 요소 확인
-    { // 조건 시작
-        return; // 초기화 종료
-    } // 조건 끝
-
-    openButton.addEventListener("click", () => // 열기 이벤트 등록
-    { // 클릭 처리 시작
-        if (typeof dialog.showModal === "function") // 대화상자 지원 확인
-        { // 조건 시작
-            dialog.showModal(); // 대화상자 열기
-            return; // 열기 처리 종료
-        } // 조건 끝
-
-        dialog.setAttribute("open", ""); // 구형 브라우저 열기
-    }); // 클릭 처리 끝
-} // 초기화 함수 끝
-
 if (typeof document !== "undefined") // 브라우저 문서 환경 확인
 { // 브라우저 실행 시작
     initializeDevelopmentNews(); // 개발 뉴스 기능 시작
-    initializeContactDialog(); // 문의 창 기능 시작
 } // 브라우저 실행 끝

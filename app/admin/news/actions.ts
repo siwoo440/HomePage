@@ -4,27 +4,8 @@ import { redirect } from "next/navigation"; // 서버 이동 도구
 import { revalidatePath } from "next/cache"; // 캐시 갱신 도구
 import { requireAdmin } from "@/lib/auth/admin"; // 관리자 보호 함수
 import { createServerSupabaseClient } from "@/lib/supabase/server"; // 서버 데이터 도구
-import { validateCoverImage, validateNewsPost } from "@/lib/news/validation"; // 뉴스 입력 검증
+import { readCoverImage, readNewsValues, validateCoverImage, validateNewsPost } from "@/lib/news/validation"; // 뉴스 입력 검증
 import type { NewsActionState, NewsEditorInitialValue } from "@/lib/news/types"; // 뉴스 액션 형식
-
-function readNewsValues(formData: FormData): NewsEditorInitialValue // 폼 입력 읽기
-{ // 함수 시작
-    const values = // 입력 값 시작
-    { // 입력 값 객체
-        title: String(formData.get("title") ?? ""), // 제목 읽기
-        summary: String(formData.get("summary") ?? ""), // 요약 읽기
-        content: String(formData.get("content") ?? ""), // 본문 읽기
-        tags: formData.getAll("tags").map(String), // 태그 읽기
-        status: String(formData.get("status") ?? "draft"), // 상태 읽기
-    }; // 입력 값 끝
-    return values; // 입력 값 반환
-} // 함수 끝
-
-function readCoverImage(formData: FormData): File | null // 이미지 입력 읽기
-{ // 함수 시작
-    const value = formData.get("coverImage"); // 이미지 값 읽기
-    return value instanceof File && value.size > 0 ? value : null; // 실제 이미지 반환
-} // 함수 끝
 
 function getImageExtension(type: string): string // 이미지 확장자 판정
 { // 함수 시작

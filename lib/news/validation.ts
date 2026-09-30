@@ -1,5 +1,5 @@
 import { NEWS_STATUSES, NEWS_TAGS } from "./types.ts"; // 허용 값 목록
-import type { ImageLike, NewsPostInput, NewsStatus, NewsTag, NewsValidationErrors, NewsValidationResult, ValidatedNewsPost } from "./types.ts"; // 뉴스 형식 목록
+import type { ImageLike, NewsEditorInitialValue, NewsPostInput, NewsStatus, NewsTag, NewsValidationErrors, NewsValidationResult, ValidatedNewsPost } from "./types.ts"; // 뉴스 형식 목록
 
 const MAX_TITLE_LENGTH = 120; // 제목 최대 길이
 const MAX_SUMMARY_LENGTH = 300; // 요약 최대 길이
@@ -15,6 +15,23 @@ function isNewsTag(value: string): value is NewsTag // 태그 형식 판정
 function isNewsStatus(value: string): value is NewsStatus // 상태 형식 판정
 { // 함수 시작
     return NEWS_STATUSES.includes(value as NewsStatus); // 허용 상태 포함 결과
+} // 함수 끝
+
+export function readNewsValues(formData: FormData): NewsEditorInitialValue // 뉴스 폼 입력 읽기
+{ // 함수 시작
+    return { // 입력 값 시작
+        title: String(formData.get("title") ?? ""), // 제목 읽기
+        summary: String(formData.get("summary") ?? ""), // 요약 읽기
+        content: String(formData.get("content") ?? ""), // 본문 읽기
+        tags: formData.getAll("tags").map(String), // 태그 읽기
+        status: String(formData.get("status") ?? "draft"), // 상태 읽기
+    }; // 입력 값 반환
+} // 함수 끝
+
+export function readCoverImage(formData: FormData): File | null // 대표 이미지 읽기
+{ // 함수 시작
+    const value = formData.get("coverImage"); // 이미지 값 읽기
+    return value instanceof File && value.size > 0 ? value : null; // 실제 이미지 반환
 } // 함수 끝
 
 export function validateNewsPost(input: NewsPostInput): NewsValidationResult // 게시물 입력 검증

@@ -18,7 +18,7 @@ export default async function MemberLoginPage({ searchParams }: MemberLoginPageP
         <main className={styles.shell}> {/* 로그인 전체 영역 */}
             <section className={styles.panel} aria-labelledby="member-login-title"> {/* 로그인 카드 */}
                 <Link className={styles.brand} href="/main.html">DEVFORGE</Link> {/* 메인 이동 로고 */}
-                <p className={styles.eyebrow}>// MEMBER ACCESS</p> {/* 영문 분류 */}
+                <p className={styles.eyebrow}>{"// MEMBER ACCESS"}</p> {/* 영문 분류 */}
                 <h1 id="member-login-title">회원 로그인</h1> {/* 화면 제목 */}
                 <p className={styles.description}>개발 뉴스에 반응하고 댓글을 남기기 위한 회원 공간입니다.</p> {/* 화면 설명 */}
                 {mode === "demo" ? <p className={styles.notice}>현재 서버가 연결되지 않아 닉네임만 사용하는 시연 모드입니다. 비밀번호와 개인정보는 저장하지 않습니다.</p> : null} {/* 시연 안내 */}
