@@ -61,6 +61,7 @@ css-styling/
 | --- | --- |
 | `app/admin/admin.css` | 관리자 화면 공통 디자인과 테마 토큰 연결 |
 | `app/admin/layout.tsx` | 관리자 화면 레이아웃 |
+| `app/admin/admin-pagination.tsx` | 관리자 목록 페이지 이동(목록 종류 같은 조회 조건 유지) |
 | `app/admin/login/page.tsx` | 관리자 로그인 페이지 |
 | `app/admin/login/login-form.tsx` | 로그인 입력과 오류 처리 |
 | `app/admin/news/page.tsx` | 관리자 뉴스 목록 |
@@ -68,23 +69,38 @@ css-styling/
 | `app/admin/news/[id]/edit/page.tsx` | 뉴스 수정 페이지 |
 | `app/admin/news/news-editor.tsx` | 뉴스 편집 폼 |
 | `app/admin/news/actions.ts` | 뉴스 생성·수정·삭제 서버 작업 |
-| `app/admin/news/admin-header.tsx` | 관리자 뉴스 화면 헤더 |
+| `app/admin/news/delete-news-button.tsx` | 뉴스 삭제 확인과 실행 |
+| `app/admin/news/admin-header.tsx` | 관리자 공통 헤더(글·상품·댓글 관리와 공개 화면 이동) |
 | `app/admin/products/page.tsx` | 관리자 상품 목록 |
 | `app/admin/products/new/page.tsx` | 새 상품 작성 페이지 |
 | `app/admin/products/[id]/edit/page.tsx` | 상품 수정 페이지 |
 | `app/admin/products/product-editor.tsx` | 상품 편집 폼 |
 | `app/admin/products/delete-product-button.tsx` | 상품 삭제 확인과 실행 |
 | `app/admin/products/actions.ts` | 상품 생성·수정·삭제 서버 작업 |
+| `app/admin/comments/page.tsx` | 댓글·신고 관리 목록(신고 대기·숨긴 댓글·최근 댓글) |
+| `app/admin/comments/moderation-board.tsx` | 댓글 카드, 신고 기록, 처리 메모와 숨김·공개·기각·삭제 버튼 |
+| `app/admin/comments/actions.ts` | 관리자 확인 뒤 댓글 처리와 처리 기록 저장 서버 작업 |
+| `app/admin/demo/page.tsx` | Supabase 없는 개발 환경 전용 관리자 데모 화면 |
+| `app/admin/demo/admin-demo.tsx` | 저장하지 않는 뉴스·상품 편집 데모 |
+| `app/admin/demo/demo-moderation.tsx` | 저장하지 않는 댓글 관리 데모 |
 
 ---
 ### 회원·뉴스·연령 확인
 
 | 파일 | 역할 |
 | --- | --- |
-| `app/login/page.tsx` | 회원 로그인 페이지 |
-| `app/login/member-login-form.tsx` | 회원 로그인 폼과 데모·Supabase 분기 |
+| `app/login/page.tsx` | 회원 로그인 페이지와 켜진 로그인 방식 조회 |
+| `app/login/member-login-form.tsx` | 이메일 로그인 폼, 간편 로그인, 비밀번호 찾기·회원가입 연결 |
+| `app/login/social-login-buttons.tsx` | Supabase에서 켠 간편 로그인 버튼(시연 모드는 비활성 미리보기) |
+| `app/login/consent-fields.tsx` | 필수 동의(만 14세 이상·이용약관·개인정보) 입력 |
 | `app/login/member-access.tsx` | 현재 로그인 계정 표시, 로그아웃과 실제 모드 닉네임 확인 |
-| `app/login/member-nickname-form.tsx` | 실제 모드 댓글 닉네임 저장·변경 폼 |
+| `app/login/member-nickname-form.tsx` | 실제 모드 댓글 닉네임 저장·변경과 간편 가입 첫 동의 폼 |
+| `app/login/forgot/page.tsx` | 비밀번호 찾기 페이지 |
+| `app/login/forgot/forgot-password-form.tsx` | 비밀번호 재설정 메일 요청(계정 존재 여부 비공개) |
+| `app/login/reset/page.tsx` | 새 비밀번호 설정 페이지 |
+| `app/login/reset/reset-password-form.tsx` | 메일 링크 세션 확인과 새 비밀번호 저장 |
+| `app/signup/page.tsx` | 회원가입 페이지와 가입 중지 안내 |
+| `app/signup/signup-form.tsx` | 이메일 가입 입력·검증, 인증 메일 안내와 간편 가입 |
 | `app/login/member-login.module.css` | 회원 로그인 화면 스타일 |
 | `app/news/[id]/page.tsx` | 뉴스 상세 조회 |
 | `app/news/[id]/comments-panel.tsx` | 댓글·답글·반응·신고 UI |
@@ -92,7 +108,8 @@ css-styling/
 | `app/age-verification/page.tsx` | 연령 확인 페이지 |
 | `app/age-verification/age-verification-form.tsx` | 생년 확인 입력과 API 요청 |
 | `app/age-verification/age-verification.module.css` | 연령 확인 스타일 |
-| `app/auth/callback/route.ts` | Supabase 인증 결과와 안전한 복귀 처리 |
+| `app/auth/callback/route.ts` | Supabase 인증 결과와 안전한 복귀 처리, 실패 시 로그인 안내 |
+| `app/auth/confirm/route.ts` | 이메일 인증·비밀번호 재설정 메일 링크 확인 |
 
 ---
 ### API
@@ -120,13 +137,15 @@ css-styling/
 | `lib/age-gate/verification.ts` | HMAC 토큰 생성과 검증 |
 
 ---
-### 관리자 인증
+### 관리자 인증과 도구
 
 | 파일 | 역할 |
 | --- | --- |
 | `lib/auth/admin-policy.ts` | 이메일과 `app_metadata.role` 관리자 판정 |
 | `lib/auth/admin.ts` | 관리자 세션 요구와 이동 처리 |
 | `lib/auth/login-message.ts` | 로그인 결과 메시지 정리 |
+| `lib/admin/pagination.ts` | 관리자 목록 한 페이지 항목 수와 페이지 계산 |
+| `lib/admin/demo-mode.ts` | 관리자 데모 사용 가능 판정과 저장 없는 뉴스·상품 검증 |
 
 ---
 ### 회원과 댓글
@@ -135,12 +154,15 @@ css-styling/
 | --- | --- |
 | `lib/member/config.ts` | 데모·Supabase 회원 모드 판정 |
 | `lib/member/demo-session.ts` | 로컬 데모 프로필 저장·읽기와 안전한 복귀 주소 |
-| `lib/member/profile.ts` | 닉네임 규칙(1~20자)과 Supabase 회원 프로필 조회·저장 |
+| `lib/member/profile.ts` | 닉네임 규칙(1~20자), Supabase 회원 프로필 조회·저장과 이메일 가입 프로필 자동 생성 |
+| `lib/member/auth-providers.ts` | 간편 로그인 지원 목록(카카오·Google·Apple·Discord·X·Facebook)과 Supabase 인증 설정 조회 |
+| `lib/member/signup.ts` | 이메일·비밀번호·필수 동의 검증과 인증 오류 안내 문구 |
 | `lib/comments/domain.ts` | 댓글, 이미지, 반응과 신고 규칙 |
 | `lib/comments/service.ts` | 댓글 저장소 공통 계약과 오류 형식 |
 | `lib/comments/rules.ts` | 로컬·Supabase 댓글 서비스 공통 입력 검증 |
 | `lib/comments/local-service.ts` | 새로고침 시 초기화되는 메모리 댓글 저장소 |
 | `lib/comments/supabase-service.ts` | 같은 계약의 Supabase 댓글 저장소(조회·작성·이미지·반응·신고) |
+| `lib/comments/moderation.ts` | 관리자 댓글 처리 규칙과 데모·Supabase 관리 서비스 |
 
 ---
 ### 뉴스
@@ -274,6 +296,7 @@ css-styling/
 | `202609100001_admin_news.sql` | `news_posts`, 공개·관리자 RLS, 뉴스 이미지 Storage 정책 |
 | `202609110001_admin_products.sql` | `products`, 공개·관리자 RLS, 상품 이미지 Storage 정책 |
 | `202609120001_member_comments.sql` | 회원 프로필, 댓글, 반응, 신고, 관리 기록, 댓글 이미지 정책 |
+| `202610010001_member_signup_moderation.sql` | 가입 동의 시각 열, 공개 프로필 열 제한, 관리자 전용 댓글 상태·신고 처리 권한 |
 
 파일명 앞 숫자는 적용 순서입니다. 운영에 적용한 SQL 파일을 고치는 대신 새로운 번호의 마이그레이션을 추가합니다.
 
@@ -309,6 +332,7 @@ css-styling/
 - `admin-products-actions.test.mjs`: 상품 서버 작업 계약
 - `admin-products-config.test.mjs`: 상품 Supabase 설정 분기
 - `admin-products-ui.test.mjs`: 상품 관리자 화면
+- `admin-demo-mode.test.mjs`: 개발 환경 전용 관리자 데모(인증 우회·저장 없음)
 
 ---
 ### 연령 제한
@@ -327,6 +351,15 @@ css-styling/
 - `comment-domain.test.mjs`: 댓글, 이미지, 반응과 신고 규칙
 - `comment-local-service.test.mjs`: 로컬 댓글 조회·작성·답글·반응·신고와 초기화 정책
 - `comment-panel-service.test.mjs`: 댓글 화면과 로컬 서비스의 연결 계약
+- `comment-supabase-service.test.mjs`: Supabase 댓글 저장소의 같은 계약
+- `comment-moderation.test.mjs`: 관리자 댓글 처리 규칙과 데모·Supabase 관리 서비스
+- `member-profile.test.mjs`: 닉네임 규칙과 프로필 조회·저장
+- `member-session-server.test.mjs`: 서버 회원 상태 확인과 공개 정보만 담은 응답
+- `member-logout.test.mjs`: 로그아웃과 회원 버튼 전환
+- `member-signup.test.mjs`: 가입 입력·필수 동의 검증, 인증 오류 안내, 첫 로그인 프로필 생성
+- `auth-providers.test.mjs`: 간편 로그인 목록과 Supabase 인증 설정 해석
+- `member-auth-pages.test.mjs`: 가입·간편 로그인·비밀번호 재설정·댓글 관리 화면 연결
+- `member-signup-moderation-migration.test.mjs`: 동의 기록과 관리자 전용 처리 SQL
 
 ---
 ### 개인정보와 분석
@@ -418,6 +451,8 @@ ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `publi
 | 상품 관리 | `app/admin/products/` | `lib/products/`, 상품 마이그레이션 |
 | 로그인 권한 | `lib/auth/admin-policy.ts` | `proxy.ts`, Supabase 클라이언트 |
 | 댓글 | `app/news/[id]/comments-panel.tsx` | `lib/comments/domain.ts`, `lib/comments/service.ts`, `lib/comments/local-service.ts`, `lib/comments/supabase-service.ts`, 댓글 마이그레이션 |
+| 회원가입·간편 로그인 | `lib/member/auth-providers.ts` | `app/signup/`, `app/login/social-login-buttons.tsx`, `lib/member/signup.ts`, `app/auth/` |
+| 댓글·신고 관리 | `app/admin/comments/` | `lib/comments/moderation.ts`, `202610010001_member_signup_moderation.sql` |
 | 회원 닉네임 | `lib/member/profile.ts` | `app/login/member-access.tsx`, `app/login/member-nickname-form.tsx`, `app/api/member/status/route.ts`, `public/member-session.mjs` |
 | Supabase 연결 준비 | `scripts/check-supabase-env.mjs` | `.env.example`, `README.md`의 Supabase 단계, `supabase/migrations/` |
 | 연령 제한 | `lib/age-gate/` | `proxy.ts`, 연령 API와 화면 |

@@ -22,5 +22,7 @@ test("회원 로그인 화면은 시연 모드와 실제 로그인 방식을 구
     assert.match(page, /getMemberMode/); // 모드 판정 확인
     assert.match(form, /시연 계정으로 화면 확인/); // 시연 로그인 확인
     assert.match(form, /signInWithPassword/); // 이메일 로그인 확인
-    assert.match(form, /signInWithOAuth/); // 구글 로그인 확인
+    assert.match(form, /<SocialLoginButtons mode=\{mode\} providers=\{settings\.providers\} returnTo=\{returnTo\} \/>/); // 켜진 간편 로그인 연결 확인
+    const social = await readFile(new URL("../app/login/social-login-buttons.tsx", import.meta.url), "utf8"); // 간편 로그인 버튼 읽기
+    assert.match(social, /signInWithOAuth\(\{ provider, options: \{ redirectTo: callback \} \}\)/); // 간편 로그인 요청 확인
 }); // 테스트 끝

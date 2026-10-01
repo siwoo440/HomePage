@@ -67,7 +67,7 @@ test("로그인 화면과 공통 메뉴가 로그아웃 흐름에 연결된다",
     const page = fs.readFileSync("app/login/page.tsx", "utf8"); // 로그인 화면
     const access = fs.readFileSync("app/login/member-access.tsx", "utf8"); // 회원 접근 영역
     const navigation = fs.readFileSync("public/responsive-nav.mjs", "utf8"); // 공통 메뉴
-    assert.match(page, /<MemberAccess mode=\{mode\} returnTo=\{returnTo\} \/>/); // 회원 접근 영역 사용 확인
+    assert.match(page, /<MemberAccess mode=\{mode\} returnTo=\{returnTo\} settings=\{settings\} \/>/); // 회원 접근 영역 사용 확인
     assert.match(access, /sessionStorage\.removeItem\(MEMBER_DEMO_STORAGE_KEY\)/); // 시연 로그아웃 확인
     assert.match(access, /auth\.signOut\(\)/); // 실제 세션 종료 확인
     assert.match(access, /auth\.getUser\(\)/); // 실제 로그인 상태 조회 확인

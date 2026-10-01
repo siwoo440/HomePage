@@ -224,3 +224,168 @@
     outline: var(--pl-focus-ring); /* 공통 초점 외곽선 */
     outline-offset: 3px; /* 외곽선 간격 */
 } /* 초점 끝 */
+
+a.primaryButton /* 링크형 주요 버튼 */
+{ /* 링크 버튼 시작 */
+    display: inline-flex; /* 가운데 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 링크 버튼 끝 */
+
+.fieldError /* 입력 항목 오류 */
+{ /* 항목 오류 시작 */
+    margin-top: -4px; /* 입력과 가깝게 배치 */
+    color: var(--pl-danger); /* 오류 글자색 */
+    font-size: 0.85rem; /* 오류 글자 크기 */
+} /* 항목 오류 끝 */
+
+.srOnly /* 화면 낭독 전용 문구 */
+{ /* 숨김 시작 */
+    position: absolute; /* 흐름 제외 */
+    width: 1px; /* 최소 너비 */
+    height: 1px; /* 최소 높이 */
+    overflow: hidden; /* 넘침 숨김 */
+    clip-path: inset(50%); /* 화면 숨김 */
+    white-space: nowrap; /* 줄바꿈 차단 */
+} /* 숨김 끝 */
+
+.accountLinks /* 가입·찾기 링크 묶음 */
+{ /* 링크 묶음 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 8px 18px; /* 링크 간격 */
+    margin: 20px 0 0; /* 위쪽 여백 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 링크 묶음 끝 */
+
+.accountLinks a /* 계정 링크 */
+{ /* 링크 시작 */
+    color: var(--pl-violet); /* 강조 글자색 */
+    font-weight: 700; /* 링크 굵기 */
+} /* 링크 끝 */
+
+.social /* 간편 로그인 영역 */
+{ /* 영역 시작 */
+    margin-top: 28px; /* 위쪽 여백 */
+    padding-top: 22px; /* 구분선 안쪽 여백 */
+    border-top: 1px solid var(--pl-border); /* 이메일 영역 구분선 */
+} /* 영역 끝 */
+
+.socialTitle /* 간편 로그인 제목 */
+{ /* 제목 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-ink); /* 제목 글자색 */
+    font-size: 1rem; /* 제목 크기 */
+} /* 제목 끝 */
+
+.socialNote /* 간편 로그인 안내 */
+{ /* 안내 시작 */
+    margin: 6px 0 14px; /* 위아래 여백 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    font-size: 0.88rem; /* 안내 크기 */
+    line-height: 1.6; /* 줄 간격 */
+} /* 안내 끝 */
+
+.socialGrid /* 간편 로그인 버튼 격자 */
+{ /* 격자 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); /* 반응형 열 */
+    gap: 10px; /* 버튼 간격 */
+} /* 격자 끝 */
+
+.socialButton /* 간편 로그인 버튼 */
+{ /* 버튼 시작 */
+    min-height: 48px; /* 터치 높이 */
+    padding: 0 14px; /* 좌우 여백 */
+    border: 1px solid transparent; /* 기본 경계선 */
+    border-radius: var(--pl-radius-small); /* 버튼 모서리 */
+    font: inherit; /* 본문 글꼴 */
+    font-weight: 800; /* 버튼 굵기 */
+    cursor: pointer; /* 클릭 커서 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+} /* 버튼 끝 */
+
+.socialButton:focus-visible /* 간편 로그인 초점 */
+{ /* 초점 시작 */
+    outline: var(--pl-focus-ring); /* 공통 초점 외곽선 */
+    outline-offset: 3px; /* 외곽선 간격 */
+} /* 초점 끝 */
+
+.socialButton:disabled /* 비활성 간편 로그인 */
+{ /* 비활성 시작 */
+    cursor: not-allowed; /* 비활성 커서 */
+    opacity: 0.55; /* 비활성 표시 */
+} /* 비활성 끝 */
+
+.provider_kakao { background: #fee500; color: #191600; } /* 카카오 버튼 색 */
+.provider_google { border-color: #747775; background: #ffffff; color: #1f1f1f; } /* 구글 버튼 색 */
+.provider_apple { background: #000000; color: #ffffff; } /* 애플 버튼 색 */
+.provider_discord { background: #4752c4; color: #ffffff; } /* 디스코드 버튼 색 */
+.provider_x { border-color: #536471; background: #0f1419; color: #ffffff; } /* 엑스 버튼 색 */
+.provider_facebook { background: #0866ff; color: #ffffff; } /* 페이스북 버튼 색 */
+
+.consents /* 필수 동의 묶음 */
+{ /* 묶음 시작 */
+    display: grid; /* 세로 격자 */
+    gap: 10px; /* 항목 간격 */
+    margin: 8px 0 0; /* 위쪽 여백 */
+    padding: 14px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border); /* 묶음 경계선 */
+    border-radius: var(--pl-radius-small); /* 묶음 모서리 */
+    min-width: 0; /* 격자 축소 허용 */
+} /* 묶음 끝 */
+
+.consents legend /* 동의 묶음 제목 */
+{ /* 제목 시작 */
+    padding: 0 6px; /* 좌우 여백 */
+    color: var(--pl-ink); /* 제목 글자색 */
+    font-weight: 800; /* 제목 굵기 */
+} /* 제목 끝 */
+
+.consentAll, .consentItem label /* 동의 선택 줄 */
+{ /* 선택 줄 시작 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 10px; /* 체크와 문구 간격 */
+    min-height: 44px; /* 터치 높이 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 선택 줄 끝 */
+
+.consentAll /* 전체 동의 줄 */
+{ /* 전체 동의 시작 */
+    padding-bottom: 8px; /* 아래 여백 */
+    border-bottom: 1px solid var(--pl-border); /* 항목 구분선 */
+    font-weight: 800; /* 강조 굵기 */
+} /* 전체 동의 끝 */
+
+.consents input[type="checkbox"] /* 동의 체크 상자 */
+{ /* 체크 시작 */
+    width: 20px; /* 체크 너비 */
+    min-height: 0; /* 입력 높이 해제 */
+    height: 20px; /* 체크 높이 */
+    padding: 0; /* 입력 여백 해제 */
+    margin: 0; /* 기본 여백 제거 */
+    flex: 0 0 auto; /* 크기 유지 */
+    accent-color: var(--pl-violet); /* 체크 강조색 */
+} /* 체크 끝 */
+
+.consentItem /* 동의 항목 */
+{ /* 항목 시작 */
+    display: grid; /* 세로 배치 */
+    grid-template-columns: minmax(0, 1fr) auto; /* 문구·전문 링크 열 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 0 12px; /* 열 간격 */
+} /* 항목 끝 */
+
+.consentItem a /* 전문 보기 링크 */
+{ /* 링크 시작 */
+    color: var(--pl-violet); /* 링크 글자색 */
+    font-size: 0.85rem; /* 링크 크기 */
+} /* 링크 끝 */
+
+.consentItem .fieldError /* 동의 항목 오류 */
+{ /* 오류 시작 */
+    grid-column: 1 / -1; /* 전체 너비 */
+    margin-top: 0; /* 위 여백 제거 */
+} /* 오류 끝 */

@@ -54,7 +54,7 @@ export async function fetchMemberProfile(client: SupabaseClient, userId: string)
     return row ? { id: row.id, nickname: row.nickname } : null; // 프로필 반환
 } // 함수 끝
 
-export async function saveMemberNickname(client: SupabaseClient, userId: string, nickname: string, now: () => string = () => new Date().toISOString()): Promise<MemberProfile> // 본인 닉네임 저장
+export async function saveMemberNickname(client: SupabaseClient, userId: string, nickname: string, now: () => string = () => new Date().toISOString(), consentAt?: string): Promise<MemberProfile> // 본인 닉네임 저장
 { // 함수 시작
     const checked = validateNickname(nickname); // 닉네임 검증
 
@@ -63,7 +63,8 @@ export async function saveMemberNickname(client: SupabaseClient, userId: string,
         throw new MemberProfileError(checked.message); // 검증 오류 발생
     } // 조건 끝
 
-    const result = await client.from("member_profiles").upsert({ id: userId, nickname: checked.value, updated_at: now() }, { onConflict: "id" }).select("id, nickname").single(); // 프로필 저장
+    const consent = consentAt ? { terms_agreed_at: consentAt, privacy_agreed_at: consentAt, age_confirmed_at: consentAt } : {}; // 첫 가입 동의 기록
+    const result = await client.from("member_profiles").upsert({ id: userId, nickname: checked.value, updated_at: now(), ...consent }, { onConflict: "id" }).select("id, nickname").single(); // 프로필 저장
 
     if (result.error || !result.data) // 저장 실패 확인
     { // 조건 시작
@@ -73,4 +74,37 @@ export async function saveMemberNickname(client: SupabaseClient, userId: string,
 
     const row = result.data as MemberProfile; // 저장 행
     return { id: row.id, nickname: row.nickname }; // 저장 프로필 반환
+} // 함수 끝
+
+export interface ProfileUser // 프로필 확인 회원
+{ // 형식 시작
+    id: string; // 회원 식별자
+    user_metadata?: Record<string, unknown> | null; // 가입 입력 정보
+} // 형식 끝
+
+export function readSignupProfile(user: ProfileUser): { nickname: string; consentAt: string } | null // 이메일 가입 입력 읽기
+{ // 함수 시작
+    const metadata = user.user_metadata ?? {}; // 가입 입력 정보
+    const nickname = typeof metadata.nickname === "string" ? validateNickname(metadata.nickname) : null; // 가입 닉네임 검증
+    const consentAt = typeof metadata.consent_agreed_at === "string" ? metadata.consent_agreed_at : ""; // 가입 동의 시각
+
+    if (!nickname?.ok || Number.isNaN(Date.parse(consentAt))) // 가입 입력 확인
+    { // 조건 시작
+        return null; // 가입 입력 없음 반환
+    } // 조건 끝
+
+    return { nickname: nickname.value, consentAt }; // 가입 입력 반환
+} // 함수 끝
+
+export async function ensureMemberProfile(client: SupabaseClient, user: ProfileUser, now: () => string = () => new Date().toISOString()): Promise<MemberProfile | null> // 회원 프로필 준비
+{ // 함수 시작
+    const existing = await fetchMemberProfile(client, user.id); // 기존 프로필 조회
+
+    if (existing) // 기존 프로필 확인
+    { // 조건 시작
+        return existing; // 기존 프로필 반환
+    } // 조건 끝
+
+    const signup = readSignupProfile(user); // 이메일 가입 입력 읽기
+    return signup ? saveMemberNickname(client, user.id, signup.nickname, now, signup.consentAt) : null; // 가입 입력으로 프로필 생성
 } // 함수 끝

@@ -720,3 +720,200 @@ body /* 관리자 문서 */
 { /* 규칙 시작 */
     opacity: 0.45; /* 흐린 표시 */
 } /* 규칙 끝 */
+
+.moderation-tabs /* 댓글 관리 목록 종류 */
+{ /* 목록 종류 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 8px; /* 탭 간격 */
+    margin: 0 0 22px; /* 아래 여백 */
+} /* 목록 종류 끝 */
+
+.moderation-tabs a, .moderation-tabs button /* 목록 종류 탭 */
+{ /* 탭 시작 */
+    display: inline-flex; /* 가운데 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    min-height: 44px; /* 터치 높이 */
+    padding: 0 16px; /* 좌우 여백 */
+    border: 1px solid var(--admin-border); /* 탭 경계선 */
+    border-radius: 999px; /* 캡슐 모양 */
+    background: var(--admin-surface); /* 탭 배경 */
+    color: var(--admin-text); /* 탭 글자색 */
+    font: inherit; /* 기본 글꼴 */
+    font-weight: 700; /* 탭 굵기 */
+    text-decoration: none; /* 밑줄 제거 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 탭 끝 */
+
+.moderation-tabs [aria-current="page"], .moderation-tabs [aria-pressed="true"] /* 선택 탭 */
+{ /* 선택 시작 */
+    border-color: var(--admin-purple); /* 선택 경계선 */
+    background: color-mix(in srgb, var(--admin-purple) 14%, var(--admin-surface)); /* 선택 배경 */
+} /* 선택 끝 */
+
+.moderation-board /* 댓글 관리 목록 영역 */
+{ /* 영역 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 16px; /* 요소 간격 */
+} /* 영역 끝 */
+
+.moderation-list /* 댓글 관리 항목 목록 */
+{ /* 목록 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 14px; /* 항목 간격 */
+} /* 목록 끝 */
+
+.moderation-card /* 댓글 관리 카드 */
+{ /* 카드 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 10px; /* 내용 간격 */
+    min-width: 0; /* 격자 축소 허용 */
+    padding: 18px; /* 안쪽 여백 */
+    border: 1px solid var(--admin-border); /* 카드 경계선 */
+    border-left: 4px solid var(--admin-border); /* 상태 강조선 */
+    border-radius: 8px; /* 카드 모서리 */
+    background: var(--admin-surface); /* 카드 배경 */
+} /* 카드 끝 */
+
+.moderation-card[data-status="hidden"] /* 숨긴 댓글 카드 */
+{ /* 숨김 카드 시작 */
+    border-left-color: var(--admin-accent); /* 숨김 강조선 */
+} /* 숨김 카드 끝 */
+
+.moderation-card[data-status="deleted"] /* 삭제 댓글 카드 */
+{ /* 삭제 카드 시작 */
+    border-left-color: var(--admin-danger); /* 삭제 강조선 */
+    opacity: 0.8; /* 삭제 표시 */
+} /* 삭제 카드 끝 */
+
+.moderation-card-header /* 카드 작성 정보 */
+{ /* 작성 정보 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양쪽 배치 */
+    gap: 8px 12px; /* 요소 간격 */
+} /* 작성 정보 끝 */
+
+.moderation-card-header time /* 작성 시각 */
+{ /* 시각 시작 */
+    margin-left: 10px; /* 이름과 간격 */
+    color: var(--admin-muted); /* 보조 글자색 */
+    font-size: 0.85rem; /* 시각 크기 */
+} /* 시각 끝 */
+
+.moderation-status /* 공개 상태 배지 */
+{ /* 배지 시작 */
+    padding: 4px 10px; /* 안쪽 여백 */
+    border: 1px solid var(--admin-border); /* 배지 경계선 */
+    border-radius: 999px; /* 캡슐 모양 */
+    font-size: 0.8rem; /* 배지 크기 */
+    font-weight: 800; /* 배지 굵기 */
+} /* 배지 끝 */
+
+.moderation-status-visible { color: var(--admin-success); } /* 공개 상태 색 */
+.moderation-status-hidden { color: var(--admin-accent); } /* 숨김 상태 색 */
+.moderation-status-deleted { color: var(--admin-danger); } /* 삭제 상태 색 */
+
+.moderation-news, .moderation-closed /* 뉴스·종료 안내 */
+{ /* 안내 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--admin-muted); /* 보조 글자색 */
+    font-size: 0.9rem; /* 안내 크기 */
+} /* 안내 끝 */
+
+.moderation-news a /* 뉴스 링크 */
+{ /* 링크 시작 */
+    color: var(--admin-purple); /* 링크 글자색 */
+} /* 링크 끝 */
+
+.moderation-content /* 댓글 내용 */
+{ /* 내용 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    white-space: pre-wrap; /* 줄바꿈 유지 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+    line-height: 1.6; /* 줄 간격 */
+} /* 내용 끝 */
+
+.moderation-image /* 첨부 이미지 */
+{ /* 이미지 시작 */
+    max-width: min(280px, 100%); /* 최대 너비 */
+    max-height: 200px; /* 최대 높이 */
+    border-radius: 6px; /* 이미지 모서리 */
+    object-fit: contain; /* 비율 유지 */
+} /* 이미지 끝 */
+
+.moderation-reports /* 신고 정보 */
+{ /* 신고 시작 */
+    padding: 10px 12px; /* 안쪽 여백 */
+    border-radius: 6px; /* 모서리 */
+    background: color-mix(in srgb, var(--admin-danger) 7%, var(--admin-surface)); /* 신고 배경 */
+} /* 신고 끝 */
+
+.moderation-reports p /* 신고 요약 */
+{ /* 요약 시작 */
+    margin: 0 0 6px; /* 아래 여백 */
+} /* 요약 끝 */
+
+.moderation-reports ul /* 신고 기록 목록 */
+{ /* 목록 시작 */
+    margin: 8px 0 0; /* 위 여백 */
+    padding-left: 18px; /* 목록 들여쓰기 */
+    color: var(--admin-muted); /* 보조 글자색 */
+    font-size: 0.88rem; /* 목록 크기 */
+} /* 목록 끝 */
+
+.moderation-controls /* 처리 영역 */
+{ /* 처리 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 8px; /* 요소 간격 */
+} /* 처리 끝 */
+
+.moderation-controls label /* 메모 이름 */
+{ /* 이름 시작 */
+    color: var(--admin-muted); /* 보조 글자색 */
+    font-size: 0.85rem; /* 이름 크기 */
+} /* 이름 끝 */
+
+.moderation-controls textarea /* 처리 메모 */
+{ /* 메모 시작 */
+    width: 100%; /* 전체 너비 */
+    min-height: 64px; /* 최소 높이 */
+    padding: 10px 12px; /* 안쪽 여백 */
+    border: 1px solid var(--admin-border); /* 경계선 */
+    border-radius: 6px; /* 모서리 */
+    background: var(--admin-panel-soft); /* 메모 배경 */
+    color: var(--admin-text); /* 메모 글자색 */
+    font: inherit; /* 기본 글꼴 */
+    resize: vertical; /* 세로 크기 조절 */
+} /* 메모 끝 */
+
+.moderation-actions /* 처리 버튼 묶음 */
+{ /* 버튼 묶음 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 8px; /* 버튼 간격 */
+} /* 버튼 묶음 끝 */
+
+.moderation-button /* 처리 버튼 */
+{ /* 버튼 시작 */
+    min-height: 44px; /* 터치 높이 */
+    padding: 0 16px; /* 좌우 여백 */
+    border: 1px solid var(--admin-border); /* 버튼 경계선 */
+    border-radius: 6px; /* 버튼 모서리 */
+    background: var(--admin-surface); /* 버튼 배경 */
+    color: var(--admin-text); /* 버튼 글자색 */
+    font: inherit; /* 기본 글꼴 */
+    font-weight: 800; /* 버튼 굵기 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 버튼 끝 */
+
+.moderation-button:disabled /* 처리 중 버튼 */
+{ /* 비활성 시작 */
+    cursor: not-allowed; /* 비활성 커서 */
+    opacity: 0.5; /* 비활성 표시 */
+} /* 비활성 끝 */
+
+.moderation-button-hide { border-color: var(--admin-accent); } /* 숨기기 버튼 */
+.moderation-button-restore { border-color: var(--admin-success); } /* 다시 공개 버튼 */
+.moderation-button-delete { border-color: var(--admin-danger); color: var(--admin-danger); } /* 삭제 버튼 */

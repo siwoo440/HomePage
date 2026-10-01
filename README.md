@@ -121,9 +121,10 @@ pnpm check
 3. `supabase/migrations/202609100001_admin_news.sql` 전체 실행
 4. `supabase/migrations/202609110001_admin_products.sql` 전체 실행
 5. `supabase/migrations/202609120001_member_comments.sql` 전체 실행(회원 닉네임·댓글·반응·신고와 댓글 이미지 버킷)
-6. **Authentication → Users**에서 관리자 계정 생성
+6. `supabase/migrations/202610010001_member_signup_moderation.sql` 전체 실행(가입 동의 기록, 관리자 전용 댓글 숨김·신고 처리 권한)
+7. **Authentication → Users**에서 관리자 계정 생성
 
-세 파일은 반드시 위 순서대로 실행합니다. 세 번째 파일이 첫 번째 파일의 뉴스 테이블과 관리자 판정 함수를 사용합니다.
+네 파일은 반드시 위 순서대로 실행합니다. 뒤 파일이 앞 파일의 뉴스·댓글 테이블과 관리자 판정 함수를 사용합니다.
 
 관리자 이메일과 비밀번호는 저장소 파일에 기록하지 않습니다.
 
@@ -187,7 +188,24 @@ Supabase의 **Authentication → URL Configuration**에서 개발 단계 주소�
 
 실제 Vercel 주소는 배포가 완료된 뒤 확인하여 입력합니다.
 
-Google 로그인을 쓰려면 **Authentication → Providers**에서 Google을 켜고 Google Cloud의 OAuth 클라이언트 정보를 등록해야 합니다. 설정하지 않으면 이메일 로그인만 사용하며, Google 버튼은 시작할 수 없다는 안내를 표시합니다.
+### 간편 로그인 켜기
+
+**Authentication → Providers**에서 쓰려는 간편 로그인을 켜고 각 서비스 개발자 화면에서 받은 OAuth 정보를 등록합니다. 로그인·회원가입 화면은 Supabase 설정을 읽어 **켜 둔 계정만 자동으로 표시**하므로 홈페이지 코드나 환경 변수는 바꾸지 않습니다.
+
+- 지원 순서: 카카오, Google, Apple, Discord, X, Facebook(그 밖의 서비스는 Supabase에서 켜도 표시하지 않습니다)
+- 각 서비스의 콜백 주소에는 Supabase가 안내하는 `https://프로젝트-식별자.supabase.co/auth/v1/callback`을 등록합니다.
+- 카카오는 이메일 동의 항목 설정이 필요할 수 있으므로 Supabase 카카오 안내를 함께 확인합니다.
+- 공개 전 각 서비스의 로그인 버튼 디자인 지침(색·문구·로고)을 확인합니다. 현재 버튼은 서비스 색과 글자만 사용합니다.
+- 간편 로그인으로 처음 들어온 회원은 닉네임과 필수 동의(만 14세 이상·이용약관·개인정보)를 받은 뒤 댓글을 쓸 수 있습니다. 서비스가 넘겨준 실명은 자동으로 공개하지 않습니다.
+
+### 이메일 인증·비밀번호 재설정 메일(권장)
+
+기본 메일 링크는 요청한 브라우저에서 열어야 로그인까지 이어집니다. 다른 기기에서 열어도 동작하게 하려면 **Authentication → Email Templates**의 링크를 다음처럼 바꿉니다.
+
+- Confirm signup: `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email&next=/main.html`
+- Reset password: `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/login/reset`
+
+이메일 인증을 끄면(`Confirm email` 해제) 가입 즉시 로그인되고 입력한 닉네임으로 바로 댓글을 쓸 수 있습니다.
 
 ---
 
@@ -217,12 +235,23 @@ Production, Preview, Development 환경 가운데 실제로 사용할 환경을 
 ---
 ### 회원과 댓글 확인
 
-1. `/login`에서 회원 계정으로 로그인(이메일 또는 Google)
-2. 처음 로그인하면 **댓글에 표시할 닉네임**을 저장(1~20자)
+1. `/signup`에서 이메일·비밀번호(영문·숫자 8자 이상)·닉네임과 필수 동의로 가입하고, 인증 메일 링크를 눌러 완료
+2. 또는 `/login`에서 켜 둔 간편 로그인으로 가입·로그인한 뒤 닉네임과 필수 동의를 저장
 3. 공개 뉴스 상세 화면에서 댓글·답글·이미지 첨부·반응·신고 확인
 4. 공개 페이지 상단 회원 버튼에 닉네임이 표시되는지 확인
+5. `/login/forgot`에서 비밀번호 재설정 메일을 받고 링크로 들어온 `/login/reset`에서 새 비밀번호 저장
 
-댓글 이미지는 회원별 폴더(`comment-images/회원-ID/`)에 저장되며 JPG·PNG·WebP·GIF 5MB 이하만 허용됩니다. 같은 회원은 같은 댓글을 한 번만 신고할 수 있습니다. 시연 뉴스(`/news/demo-…`)는 연결 후에도 시연 댓글을 사용합니다.
+이메일 가입 회원은 가입 때 입력한 닉네임과 동의 시각으로 첫 로그인 때 프로필이 자동으로 만들어집니다. 동의 시각은 공개 프로필 조회에서 보이지 않습니다. 댓글 이미지는 회원별 폴더(`comment-images/회원-ID/`)에 저장되며 JPG·PNG·WebP·GIF 5MB 이하만 허용됩니다. 같은 회원은 같은 댓글을 한 번만 신고할 수 있습니다. 시연 뉴스(`/news/demo-…`)는 연결 후에도 시연 댓글을 사용합니다.
+
+---
+### 댓글·신고 관리
+
+1. `/admin/comments`에서 **신고 대기·숨긴 댓글·최근 댓글** 목록 확인
+2. 신고 사유 요약과 신고 기록, 원래 뉴스 링크를 보고 처리 메모(선택) 입력
+3. 처리 선택: **댓글 숨기기**(대기 신고 처리 완료) · **다시 공개** · **신고 기각** · **삭제**(첨부 이미지도 삭제, 되돌릴 수 없음)
+4. 모든 처리는 관리자 ID·처리 종류·메모와 함께 처리 기록(`moderation_actions`)에 남습니다.
+
+숨김·삭제는 관리자만 할 수 있으며 작성자가 숨겨진 자기 댓글을 다시 공개할 수도 없습니다. Supabase 없이 화면을 확인하려면 개발 서버에서 `/admin/demo?form=comments`를 엽니다. 데모 처리 결과는 저장되지 않습니다.
 
 ---
 ### 상품 관리

@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react"; // 화면 상태 도구
 import { MEMBER_DEMO_STORAGE_KEY, parseDemoMemberProfile } from "@/lib/member/demo-session"; // 시연 회원 도구
+import type { AuthSettings } from "@/lib/member/auth-providers"; // 인증 설정 형식
 import type { MemberMode } from "@/lib/member/config"; // 회원 모드 형식
-import { fetchMemberProfile } from "@/lib/member/profile"; // 회원 프로필 조회
+import { ensureMemberProfile } from "@/lib/member/profile"; // 회원 프로필 준비
 import { createBrowserSupabaseClient } from "@/lib/supabase/client"; // 브라우저 인증 도구
 import MemberLoginForm from "./member-login-form"; // 회원 로그인 폼
 import MemberNicknameForm from "./member-nickname-form"; // 회원 닉네임 입력
@@ -13,6 +14,7 @@ interface MemberAccessProps // 회원 접근 영역 속성
 { // 형식 시작
     mode: MemberMode; // 회원 모드
     returnTo: string; // 로그인 뒤 주소
+    settings: AuthSettings; // 인증 설정 요약
 } // 형식 끝
 
 type AccessState = // 회원 접근 상태
@@ -32,7 +34,7 @@ function readStoredDemoName(): string | null // 시연 닉네임 읽기
     } // 오류 처리 끝
 } // 함수 끝
 
-export default function MemberAccess({ mode, returnTo }: MemberAccessProps) // 회원 접근 영역
+export default function MemberAccess({ mode, returnTo, settings }: MemberAccessProps) // 회원 접근 영역
 { // 함수 시작
     const [state, setState] = useState<AccessState>({ status: "checking" }); // 회원 접근 상태
     const [message, setMessage] = useState(""); // 처리 결과 안내
@@ -62,7 +64,7 @@ export default function MemberAccess({ mode, returnTo }: MemberAccessProps) // �
                     return { status: "signed-out" }; // 로그아웃 상태 반환
                 } // 조건 끝
 
-                const profile = await fetchMemberProfile(supabase, user.id).catch(() => undefined); // 공개 프로필 조회
+                const profile = await ensureMemberProfile(supabase, user).catch(() => undefined); // 공개 프로필 조회·가입 정보로 생성
                 const nickname = profile?.nickname ?? null; // 현재 닉네임
                 return { status: "signed-in", displayName: nickname ?? user.email ?? "회원", userId: user.id, nickname, profileError: profile === undefined }; // 실제 상태 반환
             } // 시도 끝
@@ -155,7 +157,7 @@ export default function MemberAccess({ mode, returnTo }: MemberAccessProps) // �
                 <p className={styles.accountName}>{state.displayName}</p> {/* 계정 이름 */}
                 <p className={styles.description}>{mode === "demo" ? "시연 닉네임은 현재 탭에만 저장되며 서버로 전송하지 않습니다." : "로그아웃하면 이 브라우저의 로그인 세션이 종료됩니다."}</p> {/* 계정 안내 */}
                 {state.profileError ? <p className={styles.error} role="alert">회원 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p> : null} {/* 프로필 조회 실패 안내 */}
-                {mode === "supabase" && state.userId && !state.profileError ? <MemberNicknameForm userId={state.userId} nickname={state.nickname} onSaved={(nickname) => setState({ ...state, displayName: nickname, nickname })} /> : null} {/* 닉네임 설정 */}
+                {mode === "supabase" && state.userId && !state.profileError ? <MemberNicknameForm userId={state.userId} nickname={state.nickname} requireConsent={!state.nickname} onSaved={(nickname) => setState({ ...state, displayName: nickname, nickname })} /> : null} {/* 닉네임 설정·첫 가입 동의 */}
                 <button className={styles.primaryButton} type="button" onClick={handleSignOut} disabled={isSigningOut} aria-busy={isSigningOut}>{isSigningOut ? "로그아웃 중…" : "로그아웃"}</button> {/* 로그아웃 버튼 */}
                 {notice} {/* 처리 결과 안내 */}
             </section> // 현재 계정 영역 끝
@@ -165,7 +167,7 @@ export default function MemberAccess({ mode, returnTo }: MemberAccessProps) // �
     return ( // 로그인 폼 반환
         <> {/* 로그인 영역 묶음 */}
             {notice} {/* 로그아웃 결과 안내 */}
-            <MemberLoginForm mode={mode} returnTo={returnTo} /> {/* 로그인 입력 */}
+            <MemberLoginForm mode={mode} returnTo={returnTo} settings={settings} /> {/* 로그인 입력 */}
         </> // 로그인 영역 묶음 끝
     ); // 로그인 폼 반환 끝
 } // 함수 끝

@@ -4,7 +4,7 @@
 이 문서는 다른 컴퓨터에서 Claude가 DEVFORGE 홈페이지 개발을 바로 이어가기 위한 전달 문서입니다. 작업 기준은 이 파일이 포함된 `origin/main` 최신 커밋입니다.
 
 - 마지막 갱신: 2026년 10월 1일
-- 마지막 검증: 테스트 381개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
+- 마지막 검증: 테스트 404개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
 - 검증 환경: Windows 11, Node.js `24.19.0`, pnpm `11.19.0`
 
 ---
@@ -69,7 +69,11 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
   - 정적 페이지 상단 회원 버튼의 실제 로그인 닉네임 표시(`/api/member/status`, 로그인 쿠키가 있을 때만 확인, 이메일 미반환)
   - 연결 설정 점검 명령 `pnpm supabase:check`(비밀 키 노출·주소 경로·빈 값 검사, 값 미표시)
   - 브라우저 코드가 `NEXT_PUBLIC_` 값을 읽지 못해 실제 모드 회원·관리자 로그인이 실패하던 문제 수정(`lib/supabase/config.ts` 직접 참조)
-  - 가짜 Supabase 서버로 로그인부터 로그아웃까지 브라우저 흐름 확인. 실제 Supabase 동작은 연결 후 README 순서로 재확인 필요
+  - 이메일 회원가입(`/signup`)·비밀번호 찾기(`/login/forgot`)·재설정(`/login/reset`), 가입 필수 동의(만 14세 이상·이용약관·개인정보) 시각 기록
+  - 간편 로그인: 카카오·Google·Apple·Discord·X·Facebook 가운데 Supabase에서 켠 서비스만 자동 표시, 첫 로그인 때 닉네임·필수 동의 저장(서비스가 넘긴 실명은 공개하지 않음)
+  - 관리자 댓글·신고 관리(`/admin/comments`): 신고 대기·숨긴 댓글·최근 댓글 목록, 숨김·다시 공개·신고 기각·삭제와 처리 기록, 데모는 `/admin/demo?form=comments`
+  - 네 번째 마이그레이션(`202610010001_member_signup_moderation.sql`): 동의 시각 열, 공개 프로필 열 제한, 댓글 공개 상태·신고 처리 상태는 관리자만 변경
+  - 가짜 Supabase 서버로 로그인부터 로그아웃, 회원가입·간편 로그인·비밀번호 재설정·관리자 댓글 처리까지 브라우저 흐름 확인. 실제 Supabase 동작은 연결 후 README 순서로 재확인 필요
 - 성인 확인과 보호 경로, 비밀 키 누락 시 입력 비활성 안내
 - 개인정보 동의와 GA4 준비 구조
 - 모든 공개 페이지 검색 설명과 공유 미리보기(Open Graph) 태그
@@ -89,6 +93,10 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 
 | 커밋 | 내용 |
 | --- | --- |
+| `bed8807` | Supabase 연결 전 회원 닉네임·댓글 실제 저장 코드 준비 |
+| `f747998` | 관리자 공통 헤더 적용과 게임 소개 경계선·해시태그 터치 영역 개선 |
+| `ec3217e` | 남은 대화상자·예전 메뉴 코드 2차 정리 |
+| `a170c13` | 사용되지 않는 파일·대화상자·예전 헤더 코드 정리 |
 | `502b5c3` | 개발 뉴스·굿즈 상단 글자 배치 수정 |
 | `b97923c` | 해시태그 복사 버튼 크기를 해시태그 글자에 맞춤 |
 | `02edb23` | 커뮤니티 페이지 소개·해시태그·플랫폼 배치 변경 |
@@ -107,7 +115,8 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 ---
 ## 구조상 꼭 알아야 할 부분
 
-- 공개 화면은 대부분 `public/`의 정적 HTML이며, Next.js 앱 라우터(`app/`)는 로그인·뉴스 상세·성인 확인·관리자·404를 담당합니다.
+- 공개 화면은 대부분 `public/`의 정적 HTML이며, Next.js 앱 라우터(`app/`)는 로그인·회원가입·비밀번호 재설정·뉴스 상세·성인 확인·관리자·404를 담당합니다.
+- 간편 로그인 지원 목록은 `lib/member/auth-providers.ts`입니다. 화면은 Supabase `/auth/v1/settings`에서 켜진 서비스만 표시하므로 서비스를 켜고 끌 때 코드를 고치지 않습니다. 목록에 없는 서비스(GitHub·Twitch·네이버 등)는 Supabase에서 켜도 표시하지 않습니다.
 - 공통 헤더 원본은 `scripts/site-header.mjs`입니다. 메뉴나 헤더 마크업을 바꾸면 `node scripts/apply-site-header.mjs`로 정적 페이지 전체(`<!-- site-header:start -->`~`end` 구간)에 다시 적용합니다. Next 화면은 `app/site-header.tsx`가 같은 구조를 그립니다. 테스트가 두 결과의 일치를 확인합니다.
 - 헤더 스타일은 `public/site-header.css`입니다. 배치 규칙은 `[data-site-header]`, 색상 규칙은 `nav.navbar[data-site-header]` 선택자를 사용하며 `responsive-shell.css`보다 먼저 불러와야 합니다.
 - 검색 설명·공유 태그는 `node scripts/apply-page-meta.mjs`로 일괄 적용합니다. 공통 프로젝트 페이지 28개는 `public/game-projects.mjs` 데이터로 `scripts/generate-project-pages.mjs`가 생성하므로 직접 수정하지 않고 데이터·생성기를 수정합니다.
@@ -128,8 +137,6 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 - 프로젝트 C "Steam 2026 Q3", 프로젝트 L "CV: 미정" 표기
 - 이용약관·개인정보처리방침 본문 확정
 - 관리자 메뉴의 `DEVFORGE` 글자가 공통 헤더 로고와 겹쳐 보이므로 관리자 메뉴 쪽 표기를 바꿀지 여부
-- 이메일 회원가입·비밀번호 찾기 화면을 둘지 여부(현재는 로그인만 있어 회원은 Google 로그인 또는 Supabase에서 만든 계정만 사용)
-- 관리자 댓글·신고 관리 화면을 만들지 여부(데이터 구조는 준비됨, 현재는 Supabase 대시보드에서만 처리 가능)
 
 ---
 ## 정리 후보
@@ -156,12 +163,14 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 ## 외부 확인 대기 항목
 
 - Supabase 프로젝트·관리자 계정·환경 변수
+- 간편 로그인 서비스별 OAuth 앱 등록과 공개 전 로그인 버튼 디자인 지침 확인
+- Supabase 이메일 템플릿의 `/auth/confirm` 링크 설정(README 4단계)
 - 뉴스·상품·댓글의 실제 데이터 저장과 이미지 업로드
 - YouTube Data API 키와 실제 할당량
 - 실제 판매처·재고·결제 연동
 - 공식 SNS·문의·ChatBot 배포 주소
 - GA4 측정 ID
-- 이용약관·개인정보처리방침 법률 검토
+- 이용약관·개인정보처리방침·회원가입 필수 동의 문구 법률 검토
 - 공식 도메인과 운영 배포
 
 비밀 값은 Git에 기록하지 않습니다. `.env.example`을 기준으로 새 컴퓨터의 `.env.local`에 직접 설정합니다. Supabase `service_role` 키를 브라우저 공개 환경 변수에 넣지 않습니다. 성인 확인은 운영 환경에서 `AGE_GATE_SECRET`이 없으면 입력이 닫히고, 개발 환경에서는 개발용 비밀 값으로 동작합니다.

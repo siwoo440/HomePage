@@ -27,7 +27,10 @@ test("회원 로그인은 자격 증명 오류와 제출 상태를 입력에 연
     assert.match(source, /useEffect\(\(\) =>[\s\S]*?credentialError && !isSubmitting[\s\S]*?emailRef\.current\?\.focus\(\)/); // 제출 종료 뒤 포커스 확인
     assert.match(source, /id="member-email"[^>]*ref=\{emailRef\}/); // 이메일 참조 연결 확인
     assert.match(source, /catch[\s\S]*?setCredentialError\(false\)/); // 통신 오류 분리 확인
-    assert.match(source, /handleGoogleLogin[\s\S]*?setCredentialError\(false\)/); // 소셜 오류 분리 확인
+    assert.match(source, /<SocialLoginButtons /); // 간편 로그인 분리 연결 확인
+    const social = await readFile(new URL("../app/login/social-login-buttons.tsx", import.meta.url), "utf8"); // 간편 로그인 버튼 읽기
+    assert.doesNotMatch(social, /setCredentialError/); // 간편 로그인 오류와 이메일 입력 오류 분리 확인
+    assert.match(social, /role="alert"/); // 간편 로그인 실패 안내 확인
 }); // 테스트 끝
 
 test("관리자 로그인은 자격 증명 오류만 입력 오류로 표시한다", async () => // 관리자 로그인 계약

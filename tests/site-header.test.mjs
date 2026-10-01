@@ -68,7 +68,7 @@ test("Next 화면 헤더와 서랍 메뉴도 같은 메뉴와 문의하기 페�
     } // 반복 끝
     assert.match(component, /data-site-header=""/); // 공통 헤더 표시 확인
     assert.match(component, /href="\/contact\.html" className="btn-nav nav-contact-link"/); // 문의하기 링크 확인
-    for (const page of ["app/login/page.tsx", "app/news/[id]/page.tsx", "app/age-verification/page.tsx", "app/not-found.tsx", "app/admin/layout.tsx"]) // Next 공개·관리자 화면 반복
+    for (const page of ["app/login/page.tsx", "app/news/[id]/page.tsx", "app/age-verification/page.tsx", "app/not-found.tsx", "app/admin/layout.tsx", "app/signup/page.tsx", "app/login/forgot/page.tsx", "app/login/reset/page.tsx"]) // Next 공개·관리자 화면 반복
     { // 반복 시작
         assert.match(fs.readFileSync(page, "utf8"), /<SiteHeader( current="[a-z]+")? \/>/, `${page} 공통 헤더 누락`); // 공통 헤더 사용 확인
     } // 반복 끝

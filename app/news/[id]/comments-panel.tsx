@@ -9,7 +9,7 @@ import { CommentServiceError, type CommentService } from "@/lib/comments/service
 import { createSupabaseCommentService } from "@/lib/comments/supabase-service"; // Supabase 댓글 서비스
 import { preventInvalidFormSubmission } from "@/lib/forms/validation"; // 폼 제출 검증 도구
 import { MEMBER_DEMO_STORAGE_KEY, parseDemoMemberProfile } from "@/lib/member/demo-session"; // 시연 회원 도구
-import { fetchMemberProfile } from "@/lib/member/profile"; // 회원 프로필 조회
+import { ensureMemberProfile } from "@/lib/member/profile"; // 회원 프로필 준비
 import { createBrowserSupabaseClient } from "@/lib/supabase/client"; // 브라우저 인증 도구
 import styles from "./news-detail.module.css"; // 뉴스 상세 스타일
 
@@ -79,7 +79,7 @@ async function resolveSupabaseMember(supabase: SupabaseClient): Promise<{ status
         return { status: "signed-out", member: null }; // 로그아웃 결과 반환
     } // 조건 끝
 
-    const profile = await fetchMemberProfile(supabase, user.id); // 공개 프로필 조회
+    const profile = await ensureMemberProfile(supabase, user); // 공개 프로필 조회·가입 정보로 생성
     return profile ? { status: "signed-in", member: { id: user.id, nickname: profile.nickname } } : { status: "needs-nickname", member: null }; // 회원 결과 반환
 } // 함수 끝
 

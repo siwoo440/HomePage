@@ -40,6 +40,8 @@ DEVFORGE는 게임 개발 스튜디오 홈페이지입니다. 방문자는 게�
 - 모바일 서랍 메뉴와 라이트·다크 모드 전환
 - 연령 제한 대상 프로젝트의 접근 확인 화면
 - 댓글 조회·작성·한 단계 답글·반응·신고 로컬 데모
+- 회원가입·비밀번호 찾기·재설정 화면의 입력 검증과 시연 안내, 간편 로그인 버튼 미리보기
+- 관리자 댓글·신고 관리 데모(`/admin/demo?form=comments`, 저장하지 않음)
 - 개발용 기기 미리보기
 - 자동 테스트, TypeScript 검사와 운영 빌드 검사
 
@@ -50,8 +52,9 @@ DEVFORGE는 게임 개발 스튜디오 홈페이지입니다. 방문자는 게�
 | --- | --- | --- |
 | 관리자 로그인 | Supabase 프로젝트, 관리자 계정과 환경 변수 | 로그인과 저장 기능 비활성 |
 | 뉴스·상품 저장 | Supabase 마이그레이션과 Storage | 데모 콘텐츠 표시 |
-| 회원 로그인 | Supabase 인증과 환경 변수 | 데모 회원 흐름 확인 |
+| 회원가입·로그인 | Supabase 인증과 환경 변수, 간편 로그인은 서비스별 OAuth 등록 | 데모 회원 흐름과 입력 검증 확인, 간편 로그인 버튼 비활성 |
 | 댓글 서버 저장 | Supabase 프로젝트 연결과 회원·댓글 마이그레이션 적용(어댑터는 준비 완료) | 로컬 서비스로 전체 상호작용 확인, 새로고침 시 초기화 |
+| 댓글·신고 관리 | Supabase 연결, 관리자 계정과 네 번째 마이그레이션 | 관리자 데모 화면으로 처리 흐름 확인 |
 | YouTube 최신 콘텐츠 | `YOUTUBE_API_KEY` | 로컬 데모 콘텐츠 표시 |
 | GA4 분석 | `public/analytics-config.mjs`의 측정 ID와 방문자 동의 | 외부 분석 요청 없음 |
 | 외부 상담 | 유효한 상담 서비스 플러그인 키 | 위젯 로드 안 함 |
@@ -95,6 +98,7 @@ pnpm check
 | `http://localhost:3000/community.html` | 커뮤니티 화면 |
 | `http://localhost:3000/device-preview.html` | 개발용 반응형 미리보기 |
 | `http://localhost:3000/login` | 회원 로그인 |
+| `http://localhost:3000/signup` | 회원가입 |
 | `http://localhost:3000/admin/login` | 관리자 로그인 |
 | `http://localhost:3001/` | 별도 실행 중인 ChatBot 프로젝트 |
 
@@ -143,13 +147,19 @@ Next.js 서버
 | 경로 | 구현 위치 | 기능 |
 | --- | --- | --- |
 | `/` | `app/page.tsx` | `/main.html`로 이동 |
-| `/login` | `app/login/` | 회원 로그인 |
+| `/login` | `app/login/` | 회원 로그인과 간편 로그인 |
+| `/login/forgot` | `app/login/forgot/` | 비밀번호 재설정 메일 요청 |
+| `/login/reset` | `app/login/reset/` | 메일 링크로 새 비밀번호 저장 |
+| `/signup` | `app/signup/` | 이메일 회원가입과 간편 가입 |
 | `/age-verification` | `app/age-verification/` | 성인 프로젝트 접근 확인 |
 | `/news/[id]` | `app/news/[id]/` | 뉴스 상세와 댓글 영역 |
 | `/admin/login` | `app/admin/login/` | 관리자 로그인 |
 | `/admin/news` | `app/admin/news/` | 뉴스 목록, 작성과 수정 |
 | `/admin/products` | `app/admin/products/` | 상품 목록, 작성과 수정 |
+| `/admin/comments` | `app/admin/comments/` | 댓글 숨김·다시 공개·삭제와 신고 처리 |
+| `/admin/demo` | `app/admin/demo/` | Supabase 없는 개발 환경 전용 관리자 데모 |
 | `/auth/callback` | `app/auth/callback/route.ts` | Supabase 인증 결과 처리 |
+| `/auth/confirm` | `app/auth/confirm/route.ts` | 이메일 인증·비밀번호 재설정 링크 확인 |
 
 ---
 ### 서버 API
@@ -251,6 +261,10 @@ Supabase가 없을 때 공개 개발 소식 목록은 `public/devlog.html`의 �
 Supabase 설정이 있으면 같은 계약의 `lib/comments/supabase-service.ts`로 자동 전환합니다. 공개 댓글(`status = 'visible'`)을 작성 순서대로 읽고 작성자 닉네임(`member_profiles`)과 반응(`comment_reactions`)을 합치며, 이미지는 `comment-images/회원-ID/` 폴더에 올린 뒤 저장 실패 시 지웁니다. 반응은 회원별 하나로 추가·전환·취소하고, 중복 신고·답글 단계·권한 오류는 서비스 오류 코드(`DUPLICATE_REPORT`·`INVALID_PARENT`·`SIGN_IN_REQUIRED`)로 바꿔 안내합니다. 두 서비스가 같은 입력 규칙을 쓰도록 검증은 `lib/comments/rules.ts`에 모았습니다.
 
 실제 모드 댓글 작성에는 회원 닉네임이 필요합니다. 닉네임이 없으면 댓글 영역이 로그인 화면의 닉네임 설정으로 안내합니다. `202609120001_member_comments.sql`은 이 흐름의 데이터 구조와 접근 정책을 제공하며, 연결 후 실제 동작은 README의 회원과 댓글 확인 순서로 점검합니다.
+
+회원가입은 `/signup`에서 이메일·비밀번호(영문·숫자 8자 이상, 72바이트 이하)·닉네임과 필수 동의(만 14세 이상·이용약관·개인정보)를 받습니다. 입력 규칙과 인증 오류 안내는 `lib/member/signup.ts`에 있습니다. 가입 때 닉네임과 동의 시각은 인증 메타데이터로 보내고, 첫 로그인 때 `ensureMemberProfile`이 프로필을 만듭니다. 간편 로그인은 `lib/member/auth-providers.ts`의 지원 목록(카카오·Google·Apple·Discord·X·Facebook) 가운데 Supabase에서 켠 서비스만 `/auth/v1/settings`로 읽어 표시합니다. 간편 로그인 회원은 서비스가 넘겨준 이름을 공개하지 않고, 첫 로그인 때 닉네임과 필수 동의를 직접 저장합니다. 비밀번호 찾기는 계정 존재 여부와 관계없이 같은 안내를 보여 주며, `/login/reset`은 메일 링크로 만든 세션에서만 새 비밀번호를 저장합니다.
+
+관리자 댓글 관리는 `/admin/comments`에서 신고 대기·숨긴 댓글·최근 댓글을 나눠 보고 숨김·다시 공개·신고 기각·삭제를 처리합니다. 처리 규칙과 데모·Supabase 서비스는 `lib/comments/moderation.ts`에 있으며, 서버 작업(`app/admin/comments/actions.ts`)이 관리자를 다시 확인한 뒤 댓글 상태·대기 신고·첨부 이미지를 바꾸고 `moderation_actions`에 관리자 ID와 메모를 남깁니다.
 
 ---
 ### 6.7 연령 제한
@@ -384,8 +398,9 @@ devforge_privacy_consent_v1
 1. `supabase/migrations/202609100001_admin_news.sql`
 2. `supabase/migrations/202609110001_admin_products.sql`
 3. `supabase/migrations/202609120001_member_comments.sql`
+4. `supabase/migrations/202610010001_member_signup_moderation.sql`
 
-첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다.
+첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다.
 
 ---
 ### 관리자 권한
@@ -404,6 +419,8 @@ devforge_privacy_consent_v1
 - 로그인 사용자는 자신의 회원 데이터만 관리
 - 관리자는 관리자 역할 확인 뒤 콘텐츠 관리
 - 신고와 관리 기록은 허용된 역할만 조회
+- 댓글 공개 상태와 신고 처리 상태는 관리자만 변경
+- 회원 동의 시각은 공개 프로필 조회에서 제외
 - Storage 업로드도 버킷별 정책 적용
 
 마이그레이션 파일의 RLS를 운영 편의를 이유로 끄지 않습니다.
@@ -430,7 +447,7 @@ pnpm check
 | --- | --- | --- |
 | 관리자 | `tests/admin-*.test.mjs` | 권한, 뉴스·상품 설정, 검증과 화면 |
 | 연령 제한 | `tests/age-gate*.test.mjs` | API, 쿠키, 프록시와 UI |
-| 회원·댓글 | `tests/member-*.test.mjs`, `tests/comment-*.test.mjs` | 세션, 마이그레이션, 댓글 규칙·로컬 서비스·화면 연결 |
+| 회원·댓글 | `tests/member-*.test.mjs`, `tests/comment-*.test.mjs`, `tests/auth-providers.test.mjs` | 세션, 가입·간편 로그인·비밀번호 재설정, 마이그레이션, 댓글 규칙·로컬·Supabase 서비스·관리자 처리·화면 연결 |
 | 개인정보·분석 | `tests/privacy-consent.test.mjs`, `tests/site-analytics.test.mjs` | 동의 전 차단과 이벤트 제한 |
 | 공개 페이지 | `tests/site-integrity.test.mjs`, `tests/website-content.test.mjs` | 링크, 문서 구조와 콘텐츠 |
 | 게임 프로젝트 | `tests/game-*.test.mjs`, `tests/project-*.test.mjs` | 프로젝트 데이터와 공개 페이지 |
@@ -511,8 +528,8 @@ ESLint와 `eslint-config-next` 버전은 `package.json`에 고정되어 있으�
 - 관리자 로그인과 로그아웃
 - 뉴스·상품 작성, 수정과 공개
 - 연령 제한 프로젝트 접근
-- 회원 로그인 확인
-- 댓글 CRUD 구현 뒤 작성·반응·신고 권한 확인
+- 회원가입·간편 로그인·비밀번호 재설정 확인
+- 댓글 작성·반응·신고 권한과 관리자 숨김·삭제 확인
 - 존재하지 않는 페이지의 오류 처리
 - 브라우저 콘솔 오류와 네트워크 실패 확인
 
@@ -559,7 +576,8 @@ ChatBot 기능 개발은 별도 저장소에서 진행합니다. 두 프로젝�
 ## 14. 알려진 제한과 후속 확인
 
 - Supabase가 없는 상태에서는 실제 저장, 인증과 RLS를 확인할 수 없음
-- 댓글은 로컬 서비스만 구현되어 새로고침 뒤 유지되는 실제 CRUD 서버 연결이 필요함
+- 회원가입·간편 로그인·댓글 저장·관리자 댓글 관리는 코드가 준비되었지만 실제 Supabase 연결 뒤 다시 확인해야 함
+- 간편 로그인 버튼은 공개 전 각 서비스의 로그인 버튼 디자인 지침(로고·문구) 확인이 필요함
 - YouTube API 키가 없는 상태에서는 실제 최신 영상 동기화를 확인할 수 없음
 - GA4 측정 ID가 비어 있어 실제 분석 전송을 사용하지 않음
 - 상품 판매처와 공식 재고 API가 확정되지 않음
