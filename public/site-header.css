@@ -3,7 +3,7 @@
 :is([data-site-header], [data-site-subnav]) /* 공통 헤더 밝은 토큰 */
 { /* 규칙 시작 */
     --sh-canvas: #ffffff; /* 헤더 배경 */
-    --sh-border: #dce7f0; /* 헤더 경계선 */
+    --sh-border: #a8b8ca; /* 헤더 경계선 */
     --sh-shadow: 0 0.5rem 1.5rem rgba(23, 42, 73, 0.1); /* 헤더 그림자 */
     --sh-ink: #172a49; /* 주요 글자 */
     --sh-muted: #5a6a8a; /* 메뉴 글자 */

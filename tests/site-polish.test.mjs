@@ -94,3 +94,25 @@ test("메인 소개 카드·현황판·보관함·개인정보 패널은 라이�
     assert.match(theme, /\.status-board-grid article[^{]*\{[^}]*background: var\(--pl-surface\)/); // 현황 숫자 카드 확인
     assert.match(theme, /\.status-board-grid strong[^{]*\{[^}]*color: var\(--pl-violet\)/); // 현황 숫자 강조 확인
 }); // 테스트 끝
+
+test("라이트 모드 경계선은 흰 배경과 구분되는 진한 색을 쓴다", () => // 라이트 경계선 대비 계약
+{ // 테스트 시작
+    const theme = fs.readFileSync("public/playful-lab-theme.css", "utf8"); // 공통 테마
+    const headerCss = fs.readFileSync("public/site-header.css", "utf8"); // 공통 헤더 스타일
+    const luminance = (hex) => // 색상 밝기 계산
+    { // 함수 시작
+        const channels = [1, 3, 5].map((index) => parseInt(hex.slice(index, index + 2), 16) / 255).map((value) => value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4); // 채널 선형화
+        return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2]; // 상대 밝기 반환
+    }; // 함수 끝
+    const contrastOnWhite = (hex) => 1.05 / (luminance(hex) + 0.05); // 흰 배경 대비
+    const lightTokens = theme.slice(0, theme.indexOf('[data-color-mode="dark"]')); // 밝은 토큰 구역
+    const border = lightTokens.match(/--pl-border: (#[0-9A-Fa-f]{6});/)[1]; // 공통 경계선
+    const strong = lightTokens.match(/--pl-border-strong: (#[0-9A-Fa-f]{6});/)[1]; // 주요 경계선
+    const header = headerCss.match(/--sh-border: (#[0-9A-Fa-f]{6});/)[1]; // 헤더 경계선
+    assert.ok(contrastOnWhite(border) >= 1.9, `공통 경계선 대비 ${contrastOnWhite(border)}`); // 공통 경계선 대비 확인
+    assert.ok(contrastOnWhite(strong) >= 3, `주요 경계선 대비 ${contrastOnWhite(strong)}`); // 주요 경계선 대비 확인
+    assert.ok(contrastOnWhite(header) >= 1.9, `헤더 경계선 대비 ${contrastOnWhite(header)}`); // 헤더 경계선 대비 확인
+    assert.match(theme, /:not\(\[data-color-mode="dark"\]\)\[data-responsive-page="community"\] \.platform-section[^{]*\{[^}]*--platform-border: color-mix/); // 커뮤니티 플랫폼 경계선 확인
+    assert.match(theme, /:not\(\[data-color-mode="dark"\]\)\[data-responsive-page="community"\] \.media-card[^{]*\{[^}]*border-color: var\(--pl-border-strong\)/); // 커뮤니티 영상 카드 확인
+    assert.match(theme, /:not\(\[data-color-mode="dark"\]\) \.game-load-more[^{]*\{[^}]*border-color: var\(--pl-link\)/); // 더 보기 버튼 확인
+}); // 테스트 끝

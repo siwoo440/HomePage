@@ -5,8 +5,8 @@
     --pl-panel: #EEF3F8; /* 카드 배경 */
     --pl-ink: #172A49; /* 주요 글자 */
     --pl-muted: #53677E; /* 보조 글자 */
-    --pl-border: #DCE7F0; /* 공통 경계선 */
-    --pl-border-strong: #AEBFD0; /* 주요 영역 경계선 */
+    --pl-border: #A8B8CA; /* 공통 경계선 */
+    --pl-border-strong: #7A8EA6; /* 주요 영역 경계선 */
     --pl-mint: #43D7C3; /* 미술 강조 */
     --pl-violet: #7768F8; /* 게임 강조 */
     --pl-orange: #FF9256; /* 기계 강조 */
@@ -595,9 +595,21 @@
 [data-theme="playful-lab"]:not([data-color-mode="dark"]) .tag-devlog /* 밝은 데브로그 태그 */
 { /* 태그 시작 */
     background: #fff6cc; /* 노랑 배경 */
-    border-color: #e9c84a; /* 노랑 경계선 */
+    border-color: #c9a21c; /* 노랑 경계선 */
     color: #7a5a00; /* 진한 노랑 글자 */
 } /* 태그 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"]) .game-load-more /* 밝은 더 보기 버튼 */
+{ /* 버튼 시작 */
+    border-color: var(--pl-link); /* 보라 경계선 */
+    color: var(--pl-link); /* 보라 글자 */
+} /* 버튼 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"]) .game-load-more:is(:hover, :focus-visible) /* 밝은 더 보기 강조 */
+{ /* 강조 시작 */
+    background: var(--pl-link); /* 보라 배경 */
+    color: var(--pl-canvas); /* 흰 글자 */
+} /* 강조 끝 */
 
 [data-theme="playful-lab"] .game-info /* 게임 정보 */
 { /* 정보 시작 */
@@ -809,6 +821,64 @@
     box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
     color: var(--pl-ink); /* 카드 글자색 */
 } /* 정보 카드 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"])[data-responsive-page="community"] /* 밝은 커뮤니티 색상 */
+{ /* 밝은 색상 시작 */
+    --discord: #4f5bd5; /* 진한 디스코드 강조 */
+    --youtube: #d23636; /* 진한 유튜브 강조 */
+    --x: #172a49; /* 진한 X 강조 */
+    --instagram: #c2336c; /* 진한 인스타그램 강조 */
+    --facebook: #1f66c9; /* 진한 페이스북 강조 */
+    --tiktok: #12808a; /* 진한 틱톡 강조 */
+} /* 밝은 색상 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"])[data-responsive-page="community"] .platform-section /* 밝은 플랫폼 경계선 */
+{ /* 경계선 시작 */
+    --platform-border: color-mix(in srgb, var(--platform-accent) 60%, var(--pl-canvas)); /* 플랫폼 색 경계선 */
+} /* 경계선 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"])[data-responsive-page="community"] .platform-icon /* 밝은 플랫폼 아이콘 */
+{ /* 아이콘 시작 */
+    background: color-mix(in srgb, var(--platform-accent) 10%, var(--pl-canvas)); /* 연한 플랫폼 배경 */
+} /* 아이콘 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"])[data-responsive-page="community"] .media-card /* 밝은 영상 카드 */
+{ /* 영상 카드 시작 */
+    border-color: var(--pl-border-strong); /* 카드 경계선 */
+    background: var(--pl-canvas); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
+    color: var(--pl-ink); /* 카드 글자색 */
+} /* 영상 카드 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"])[data-responsive-page="community"] .media-card p /* 밝은 영상 설명 */
+{ /* 설명 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 설명 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"])[data-responsive-page="community"] .demo-badge /* 밝은 시연 배지 */
+{ /* 배지 시작 */
+    border-color: #d9773f; /* 주황 경계선 */
+    background: #fff1e8; /* 연한 주황 배경 */
+    color: #a3441a; /* 진한 주황 글자 */
+} /* 배지 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"])[data-responsive-page="community"] .active-tag /* 밝은 현재 태그 */
+{ /* 현재 태그 시작 */
+    border-left-color: var(--pl-success); /* 진한 민트 강조선 */
+    background: color-mix(in srgb, var(--pl-mint) 12%, var(--pl-canvas)); /* 연한 민트 배경 */
+} /* 현재 태그 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"])[data-responsive-page="community"] .active-tag strong /* 밝은 현재 태그 값 */
+{ /* 태그 값 시작 */
+    color: var(--pl-success); /* 진한 민트 글자 */
+} /* 태그 값 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"])[data-responsive-page="community"] .hashtag-copy-button /* 밝은 해시태그 복사 */
+{ /* 복사 버튼 시작 */
+    border-color: var(--pl-ink); /* 진한 경계선 */
+    background: var(--pl-ink); /* 진한 배경 */
+    color: var(--pl-canvas); /* 흰 글자 */
+} /* 복사 버튼 끝 */
 
 [data-theme="playful-lab"][data-responsive-page="community"] :is(.platforms-heading, .platform-heading, .platform-identity) /* 커뮤니티 제목 */
 { /* 커뮤니티 제목 시작 */

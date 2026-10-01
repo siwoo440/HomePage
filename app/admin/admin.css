@@ -599,7 +599,7 @@ body /* 관리자 문서 */
     gap: 10px; /* 요소 간격 */
     max-width: 560px; /* 카드 최대 너비 */
     padding: 20px; /* 안쪽 여백 */
-    border: 1px solid var(--pl-border, #dce7f0); /* 카드 경계선 */
+    border: 1px solid var(--pl-border, #a8b8ca); /* 카드 경계선 */
     border-radius: 16px; /* 카드 모서리 */
     background: var(--pl-canvas, #ffffff); /* 카드 배경 */
     overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */

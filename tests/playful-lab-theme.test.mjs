@@ -16,7 +16,7 @@ test("플레이풀 랩 테마가 승인된 공통 토큰을 제공한다", async
     assert.match(css, /--pl-panel:\s*#EEF3F8/i); // 카드 배경 확인
     assert.match(css, /--pl-ink:\s*#172A49/i); // 주요 글자 확인
     assert.match(css, /--pl-muted:\s*#53677E/i); // 보조 글자 확인
-    assert.match(css, /--pl-border:\s*#DCE7F0/i); // 경계선 확인
+    assert.match(css, /--pl-border:\s*#A8B8CA/i); // 경계선 확인
     assert.match(css, /--pl-mint:\s*#43D7C3/i); // 민트 확인
     assert.match(css, /--pl-violet:\s*#7768F8/i); // 바이올렛 확인
     assert.match(css, /--pl-orange:\s*#FF9256/i); // 오렌지 확인
@@ -32,7 +32,7 @@ test("주요 콘텐츠 영역은 선명한 외곽선과 은은한 깊이 효과�
     const ageCss = await readFile(new URL("../app/age-verification/age-verification.module.css", import.meta.url), "utf8"); // 성인 인증 스타일 읽기
     const newsCss = await readFile(new URL("../app/news/[id]/news-detail.module.css", import.meta.url), "utf8"); // 뉴스 상세 스타일 읽기
     const adminCss = await readFile(new URL("../app/admin/admin.css", import.meta.url), "utf8"); // 관리자 스타일 읽기
-    assert.match(css, /--pl-border-strong:\s*#AEBFD0/i); // 밝은 강한 경계선 확인
+    assert.match(css, /--pl-border-strong:\s*#7A8EA6/i); // 밝은 강한 경계선 확인
     assert.match(css, /data-color-mode="dark"[\s\S]*?--pl-border-strong:\s*#526985/i); // 다크 강한 경계선 확인
     assert.match(css, /--pl-shadow-small:\s*0 0\.5rem 1\.5rem rgba\(23, 42, 73, 0\.1\)/i); // 밝은 깊이 효과 확인
     assert.match(css, /\.game-catalog-toolbar[\s\S]*?border:[^;]*var\(--pl-border-strong\)/); // 메인 주요 영역 확인
