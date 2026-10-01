@@ -32,6 +32,7 @@ body /* 관리자 문서 */
     min-width: 0; /* 전체 최소 폭 해제 */
     overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
     margin: 0 auto; /* 가운데 배치 */
+    padding-top: 70px; /* 공통 고정 헤더 높이 확보 */
     padding-bottom: 64px; /* 아래 여백 */
 } /* 전체 영역 설정 끝 */
 
@@ -39,7 +40,8 @@ body /* 관리자 문서 */
 { /* 로그인 배치 시작 */
     display: grid; /* 중앙 배치 준비 */
     place-items: center; /* 화면 중앙 배치 */
-    padding-block: 48px; /* 위아래 여백 */
+    padding-top: calc(70px + 48px); /* 공통 고정 헤더 포함 위 여백 */
+    padding-bottom: 48px; /* 아래 여백 */
 } /* 로그인 배치 끝 */
 
 .admin-login-card /* 로그인 카드 */

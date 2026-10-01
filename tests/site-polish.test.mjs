@@ -137,3 +137,60 @@ test("개발 뉴스 소개와 필터는 카드 안쪽 여백을 두고 버튼과
     assert.match(css, /\.filter-panel > div:first-child[^{]*\{[^}]*grid-column: 1 \/ -1;/); // 필터 제목 한 줄 확인
     assert.match(css, /\.result-count \/\* 결과 개수 \*\/\s*\{(?![^}]*Consolas)[^}]*white-space: nowrap;/); // 개수 문구 자연 글꼴 확인
 }); // 테스트 끝
+
+function contrastRatio(foreground, background) // 두 색 대비율 계산
+{ // 함수 시작
+    const luminance = (rgb) => rgb.map((value) => value / 255).map((value) => value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4).reduce((sum, value, index) => sum + value * [0.2126, 0.7152, 0.0722][index], 0); // 상대 휘도
+    const [light, dark] = [luminance(foreground), luminance(background)].sort((a, b) => b - a); // 밝은 색과 어두운 색
+    return (light + 0.05) / (dark + 0.05); // 대비율 반환
+} // 함수 끝
+
+function readBorderColor(file, token) // 경계선 토큰 색 읽기
+{ // 함수 시작
+    const value = fs.readFileSync(file, "utf8").match(new RegExp(`${token}:\s*([^;]+);`))?.[1].trim() ?? ""; // 토큰 값
+    const hex = value.match(/^#([0-9a-f]{6})$/i)?.[1]; // 16진수 값
+    if (hex) // 불투명 색 확인
+    { // 조건 시작
+        return { rgb: [0, 2, 4].map((index) => parseInt(hex.slice(index, index + 2), 16)), alpha: 1 }; // 불투명 색 반환
+    } // 조건 끝
+    const [r, g, b, alpha] = value.match(/rgba\(([^)]+)\)/)?.[1].split(",").map(Number) ?? []; // 반투명 색 분해
+    return { rgb: [r, g, b], alpha }; // 반투명 색 반환
+} // 함수 끝
+
+test("게임 소개 페이지 경계선은 카드 배경과 2:1 이상으로 구분된다", () => // 상세 경계선 대비 계약
+{ // 테스트 시작
+    const pages = // 페이지별 경계선과 카드 배경
+    [ // 목록 시작
+        ["public/project-page.css", "--project-line", [13, 25, 45]], // 공통 28개 페이지
+        ["public/project_b/ProjectB_Style.css", "--line", [13, 17, 34]], // 프로젝트 B
+        ["public/project_c/ProjectC_style.css", "--line", [30, 25, 21]], // 프로젝트 C
+        ["public/project_d/style.css", "--line", [16, 29, 44]], // 프로젝트 D
+        ["public/project_h/ProjectH_Style.css", "--line", [17, 16, 38]], // 프로젝트 H
+        ["public/project_l/ProjectL_Style.css", "--line", [20, 23, 42]], // 프로젝트 L
+        ["public/project_eta/ProjectEta_Style.css", "--line-dark", [17, 19, 24]], // 프로젝트 η 어두운 영역
+        ["public/project_eta/ProjectEta_Style.css", "--line-light", [238, 233, 220]], // 프로젝트 η 밝은 영역
+    ]; // 목록 끝
+    for (const [file, token, background] of pages) // 페이지 반복
+    { // 반복 시작
+        const { rgb, alpha } = readBorderColor(file, token); // 경계선 색
+        const blended = rgb.map((value, index) => Math.round(value * alpha + background[index] * (1 - alpha))); // 배경 위 실제 색
+        assert.ok(contrastRatio(blended, background) >= 2, `${file} ${token} 대비 부족`); // 2:1 이상 확인
+    } // 반복 끝
+}); // 테스트 끝
+
+test("휴대폰에서 해시태그 복사 버튼은 보이는 크기를 유지하고 누르는 영역만 44px로 넓힌다", () => // 터치 영역 계약
+{ // 테스트 시작
+    const css = fs.readFileSync("public/community.css", "utf8"); // 커뮤니티 스타일
+    const mobile = css.match(/@media \(max-width: 767px\) \/\* 휴대폰 화면 \*\/[\s\S]*?\} \/\* 구간 끝 \*\//)?.[0] ?? ""; // 휴대폰 구간
+    assert.match(mobile, /\.hashtag-copy-button::before[^{]*\{[^}]*height: 44px;/); // 44px 터치 영역 확인
+    assert.match(css, /\.hashtag-copy-button \/\* 해시태그 복사 버튼 \*\/\s*\{[^}]*height: 1\.65rem;/); // 보이는 높이 유지 확인
+}); // 테스트 끝
+
+test("관리자 화면도 공통 상단 헤더를 쓰고 고정 헤더 높이만큼 내용을 내린다", () => // 관리자 헤더 계약
+{ // 테스트 시작
+    const layout = fs.readFileSync("app/admin/layout.tsx", "utf8"); // 관리자 화면 틀
+    const css = fs.readFileSync("app/admin/admin.css", "utf8"); // 관리자 스타일
+    assert.match(layout, /<SiteHeader \/>/); // 공통 헤더 사용 확인
+    assert.match(css, /\.admin-shell \/\* 관리자 전체 영역 \*\/\s*\{[^}]*padding-top: 70px;/); // 관리자 내용 위치 확인
+    assert.match(css, /\.admin-login-shell \/\* 로그인 전체 영역 \*\/\s*\{[^}]*padding-top: calc\(70px \+ 48px\);/); // 관리자 로그인 위치 확인
+}); // 테스트 끝

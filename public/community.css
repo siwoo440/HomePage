@@ -619,6 +619,25 @@
     line-height: 1; /* 글자 세로 가운데 */
 } /* 규칙 끝 */
 
+@media (max-width: 767px) /* 휴대폰 화면 */
+{ /* 구간 시작 */
+    .hashtag-copy-button /* 휴대폰 복사 버튼 */
+    { /* 규칙 시작 */
+        position: relative; /* 터치 영역 기준 */
+    } /* 규칙 끝 */
+
+    .hashtag-copy-button::before /* 휴대폰 터치 영역 */
+    { /* 규칙 시작 */
+        content: ""; /* 투명 영역 생성 */
+        position: absolute; /* 버튼 기준 배치 */
+        top: 50%; /* 세로 가운데 기준 */
+        right: 0; /* 오른쪽 맞춤 */
+        left: 0; /* 왼쪽 맞춤 */
+        height: 44px; /* 권장 터치 높이 */
+        transform: translateY(-50%); /* 세로 가운데 정렬 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
 .hashtag-copy-status /* 해시태그 복사 결과 */
 { /* 규칙 시작 */
     color: #75e8ce; /* 결과 색상 */
