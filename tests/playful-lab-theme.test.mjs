@@ -191,11 +191,24 @@ test("공통 테마가 반응형·상태·움직임 축소 계약을 제공한�
     assert.match(css, /@media \(max-width:\s*767px\)[\s\S]*?\.hero-carousel-timer[\s\S]*?bottom:\s*4\.75rem/); // 모바일 게이지 위치 확인
 }); // 테스트 끝
 
-test("메인 커뮤니티 카드는 화면 폭이 바뀌어도 최대 크기를 넘지 않는다", async () => // 커뮤니티 크기 회귀 검사
+test("메인 커뮤니티 카드는 화면 폭을 2·3·6열로 나눠 쓰고 설명을 단어 중간에서 끊지 않는다", async () => // 커뮤니티 배치 회귀 검사
 { // 테스트 시작
     const css = await readFile(themeUrl, "utf8"); // 테마 읽기
-    assert.match(css, /data-responsive-page="main"\] \.community-grid[\s\S]*?grid-template-columns:\s*repeat\(auto-fit,\s*minmax\(min\(100%,\s*8\.5rem\),\s*10rem\)\)/); // 유동 열 크기 확인
-    assert.match(css, /data-responsive-page="main"\] \.community-card[\s\S]*?max-width:\s*10rem/); // 카드 최대 너비 확인
-    assert.match(css, /data-responsive-page="main"\] \.community-card[\s\S]*?justify-self:\s*center/); // 단일 카드 중앙 정렬 확인
+    const html = await readFile(new URL("main.html", publicRoot), "utf8"); // 메인 문서 읽기
+    assert.match(css, /data-responsive-page="main"\] \.community-grid[\s\S]*?grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/); // 휴대폰 두 열 확인
+    assert.match(css, /@media \(min-width:\s*540px\)[^{]*\{[^{]*\.community-grid[^{]*\{[^}]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/); // 넓은 휴대폰·태블릿 세 열 확인
+    assert.match(css, /@media \(min-width:\s*1024px\)[^{]*\{[^{]*\.community-grid[^{]*\{[^}]*grid-template-columns:\s*repeat\(6,\s*minmax\(0,\s*1fr\)\)/); // PC 여섯 열 확인
+    assert.match(css, /data-responsive-page="main"\] \.community-card \/\*[^*]*\*\/\s*\{[^}]*aspect-ratio:\s*auto[^}]*max-width:\s*none/); // 정사각형·160px 제한 해제 확인
+    assert.match(css, /data-responsive-page="main"\] \.community-card \/\*[^*]*\*\/\s*\{[^}]*padding:[^;]*2\.75rem/); // 아래 이동 문구 자리 확인
+    assert.match(css, /data-responsive-page="main"\] \.community-name \/\*[^*]*\*\/\s*\{[^}]*line-height:\s*1\.4[^}]*word-break:\s*keep-all/); // 제목 높이·단어 보호 확인
     assert.match(css, /data-responsive-page="main"\] \.community-icon-wrap[\s\S]*?width:\s*clamp\(3rem,\s*8vw,\s*5rem\)/); // 아이콘 유동 크기 확인
+    assert.match(html, /\.community-desc\s*\{[^}]*word-break:\s*keep-all/); // 설명 한글 단어 보호 확인
+    assert.match(html, /\.community-desc span[^{]*\{[^}]*display:\s*block/); // 설명 항목별 줄 확인
+    const descs = [...html.matchAll(/<p class="community-desc">([\s\S]*?)<\/p>/g)].map((match) => match[1]); // 설명 목록
+    assert.equal(descs.length, 6); // 카드 수 확인
+    for (const desc of descs) // 설명 반복
+    { // 반복 시작
+        assert.equal((desc.match(/<span>[^<]+<\/span>/g) ?? []).length, 3, desc); // 항목 세 개 확인
+        assert.doesNotMatch(desc, /·/, desc); // 구분점 대신 줄 나눔 확인
+    } // 반복 끝
 }); // 테스트 끝

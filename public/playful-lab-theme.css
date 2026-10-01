@@ -221,26 +221,42 @@
 [data-theme="playful-lab"][data-responsive-page="main"] .community-grid /* 메인 커뮤니티 유동 격자 */
 { /* 격자 시작 */
     display: grid; /* 유동 격자 배치 */
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 10rem)); /* 카드 크기 제한 */
-    align-items: start; /* 카드 위쪽 정렬 */
-    justify-content: center; /* 남는 공간 가운데 정렬 */
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* 휴대폰 두 열 */
+    align-items: stretch; /* 같은 줄 카드 높이 맞춤 */
     gap: clamp(0.75rem, 2vw, 1.5rem); /* 화면별 카드 간격 */
     width: 100%; /* 영역 전체 너비 */
 } /* 격자 끝 */
 
+@media (min-width: 540px) /* 넓은 휴대폰·태블릿 */
+{ /* 구간 시작 */
+    [data-theme="playful-lab"][data-responsive-page="main"] .community-grid /* 커뮤니티 세 열 격자 */
+    { /* 격자 시작 */
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* 카드 세 열 */
+    } /* 격자 끝 */
+} /* 구간 끝 */
+
+@media (min-width: 1024px) /* 노트북·PC */
+{ /* 구간 시작 */
+    [data-theme="playful-lab"][data-responsive-page="main"] .community-grid /* 커뮤니티 한 줄 격자 */
+    { /* 격자 시작 */
+        grid-template-columns: repeat(6, minmax(0, 1fr)); /* 카드 여섯 열 */
+    } /* 격자 끝 */
+} /* 구간 끝 */
+
 [data-theme="playful-lab"][data-responsive-page="main"] .community-card /* 메인 커뮤니티 유동 카드 */
 { /* 카드 시작 */
-    aspect-ratio: 1 / 1; /* 정사각형 비율 */
-    justify-self: center; /* 단일 카드 가운데 정렬 */
-    max-width: 10rem; /* 카드 최대 너비 */
+    aspect-ratio: auto; /* 글자 양에 맞춘 높이 */
+    justify-content: flex-start; /* 아이콘 높이 맞춤 */
+    max-width: none; /* 격자 칸 너비 사용 */
     min-width: 0; /* 좁은 화면 축소 허용 */
-    padding: clamp(0.75rem, 2vw, 1rem); /* 화면별 내부 여백 */
+    padding: clamp(1rem, 2vw, 1.25rem) clamp(0.5rem, 1.2vw, 0.875rem) 2.75rem; /* 아래 이동 문구 자리 확보 */
     width: 100%; /* 격자 칸 너비 사용 */
 } /* 카드 끝 */
 
 [data-theme="playful-lab"][data-responsive-page="main"] .community-icon-wrap /* 메인 커뮤니티 유동 아이콘 */
 { /* 아이콘 시작 */
     border-radius: clamp(1rem, 3vw, 1.375rem); /* 화면별 아이콘 모서리 */
+    flex: 0 0 auto; /* 아이콘 크기 유지 */
     height: clamp(3rem, 8vw, 5rem); /* 아이콘 최대 높이 */
     width: clamp(3rem, 8vw, 5rem); /* 아이콘 최대 너비 */
 } /* 아이콘 끝 */
@@ -253,17 +269,22 @@
 
 [data-theme="playful-lab"][data-responsive-page="main"] .community-text /* 메인 커뮤니티 유동 문구 */
 { /* 문구 시작 */
-    padding-inline: clamp(0.25rem, 1vw, 0.8rem); /* 화면별 문구 여백 */
+    padding-inline: 0; /* 카드 여백만 사용 */
+    width: 100%; /* 카드 안쪽 전체 너비 */
 } /* 문구 끝 */
 
 [data-theme="playful-lab"][data-responsive-page="main"] .community-name /* 메인 커뮤니티 유동 제목 */
 { /* 제목 시작 */
-    font-size: clamp(0.65rem, 1.4vw, 0.75rem); /* 화면별 제목 크기 */
+    font-size: clamp(0.7rem, 0.55rem + 0.3vw, 0.8rem); /* 화면별 제목 크기 */
+    letter-spacing: 0.04em; /* 제목 자간 */
+    line-height: 1.4; /* 한글·영문 제목 높이 통일 */
+    word-break: keep-all; /* 단어 중간 줄바꿈 방지 */
 } /* 제목 끝 */
 
 [data-theme="playful-lab"][data-responsive-page="main"] .community-desc /* 메인 커뮤니티 유동 설명 */
 { /* 설명 시작 */
-    font-size: clamp(0.58rem, 1.2vw, 0.65rem); /* 화면별 설명 크기 */
+    font-size: clamp(0.7rem, 0.6rem + 0.25vw, 0.78rem); /* 화면별 설명 크기 */
+    line-height: 1.55; /* 항목 줄 간격 */
 } /* 설명 끝 */
 
 [data-theme="playful-lab"][data-responsive-page="main"] :is(.games-subheading, .goods-name, .community-name) /* 메인 카드 제목 */

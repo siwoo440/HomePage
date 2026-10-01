@@ -993,6 +993,12 @@
             font-size: 0.65rem;         /* 설명 폰트 축소 */
             color: var(--text-muted);
             line-height: 1.5;
+            word-break: keep-all;       /* 한글 단어 중간 줄바꿈 방지 */
+        }
+
+        .community-desc span /* 설명 항목 */
+        {
+            display: block;             /* 항목별 한 줄 배치 */
         }
 
         /* 카드 하단 '바로가기' 레이블 (호버 시 슬라이드 업) */
@@ -2793,7 +2799,7 @@
                 <!-- 카드 텍스트 -->
                 <div class="community-text">
                     <div class="community-name">Discord 서버</div>
-                    <p class="community-desc">실시간 소통 · 베타 테스터 모집 · 개발 근황 공유</p>
+                    <p class="community-desc"><span>실시간 소통</span> <span>베타 테스터 모집</span> <span>개발 근황 공유</span></p> <!-- 항목별 한 줄 설명 -->
                 </div>
                 <!-- 호버 시 슬라이드업 레이블 -->
                 <div class="community-go">서버 입장하기 →</div>
@@ -2811,7 +2817,7 @@
                 <!-- 카드 텍스트 -->
                 <div class="community-text">
                     <div class="community-name">YouTube 채널</div>
-                    <p class="community-desc">개발 영상 · 타임랩스 · 데브로그 영상판</p>
+                    <p class="community-desc"><span>개발 영상</span> <span>타임랩스</span> <span>데브로그 영상판</span></p> <!-- 항목별 한 줄 설명 -->
                 </div>
                 <!-- 호버 시 슬라이드업 레이블 -->
                 <div class="community-go">채널 구독하기 →</div>
@@ -2829,7 +2835,7 @@
                 <!-- 카드 텍스트 -->
                 <div class="community-text">
                     <div class="community-name">X (트위터)</div>
-                    <p class="community-desc">개발 스크린샷 · 빠른 업데이트 · 개발 팁</p>
+                    <p class="community-desc"><span>개발 스크린샷</span> <span>빠른 업데이트</span> <span>개발 팁</span></p> <!-- 항목별 한 줄 설명 -->
                 </div>
                 <!-- 호버 시 슬라이드업 레이블 -->
                 <div class="community-go">팔로우하기 →</div>
@@ -2847,7 +2853,7 @@
                 <!-- 카드 텍스트 -->
                 <div class="community-text">
                     <div class="community-name">Instagram</div>
-                    <p class="community-desc">게임 아트 · 개발 스냅샷 · 비하인드 씬</p>
+                    <p class="community-desc"><span>게임 아트</span> <span>개발 스냅샷</span> <span>비하인드 씬</span></p> <!-- 항목별 한 줄 설명 -->
                 </div>
                 <!-- 호버 시 슬라이드업 레이블 -->
                 <div class="community-go">팔로우하기 →</div>
@@ -2865,7 +2871,7 @@
                 <!-- 카드 텍스트 -->
                 <div class="community-text">
                     <div class="community-name">Facebook</div>
-                    <p class="community-desc">공지 · 커뮤니티 페이지 · 팬 소통</p>
+                    <p class="community-desc"><span>공지</span> <span>커뮤니티 페이지</span> <span>팬 소통</span></p> <!-- 항목별 한 줄 설명 -->
                 </div>
                 <!-- 호버 시 슬라이드업 레이블 -->
                 <div class="community-go">페이지 좋아요 →</div>
@@ -2883,7 +2889,7 @@
                 <!-- 카드 텍스트 -->
                 <div class="community-text">
                     <div class="community-name">TikTok</div>
-                    <p class="community-desc">개발 숏폼 · 게임플레이 클립 · 트렌드</p>
+                    <p class="community-desc"><span>개발 숏폼</span> <span>게임플레이 클립</span> <span>트렌드</span></p> <!-- 항목별 한 줄 설명 -->
                 </div>
                 <!-- 호버 시 슬라이드업 레이블 -->
                 <div class="community-go">팔로우하기 →</div>
