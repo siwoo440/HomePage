@@ -3,10 +3,14 @@
 
 이 문서는 다른 컴퓨터에서 Claude가 DEVFORGE 홈페이지 개발을 바로 이어가기 위한 전달 문서입니다. 작업 기준은 이 파일이 포함된 `origin/main` 최신 커밋입니다.
 
+- 마지막 갱신: 2026년 10월 1일
+- 마지막 검증: 테스트 348개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
+- 검증 환경: Windows 11, Node.js `24.19.0`, pnpm `11.19.0`
+
 ---
 ## Claude에게 전달할 시작 문구
 
-> GitHub의 `siwoo440/HomePage` 저장소에서 `main` 최신 커밋을 복제하고 DEVFORGE 홈페이지 개발을 이어서 진행해주세요. 먼저 `CLAUDE-HANDOFF.md`, `README.md`, `TRANSFER-GUIDE.md`, `docs/DEVELOPMENT-GUIDE.md`, `docs/DEVELOPMENT-NOTES.md`, `.env.example`을 읽어주세요. Node.js `22.13` 이상과 pnpm `11.19.0` 환경에서 `pnpm install --frozen-lockfile`과 `pnpm check`를 실행해 현재 상태를 확인한 뒤 `pnpm dev`로 `http://localhost:3000/main.html`을 열어주세요. 홈페이지 저장소만 작업 대상으로 사용하고 ChatBot과 Text-Play 소스는 별도 저장소로 유지해주세요. 기존 디자인과 동작을 보존하고, 외부 계정·API·비용·운영 상태는 추측하지 말고 확인이 필요한 항목으로 분리해주세요. 사용자에게 전체 설계를 먼저 설명하고 한 번 승인받은 범위에서는 반복 승인을 요구하지 마세요. 코드는 Allman 스타일을 지키고 각 코드 줄에 짧은 한글 명사형 주석을 작성해주세요. 한 작업 단위의 변경은 전체 검증 후 하나의 커밋으로 모아 `main`에 반영해주세요.
+> GitHub의 `siwoo440/HomePage` 저장소에서 `main` 최신 커밋을 복제하고 DEVFORGE 홈페이지 개발을 이어서 진행해주세요. 먼저 `CLAUDE-HANDOFF.md`, `README.md`, `TRANSFER-GUIDE.md`, `docs/DEVELOPMENT-GUIDE.md`, `docs/DEVELOPMENT-NOTES.md`, `.env.example`을 읽어주세요. Node.js `22.13` 이상과 pnpm `11.19.0` 환경에서 `pnpm install --frozen-lockfile`과 `pnpm check`를 실행해 현재 상태를 확인한 뒤 `pnpm dev`로 `http://localhost:3000/main.html`을 열어주세요. 모든 답변은 한국어로 작성해주세요. 홈페이지 저장소만 작업 대상으로 사용하고 ChatBot과 Text-Play 소스는 별도 저장소로 유지해주세요. 기존 디자인과 동작을 보존하고, 외부 계정·API·비용·운영 상태는 추측하지 말고 확인이 필요한 항목으로 분리해주세요. 코드는 Allman 스타일을 지키고 각 코드 줄에 짧은 한글 명사형 주석을 작성해주세요. 한 작업 단위의 변경은 `pnpm check` 통과 후 하나의 커밋으로 모아 `main`에 푸시해주세요. 커밋 제목은 접두어 없는 한국어 한 줄, 본문은 `~추가`, `~변경`, `~수정` 형식의 목록으로 작성하고 Claude 공동 작성자(Co-Authored-By) 줄은 넣지 마세요.
 
 ---
 ## 새 컴퓨터에서 첫 확인
@@ -19,12 +23,19 @@
 6. `http://localhost:3000/main.html`에서 공개 홈페이지 확인
 7. 작업 전 `git status --short --branch`로 기존 변경 확인
 
-2026년 9월 30일 새 Windows 폴더에서 원격 저장소를 다시 복제하고 빈 pnpm 저장소로 603개 패키지를 설치했습니다. 테스트 303개, TypeScript, ESLint, Next.js 운영 빌드와 `/main.html`, `/login`, `/api/news` 응답을 확인했습니다. macOS와 Linux 실행은 별도 확인이 필요합니다.
+`pnpm check`는 `pnpm test`(`node --test tests/*.test.mjs`) → `pnpm typecheck` → `pnpm lint`(경고 0개 기준) → `pnpm build` 순서로 실행합니다.
+
+### Windows 환경 참고
+
+- pnpm을 `npm i -g pnpm@11.19.0`으로 설치하면 `%APPDATA%\npm`에 등록됩니다. 새로 연 셸에서 `pnpm`·`node`를 찾지 못하면 셸을 다시 열거나 PowerShell에서 `$env:Path = [Environment]::GetEnvironmentVariable('Path','User') + ';' + [Environment]::GetEnvironmentVariable('Path','Machine')`로 경로를 다시 읽습니다.
+- 저장소는 `core.autocrlf=true` 기준입니다. 파일을 스크립트로 수정할 때 `\r\n`을 `\n`으로 정규화한 뒤 바꾸고 원래 줄바꿈으로 되돌려야 문자열 치환이 실패하지 않습니다.
+- Windows PowerShell 5.1에서는 여러 줄 커밋 메시지를 임시 파일에 쓰고 `git commit -F <파일>`로 커밋하는 방식이 안정적입니다.
+- `.claude/`(로컬 개발 서버 실행 설정)는 개인 환경 파일이므로 커밋하지 않습니다.
 
 ---
 ## 저장소 범위
 
-- 포함: DEVFORGE 홈페이지, 35개 프로젝트 소개, 뉴스, 상품, 커뮤니티, 로그인·관리자 화면, API와 Supabase 연결 구조
+- 포함: DEVFORGE 홈페이지, 35개 프로젝트 소개, 뉴스, 상품, 커뮤니티, 문의하기, 로그인·관리자 화면, API와 Supabase 연결 구조
 - 포함: 홈페이지 안의 ChatBot 홍보 화면과 외부 이동 링크
 - 제외: ChatBot 본체 소스와 전용 테스트
 - 제외: Text-Play 소스·기획·디자인 자료
@@ -36,24 +47,90 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 ## 현재 로컬 완료 범위
 
 - 대표 프로젝트 6개 강조와 전체 35개 검색·필터
-- 프로젝트 상세 화면과 프로젝트 η 전용 콘텐츠
+  - 검색어·장르·상태 조건 칩, 결과 개수, 초기화 버튼
+  - 조건을 주소(`main.html?q=…&genre=…&status=…`)에 저장해 새로고침·공유 시 복원
+  - 관심 목록은 최근 추가 순서로 표시
+- 프로젝트 상세 화면과 프로젝트 η 전용 콘텐츠, 프로젝트 H 동료 캐러셀
 - 개발 뉴스와 상품 데모 화면
 - 커뮤니티 플랫폼 영역과 YouTube 데모 대체
-- 회원·관리자 로그인 화면과 Supabase 준비 구조
-- 회원 로그아웃과 모든 공개 페이지 상단·서랍 메뉴의 로그인 상태 표시
+  - 소개 가운데 정렬, 현재 해시태그 오른쪽 같은 줄의 복사 버튼
+  - 플랫폼별 최신 소식은 모든 화면에서 한 줄에 한 플랫폼씩 세로 배치
+- 회원 로그인 전체 화면과 로그아웃, 모든 공개 페이지 상단·서랍 메뉴의 로그인 상태 표시
 - 개인정보처리방침의 브라우저 저장 데이터 확인·삭제
-- 모든 공개 페이지 공통 상단 헤더(`scripts/apply-site-header.mjs`로 정적 페이지 일괄 적용)와 문의하기 FAQ 페이지(`/contact.html`)
+- 모든 공개 페이지 공통 상단 헤더와 데스크톱 헤더 테마 전환 버튼
+- 문의하기 FAQ 페이지(`/contact.html`, 질문 14개·분류 5개, 이메일·Discord 아이콘)
+- 404 페이지
 - Supabase 없는 개발 환경 전용 관리자 데모 모드(`/admin/demo`)
-- 댓글·답글·반응·신고의 로컬 서비스
-- 성인 확인과 보호 경로
+- 관리자 뉴스·상품 목록 20개 단위 페이지 이동, 뉴스 수정 화면의 현재 대표 이미지 표시
+- 댓글·답글·반응·신고의 로컬 서비스, 실제 모드에서는 댓글 준비 안내로 닫힘
+- 성인 확인과 보호 경로, 비밀 키 누락 시 입력 비활성 안내
 - 개인정보 동의와 GA4 준비 구조
+- 모든 공개 페이지 검색 설명과 공유 미리보기(Open Graph) 태그
 - 반응형 모바일·태블릿·PC 화면
 - 키보드 조작, 초점 이동과 입력 오류 안내
 - 라이트·다크 모드와 공통 디자인 토큰
-- 히어로 배경과 작은 원형 캐러셀 이동 버튼
+  - 라이트 모드 경계선 대비 강화(`--pl-border: #A8B8CA`, `--pl-border-strong: #7A8EA6`)
+  - 메인 뉴스·소개·현황판·보관함·개인정보 패널, 커뮤니티 카드의 라이트 모드 적용
 - 테스트·타입·ESLint·운영 빌드 통합 검사
 
 `로컬 완료`는 외부 서비스까지 운영 완료되었다는 의미가 아닙니다.
+
+---
+## 최근 커밋 기록
+
+| 커밋 | 내용 |
+| --- | --- |
+| `502b5c3` | 개발 뉴스·굿즈 상단 글자 배치 수정 |
+| `b97923c` | 해시태그 복사 버튼 크기를 해시태그 글자에 맞춤 |
+| `02edb23` | 커뮤니티 페이지 소개·해시태그·플랫폼 배치 변경 |
+| `36a9753` | 라이트 모드 외곽선 대비 강화 |
+| `0387d6a` | 라이트 모드 메인 카드 디자인 수정과 관리자·인증·공유 정보 보완 |
+| `3575617` | 게임 목록 검색·필터에 조건 요약·초기화·주소 저장 추가 |
+| `b95fa41` | 전체 페이지 헤더를 메인과 통일하고 문의하기 FAQ 페이지와 전체 화면 로그인 추가 |
+| `acd6b1a` | 관리자 뉴스·상품 폼을 저장 없이 점검하는 데모 모드 추가 |
+| `7aad481` | 회원 로그아웃 기능 추가와 전체 페이지 로그인 상태 표시 |
+| `baa2aca` | 개인정보 페이지에 브라우저 저장 데이터 관리 기능 추가 |
+| `42d3c3c` | 깨진 링크·이미지와 관리자 삭제 오류 수정, 404 페이지 추가 |
+| `094a846` | 프로젝트 H 동료 캐러셀과 시스템 탭 오류 수정 |
+
+`b95fa41` 커밋 본문의 "FAQ 15개"는 실제로 14개입니다. 수정하려면 강제 푸시가 필요해 그대로 두었습니다.
+
+---
+## 구조상 꼭 알아야 할 부분
+
+- 공개 화면은 대부분 `public/`의 정적 HTML이며, Next.js 앱 라우터(`app/`)는 로그인·뉴스 상세·성인 확인·관리자·404를 담당합니다.
+- 공통 헤더 원본은 `scripts/site-header.mjs`입니다. 메뉴나 헤더 마크업을 바꾸면 `node scripts/apply-site-header.mjs`로 정적 페이지 전체(`<!-- site-header:start -->`~`end` 구간)에 다시 적용합니다. Next 화면은 `app/site-header.tsx`가 같은 구조를 그립니다. 테스트가 두 결과의 일치를 확인합니다.
+- 헤더 스타일은 `public/site-header.css`입니다. 배치 규칙은 `[data-site-header]`, 색상 규칙은 `nav.navbar[data-site-header]` 선택자를 사용하며 `responsive-shell.css`보다 먼저 불러와야 합니다.
+- 검색 설명·공유 태그는 `node scripts/apply-page-meta.mjs`로 일괄 적용합니다. 공통 프로젝트 페이지 28개는 `public/game-projects.mjs` 데이터로 `scripts/generate-project-pages.mjs`가 생성하므로 직접 수정하지 않고 데이터·생성기를 수정합니다.
+- 반응형 메뉴·서랍·테마 버튼은 `public/responsive-nav.mjs`가 만들며 기준 폭은 767·959·1279px입니다.
+- 테마 토큰은 `public/playful-lab-theme.css`의 `--pl-*` 값이며, 라이트·다크 전환은 `body`와 `html`의 `data-color-mode` 속성으로 합니다. 저장 키는 `devforge-color-mode`입니다.
+- 프로젝트 상세 페이지(공통 28개와 B·C·D·H·L·η 전용)는 라이트·다크 설정과 관계없이 게임별 어두운 디자인을 유지합니다.
+- 테스트는 대부분 소스 파일 계약 검사입니다. 화면 배치나 색을 바꾸면 관련 테스트(`tests/site-polish.test.mjs`, `tests/playful-lab-theme.test.mjs`, `tests/responsive-integration.test.mjs` 등)도 함께 갱신합니다.
+
+---
+## 사용자 결정이 필요한 항목
+
+아래 항목은 내용·정책 결정이 필요해 진행하지 않았습니다. 사용자 확인 후 진행합니다.
+
+- 프로젝트 δ·θ 연령 등급
+- 오해 소지가 있는 표현: 커뮤니티 참여 문구, 굿즈 배지·할인 표시, 임의 수치, 스마트스토어 링크, 데모 게임 이름과 2025년 날짜
+- 공통 프로젝트 페이지 28개의 실제 소개 내용
+- 프로젝트 D 이미지와 개발 문구
+- 프로젝트 C "Steam 2026 Q3", 프로젝트 L "CV: 미정" 표기
+- 이용약관·개인정보처리방침 본문 확정
+- 관리자 화면에도 공통 헤더를 적용할지 여부
+- 프로젝트 상세 페이지의 흐린 외곽선(배경 대비 약 1.1~1.4:1)을 게임 분위기 안에서 밝힐지 여부
+- 커뮤니티 해시태그 복사 버튼(높이 26px)을 휴대폰에서만 터치 권장 크기(44px)로 키울지 여부
+
+---
+## 정리 후보
+
+동작에는 영향이 없지만 정리하면 좋은 항목입니다. 삭제 전 참조 여부를 검색으로 확인합니다.
+
+- 공통 프로젝트 폴더의 사용되지 않는 `ProjectX_Script.js`·`ProjectX_Style.css`(약 1.9MB)
+- `main.html` 인라인 스타일, `devlog.css`, `project-page.css`에 남은 예전 헤더 스타일
+- 프로젝트 B·L 스크립트의 예전 메뉴 코드
+- `main.html`의 사용되지 않는 대화상자와 `public/style.css`·`public/script.js`
 
 ---
 ## 외부 확인 대기 항목
@@ -67,19 +144,23 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 - 이용약관·개인정보처리방침 법률 검토
 - 공식 도메인과 운영 배포
 
-비밀 값은 Git에 기록하지 않습니다. `.env.example`을 기준으로 새 컴퓨터의 `.env.local`에 직접 설정합니다. Supabase `service_role` 키를 브라우저 공개 환경 변수에 넣지 않습니다.
+비밀 값은 Git에 기록하지 않습니다. `.env.example`을 기준으로 새 컴퓨터의 `.env.local`에 직접 설정합니다. Supabase `service_role` 키를 브라우저 공개 환경 변수에 넣지 않습니다. 성인 확인은 운영 환경에서 `AGE_GATE_SECRET`이 없으면 입력이 닫히고, 개발 환경에서는 개발용 비밀 값으로 동작합니다.
 
 ---
 ## 작업 원칙
 
+- 모든 답변은 한국어로 작성
 - 불확실한 외부 상태를 추측하지 않기
 - 데모 기능을 실제 운영 기능으로 표시하지 않기
 - 기존 사용자 변경과 공개 디자인 보존
 - 새 기능 전 관련 문서와 테스트 확인
+- 화면 변경은 라이트·다크 모드와 모바일·태블릿·데스크톱에서 브라우저 확인
 - 작업 완료 전 `pnpm check` 전체 실행
 - 한 작업 단위는 하나의 커밋으로 통합
+- 커밋 제목은 접두어 없는 한국어 한 줄, 본문은 `~추가`/`~변경`/`~수정` 목록
+- 커밋·PR에 Claude 공동 작성자(Co-Authored-By) 줄을 넣지 않기
 - 사용자가 정책을 바꾸지 않는 한 `main`에서 계속 작업
-- 푸시 전 원격 `main` 변경 여부 확인
+- 푸시 전 원격 `main` 변경 여부 확인, 강제 푸시는 사용자 명시 승인 후에만 사용
 
 ---
 ## 우선 확인 문서
@@ -87,7 +168,7 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 1. `README.md`: 실행과 외부 서비스 설정
 2. `TRANSFER-GUIDE.md`: 다른 컴퓨터 이관 절차
 3. `docs/DEVELOPMENT-GUIDE.md`: 구조·기능·데이터·보안·배포
-4. `docs/DEVELOPMENT-NOTES.md`: 로컬·외부·유료 작업 구분
+4. `docs/DEVELOPMENT-NOTES.md`: 로컬·외부·유료 작업 구분과 진행 상태
 5. `docs/FILE-MAP.md`: 주요 파일 위치
 6. `docs/superpowers/specs/`: 승인된 설계 기록
 7. `docs/superpowers/plans/`: 구현 계획 기록
