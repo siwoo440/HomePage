@@ -1,0 +1,202 @@
+.browser-data /* 브라우저 데이터 관리 영역 */
+{ /* 규칙 시작 */
+    margin: 1.5rem 0 0.5rem; /* 바깥 여백 */
+    padding: clamp(1rem, 3vw, 1.5rem); /* 안쪽 여백 */
+    border: 1px solid var(--pl-border-strong, var(--legal-border)); /* 영역 경계선 */
+    border-radius: var(--pl-radius-medium, 14px); /* 영역 모서리 */
+    background: var(--pl-surface, var(--legal-surface)); /* 영역 배경 */
+} /* 규칙 끝 */
+
+.browser-data h2 /* 관리 영역 제목 */
+{ /* 규칙 시작 */
+    margin-top: 0; /* 위쪽 여백 제거 */
+} /* 규칙 끝 */
+
+.browser-data h2:focus-visible /* 제목 프로그램 초점 */
+{ /* 규칙 시작 */
+    outline: 3px solid var(--pl-violet, var(--legal-accent)); /* 초점 테두리 */
+    outline-offset: 4px; /* 초점 간격 */
+} /* 규칙 끝 */
+
+.browser-data-blocked /* 저장소 차단 안내 */
+{ /* 규칙 시작 */
+    padding: 0.75rem 1rem; /* 안쪽 여백 */
+    border-left: 3px solid var(--pl-orange, #ffd28a); /* 주의 강조선 */
+    background: color-mix(in srgb, var(--pl-orange, #ffd28a) 12%, transparent); /* 주의 배경 */
+} /* 규칙 끝 */
+
+.browser-data-blocked[hidden] /* 숨김 차단 안내 */
+{ /* 규칙 시작 */
+    display: none; /* 화면 제외 */
+} /* 규칙 끝 */
+
+.browser-data-list /* 저장 항목 목록 */
+{ /* 규칙 시작 */
+    display: grid; /* 세로 격자 */
+    gap: 0.75rem; /* 항목 간격 */
+    margin: 1rem 0 0; /* 위쪽 여백 */
+    padding: 0; /* 기본 여백 제거 */
+    list-style: none; /* 목록 점 제거 */
+} /* 규칙 끝 */
+
+.browser-data-item /* 저장 항목 카드 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: minmax(0, 1fr) auto; /* 내용·버튼 열 */
+    gap: 0.5rem 1rem; /* 요소 간격 */
+    align-items: start; /* 위쪽 정렬 */
+    padding: 1rem; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border, var(--legal-border)); /* 카드 경계선 */
+    border-radius: var(--pl-radius-small, 10px); /* 카드 모서리 */
+    background: var(--pl-canvas, var(--legal-background)); /* 카드 배경 */
+} /* 규칙 끝 */
+
+.browser-data-item-header /* 항목 이름과 상태 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    align-items: baseline; /* 글자 기준선 정렬 */
+    gap: 0.35rem 0.75rem; /* 요소 간격 */
+    min-width: 0; /* 최소 폭 해제 */
+} /* 규칙 끝 */
+
+.browser-data-item h3 /* 항목 이름 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-ink, var(--legal-text)); /* 주요 글자색 */
+    font-size: 1rem; /* 이름 크기 */
+} /* 규칙 끝 */
+
+.browser-data-state /* 항목 현재 값 */
+{ /* 규칙 시작 */
+    padding: 0.1rem 0.6rem; /* 배지 여백 */
+    border-radius: 999px; /* 알약 모양 */
+    background: color-mix(in srgb, var(--pl-mint, var(--legal-accent)) 18%, transparent); /* 저장 상태 배경 */
+    color: var(--pl-ink, var(--legal-text)); /* 배지 글자색 */
+    font-size: 0.85rem; /* 배지 글자 크기 */
+    font-weight: 700; /* 배지 굵기 */
+    word-break: keep-all; /* 한국어 낱말 단위 줄바꿈 */
+} /* 규칙 끝 */
+
+.browser-data-item.is-empty .browser-data-state, .browser-data-item.is-unavailable .browser-data-state /* 빈 값·차단 상태 */
+{ /* 규칙 시작 */
+    background: color-mix(in srgb, var(--pl-muted, var(--legal-muted)) 14%, transparent); /* 흐린 배경 */
+    color: var(--pl-muted, var(--legal-muted)); /* 보조 글자색 */
+    font-weight: 500; /* 보통 굵기 */
+} /* 규칙 끝 */
+
+.browser-data-item.is-invalid .browser-data-state, .browser-data-item.is-outdated .browser-data-state /* 손상·이전 버전 상태 */
+{ /* 규칙 시작 */
+    background: color-mix(in srgb, var(--pl-orange, #ffd28a) 20%, transparent); /* 주의 배경 */
+} /* 규칙 끝 */
+
+.browser-data-details /* 항목 세부 정보 */
+{ /* 규칙 시작 */
+    grid-column: 1; /* 내용 열 */
+    display: grid; /* 세로 격자 */
+    gap: 0.2rem; /* 줄 간격 */
+    margin: 0; /* 기본 여백 제거 */
+    font-size: 0.9rem; /* 세부 글자 크기 */
+} /* 규칙 끝 */
+
+.browser-data-detail /* 세부 정보 한 줄 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: 5.5rem minmax(0, 1fr); /* 이름·값 열 */
+    gap: 0.5rem; /* 열 간격 */
+} /* 규칙 끝 */
+
+.browser-data-detail dt /* 세부 정보 이름 */
+{ /* 규칙 시작 */
+    color: var(--pl-ink, var(--legal-text)); /* 주요 글자색 */
+    font-weight: 700; /* 이름 굵기 */
+} /* 규칙 끝 */
+
+.browser-data-detail dd /* 세부 정보 값 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted, var(--legal-muted)); /* 보조 글자색 */
+} /* 규칙 끝 */
+
+.browser-data-remove, .browser-data-clear-all /* 삭제 버튼 공통 */
+{ /* 규칙 시작 */
+    min-height: 44px; /* 터치 높이 */
+    padding: 0 1rem; /* 좌우 여백 */
+    border: 1px solid var(--pl-danger, #ff8295); /* 위험 경계선 */
+    border-radius: var(--pl-radius-small, 10px); /* 버튼 모서리 */
+    background: transparent; /* 투명 배경 */
+    color: var(--pl-danger, #ff8295); /* 위험 글자색 */
+    font: inherit; /* 본문 글꼴 */
+    font-weight: 800; /* 버튼 굵기 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 규칙 끝 */
+
+.browser-data-remove /* 개별 삭제 버튼 */
+{ /* 규칙 시작 */
+    grid-column: 2; /* 버튼 열 */
+    grid-row: 1 / span 2; /* 두 줄 차지 */
+    align-self: center; /* 세로 가운데 */
+} /* 규칙 끝 */
+
+.browser-data-clear-all /* 전체 삭제 버튼 */
+{ /* 규칙 시작 */
+    background: var(--pl-danger, #ff8295); /* 위험 배경 */
+    color: var(--pl-canvas, #070b14); /* 대비 글자색 */
+} /* 규칙 끝 */
+
+.browser-data-remove:hover:not(:disabled), .browser-data-clear-all:hover:not(:disabled) /* 버튼 호버 */
+{ /* 규칙 시작 */
+    filter: brightness(1.08); /* 밝기 강조 */
+} /* 규칙 끝 */
+
+.browser-data-remove:disabled, .browser-data-clear-all:disabled /* 비활성 버튼 */
+{ /* 규칙 시작 */
+    cursor: not-allowed; /* 비활성 커서 */
+    opacity: 0.45; /* 흐린 표시 */
+} /* 규칙 끝 */
+
+.browser-data-remove:focus-visible, .browser-data-clear-all:focus-visible /* 버튼 키보드 초점 */
+{ /* 규칙 시작 */
+    outline: 3px solid var(--pl-violet, var(--legal-accent)); /* 초점 테두리 */
+    outline-offset: 3px; /* 초점 간격 */
+} /* 규칙 끝 */
+
+.browser-data-actions /* 전체 작업 영역 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    margin-top: 1rem; /* 위쪽 여백 */
+} /* 규칙 끝 */
+
+.browser-data-status /* 삭제 결과 안내 */
+{ /* 규칙 시작 */
+    min-height: 1.5em; /* 안내 자리 확보 */
+    margin: 0.75rem 0 0; /* 위쪽 여백 */
+    color: var(--pl-success, var(--legal-accent)) !important; /* 성공 글자색 */
+    font-weight: 700; /* 안내 굵기 */
+} /* 규칙 끝 */
+
+@media (max-width: 36rem) /* 모바일 화면 */
+{ /* 모바일 시작 */
+    .browser-data-item /* 모바일 항목 카드 */
+    { /* 규칙 시작 */
+        grid-template-columns: minmax(0, 1fr); /* 한 열 배치 */
+    } /* 규칙 끝 */
+
+    .browser-data-remove /* 모바일 개별 삭제 버튼 */
+    { /* 규칙 시작 */
+        grid-column: 1; /* 내용 아래 배치 */
+        grid-row: auto; /* 자동 줄 */
+        justify-self: start; /* 왼쪽 정렬 */
+    } /* 규칙 끝 */
+
+    .browser-data-actions > * /* 모바일 전체 삭제 버튼 */
+    { /* 규칙 시작 */
+        flex: 1 1 100%; /* 전체 너비 */
+    } /* 규칙 끝 */
+
+    .browser-data-detail /* 모바일 세부 정보 */
+    { /* 규칙 시작 */
+        grid-template-columns: 4.5rem minmax(0, 1fr); /* 좁은 이름 열 */
+    } /* 규칙 끝 */
+} /* 모바일 끝 */

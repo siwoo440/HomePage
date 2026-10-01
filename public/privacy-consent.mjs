@@ -141,7 +141,12 @@ export function initializePrivacyConsent(root = document, storage = window.local
     status.className = "privacy-consent__status"; // 상태 스타일 설정
     status.setAttribute("aria-live", "polite"); // 상태 읽기 설정
 
-    panel.append(title, description, actions, status); // 패널 내용 추가
+    const manageLink = root.createElement("a"); // 저장 항목 관리 링크 생성
+    manageLink.className = "privacy-consent__manage"; // 관리 링크 스타일 설정
+    manageLink.href = "/privacy.html#browser-data"; // 관리 영역 주소 설정
+    manageLink.textContent = "이 브라우저에 저장된 항목 확인·삭제"; // 관리 링크 문구 설정
+
+    panel.append(title, description, actions, manageLink, status); // 패널 내용 추가
 
     const settings = createButton(root, "개인정보 설정", "settings", "privacy-consent-settings"); // 설정 버튼 생성
     settings.setAttribute("aria-controls", "privacy-consent-panel"); // 설정 대상 연결

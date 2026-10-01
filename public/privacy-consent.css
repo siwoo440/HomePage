@@ -68,6 +68,23 @@
     color: #e8edf5; /* 밝은 글자색 */
 } /* 거부 버튼 끝 */
 
+.privacy-consent__manage /* 저장 항목 관리 링크 */
+{ /* 링크 시작 */
+    display: inline-flex; /* 터치 영역 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    min-height: 2.75rem; /* 누르기 높이 */
+    margin-top: 0.5rem; /* 위쪽 간격 */
+    color: #00f5d4; /* 강조 글자색 */
+    font-size: 0.85rem; /* 링크 글자 크기 */
+    font-weight: 700; /* 링크 굵기 */
+} /* 링크 끝 */
+
+.privacy-consent__manage:focus-visible /* 관리 링크 키보드 초점 */
+{ /* 초점 시작 */
+    outline: 2px solid #00f5d4; /* 초점 테두리 */
+    outline-offset: 3px; /* 초점 간격 */
+} /* 초점 끝 */
+
 .privacy-consent__status /* 상태 문구 */
 { /* 상태 시작 */
     margin-top: 0.75rem !important; /* 상태 간격 */
