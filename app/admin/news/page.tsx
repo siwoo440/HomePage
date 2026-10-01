@@ -4,6 +4,8 @@ import { createServerSupabaseClient } from "@/lib/supabase/server"; // 서버 �
 import AdminHeader from "./admin-header"; // 관리자 상단 메뉴
 import { deleteNewsPost } from "./actions"; // 뉴스 삭제 액션
 import DeleteNewsButton from "./delete-news-button"; // 삭제 확인 버튼
+import AdminPagination from "../admin-pagination"; // 목록 페이지 이동
+import { getAdminPageInfo, getAdminTotalPages, parseAdminPage } from "@/lib/admin/pagination"; // 목록 페이지 계산
 
 interface NewsAdminPageProps // 관리 화면 속성
 { // 형식 시작
@@ -27,9 +29,11 @@ export default async function NewsAdminPage({ searchParams }: NewsAdminPageProps
     await requireAdmin("/admin/news"); // 관리자 권한 확인
     const parameters = await searchParams; // 검색 값 읽기
     const status = typeof parameters.status === "string" ? parameters.status : ""; // 처리 상태 읽기
+    const pageInfo = getAdminPageInfo(parseAdminPage(parameters.page)); // 현재 페이지 범위
     const supabase = await createServerSupabaseClient(); // 서버 데이터 도구
-    const result = await supabase.from("news_posts").select("id, title, status, updated_at").order("updated_at", { ascending: false }); // 관리자 게시물 조회
+    const result = await supabase.from("news_posts").select("id, title, status, updated_at", { count: "exact" }).order("updated_at", { ascending: false }).range(pageInfo.from, pageInfo.to); // 관리자 게시물 조회
     const posts = result.data ?? []; // 게시물 목록
+    const totalPages = getAdminTotalPages(result.count); // 전체 페이지 수
 
     return ( // 관리 화면 반환
         <main className="admin-shell"> {/* 관리자 전체 영역 */}
@@ -62,6 +66,7 @@ export default async function NewsAdminPage({ searchParams }: NewsAdminPageProps
                     </article> // 게시물 행 끝
                 ))} {/* 게시물 반복 끝 */}
             </div> {/* 게시물 목록 끝 */}
+            <AdminPagination basePath="/admin/news" page={pageInfo.page} totalPages={totalPages} label="개발 뉴스 목록 페이지" /> {/* 페이지 이동 */}
         </main> // 관리자 전체 영역 끝
     ); // 관리 화면 반환 끝
 } // 함수 끝

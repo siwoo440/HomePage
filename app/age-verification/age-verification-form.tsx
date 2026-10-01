@@ -7,6 +7,7 @@ import styles from "./age-verification.module.css"; // 성인 확인 스타일
 interface AgeVerificationFormProps // 입력 화면 속성
 { // 형식 시작
     returnTo: string; // 인증 뒤 복귀 주소
+    available: boolean; // 성인 확인 설정 완료 여부
 } // 형식 끝
 
 interface VerificationResponse // 인증 응답 형식
@@ -18,7 +19,7 @@ interface VerificationResponse // 인증 응답 형식
 
 type InputErrorField = "birthDate" | "agreed" | null; // 입력 오류 필드
 
-export default function AgeVerificationForm({ returnTo }: AgeVerificationFormProps) // 성인 확인 입력 화면
+export default function AgeVerificationForm({ returnTo, available }: AgeVerificationFormProps) // 성인 확인 입력 화면
 { // 함수 시작
     const [message, setMessage] = useState(""); // 안내 상태
     const [submitting, setSubmitting] = useState(false); // 제출 상태
@@ -91,15 +92,16 @@ export default function AgeVerificationForm({ returnTo }: AgeVerificationFormPro
     } // 함수 끝
 
     return ( // 입력 화면 반환
-        <form className={styles.form} onSubmit={handleSubmit} noValidate aria-busy={submitting}> {/* 인증 입력 양식 */}
+        <form className={styles.form} onSubmit={handleSubmit} noValidate aria-busy={submitting} aria-describedby={available ? undefined : "age-verification-unavailable"}> {/* 인증 입력 양식 */}
+            {available ? null : <p id="age-verification-unavailable" className={styles.message} role="status">성인 확인 설정이 아직 준비되지 않아 지금은 확인할 수 없습니다. 운영 설정이 끝나면 이용할 수 있습니다.</p>} {/* 설정 누락 안내 */}
             <label className={styles.label} htmlFor="birthDate">생년월일</label> {/* 날짜 입력 이름 */}
-            <input className={styles.input} id="birthDate" ref={birthDateRef} aria-invalid={inputErrorField === "birthDate"} aria-describedby={inputErrorField === "birthDate" ? "age-verification-error" : undefined} name="birthDate" type="date" autoComplete="bday" required /> {/* 날짜 입력 */}
+            <input className={styles.input} id="birthDate" ref={birthDateRef} aria-invalid={inputErrorField === "birthDate"} aria-describedby={inputErrorField === "birthDate" ? "age-verification-error" : undefined} disabled={!available} name="birthDate" type="date" autoComplete="bday" required /> {/* 날짜 입력 */}
             <label className={styles.checkboxLabel}> {/* 동의 입력 영역 */}
-                <input name="agreed" ref={agreedRef} aria-invalid={inputErrorField === "agreed"} aria-describedby={inputErrorField === "agreed" ? "age-verification-error" : undefined} type="checkbox" required /> {/* 성인 동의 입력 */}
+                <input name="agreed" ref={agreedRef} aria-invalid={inputErrorField === "agreed"} aria-describedby={inputErrorField === "agreed" ? "age-verification-error" : undefined} type="checkbox" required disabled={!available} /> {/* 성인 동의 입력 */}
                 <span>본인은 만 19세 이상이며 성인 콘텐츠 열람에 동의합니다.</span> {/* 성인 동의 문구 */}
             </label> {/* 동의 입력 끝 */}
             {message ? <p id="age-verification-error" className={styles.message} role="alert">{message}</p> : null} {/* 결과 안내 */}
-            <button className={styles.submit} type="submit" disabled={submitting}>{submitting ? "확인 중..." : "성인 확인 후 계속"}</button> {/* 인증 제출 버튼 */}
+            <button className={styles.submit} type="submit" disabled={!available || submitting}>{available ? submitting ? "확인 중..." : "성인 확인 후 계속" : "성인 확인 준비 중"}</button> {/* 인증 제출 버튼 */}
             <p className={styles.privacy}>생년월일은 저장하거나 쿠키에 기록하지 않습니다.</p> {/* 개인정보 안내 */}
         </form> // 인증 입력 양식 끝
     ); // 입력 화면 반환 끝

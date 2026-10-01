@@ -12,6 +12,7 @@ interface NewsEditorProps // 편집기 속성
     action: (state: NewsActionState, formData: FormData) => Promise<NewsActionState>; // 저장 서버 액션
     initialValue?: NewsEditorInitialValue; // 기존 게시물 값
     submitLabel: string; // 제출 버튼 문구
+    currentCoverUrl?: string | null; // 현재 대표 이미지 주소
 } // 형식 끝
 
 const INITIAL_STATE: NewsActionState = // 초기 폼 상태
@@ -37,7 +38,7 @@ function isNewsFieldName(fieldName: string): fieldName is NewsFieldName // 뉴�
     return NEWS_FIELD_ORDER.includes(fieldName as NewsFieldName); // 허용 필드 포함 결과
 } // 함수 끝
 
-export default function NewsEditor({ action, initialValue, submitLabel }: NewsEditorProps) // 뉴스 편집 화면
+export default function NewsEditor({ action, initialValue, submitLabel, currentCoverUrl = null }: NewsEditorProps) // 뉴스 편집 화면
 { // 함수 시작
     const [state, formAction, isPending] = useActionState(action, INITIAL_STATE); // 서버 액션 상태
     const [clientErrors, setClientErrors] = useState<NewsActionState["errors"]>({}); // 브라우저 오류 상태
@@ -117,6 +118,7 @@ export default function NewsEditor({ action, initialValue, submitLabel }: NewsEd
                 </fieldset> {/* 태그 선택 묶음 끝 */}
                 <label className="editor-panel editor-field"> {/* 이미지 입력 묶음 */}
                     <span>대표 이미지</span> {/* 이미지 이름 */}
+                    {currentCoverUrl ? <figure className="editor-current-image"><img src={currentCoverUrl} alt="현재 대표 이미지" /><figcaption>현재 대표 이미지 · 새 파일을 선택하면 교체됩니다.</figcaption></figure> : null} {/* 현재 대표 이미지 */}
                     <input name="coverImage" type="file" accept="image/jpeg,image/png,image/webp" aria-invalid={Boolean(errors.coverImage)} aria-describedby={errors.coverImage ? getFieldErrorId(NEWS_FORM_ID, "coverImage") : undefined} /> {/* 이미지 입력 */}
                     <small>JPG, PNG, WebP · 최대 5MB</small> {/* 이미지 제한 안내 */}
                     {errors.coverImage ? <small className="field-error" id={getFieldErrorId(NEWS_FORM_ID, "coverImage")}>{errors.coverImage}</small> : null} {/* 이미지 오류 */}

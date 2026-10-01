@@ -180,6 +180,33 @@ nav.navbar[data-site-header] .nav-menu a:is(:hover, :focus-visible, [aria-curren
     outline: none; /* 기본 외곽선 제거 */
 } /* 규칙 끝 */
 
+nav.navbar[data-site-header].is-scrolled /* 스크롤한 헤더 */
+{ /* 규칙 시작 */
+    background: color-mix(in srgb, var(--sh-canvas) 98%, transparent); /* 더 불투명한 배경 */
+} /* 규칙 끝 */
+
+[data-site-header] .site-theme-toggle /* 넓은 화면 테마 버튼 */
+{ /* 규칙 시작 */
+    display: inline-grid; /* 아이콘 가운데 배치 */
+    place-items: center; /* 가운데 정렬 */
+    width: 44px; /* 터치 너비 */
+    height: 44px; /* 터치 높이 */
+    padding: 0; /* 기본 여백 제거 */
+    border: 1px solid var(--sh-violet); /* 버튼 경계선 */
+    border-radius: 50%; /* 원형 */
+    background: var(--sh-canvas); /* 버튼 배경 */
+    color: var(--sh-ink); /* 아이콘 색상 */
+    cursor: pointer; /* 선택 커서 */
+    font-size: 1.1rem; /* 아이콘 크기 */
+    line-height: 1; /* 줄 높이 */
+} /* 규칙 끝 */
+
+[data-site-header] .site-theme-toggle:is(:hover, :focus-visible) /* 테마 버튼 선택 */
+{ /* 규칙 시작 */
+    background: var(--sh-cyan); /* 선택 배경 */
+    color: var(--sh-on-cyan); /* 선택 아이콘 */
+} /* 규칙 끝 */
+
 nav.navbar[data-site-header] :is(.nav-logo, .nav-menu a, .btn-nav):focus-visible /* 키보드 초점 */
 { /* 규칙 시작 */
     outline: 2px solid var(--sh-violet); /* 초점 외곽선 */

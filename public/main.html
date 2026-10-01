@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEVFORGE — 인디 게임 스튜디오</title>
+    <meta name="description" content="인디 게임 스튜디오 DEVFORGE의 35개 게임 프로젝트, 개발 뉴스, 굿즈와 커뮤니티를 소개합니다."> <!-- 검색 설명 -->
+    <meta property="og:type" content="website"> <!-- 공유 형식 -->
+    <meta property="og:site_name" content="DEVFORGE"> <!-- 사이트 이름 -->
+    <meta property="og:locale" content="ko_KR"> <!-- 공유 언어 -->
+    <meta property="og:title" content="DEVFORGE — 인디 게임 스튜디오"> <!-- 공유 제목 -->
+    <meta property="og:description" content="인디 게임 스튜디오 DEVFORGE의 35개 게임 프로젝트, 개발 뉴스, 굿즈와 커뮤니티를 소개합니다."> <!-- 공유 설명 -->
 
     <!-- 구글 폰트 로드 (Orbitron: 타이틀용, Noto Sans KR: 본문용) -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -3579,14 +3585,7 @@
         {
             const navbar = document.getElementById('navbar'); // 내비게이션 바
 
-            if (window.scrollY > 50)
-            {
-                navbar.style.background = 'rgba(7, 11, 20, 0.98)'; // 스크롤 시 불투명
-            }
-            else
-            {
-                navbar.style.background = 'rgba(7, 11, 20, 0.85)'; // 상단에서 반투명
-            }
+            navbar.classList.toggle('is-scrolled', window.scrollY > 50); // 스크롤 상태 표시
         });
 
         // ============================================

@@ -180,6 +180,22 @@ export function initializeResponsiveNavigation(root = document, view = window) /
     drawer.append(drawerHeader, drawerLinks); // 패널 내용 연결
     const toggleHost = navRoot.querySelector(".nav-actions, .project-nav-actions") ?? navRoot; // 헤더 조작 묶음 조회
     toggleHost.append(toggle); // 로그인 오른쪽에 메뉴 버튼 연결
+    let headerThemeToggle = null; // 넓은 화면 테마 버튼
+
+    if (usesPlayfulLabTheme) // 공통 테마 확인
+    { // 조건 시작
+        headerThemeToggle = createElement(root, "button", "site-theme-toggle", "header-theme-toggle"); // 헤더 테마 버튼 생성
+        headerThemeToggle.type = "button"; // 버튼 형식 설정
+        const memberAction = toggleHost.querySelector?.("[data-member-action]") ?? null; // 로그인 버튼 조회
+        if (memberAction && typeof toggleHost.insertBefore === "function") // 앞쪽 삽입 가능 확인
+        { // 조건 시작
+            toggleHost.insertBefore(headerThemeToggle, memberAction); // 로그인 앞에 연결
+        } // 조건 끝
+        else // 삽입 불가 처리
+        { // 대안 시작
+            toggleHost.append(headerThemeToggle); // 끝에 연결
+        } // 대안 끝
+    } // 조건 끝
     root.body.append(overlay, drawer); // 본문에 메뉴 요소 연결
 
     function open() // 메뉴 열기
@@ -235,6 +251,14 @@ export function initializeResponsiveNavigation(root = document, view = window) /
         themeToggle.textContent = isDark ? "다크 모드 끄기" : "다크 모드 켜기"; // 버튼 문구 설정
         themeToggle.setAttribute("aria-pressed", String(isDark)); // 버튼 상태 설정
         themeToggle.setAttribute("aria-label", themeToggle.textContent); // 접근성 이름 설정
+
+        if (headerThemeToggle) // 헤더 테마 버튼 확인
+        { // 조건 시작
+            headerThemeToggle.textContent = isDark ? "☀" : "☾"; // 다음 모드 아이콘
+            headerThemeToggle.setAttribute("aria-pressed", String(isDark)); // 버튼 상태 설정
+            headerThemeToggle.setAttribute("aria-label", themeToggle.textContent); // 접근성 이름 설정
+            headerThemeToggle.title = themeToggle.textContent; // 마우스 도움말 설정
+        } // 조건 끝
     } // 함수 끝
 
     function onThemeToggleClick() // 테마 버튼 처리
@@ -308,6 +332,8 @@ export function initializeResponsiveNavigation(root = document, view = window) /
         overlay.removeEventListener("click", close); // 배경 처리기 해제
         controls.slice(1).filter((control) => control !== themeToggle).forEach((control) => control.removeEventListener("click", onDrawerLinkClick)); // 링크 처리기 해제
         themeToggle?.removeEventListener("click", onThemeToggleClick); // 테마 처리기 해제
+        headerThemeToggle?.removeEventListener("click", onThemeToggleClick); // 헤더 테마 처리기 해제
+        headerThemeToggle?.remove(); // 헤더 테마 버튼 제거
         root.removeEventListener("keydown", onKeyDown); // 키 처리기 해제
         view.removeEventListener("resize", onResize); // 크기 처리기 해제
         root.body.classList.remove("responsive-nav-open"); // 본문 상태 정리
@@ -322,6 +348,7 @@ export function initializeResponsiveNavigation(root = document, view = window) /
     overlay.addEventListener("click", close); // 배경 처리기 등록
     controls.slice(1).filter((control) => control !== themeToggle).forEach((control) => control.addEventListener("click", onDrawerLinkClick)); // 링크 처리기 등록
     themeToggle?.addEventListener("click", onThemeToggleClick); // 테마 처리기 등록
+    headerThemeToggle?.addEventListener("click", onThemeToggleClick); // 헤더 테마 처리기 등록
     root.addEventListener("keydown", onKeyDown); // 키 처리기 등록
     view.addEventListener("resize", onResize); // 크기 처리기 등록
     updateThemeToggle(); // 테마 버튼 초기화

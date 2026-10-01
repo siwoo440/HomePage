@@ -29,7 +29,7 @@ const eslintConfig = defineConfig( // ESLint 설정 생성
         }, // 규칙 객체 끝
     }, // 루트 레이아웃 예외 끝
     { // 외부 이미지 예외 시작
-        files: ["app/admin/products/page.tsx", "app/admin/demo/admin-demo.tsx", "app/news/*/comments-panel.tsx", "app/news/*/page.tsx"], // 외부 업로드·선택 이미지 대상
+        files: ["app/admin/products/page.tsx", "app/admin/demo/admin-demo.tsx", "app/admin/news/news-editor.tsx", "app/news/*/comments-panel.tsx", "app/news/*/page.tsx"], // 외부 업로드·선택 이미지 대상
         rules: // 파일 규칙 시작
         { // 규칙 객체 시작
             "@next/next/no-img-element": "off", // 외부 업로드 이미지 주소 지원

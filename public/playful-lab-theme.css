@@ -442,6 +442,163 @@
     color: var(--pl-ink); /* 카드 글자색 */
 } /* 카드 끝 */
 
+[data-theme="playful-lab"] :is(.experience-card, .project-status-board) /* 스튜디오 소개 카드와 현황판 */
+{ /* 카드 시작 */
+    border-color: var(--pl-border-strong); /* 카드 경계선 */
+    background: var(--pl-canvas); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
+    color: var(--pl-ink); /* 카드 글자색 */
+} /* 카드 끝 */
+
+[data-theme="playful-lab"] .experience-card > span /* 소개 카드 번호 */
+{ /* 번호 시작 */
+    color: var(--pl-violet); /* 번호 강조색 */
+    font-weight: 700; /* 번호 굵기 */
+} /* 번호 끝 */
+
+[data-theme="playful-lab"] :is(.experience-card h3, .status-board-heading h3) /* 소개·현황 제목 */
+{ /* 제목 시작 */
+    color: var(--pl-ink); /* 제목 글자색 */
+} /* 제목 끝 */
+
+[data-theme="playful-lab"] :is(.experience-card p, .status-board-heading p, .status-board-grid span) /* 소개·현황 보조 문구 */
+{ /* 보조 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 보조 끝 */
+
+[data-theme="playful-lab"] .status-board-grid article /* 현황 숫자 카드 */
+{ /* 카드 시작 */
+    border: 1px solid var(--pl-border); /* 카드 경계선 */
+    background: var(--pl-surface); /* 보조 배경 */
+} /* 카드 끝 */
+
+[data-theme="playful-lab"] .status-board-grid strong /* 현황 숫자 */
+{ /* 숫자 시작 */
+    color: var(--pl-violet); /* 숫자 강조색 */
+} /* 숫자 끝 */
+
+[data-theme="playful-lab"] .project-shelf-panel /* 프로젝트 보관함 카드 */
+{ /* 카드 시작 */
+    border-color: var(--pl-border-strong); /* 카드 경계선 */
+    background: var(--pl-canvas); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
+} /* 카드 끝 */
+
+[data-theme="playful-lab"] :is(.project-shelf-panel h3, .shelf-project-link strong) /* 보관함 제목 */
+{ /* 제목 시작 */
+    color: var(--pl-ink); /* 제목 글자색 */
+} /* 제목 끝 */
+
+[data-theme="playful-lab"] :is(.project-shelf-note, .project-shelf-empty, .shelf-project-link span) /* 보관함 보조 문구 */
+{ /* 보조 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 보조 끝 */
+
+[data-theme="playful-lab"] .shelf-project-link /* 보관함 프로젝트 링크 */
+{ /* 링크 시작 */
+    border-color: var(--pl-border); /* 링크 경계선 */
+    background: var(--pl-surface); /* 링크 배경 */
+    color: var(--pl-ink); /* 링크 글자색 */
+} /* 링크 끝 */
+
+[data-theme="playful-lab"] .shelf-project-link:hover /* 보관함 링크 강조 */
+{ /* 강조 시작 */
+    border-color: var(--pl-violet); /* 강조 경계선 */
+} /* 강조 끝 */
+
+[data-theme="playful-lab"] :is(.privacy-consent, .privacy-consent-settings) /* 개인정보 패널과 설정 버튼 */
+{ /* 패널 시작 */
+    border-color: var(--pl-border-strong); /* 패널 경계선 */
+    background: var(--pl-canvas); /* 패널 배경 */
+    box-shadow: var(--pl-shadow-medium); /* 패널 그림자 */
+    color: var(--pl-ink); /* 패널 글자색 */
+} /* 패널 끝 */
+
+[data-theme="playful-lab"] .privacy-consent p /* 개인정보 패널 설명 */
+{ /* 설명 시작 */
+    color: var(--pl-muted); /* 설명 글자색 */
+} /* 설명 끝 */
+
+[data-theme="playful-lab"] :is(.privacy-consent-settings, .privacy-consent__manage) /* 개인정보 설정·관리 링크 */
+{ /* 링크 시작 */
+    color: var(--pl-link); /* 링크 글자색 */
+} /* 링크 끝 */
+
+[data-theme="playful-lab"] .privacy-consent__button--secondary /* 개인정보 거부 버튼 */
+{ /* 버튼 시작 */
+    border-color: var(--pl-border-strong); /* 버튼 경계선 */
+    color: var(--pl-ink); /* 버튼 글자색 */
+} /* 버튼 끝 */
+
+[data-theme="playful-lab"] .devlog-card /* 메인 개발 뉴스 카드 */
+{ /* 카드 시작 */
+    border-color: var(--pl-border-strong); /* 카드 경계선 */
+    border-radius: var(--pl-radius-medium); /* 카드 모서리 */
+    background: var(--pl-canvas); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
+    color: var(--pl-ink); /* 카드 글자색 */
+    overflow: hidden; /* 강조선 모서리 자르기 */
+} /* 카드 끝 */
+
+[data-theme="playful-lab"] .devlog-card:hover /* 뉴스 카드 강조 */
+{ /* 강조 시작 */
+    border-color: var(--pl-violet); /* 강조 경계선 */
+} /* 강조 끝 */
+
+[data-theme="playful-lab"] .devlog-card::after /* 뉴스 카드 왼쪽 강조선 */
+{ /* 강조선 시작 */
+    background: var(--pl-violet); /* 강조선 색상 */
+} /* 강조선 끝 */
+
+[data-theme="playful-lab"] .devlog-title /* 뉴스 제목 */
+{ /* 제목 시작 */
+    color: var(--pl-ink); /* 제목 글자색 */
+} /* 제목 끝 */
+
+[data-theme="playful-lab"] :is(.devlog-excerpt, .devlog-meta, .devlog-date) /* 뉴스 보조 정보 */
+{ /* 보조 시작 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 보조 끝 */
+
+[data-theme="playful-lab"] .devlog-read /* 뉴스 읽기 링크 */
+{ /* 링크 시작 */
+    color: var(--pl-link); /* 링크 글자색 */
+    font-weight: 700; /* 링크 굵기 */
+} /* 링크 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"]) .devlog-tag /* 밝은 화면 뉴스 태그 */
+{ /* 태그 시작 */
+    border-radius: 999rem; /* 캡슐 모서리 */
+} /* 태그 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"]) .tag-update /* 밝은 업데이트 태그 */
+{ /* 태그 시작 */
+    background: color-mix(in srgb, var(--pl-mint) 18%, var(--pl-canvas)); /* 민트 배경 */
+    border-color: color-mix(in srgb, var(--pl-mint) 55%, transparent); /* 민트 경계선 */
+    color: #0d6b5e; /* 진한 민트 글자 */
+} /* 태그 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"]) .tag-feature /* 밝은 신기능 태그 */
+{ /* 태그 시작 */
+    background: color-mix(in srgb, var(--pl-violet) 14%, var(--pl-canvas)); /* 보라 배경 */
+    border-color: color-mix(in srgb, var(--pl-violet) 45%, transparent); /* 보라 경계선 */
+    color: #4b3bc7; /* 진한 보라 글자 */
+} /* 태그 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"]) .tag-fix /* 밝은 버그픽스 태그 */
+{ /* 태그 시작 */
+    background: color-mix(in srgb, var(--pl-orange) 16%, var(--pl-canvas)); /* 주황 배경 */
+    border-color: color-mix(in srgb, var(--pl-orange) 50%, transparent); /* 주황 경계선 */
+    color: #a3441a; /* 진한 주황 글자 */
+} /* 태그 끝 */
+
+[data-theme="playful-lab"]:not([data-color-mode="dark"]) .tag-devlog /* 밝은 데브로그 태그 */
+{ /* 태그 시작 */
+    background: #fff6cc; /* 노랑 배경 */
+    border-color: #e9c84a; /* 노랑 경계선 */
+    color: #7a5a00; /* 진한 노랑 글자 */
+} /* 태그 끝 */
+
 [data-theme="playful-lab"] .game-info /* 게임 정보 */
 { /* 정보 시작 */
     background: var(--pl-canvas); /* 정보 배경 */

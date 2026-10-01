@@ -5,6 +5,8 @@ import { getProductSaleState } from "@/lib/products/status"; // 판매 상태 �
 import AdminHeader from "../news/admin-header"; // 관리자 공통 메뉴
 import DeleteProductButton from "./delete-product-button"; // 삭제 확인 버튼
 import { deleteProduct } from "./actions"; // 상품 삭제 액션
+import AdminPagination from "../admin-pagination"; // 목록 페이지 이동
+import { getAdminPageInfo, getAdminTotalPages, parseAdminPage } from "@/lib/admin/pagination"; // 목록 페이지 계산
 
 interface ProductsAdminPageProps // 관리 화면 속성
 { // 형식 시작
@@ -21,9 +23,11 @@ export default async function ProductsAdminPage({ searchParams }: ProductsAdminP
     await requireAdmin("/admin/products"); // 관리자 권한 확인
     const parameters = await searchParams; // 검색 값 읽기
     const status = typeof parameters.status === "string" ? parameters.status : ""; // 처리 상태 읽기
+    const pageInfo = getAdminPageInfo(parseAdminPage(parameters.page)); // 현재 페이지 범위
     const supabase = await createServerSupabaseClient(); // 서버 데이터 도구
-    const result = await supabase.from("products").select("id, name, price, image_path, sales_url, stock_mode, stock_quantity, publication_status, updated_at").order("display_order", { ascending: true }); // 상품 목록 조회
+    const result = await supabase.from("products").select("id, name, price, image_path, sales_url, stock_mode, stock_quantity, publication_status, updated_at", { count: "exact" }).order("display_order", { ascending: true }).range(pageInfo.from, pageInfo.to); // 상품 목록 조회
     const products = result.data ?? []; // 상품 목록
+    const totalPages = getAdminTotalPages(result.count); // 전체 페이지 수
 
     return ( // 관리 화면 반환
         <main className="admin-shell"> {/* 관리자 전체 영역 */}
@@ -46,6 +50,7 @@ export default async function ProductsAdminPage({ searchParams }: ProductsAdminP
                     ); // 상품 행 반환 끝
                 })} {/* 상품 반복 끝 */}
             </div> {/* 상품 목록 끝 */}
+            <AdminPagination basePath="/admin/products" page={pageInfo.page} totalPages={totalPages} label="상품 목록 페이지" /> {/* 페이지 이동 */}
         </main> // 관리자 전체 영역 끝
     ); // 화면 반환 끝
 } // 함수 끝

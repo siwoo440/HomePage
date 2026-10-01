@@ -670,3 +670,51 @@ body /* 관리자 문서 */
 { /* 가격 시작 */
     color: var(--pl-muted, #53677e); /* 보조 글자색 */
 } /* 가격 끝 */
+
+.editor-current-image /* 현재 대표 이미지 */
+{ /* 규칙 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 6px; /* 이미지·설명 간격 */
+    margin: 4px 0 8px; /* 바깥 여백 */
+} /* 규칙 끝 */
+
+.editor-current-image img /* 현재 대표 이미지 그림 */
+{ /* 규칙 시작 */
+    width: 100%; /* 영역 너비 */
+    aspect-ratio: 16 / 9; /* 이미지 비율 */
+    border-radius: 10px; /* 이미지 모서리 */
+    object-fit: cover; /* 영역 채움 */
+} /* 규칙 끝 */
+
+.editor-current-image figcaption /* 현재 이미지 설명 */
+{ /* 규칙 시작 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    font-size: 0.8rem; /* 설명 크기 */
+} /* 규칙 끝 */
+
+.admin-pagination /* 관리자 목록 페이지 이동 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가운데 정렬 */
+    gap: 12px; /* 요소 간격 */
+    margin: 24px 0 8px; /* 바깥 여백 */
+} /* 규칙 끝 */
+
+.admin-pagination a, .admin-pagination span[aria-disabled] /* 이전·다음 이동 */
+{ /* 규칙 시작 */
+    display: inline-flex; /* 내용 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    min-height: 44px; /* 터치 높이 */
+    padding: 0 16px; /* 좌우 여백 */
+    border: 1px solid var(--admin-line, #aebfd0); /* 테두리 */
+    border-radius: 999px; /* 캡슐 모서리 */
+    color: inherit; /* 글자색 상속 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 규칙 끝 */
+
+.admin-pagination span[aria-disabled] /* 이동 불가 버튼 */
+{ /* 규칙 시작 */
+    opacity: 0.45; /* 흐린 표시 */
+} /* 규칙 끝 */

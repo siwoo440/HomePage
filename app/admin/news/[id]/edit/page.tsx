@@ -17,7 +17,7 @@ export default async function EditNewsPage({ params }: EditNewsPageProps) // 뉴
     const { id } = await params; // 게시물 식별자 읽기
     await requireAdmin(`/admin/news/${id}/edit`); // 관리자 권한 확인
     const supabase = await createServerSupabaseClient(); // 서버 데이터 도구
-    const result = await supabase.from("news_posts").select("title, summary, content, tags, status").eq("id", id).single(); // 기존 게시물 조회
+    const result = await supabase.from("news_posts").select("title, summary, content, tags, status, cover_image_path").eq("id", id).single(); // 기존 게시물 조회
 
     if (result.error || !result.data) // 게시물 없음 확인
     { // 조건 시작
@@ -25,6 +25,8 @@ export default async function EditNewsPage({ params }: EditNewsPageProps) // 뉴
     } // 조건 끝
 
     const action = updateNewsPost.bind(null, id); // 게시물별 수정 액션
+    const { cover_image_path: coverImagePath, ...initialValue } = result.data; // 대표 이미지 경로 분리
+    const currentCoverUrl = coverImagePath ? supabase.storage.from("news-images").getPublicUrl(coverImagePath).data.publicUrl : null; // 현재 대표 이미지 주소
 
     return ( // 수정 화면 반환
         <main className="admin-shell"> {/* 관리자 전체 영역 */}
@@ -35,7 +37,7 @@ export default async function EditNewsPage({ params }: EditNewsPageProps) // 뉴
                     <h1>개발 뉴스 수정</h1> {/* 화면 제목 */}
                 </div> {/* 제목 묶음 끝 */}
             </section> {/* 화면 제목 영역 끝 */}
-            <NewsEditor action={action} submitLabel="수정 내용 저장" initialValue={result.data} /> {/* 기존 뉴스 편집기 */}
+            <NewsEditor action={action} submitLabel="수정 내용 저장" initialValue={initialValue} currentCoverUrl={currentCoverUrl} /> {/* 기존 뉴스 편집기 */}
         </main> // 관리자 전체 영역 끝
     ); // 수정 화면 반환 끝
 } // 함수 끝
