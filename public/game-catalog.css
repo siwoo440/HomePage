@@ -100,8 +100,68 @@
 { /* 규칙 시작 */
     align-items: center; /* 결과 세로 정렬 */
     display: flex; /* 결과 가로 배치 */
-    justify-content: space-between; /* 결과 양쪽 정렬 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 0.6rem; /* 요소 간격 */
     margin-bottom: 1rem; /* 목록과 간격 */
+} /* 규칙 끝 */
+
+.game-active-filters /* 적용 조건 칩 묶음 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex: 1 1 auto; /* 남은 폭 사용 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 0.4rem; /* 칩 간격 */
+} /* 규칙 끝 */
+
+.game-active-filters[hidden] /* 숨김 조건 묶음 */
+{ /* 규칙 시작 */
+    display: none; /* 화면 제외 */
+} /* 규칙 끝 */
+
+.game-filter-chip, .game-filter-reset /* 조건 칩과 초기화 버튼 */
+{ /* 규칙 시작 */
+    align-items: center; /* 세로 가운데 정렬 */
+    background: transparent; /* 투명 배경 */
+    border: 1px solid var(--border-color); /* 얇은 테두리 */
+    border-radius: 999rem; /* 캡슐 모서리 */
+    color: inherit; /* 글자색 상속 */
+    cursor: pointer; /* 선택 커서 */
+    display: inline-flex; /* 내용 배치 */
+    font: inherit; /* 글꼴 상속 */
+    font-size: 0.8rem; /* 글자 크기 */
+    min-height: 36px; /* 터치 높이 */
+    padding: 0 0.9rem; /* 좌우 여백 */
+} /* 규칙 끝 */
+
+.game-filter-chip /* 적용 조건 칩 */
+{ /* 규칙 시작 */
+    border-color: var(--accent-cyan); /* 강조 테두리 */
+} /* 규칙 끝 */
+
+.game-filter-reset /* 조건 초기화 버튼 */
+{ /* 규칙 시작 */
+    font-weight: 700; /* 버튼 굵기 */
+} /* 규칙 끝 */
+
+.game-filter-chip:hover, .game-filter-chip:focus-visible, .game-filter-reset:hover, .game-filter-reset:focus-visible /* 칩과 버튼 강조 */
+{ /* 규칙 시작 */
+    background: color-mix(in srgb, var(--accent-cyan) 14%, transparent); /* 강조 배경 */
+} /* 규칙 끝 */
+
+.game-filter-reset[hidden] /* 숨김 초기화 버튼 */
+{ /* 규칙 시작 */
+    display: none; /* 화면 제외 */
+} /* 규칙 끝 */
+
+.game-empty-message p /* 빈 결과 문장 */
+{ /* 규칙 시작 */
+    margin: 0 0 1rem; /* 아래 간격 */
+} /* 규칙 끝 */
+
+[data-theme="playful-lab"] :is(.game-filter-chip, .game-filter-reset) /* 공통 테마 칩 */
+{ /* 규칙 시작 */
+    border-color: var(--pl-violet); /* 테마 경계선 */
+    color: var(--pl-ink); /* 테마 글자색 */
 } /* 규칙 끝 */
 
 .game-result-count /* 결과 개수 */

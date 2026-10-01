@@ -59,7 +59,7 @@ export function toggleFavoriteProject(storage, id, projects = GAME_PROJECTS) // 
     } // 조건 끝
 
     const current = readProjectIds(storage, FAVORITE_PROJECTS_KEY, projects); // 기존 즐겨찾기 조회
-    const next = current.includes(id) ? current.filter((projectId) => projectId !== id) : [...current, id]; // 다음 목록 계산
+    const next = current.includes(id) ? current.filter((projectId) => projectId !== id) : [id, ...current]; // 최근 추가 우선 목록 계산
     writeProjectIds(storage, FAVORITE_PROJECTS_KEY, next); // 다음 목록 저장
     return next; // 다음 목록 반환
 } // 함수 끝
