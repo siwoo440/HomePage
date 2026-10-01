@@ -137,3 +137,49 @@
     display: inline-block; /* 여백 적용 */
     text-decoration: none; /* 밑줄 제거 */
 } /* 링크 끝 */
+
+.account /* 현재 로그인 계정 영역 */
+{ /* 영역 시작 */
+    margin-top: 28px; /* 위쪽 여백 */
+    display: grid; /* 세로 격자 */
+    gap: 10px; /* 요소 간격 */
+    padding: 20px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border); /* 영역 경계선 */
+    border-radius: var(--pl-radius-medium); /* 영역 모서리 */
+    background: var(--pl-surface); /* 영역 배경 */
+} /* 영역 끝 */
+
+.account h2 /* 계정 영역 제목 */
+{ /* 제목 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    font-size: 0.88rem; /* 제목 크기 */
+} /* 제목 끝 */
+
+.accountName /* 계정 이름 */
+{ /* 이름 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-ink); /* 주요 글자색 */
+    font-size: 1.4rem; /* 이름 크기 */
+    font-weight: 800; /* 이름 굵기 */
+} /* 이름 끝 */
+
+.account .description /* 계정 안내 문구 */
+{ /* 안내 시작 */
+    margin: 0; /* 기본 여백 제거 */
+} /* 안내 끝 */
+
+.success /* 완료 안내 */
+{ /* 완료 시작 */
+    margin: 16px 0 0; /* 위쪽 여백 */
+    padding: 12px 14px; /* 안쪽 여백 */
+    border-left: 3px solid var(--pl-success); /* 완료 강조선 */
+    background: color-mix(in srgb, var(--pl-success) 12%, var(--pl-canvas)); /* 완료 배경 */
+    color: var(--pl-ink); /* 완료 글자색 */
+} /* 완료 끝 */
+
+.success:focus-visible, .error:focus-visible /* 안내 프로그램 초점 */
+{ /* 초점 시작 */
+    outline: var(--pl-focus-ring); /* 공통 초점 외곽선 */
+    outline-offset: 3px; /* 외곽선 간격 */
+} /* 초점 끝 */

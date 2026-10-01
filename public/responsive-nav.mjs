@@ -1,3 +1,5 @@
+import { getSessionStorage, initializeMemberActions } from "./member-session.mjs"; // 회원 상태 표시 도구
+
 export const DRAWER_MAX_WIDTH = 959; // 서랍 최대 너비
 export const COLOR_MODE_STORAGE_KEY = "devforge-color-mode"; // 색상 모드 저장 키
 
@@ -326,6 +328,7 @@ export function initializeResponsiveNavigation(root = document, view = window) /
     root.addEventListener("keydown", onKeyDown); // 키 처리기 등록
     view.addEventListener("resize", onResize); // 크기 처리기 등록
     updateThemeToggle(); // 테마 버튼 초기화
+    initializeMemberActions(root, view.location, getSessionStorage(view)); // 헤더·서랍 회원 상태 반영
     const controller = Object.freeze({ open, close, destroy }); // 제어기 생성
     root.__devforgeResponsiveNav = controller; // 제어기 저장
     handleContactHash(root, view); // 문의 해시 처리
