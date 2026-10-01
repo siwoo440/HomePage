@@ -220,9 +220,9 @@ test("뉴스 커뮤니티 에타가 기기별 안전한 구성을 제공한다",
     const etaCss = readPublicFile("project_eta/ProjectEta_Style.css"); // 에타 CSS 읽기
     assert.match(newsCss, /@media \(max-width: 767px\)[\s\S]*?\.news-row[\s\S]*?grid-template-columns:\s*1fr/); // 뉴스 모바일 세로 확인
     assert.match(newsCss, /@media \(min-width: 900px\) and \(max-width: 1279px\)[\s\S]*?\.news-row[\s\S]*?grid-template-columns:/); // 뉴스 태블릿 가로 확인
-    assert.match(communityCss, /@media \(min-width: 768px\) and \(max-width: 1279px\)[\s\S]*?\.platform-stack[\s\S]*?repeat\(3,/); // 커뮤니티 태블릿 세 열 확인
-    assert.match(communityCss, /@media \(max-width: 767px\)[\s\S]*?\.platform-stack[\s\S]*?repeat\(2,/); // 커뮤니티 모바일 두 열 확인
-    assert.match(communityCss, /@media \(max-width: 419px\)[\s\S]*?\.platform-stack[\s\S]*?grid-template-columns:\s*1fr/); // 커뮤니티 작은 모바일 한 열 확인
+    assert.match(communityCss, /\.platform-stack \/\* 플랫폼 전체 묶음 \*\/\s*\{[^}]*grid-template-columns: minmax\(0, 1fr\)/); // 커뮤니티 플랫폼 한 줄 하나 확인
+    assert.doesNotMatch(communityCss, /\.platform-stack[^{]*\{[^}]*repeat\(/); // 커뮤니티 플랫폼 여러 열 제거 확인
+    assert.match(communityCss, /@media \(max-width: 720px\)[\s\S]*?\.platform-grid[\s\S]*?grid-template-columns:\s*1fr/); // 커뮤니티 모바일 내용 한 열 확인
     assert.match(etaCss, /@media \(max-width: 1279px\)[\s\S]*?\.fusion-tree-shell[\s\S]*?overflow-x:\s*auto/); // 에타 트리 가로 이동 확인
 }); // 테스트 끝
 

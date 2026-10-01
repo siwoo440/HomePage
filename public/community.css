@@ -21,16 +21,26 @@
 .community-hero /* 커뮤니티 소개 */
 { /* 소개 시작 */
     display: grid; /* 격자 배치 */
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 360px); /* 소개와 상태 배치 */
-    gap: 54px; /* 영역 간격 */
-    align-items: end; /* 아래 기준 정렬 */
+    grid-template-columns: minmax(0, 1fr); /* 한 열 배치 */
+    gap: 28px; /* 영역 간격 */
+    justify-items: center; /* 가로 가운데 정렬 */
+    text-align: center; /* 글자 가운데 정렬 */
 } /* 소개 끝 */
+.community-hero .hero-copy /* 커뮤니티 소개 문구 */
+{ /* 소개 문구 시작 */
+    max-width: 760px; /* 문구 최대 너비 */
+} /* 소개 문구 끝 */
+.community-hero .hero-copy > p:last-child /* 커뮤니티 소개 설명 */
+{ /* 설명 시작 */
+    margin-inline: auto; /* 설명 가운데 배치 */
+} /* 설명 끝 */
 .community-hero h1 /* 커뮤니티 제목 */
 { /* 제목 시작 */
     font-size: clamp(2.8rem, 7vw, 5.2rem); /* 반응형 제목 크기 */
 } /* 제목 끝 */
 .hero-signal /* 연동 상태 요약 */
 { /* 상태 요약 시작 */
+    width: min(100%, 460px); /* 상태 요약 너비 */
     margin-bottom: 18px; /* 아래 여백 */
     padding: 24px; /* 안쪽 여백 */
     border: 1px solid rgba(0, 245, 212, 0.24); /* 사이언 테두리 */
@@ -38,7 +48,7 @@
 } /* 상태 요약 끝 */
 .hero-signal strong /* 상태 제목 */
 { /* 상태 제목 시작 */
-    display: block; /* 한 줄 배치 */
+    display: inline-block; /* 상태 점 옆 배치 */
     margin-bottom: 8px; /* 아래 여백 */
     font-family: Orbitron, "Segoe UI", sans-serif; /* 기술 글꼴 */
     letter-spacing: 0.06em; /* 글자 간격 */
@@ -66,7 +76,7 @@
     border: 1px solid var(--border); /* 영역 테두리 */
     background: rgba(13, 21, 38, 0.76); /* 반투명 배경 */
     display: grid; /* 격자 배치 */
-    grid-template-columns: minmax(260px, 1fr) minmax(220px, 300px) minmax(180px, 240px); /* 세 영역 배치 */
+    grid-template-columns: minmax(240px, 1fr) minmax(220px, 300px) minmax(280px, 360px); /* 세 영역 배치 */
     gap: 24px; /* 영역 간격 */
     align-items: end; /* 아래 기준 정렬 */
 } /* 선택 영역 끝 */
@@ -113,8 +123,17 @@
     color: var(--muted); /* 보조 글자색 */
     font-size: 0.75rem; /* 레이블 크기 */
 } /* 레이블 끝 */
+.active-tag-row /* 해시태그와 복사 버튼 줄 */
+{ /* 줄 시작 */
+    margin-top: 6px; /* 레이블 아래 간격 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양끝 배치 */
+    gap: 12px; /* 요소 간격 */
+} /* 줄 끝 */
 .active-tag strong /* 해시태그 값 */
 { /* 값 시작 */
+    min-width: 0; /* 긴 값 축소 허용 */
     color: var(--cyan); /* 사이언 글자색 */
     font-family: Consolas, monospace; /* 코드 글꼴 */
     overflow-wrap: anywhere; /* 긴 값 줄바꿈 */
@@ -247,9 +266,14 @@
     gap: 30px; /* 영역 간격 */
     align-items: end; /* 아래 기준 정렬 */
 } /* 목록 제목 끝 */
+.platforms-heading > div /* 목록 제목 묶음 */
+{ /* 제목 묶음 시작 */
+    flex-shrink: 0; /* 제목 너비 유지 */
+} /* 제목 묶음 끝 */
 .platforms-heading h2 /* 목록 제목 글자 */
 { /* 제목 글자 시작 */
     margin-bottom: 0; /* 아래 여백 제거 */
+    white-space: nowrap; /* 제목 한 줄 유지 */
     font-size: clamp(1.8rem, 4vw, 2.7rem); /* 반응형 제목 */
 } /* 제목 글자 끝 */
 .platforms-heading > p /* 목록 설명 */
@@ -262,6 +286,7 @@
 .platform-stack /* 플랫폼 전체 묶음 */
 { /* 묶음 시작 */
     display: grid; /* 세로 격자 */
+    grid-template-columns: minmax(0, 1fr); /* 한 줄에 한 플랫폼 */
     gap: 26px; /* 영역 간격 */
 } /* 묶음 끝 */
 .platform-section /* 플랫폼 영역 */
@@ -529,7 +554,6 @@
 { /* 구간 시작 */
     .platform-stack /* 모바일 플랫폼 목록 */
     { /* 규칙 시작 */
-        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 플랫폼 두 열 */
         gap: 14px; /* 플랫폼 간격 */
     } /* 규칙 끝 */
 
@@ -557,26 +581,12 @@
 { /* 구간 시작 */
     .platform-stack /* 태블릿 플랫폼 목록 */
     { /* 규칙 시작 */
-        grid-template-columns: repeat(3, minmax(0, 1fr)); /* 플랫폼 세 열 */
-        gap: 16px; /* 플랫폼 간격 */
+        gap: 20px; /* 플랫폼 간격 */
     } /* 규칙 끝 */
 
-    .platform-section /* 태블릿 플랫폼 영역 */
+    .platform-grid /* 태블릿 플랫폼 내용 */
     { /* 규칙 시작 */
-        min-width: 0; /* 격자 넘침 차단 */
-        padding: 20px; /* 영역 안쪽 여백 */
-    } /* 규칙 끝 */
-
-    .platform-heading /* 태블릿 플랫폼 제목 */
-    { /* 규칙 시작 */
-        align-items: flex-start; /* 위쪽 정렬 */
-        flex-direction: column; /* 제목 세로 배치 */
-    } /* 규칙 끝 */
-
-    .platform-grid, /* 태블릿 플랫폼 내용 */
-    .media-card /* 태블릿 영상 카드 */
-    { /* 규칙 시작 */
-        grid-template-columns: 1fr; /* 내용 한 열 */
+        grid-template-columns: 1fr; /* 소식과 반응 세로 배치 */
     } /* 규칙 끝 */
 
     .signal-card, /* 태블릿 소식 카드 */
@@ -593,15 +603,10 @@
     } /* 규칙 끝 */
 } /* 구간 끝 */
 
-@media (max-width: 419px) /* 커뮤니티 작은 모바일 */
-{ /* 구간 시작 */
-    .platform-stack /* 작은 모바일 플랫폼 목록 */
-    { /* 규칙 시작 */
-        grid-template-columns: 1fr; /* 플랫폼 한 열 */
-    } /* 규칙 끝 */
-} /* 구간 끝 */
 .hashtag-copy-button /* 해시태그 복사 버튼 */
 { /* 규칙 시작 */
+    flex: 0 0 auto; /* 버튼 크기 유지 */
+    white-space: nowrap; /* 버튼 글자 한 줄 */
     background: rgba(7, 19, 34, 0.72); /* 버튼 배경 */
     border: 1px solid rgba(94, 226, 202, 0.45); /* 버튼 테두리 */
     border-radius: 999px; /* 둥근 모양 */
