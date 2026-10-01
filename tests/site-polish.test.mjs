@@ -128,3 +128,12 @@ test("커뮤니티 소개는 가운데, 해시태그 복사는 태그 오른쪽,
     assert.match(css, /\.hashtag-copy-button \/\* 해시태그 복사 버튼 \*\/\s*\{[^}]*height: 1\.65rem;/); // 복사 버튼 글자 높이 확인
     assert.match(fs.readFileSync("public/playful-lab-theme.css", "utf8"), /\[data-responsive-page="community"\] \.hashtag-copy-button[^{]*\{[^}]*min-height: 0;/); // 공통 버튼 최소 높이 해제 확인
 }); // 테스트 끝
+
+test("개발 뉴스 소개와 필터는 카드 안쪽 여백을 두고 버튼과 개수를 한 줄에 배치한다", () => // 뉴스 상단 배치 계약
+{ // 테스트 시작
+    const css = fs.readFileSync("public/devlog.css", "utf8"); // 공통 하위 페이지 스타일
+    assert.match(css, /\.site-header \/\* 상단 소개 \*\/\s*\{[^}]*padding: 0 clamp\(/); // 소개 안쪽 여백 확인
+    assert.match(css, /\.filter-panel \/\* 필터 영역 \*\/\s*\{[^}]*padding: clamp\([^;]*\) clamp\(/); // 필터 안쪽 여백 확인
+    assert.match(css, /\.filter-panel > div:first-child[^{]*\{[^}]*grid-column: 1 \/ -1;/); // 필터 제목 한 줄 확인
+    assert.match(css, /\.result-count \/\* 결과 개수 \*\/\s*\{(?![^}]*Consolas)[^}]*white-space: nowrap;/); // 개수 문구 자연 글꼴 확인
+}); // 테스트 끝

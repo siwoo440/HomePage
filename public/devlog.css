@@ -146,7 +146,7 @@ button /* 모든 버튼 */
 } /* 너비 설정 끝 */
 .site-header /* 상단 소개 */
 { /* 상단 설정 시작 */
-    padding-bottom: 54px; /* 소개 아래 여백 */
+    padding: 0 clamp(20px, 5vw, 56px) 54px; /* 소개 안쪽 여백 */
     border-bottom: 1px solid var(--border); /* 소개 구분선 */
 } /* 상단 설정 끝 */
 .top-nav /* 상단 메뉴 */
@@ -206,17 +206,25 @@ h1 span /* 제목 강조 */
 } /* 강조 설정 끝 */
 .hero-copy > p:last-child /* 페이지 설명 */
 { /* 설명 설정 시작 */
+    margin-bottom: 0; /* 아래 여백 제거 */
+    text-wrap: pretty; /* 마지막 줄 한 단어 방지 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
     color: var(--muted); /* 보조 글자색 */
     font-size: 1.06rem; /* 설명 글자 크기 */
 } /* 설명 설정 끝 */
 .filter-panel /* 필터 영역 */
 { /* 필터 설정 시작 */
-    padding: 46px 0 28px; /* 필터 위아래 여백 */
+    margin-top: 28px; /* 소개와 간격 */
+    padding: clamp(24px, 4vw, 36px) clamp(20px, 5vw, 56px); /* 필터 안쪽 여백 */
     display: grid; /* 격자 배치 */
-    grid-template-columns: minmax(220px, 1fr) auto; /* 제목과 버튼 배치 */
-    gap: 24px; /* 영역 간격 */
-    align-items: end; /* 아래 기준 정렬 */
+    grid-template-columns: minmax(0, 1fr) auto; /* 버튼과 개수 배치 */
+    gap: 18px 24px; /* 영역 간격 */
+    align-items: center; /* 세로 가운데 정렬 */
 } /* 필터 설정 끝 */
+.filter-panel > div:first-child /* 필터 제목 묶음 */
+{ /* 제목 묶음 설정 시작 */
+    grid-column: 1 / -1; /* 제목 한 줄 전체 */
+} /* 제목 묶음 설정 끝 */
 .filter-panel h2 /* 필터 제목 */
 { /* 필터 제목 설정 시작 */
     margin-bottom: 0; /* 아래 여백 제거 */
@@ -227,7 +235,7 @@ h1 span /* 제목 강조 */
     display: flex; /* 가로 배치 */
     flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
     gap: 10px; /* 버튼 간격 */
-    justify-content: flex-end; /* 오른쪽 정렬 */
+    justify-content: flex-start; /* 왼쪽 정렬 */
 } /* 버튼 묶음 설정 끝 */
 .filter-button /* 필터 버튼 */
 { /* 버튼 설정 시작 */
@@ -250,11 +258,11 @@ h1 span /* 제목 강조 */
 } /* 선택 설정 끝 */
 .result-count /* 결과 개수 */
 { /* 결과 설정 시작 */
-    grid-column: 1 / -1; /* 전체 너비 사용 */
     margin: 0; /* 기본 여백 제거 */
     color: var(--muted); /* 보조 글자색 */
-    font-family: Consolas, monospace; /* 숫자용 글꼴 */
+    font-size: 0.9rem; /* 개수 글자 크기 */
     text-align: right; /* 오른쪽 정렬 */
+    white-space: nowrap; /* 개수 한 줄 유지 */
 } /* 결과 설정 끝 */
 .load-status /* 원격 조회 상태 */
 { /* 조회 상태 설정 시작 */

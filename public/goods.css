@@ -12,6 +12,12 @@
     gap: 24px; /* 요소 간격 */
 } /* 상품 제목 끝 */
 
+.goods-heading > div:first-child /* 상품 목록 제목 묶음 */
+{ /* 제목 묶음 시작 */
+    flex-shrink: 0; /* 제목 너비 유지 */
+    white-space: nowrap; /* 제목 한 줄 유지 */
+} /* 제목 묶음 끝 */
+
 .goods-heading h2 /* 상품 목록 이름 */
 { /* 상품 목록 이름 시작 */
     margin-bottom: 0; /* 아래 여백 제거 */
