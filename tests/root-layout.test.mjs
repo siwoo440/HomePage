@@ -11,7 +11,7 @@ const layoutPath = path.join(projectRoot, "app", "layout.tsx"); // 루트 화면
 test("루트 HTML은 수화 전에 저장된 색상 모드를 복원한다", async () => // 초기 색상 모드 연결 검증
 { // 테스트 시작
     const layout = await readFile(layoutPath, "utf8"); // 루트 화면 읽기
-    assert.match(layout, /<html lang="ko" data-theme="playful-lab" suppressHydrationWarning><head><script src="\/color-mode-bootstrap\.js"><\/script><link rel="stylesheet" href="\/site-header\.css" \/><link rel="stylesheet" href="\/responsive-shell\.css" \/><link rel="stylesheet" href="\/playful-lab-theme\.css" \/><\/head>/, "초기 색상 모드 구조 누락"); // 스크립트 선행 순서 확인
+    assert.match(layout, /<html lang="ko" data-theme="playful-lab" suppressHydrationWarning><head><script src="\/color-mode-bootstrap\.js"><\/script><script src="\/i18n-bootstrap\.js" data-i18n-page="next"><\/script><link rel="stylesheet" href="\/site-header\.css" \/><link rel="stylesheet" href="\/responsive-shell\.css" \/><link rel="stylesheet" href="\/playful-lab-theme\.css" \/><\/head>/, "초기 색상 모드 구조 누락"); // 스크립트 선행 순서 확인
     assert.equal((layout.match(/color-mode-bootstrap\.js/g) ?? []).length, 1); // 초기화 스크립트 단일 연결 확인
 }); // 테스트 끝
 

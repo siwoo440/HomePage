@@ -688,7 +688,8 @@
     "프로젝트 U 게임 콘셉트 이미지": "Project U game concept art",
     "프로젝트 V 게임 콘셉트 이미지": "Project V game concept art",
     "title::게임": "Game",
-    "title::프로젝트": "Projects"
+    "title::프로젝트": "Projects",
+    "오후": "PM"
   },
   "patterns": [
     {
@@ -826,6 +827,11 @@
     {
       "ko": "개발 상태: {0} 조건 해제",
       "en": "Remove filter: Status: {0}",
+      "compound": true
+    },
+    {
+      "ko": "1개 프로젝트 · 전체 {0}개 중",
+      "en": "1 project · out of {0}",
       "compound": true
     }
   ]

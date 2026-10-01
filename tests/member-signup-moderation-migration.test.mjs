@@ -23,7 +23,7 @@ test("관리자만 댓글 공개 상태와 신고 처리 상태를 바꿀 수 �
     assert.match(migration, /create policy "admins update reports" on public\.comment_reports for update to authenticated using \(\(select public\.is_admin\(\)\)\) with check \(\(select public\.is_admin\(\)\)\)/); // 관리자 정책 확인
 }); // 테스트 끝
 
-test("연결 점검 도구와 README가 네 번째 마이그레이션까지 순서대로 안내한다", () => // 적용 순서 테스트
+test("연결 점검 도구와 README가 모든 마이그레이션을 순서대로 안내한다", () => // 적용 순서 테스트
 { // 테스트 시작
     const files = fs.readdirSync("supabase/migrations").filter((name) => name.endsWith(".sql")).sort(); // 저장소 마이그레이션
     const readme = fs.readFileSync("README.md", "utf8"); // 안내 문서

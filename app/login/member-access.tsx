@@ -1,5 +1,6 @@
 "use client"; // 브라우저 회원 상태 모듈
 
+import Link from "next/link"; // 내부 이동 링크
 import { useEffect, useRef, useState } from "react"; // 화면 상태 도구
 import { MEMBER_DEMO_STORAGE_KEY, parseDemoMemberProfile } from "@/lib/member/demo-session"; // 시연 회원 도구
 import type { AuthSettings } from "@/lib/member/auth-providers"; // 인증 설정 형식
@@ -158,6 +159,7 @@ export default function MemberAccess({ mode, returnTo, settings }: MemberAccessP
                 <p className={styles.description}>{mode === "demo" ? "시연 닉네임은 현재 탭에만 저장되며 서버로 전송하지 않습니다." : "로그아웃하면 이 브라우저의 로그인 세션이 종료됩니다."}</p> {/* 계정 안내 */}
                 {state.profileError ? <p className={styles.error} role="alert">회원 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p> : null} {/* 프로필 조회 실패 안내 */}
                 {mode === "supabase" && state.userId && !state.profileError ? <MemberNicknameForm userId={state.userId} nickname={state.nickname} requireConsent={!state.nickname} onSaved={(nickname) => setState({ ...state, displayName: nickname, nickname })} /> : null} {/* 닉네임 설정·첫 가입 동의 */}
+                <p className={styles.accountLinks}><Link href="/account">내 정보 관리 (닉네임·내 댓글·탈퇴) →</Link></p> {/* 내 정보 이동 */}
                 <button className={styles.primaryButton} type="button" onClick={handleSignOut} disabled={isSigningOut} aria-busy={isSigningOut}>{isSigningOut ? "로그아웃 중…" : "로그아웃"}</button> {/* 로그아웃 버튼 */}
                 {notice} {/* 처리 결과 안내 */}
             </section> // 현재 계정 영역 끝

@@ -1,7 +1,15 @@
 (function prepareLanguage() // 언어 선택 준비
 { // 함수 시작
     var root = document.documentElement; // 문서 루트
-    root.dataset.i18nPage = "static"; // 번역 가능한 정적 페이지 표시
+    var script = document.currentScript; // 현재 준비 스크립트
+    var pageType = script && script.dataset.i18nPage === "next" ? "next" : "static"; // 정적·Next 화면 구분
+    var path = window.location.pathname; // 현재 경로
+    if (pageType === "next" && (path === "/admin" || path.indexOf("/admin/") === 0)) // 관리자 화면 확인
+    { // 조건 시작
+        root.dataset.i18nPage = "none"; // 관리자 화면은 한국어 유지
+        return; // 준비 종료
+    } // 조건 끝
+    root.dataset.i18nPage = pageType; // 번역 가능한 화면 종류 표시
     try // 저장소 접근 시도
     { // 시도 시작
         var requested = new URLSearchParams(window.location.search).get("lang"); // 주소 요청 언어

@@ -1,5 +1,5 @@
 import { getSessionStorage, initializeMemberActions } from "./member-session.mjs"; // 회원 상태 표시 도구
-import { getLanguageSwitchUrl, isTranslatablePage, readStoredLanguage, resolveLanguage, saveLanguage, startPageTranslation } from "./i18n.mjs"; // 페이지 번역 도구
+import { getLanguageSwitchUrl, getPageType, isTranslatablePage, readStoredLanguage, resolveLanguage, saveLanguage, startPageTranslation } from "./i18n.mjs"; // 페이지 번역 도구
 
 export const DRAWER_MAX_WIDTH = 959; // 서랍 최대 너비
 export const COLOR_MODE_STORAGE_KEY = "devforge-color-mode"; // 색상 모드 저장 키
@@ -418,7 +418,10 @@ export function initializeResponsiveNavigation(root = document, view = window) /
 if (typeof document !== "undefined" && typeof window !== "undefined") // 브라우저 환경 확인
 { // 조건 시작
     window.__devforgeResponsiveNavInit = initializeResponsiveNavigation; // 화면 전환형 페이지 재연결 함수
-    void startPageTranslation(document, window); // 선택 언어로 페이지 번역
+    if (getPageType(document) === "static") // 정적 페이지 확인(Next 화면은 연결 뒤 React가 시작)
+    { // 조건 시작
+        void startPageTranslation(document, window); // 선택 언어로 페이지 번역
+    } // 조건 끝
     if (document.readyState === "loading") // 문서 준비 상태 확인
     { // 조건 시작
         document.addEventListener("DOMContentLoaded", () => initializeResponsiveNavigation(document, window), { once: true }); // 준비 후 초기화

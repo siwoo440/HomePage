@@ -1,0 +1,91 @@
+.stack /* 관리 영역 묶음 */
+{ /* 묶음 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 20px; /* 영역 간격 */
+    min-width: 0; /* 축소 허용 */
+} /* 묶음 끝 */
+
+.comments /* 내 댓글 목록 */
+{ /* 목록 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 12px; /* 항목 간격 */
+    margin: 8px 0 0; /* 위쪽 여백 */
+    padding: 0; /* 기본 여백 제거 */
+    list-style: none; /* 목록 기호 제거 */
+} /* 목록 끝 */
+
+.comment /* 댓글 항목 */
+{ /* 항목 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 6px; /* 내부 간격 */
+    padding: 12px 14px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border); /* 항목 경계선 */
+    border-radius: var(--pl-radius-small); /* 항목 모서리 */
+    min-width: 0; /* 축소 허용 */
+} /* 항목 끝 */
+
+.commentMeta /* 댓글 정보 줄 */
+{ /* 정보 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 4px 10px; /* 정보 간격 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    font-size: 0.85rem; /* 정보 글자 크기 */
+} /* 정보 끝 */
+
+.commentMeta a /* 뉴스 링크 */
+{ /* 링크 시작 */
+    color: var(--pl-link); /* 링크 글자색 */
+    font-weight: 700; /* 링크 굵기 */
+} /* 링크 끝 */
+
+.hidden /* 숨김 표시 */
+{ /* 표시 시작 */
+    color: var(--pl-danger); /* 경고 글자색 */
+    font-weight: 700; /* 표시 굵기 */
+} /* 표시 끝 */
+
+.commentBody /* 댓글 내용 */
+{ /* 내용 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+    white-space: pre-wrap; /* 줄바꿈 유지 */
+} /* 내용 끝 */
+
+.deleteButton, .dangerButton /* 삭제 버튼 */
+{ /* 버튼 시작 */
+    justify-self: start; /* 왼쪽 정렬 */
+    min-height: 44px; /* 터치 높이 */
+    padding: 0 16px; /* 좌우 여백 */
+    border: 1px solid var(--pl-danger); /* 경고 경계선 */
+    border-radius: var(--pl-radius-small); /* 버튼 모서리 */
+    background: transparent; /* 투명 배경 */
+    color: var(--pl-danger); /* 경고 글자색 */
+    font: inherit; /* 본문 글꼴 */
+    font-weight: 700; /* 버튼 굵기 */
+    cursor: pointer; /* 클릭 커서 */
+} /* 버튼 끝 */
+
+.dangerButton /* 탈퇴 버튼 */
+{ /* 버튼 시작 */
+    background: var(--pl-danger); /* 경고 배경 */
+    color: #ffffff; /* 흰 글자 */
+} /* 버튼 끝 */
+
+.deleteButton:disabled, .dangerButton:disabled /* 비활성 삭제 버튼 */
+{ /* 비활성 시작 */
+    cursor: not-allowed; /* 비활성 커서 */
+    opacity: 0.55; /* 비활성 표시 */
+} /* 비활성 끝 */
+
+.deleteButton:focus-visible, .dangerButton:focus-visible /* 삭제 버튼 초점 */
+{ /* 초점 시작 */
+    outline: var(--pl-focus-ring); /* 공통 초점 외곽선 */
+    outline-offset: 3px; /* 외곽선 간격 */
+} /* 초점 끝 */
+
+.danger /* 탈퇴 영역 */
+{ /* 영역 시작 */
+    border-color: color-mix(in srgb, var(--pl-danger) 55%, var(--pl-border)); /* 경고 경계선 */
+} /* 영역 끝 */

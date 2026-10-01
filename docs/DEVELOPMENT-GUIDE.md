@@ -148,6 +148,7 @@ Next.js 서버
 | --- | --- | --- |
 | `/` | `app/page.tsx` | `/main.html`로 이동 |
 | `/login` | `app/login/` | 회원 로그인과 간편 로그인 |
+| `/account` | `app/account/` | 닉네임 변경, 내 댓글 확인·삭제, 회원 탈퇴 |
 | `/login/forgot` | `app/login/forgot/` | 비밀번호 재설정 메일 요청 |
 | `/login/reset` | `app/login/reset/` | 메일 링크로 새 비밀번호 저장 |
 | `/signup` | `app/signup/` | 이메일 회원가입과 간편 가입 |
@@ -160,6 +161,8 @@ Next.js 서버
 | `/admin/demo` | `app/admin/demo/` | Supabase 없는 개발 환경 전용 관리자 데모 |
 | `/auth/callback` | `app/auth/callback/route.ts` | Supabase 인증 결과 처리 |
 | `/auth/confirm` | `app/auth/confirm/route.ts` | 이메일 인증·비밀번호 재설정 링크 확인 |
+| `/robots.txt` | `app/robots.ts` | 검색엔진 수집 규칙(`SITE_URL` 또는 Vercel 운영 주소 기준) |
+| `/sitemap.xml` | `app/sitemap.ts` | 공개 페이지·게임 소개 사이트맵(성인 게임 제외) |
 
 ---
 ### 서버 API
@@ -330,7 +333,8 @@ devforge_privacy_consent_v1
 
 공개 정적 페이지는 같은 주소에서 한국어 원문을 영어 사전으로 바꿔 보여 줍니다. 페이지 머리의 `public/i18n-bootstrap.js`가 정적 페이지 표시(`data-i18n-page="static"`)를 남기고, 영어를 고른 경우 번역이 끝날 때까지 본문을 최대 3초 가립니다. `public/responsive-nav.mjs`가 헤더 `EN`/`KO` 버튼과 서랍 메뉴 `English`/`한국어` 버튼을 만들고 `public/i18n.mjs`의 번역을 시작합니다. Next.js 화면은 표시가 없으므로 버튼도 번역도 생기지 않습니다.
 
-- 사전: `public/i18n/en/site.json`(공통 페이지·공통 모듈)과 게임 폴더별 `project_*.json`. 형식은 `{ "entries": { 한국어: 영어 }, "patterns": [{ "ko": "{0}개의 뉴스", "en": "{0} posts" }] }`입니다.
+- Next 화면: 루트 레이아웃이 `data-i18n-page="next"` 준비 스크립트를 넣고, `app/page-translator.tsx`가 하이드레이션이 끝난 뒤(`useEffect`) 같은 번역기를 시작해 React와 충돌하지 않습니다. 관리자 화면(`/admin`)은 `none`으로 표시해 번역과 언어 버튼을 끕니다. 서버가 그린 한국어 날짜(`2025년 4월 28일`, `2025. 4. 28. 오후 1:05`)는 번역기가 영어 날짜로 바꿉니다.
+- 사전: `public/i18n/en/site.json`(공통 페이지·공통 모듈), `next.json`(Next 화면과 회원·댓글 문구)과 게임 폴더별 `project_*.json`. 형식은 `{ "entries": { 한국어: 영어 }, "patterns": [{ "ko": "{0}개의 뉴스", "en": "{0} posts" }] }`입니다.
 - 번역 순서: 문맥별 문구(`title::게임`, `data-i18n-context`가 붙은 요소 안) → 문구 → 형식 문구(고정 글자가 긴 것부터) → 따옴표·`#` 태그·`·`·`+`·`→`·`/` 조합의 조각별 번역 순서입니다.
 - 화면 글자와 `alt`·`title`·`aria-label`·`placeholder` 속성만 바꾸고 `data-*` 값은 그대로 두어 필터·저장 로직이 깨지지 않습니다. 이후 스크립트가 바꾸는 글자도 `MutationObserver`로 번역합니다.
 - `data-i18n-skip`·`translate="no"` 요소(언어 버튼, 실제 SNS 해시태그)는 번역하지 않습니다. 날짜는 `getPageLocale()`로 영어 화면에서 `en-US` 형식을 씁니다.
@@ -414,8 +418,9 @@ devforge_privacy_consent_v1
 2. `supabase/migrations/202609110001_admin_products.sql`
 3. `supabase/migrations/202609120001_member_comments.sql`
 4. `supabase/migrations/202610010001_member_signup_moderation.sql`
+5. `supabase/migrations/202610010002_member_account_deletion.sql`
 
-첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다.
+첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다. 다섯 번째 파일은 로그인 회원이 본인 계정만 지우는 `delete_own_account` 함수를 만듭니다(관리자 계정과 남은 댓글 이미지가 있으면 거부).
 
 ---
 ### 관리자 권한
@@ -598,7 +603,7 @@ ChatBot 기능 개발은 별도 저장소에서 진행합니다. 두 프로젝�
 - 상품 판매처와 공식 재고 API가 확정되지 않음
 - 약관과 개인정보처리방침은 개발 초안이며 법률 전문가 검토가 필요함
 - ChatBot 링크가 현재 `http://localhost:3001/`인 로컬 임시 주소임
-- 연령 확인은 전문 본인 인증 서비스가 아닌 사이트 내부 접근 확인 방식임
+- 연령 확인은 전문 본인 인증 서비스가 아닌 사이트 내부 접근 확인 방식임. 청소년보호법상 생년월일 자기 입력만으로는 부족하므로 성인 콘텐츠 공개 전 휴대폰·카드 본인인증 연결 필요(`docs/EXTERNAL-SERVICES.md` 9절)
 
 확인되지 않은 외부 서비스 상태를 구현 완료로 판단하지 않습니다. 계정과 키가 필요한 항목은 연결 후 별도 통합 검사를 수행해야 합니다.
 

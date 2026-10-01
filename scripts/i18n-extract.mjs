@@ -4,6 +4,11 @@ import { fileURLToPath } from "node:url"; // 모듈 주소 변환 도구
 import ts from "typescript"; // 자바스크립트 구문 분석 도구
 
 export const PUBLIC_ROOT = fileURLToPath(new URL("../public/", import.meta.url)); // 공개 폴더 위치
+export const PROJECT_ROOT = fileURLToPath(new URL("../", import.meta.url)); // 저장소 위치
+export const NEXT_BUNDLE = "next"; // Next 화면 사전 이름
+const NEXT_SOURCE_DIRECTORIES = ["app", "lib/member", "lib/comments", "lib/age-gate"]; // Next 화면 문구 폴더
+const NEXT_SOURCE_FILES = ["lib/forms/validation.ts", "lib/news/demo-posts.ts"]; // Next 화면 문구 개별 파일
+const NEXT_EXCLUDED = [/^app\/admin\//, /^lib\/comments\/moderation\.ts$/]; // 관리자 전용 제외
 export const DICTIONARY_ROOT = path.join(PUBLIC_ROOT, "i18n", "en"); // 영어 사전 위치
 export const SITE_BUNDLE = "site"; // 공통 사전 이름
 const HANGUL = /[가-힣ㄱ-ㆎ]/; // 한글 판별 규칙
@@ -146,11 +151,19 @@ function collectTemplate(template, target) // 형식 문구 기록
     } // 반복 끝
 } // 함수 끝
 
-export function collectScript(code, target) // 스크립트 문구 수집
+export function collectScript(code, target, kind = ts.ScriptKind.JS) // 스크립트 문구 수집
 { // 함수 시작
-    const file = ts.createSourceFile("inline.js", code, ts.ScriptTarget.Latest, true, ts.ScriptKind.JS); // 구문 분석
+    const file = ts.createSourceFile(kind === ts.ScriptKind.TSX ? "inline.tsx" : kind === ts.ScriptKind.TS ? "inline.ts" : "inline.js", code, ts.ScriptTarget.Latest, true, kind); // 구문 분석
     const visit = (node) => // 노드 방문
     { // 방문 시작
+        if (ts.isJsxText(node)) // JSX 글자 확인
+        { // 조건 시작
+            addEntry(target, decodeEntities(node.text)); // 화면 글자 수집(문자 참조 해석)
+        } // 조건 끝
+        if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) // 모듈 경로 확인
+        { // 조건 시작
+            return; // 경로 문자열 제외
+        } // 조건 끝
         if (ts.isStringLiteral(node) || ts.isNoSubstitutionTemplateLiteral(node)) // 일반 문자열 확인
         { // 조건 시작
             collectLiteral(node.text, target); // 문자열 수집
@@ -215,9 +228,37 @@ export function extractFile(relativePath, root = PUBLIC_ROOT) // 파일 하나 �
     return target; // 결과 반환
 } // 함수 끝
 
+export function listNextSourceFiles(root = PROJECT_ROOT) // Next 화면 문구 파일 목록
+{ // 함수 시작
+    const walk = (directory) => fs.readdirSync(path.join(root, directory), { withFileTypes: true }).flatMap((entry) => // 폴더 반복
+    { // 반복 시작
+        const relative = `${directory}/${entry.name}`; // 저장소 기준 경로
+        return entry.isDirectory() ? walk(relative) : /\.(ts|tsx)$/.test(entry.name) && !entry.name.endsWith(".d.ts") ? [relative] : []; // 대상 파일 선택
+    }); // 반복 끝
+    return [...NEXT_SOURCE_DIRECTORIES.flatMap(walk), ...NEXT_SOURCE_FILES].filter((file) => !NEXT_EXCLUDED.some((pattern) => pattern.test(file))).sort(); // 관리자 제외 목록 반환
+} // 함수 끝
+
+export function extractNextFile(relativePath, root = PROJECT_ROOT) // Next 화면 파일 추출
+{ // 함수 시작
+    const target = { entries: new Set(), templates: new Set() }; // 결과 묶음
+    collectScript(fs.readFileSync(path.join(root, relativePath), "utf8"), target, relativePath.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS); // 문구 수집
+    return target; // 결과 반환
+} // 함수 끝
+
 export function extractAll(root = PUBLIC_ROOT) // 전체 묶음 추출
 { // 함수 시작
     const bundles = new Map(); // 묶음별 결과
+    const nextBundle = { entries: new Map(), templates: new Map() }; // Next 화면 묶음
+    for (const file of root === PUBLIC_ROOT ? listNextSourceFiles() : []) // Next 파일 반복
+    { // 반복 시작
+        const result = extractNextFile(file); // 파일 결과
+        result.entries.forEach((entry) => nextBundle.entries.set(entry, [...(nextBundle.entries.get(entry) ?? []), file])); // 출처 기록
+        result.templates.forEach((template) => nextBundle.templates.set(template, [...(nextBundle.templates.get(template) ?? []), file])); // 출처 기록
+    } // 반복 끝
+    if (nextBundle.entries.size > 0) // Next 문구 확인
+    { // 조건 시작
+        bundles.set(NEXT_BUNDLE, nextBundle); // Next 묶음 저장
+    } // 조건 끝
     for (const file of listSourceFiles(root)) // 파일 반복
     { // 반복 시작
         const bundle = bundleForFile(file); // 사전 묶음

@@ -29,7 +29,7 @@ test("영어 사전은 한글 없이 번역되고 형식 문구는 같은 자리
         { // 반복 시작
             assert.equal(typeof en, "string", `${file}: ${ko}`); // 번역 형식 확인
             assert.ok(en.trim().length > 0 || ko.trim().length > 0, `${file}: ${ko}`); // 빈 번역 확인
-            assert.doesNotMatch(en, HANGUL, `${file}: ${ko}`); // 한글 미포함 확인
+            assert.doesNotMatch(en.replace(/탈퇴/g, ""), HANGUL, `${file}: ${ko}`); // 한글 미포함 확인(입력해야 하는 탈퇴 확인어 제외)
         } // 반복 끝
         for (const pattern of dictionary.patterns) // 형식 반복
         { // 반복 시작
@@ -83,13 +83,17 @@ test("정적 페이지는 언어 준비 스크립트를 머리에 두고 메뉴�
     } // 반복 끝
     assert.match(read("scripts/generate-project-pages.mjs"), /<script src="\/i18n-bootstrap\.js"><\/script>/); // 생성 도구 반영 확인
     const bootstrap = read("public/i18n-bootstrap.js"); // 준비 스크립트
-    assert.match(bootstrap, /dataset\.i18nPage = "static"/); // 정적 페이지 표시 확인
+    assert.match(bootstrap, /script\.dataset\.i18nPage === "next" \? "next" : "static"/); // 정적·Next 화면 구분 확인
+    assert.match(bootstrap, /path\.indexOf\("\/admin\/"\) === 0[\s\S]*?root\.dataset\.i18nPage = "none"/); // 관리자 화면 제외 확인
+    assert.match(read("app/layout.tsx"), /<script src="\/i18n-bootstrap\.js" data-i18n-page="next"><\/script>/); // Next 화면 준비 확인
+    assert.match(read("app/layout.tsx"), /<PageTranslator \/>/); // 연결 뒤 번역 시작 확인
+    assert.match(read("app/page-translator.tsx"), /useEffect\(\(\) =>[\s\S]*?startPageTranslation\(document, window\)/); // 하이드레이션 뒤 실행 확인
     assert.match(bootstrap, /html\.i18n-pending body\{visibility:hidden\}/); // 번역 전 가림 확인
     assert.match(bootstrap, /setTimeout\(function revealPage\(\)[\s\S]*?3000\)/); // 가림 해제 대비 확인
     const nav = read("public/responsive-nav.mjs"); // 공통 메뉴
     assert.match(nav, /if \(isTranslatablePage\(root\)\)/); // Next 화면 제외 확인
     assert.match(nav, /button\.dataset\.i18nSkip = ""/); // 언어 버튼 번역 제외 확인
-    assert.match(nav, /void startPageTranslation\(document, window\)/); // 번역 시작 확인
+    assert.match(nav, /if \(getPageType\(document\) === "static"\)[\s\S]*?void startPageTranslation\(document, window\)/); // 정적 페이지만 즉시 번역 확인
     assert.match(read("public/community.html"), /<strong id="active-hashtag" data-i18n-skip>/); // 해시태그 원문 유지 확인
 }); // 테스트 끝
 
@@ -119,4 +123,13 @@ test("문맥 표시가 있는 제목은 같은 낱말도 문맥별 번역을 먼
     assert.equal(translator.translate("게임 ", "title"), "Game "); // 문맥 번역 확인
     assert.equal(translator.translate("게임", "menu"), "Games"); // 없는 문맥 기본값 확인
     assert.match(read("public/main.html"), /<h2 class="section-title" data-i18n-context="title">게임 <span>프로젝트<\/span><\/h2>/); // 제목 문맥 표시 확인
+}); // 테스트 끝
+
+test("서버가 그린 한국어 날짜도 영어 화면에서 영어 날짜로 바꾼다", () => // 날짜 번역 검사
+{ // 테스트 시작
+    const translator = createTranslator([{ entries: {}, patterns: [] }]); // 빈 사전
+    assert.equal(translator.translate("2025년 4월 28일"), "April 28, 2025"); // 긴 날짜 확인
+    assert.equal(translator.translate("2025. 4. 28. 오후 12:20"), "Apr 28, 2025, 12:20 PM"); // 정오 확인
+    assert.equal(translator.translate("2025. 4. 28. 오전 12:05"), "Apr 28, 2025, 12:05 AM"); // 자정 확인
+    assert.equal(translator.translate("2025년 13월"), null); // 날짜 아님 확인
 }); // 테스트 끝

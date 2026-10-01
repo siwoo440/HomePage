@@ -7,6 +7,16 @@ function normalizeSearchValue(value) // 검색 값 정리
     return String(value ?? "").trim().toLocaleLowerCase("ko-KR"); // 공백과 대소문자 정리
 } // 함수 끝
 
+export function getGameSearchText(game, translator = globalThis.__devforgeI18n?.translator) // 언어별 검색 문구
+{ // 함수 시작
+    const base = game?.searchText ?? game?.name ?? ""; // 원문 검색 문구
+    if (!translator || !Array.isArray(game?.searchParts)) // 영어 번역 사용 확인
+    { // 조건 시작
+        return base; // 원문만 반환
+    } // 조건 끝
+    return [base, ...game.searchParts.map((part) => translator.translate(part) ?? "")].join(" "); // 원문과 영어 함께 반환
+} // 함수 끝
+
 export function buildGameCatalogView(games, options = {}) // 게임 목록 화면 계산
 { // 함수 시작
     const safeGames = Array.isArray(games) ? games : []; // 안전 게임 목록
@@ -17,7 +27,7 @@ export function buildGameCatalogView(games, options = {}) // 게임 목록 화�
     const limit = Math.max(0, requestedLimit); // 음수 표시 수 차단
     const matching = safeGames.filter((game) => // 조건 일치 게임 계산
     { // 필터 시작
-        const gameSearchText = normalizeSearchValue(game.searchText ?? game.name); // 게임 검색 문구 정리
+        const gameSearchText = normalizeSearchValue(getGameSearchText(game, options.translator)); // 게임 검색 문구 정리
         const matchesQuery = query.length === 0 || gameSearchText.includes(query); // 검색어 일치 판정
         const matchesGenre = genre === "all" || game.genre === genre; // 장르 일치 판정
         const matchesStatus = status === "all" || game.status === status; // 상태 일치 판정
@@ -187,6 +197,7 @@ function createGameRecord(card, index) // 카드 검색 정보 생성
         genre, // 장르 정보
         status, // 개발 상태
         searchText: project ? `${project.title} ${project.tagline} ${project.genres.join(" ")}` : card.textContent ?? name, // 통합 검색 문구
+        searchParts: project ? [project.title, project.tagline] : [], // 영어 화면 검색용 원문 조각
         card, // 원본 카드
     }); // 객체 끝
 } // 함수 끝

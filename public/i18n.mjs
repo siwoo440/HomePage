@@ -42,7 +42,7 @@ export function saveLanguage(view, language) // 언어 선택 저장
 
 export function getPageLocale(view = globalThis) // 날짜·숫자 표기 언어
 { // 함수 시작
-    const translatable = view.document?.documentElement?.dataset?.i18nPage === "static"; // 번역 가능 페이지 확인
+    const translatable = isTranslatablePage(view.document); // 번역 가능 페이지 확인
     return translatable && resolveLanguage(view.location?.search, readStoredLanguage(view)) === "en" ? "en-US" : "ko-KR"; // 표기 언어 반환
 } // 함수 끝
 
@@ -57,6 +57,24 @@ export function getLanguageSwitchUrl(href) // 언어 전환 주소
     const url = new URL(href); // 현재 주소 해석
     url.searchParams.delete("lang"); // 주소 언어 요청 제거
     return url.toString(); // 전환 주소 반환
+} // 함수 끝
+
+export function translateKoreanDate(text) // 한국어 날짜 표기 영어 변환
+{ // 함수 시작
+    const long = /^(\d{4})년 (\d{1,2})월 (\d{1,2})일$/.exec(text); // "2025년 4월 28일" 형식
+    if (long) // 긴 날짜 확인
+    { // 조건 시작
+        return new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(Date.UTC(Number(long[1]), Number(long[2]) - 1, Number(long[3])))); // 영어 긴 날짜 반환
+    } // 조건 끝
+    const short = /^(\d{4})\. (\d{1,2})\. (\d{1,2})\.(?: (오전|오후) (\d{1,2}):(\d{2}))?$/.exec(text); // "2025. 4. 28. 오후 1:05" 형식
+    if (!short) // 짧은 날짜 확인
+    { // 조건 시작
+        return null; // 날짜 아님
+    } // 조건 끝
+    const [, year, month, day, period, hour, minute] = short; // 날짜 조각
+    const hours = period ? (Number(hour) % 12) + (period === "오후" ? 12 : 0) : 0; // 24시간 변환
+    const value = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), hours, Number(minute ?? 0))); // 날짜 값
+    return new Intl.DateTimeFormat("en-US", period ? { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" } : { dateStyle: "medium", timeZone: "UTC" }).format(value); // 영어 날짜 반환
 } // 함수 끝
 
 function hasUntranslated(text) // 남은 한글 확인
@@ -132,6 +150,11 @@ export function createTranslator(dictionaries) // 번역기 생성
                 } // 조건 끝
             } // 조건 끝
         } // 반복 끝
+        const date = translateKoreanDate(key); // 한국어 날짜 표기 확인
+        if (date) // 날짜 번역 확인
+        { // 조건 시작
+            return date; // 영어 날짜 반환
+        } // 조건 끝
         const quoted = /^([“"‘'「『(])(.+)([”"’'」』)])$/u.exec(key); // 따옴표·괄호 감싼 문구
         if (quoted) // 감싼 문구 확인
         { // 조건 시작
@@ -274,15 +297,35 @@ async function loadDictionary(fetchImpl, name) // 사전 파일 불러오기
     } // 예외 끝
 } // 함수 끝
 
+export function getPageType(root) // 번역 화면 종류
+{ // 함수 시작
+    const value = root?.documentElement?.dataset?.i18nPage; // 준비 스크립트 표시
+    return value === "static" || value === "next" ? value : "none"; // 정적·Next·제외 반환
+} // 함수 끝
+
 export function isTranslatablePage(root) // 번역 대상 문서 확인
 { // 함수 시작
-    return root?.documentElement?.dataset?.i18nPage === "static"; // 정적 페이지 표시 확인
+    return getPageType(root) !== "none"; // 번역 가능 여부 반환
+} // 함수 끝
+
+export function getDictionaryNames(pageType, pathname) // 불러올 사전 목록
+{ // 함수 시작
+    if (pageType === "next") // Next 화면 확인
+    { // 조건 시작
+        return ["site", "next"]; // 공통·Next 사전
+    } // 조건 끝
+    const bundle = bundleForPath(pathname); // 페이지 사전 이름
+    return bundle === "site" ? ["site"] : ["site", bundle]; // 공통·게임 사전
 } // 함수 끝
 
 export async function startPageTranslation(root = document, view = window) // 페이지 번역 시작
 { // 함수 시작
+    if (view.__devforgeI18n?.started) // 이미 시작한 번역 확인
+    { // 조건 시작
+        return view.__devforgeI18n; // 기존 상태 반환
+    } // 조건 끝
     const language = resolveLanguage(view.location?.search, readStoredLanguage(view)); // 현재 언어
-    const state = { language, missing: new Set(), translator: null }; // 번역 상태
+    const state = { language, missing: new Set(), translator: null, started: true }; // 번역 상태
     view.__devforgeI18n = state; // 확인용 상태 공개
     const finish = () => root.documentElement?.classList?.remove("i18n-pending"); // 가림 해제
 
@@ -292,8 +335,7 @@ export async function startPageTranslation(root = document, view = window) // �
         return state; // 번역 생략
     } // 조건 끝
 
-    const bundle = bundleForPath(view.location?.pathname); // 페이지 사전 이름
-    const names = bundle === "site" ? ["site"] : ["site", bundle]; // 불러올 사전
+    const names = getDictionaryNames(getPageType(root), view.location?.pathname); // 불러올 사전
     const dictionaries = (await Promise.all(names.map((name) => loadDictionary(view.fetch.bind(view), name)))).filter(Boolean); // 사전 불러오기
     if (dictionaries.length === 0) // 사전 실패 확인
     { // 조건 시작
@@ -304,10 +346,18 @@ export async function startPageTranslation(root = document, view = window) // �
     const translator = createTranslator(dictionaries); // 번역기 생성
     state.translator = translator; // 번역기 기록
     root.documentElement.lang = "en"; // 문서 언어 변경
-    const title = translator.translate(root.title); // 브라우저 제목 번역
-    if (title) // 제목 번역 확인
+    const translateTitle = () => // 브라우저 제목 번역
+    { // 번역 시작
+        const title = translator.translate(root.title); // 제목 번역 결과
+        if (title && title.trim() !== root.title) // 바뀐 제목 확인
+        { // 조건 시작
+            root.title = title.trim(); // 제목 교체
+        } // 조건 끝
+    }; // 번역 끝
+    translateTitle(); // 첫 제목 번역
+    if (root.head) // 문서 머리 확인
     { // 조건 시작
-        root.title = title.trim(); // 제목 교체
+        new view.MutationObserver(translateTitle).observe(root.head, { subtree: true, childList: true, characterData: true }); // 화면 이동 제목 감시
     } // 조건 끝
     translateTree(root.body, translator, state.missing); // 본문 번역
 

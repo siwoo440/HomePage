@@ -27,6 +27,7 @@ pnpm check
 - [`docs/DEVELOPMENT-GUIDE.md`](docs/DEVELOPMENT-GUIDE.md): 구조, 기능, 데이터 흐름, 보안, 테스트와 배포 안내
 - [`docs/DEVELOPMENT-NOTES.md`](docs/DEVELOPMENT-NOTES.md): 로컬·외부 API·유료 작업 분류와 우선순위
 - [`docs/FILE-MAP.md`](docs/FILE-MAP.md): 폴더와 주요 파일의 역할
+- [`docs/EXTERNAL-SERVICES.md`](docs/EXTERNAL-SERVICES.md): 외부 계정·유료 서비스의 비용과 제약(2026년 10월 1일 조사)
 - [`CLAUDE-HANDOFF.md`](CLAUDE-HANDOFF.md): 다른 컴퓨터에서 Claude로 이어서 작업할 때 전달할 시작 문구와 확인 기준
 - [`TRANSFER-GUIDE.md`](TRANSFER-GUIDE.md): 기존 인수인계 정보
 - [`docs/superpowers/specs/`](docs/superpowers/specs/): 승인된 기능 설계 기록
@@ -101,11 +102,11 @@ pnpm check
 
 ## 영어 화면(AI 번역)
 
-공개 정적 페이지 45개(메인, 굿즈, 개발 뉴스, 커뮤니티, 문의하기, 약관, 개인정보, 게임 소개 35개)는 상단의 `EN` 버튼(휴대폰은 서랍 메뉴의 `English`)으로 영어 화면을 볼 수 있습니다. 다시 `KO`(`한국어`)를 누르면 한국어로 돌아갑니다. 주소에 `?lang=en`을 붙여 영어 화면을 바로 공유할 수도 있습니다.
+공개 정적 페이지 45개(메인, 굿즈, 개발 뉴스, 커뮤니티, 문의하기, 약관, 개인정보, 게임 소개 35개)와 로그인·회원가입·비밀번호 재설정·내 정보·뉴스 상세·성인 확인·오류 화면은 상단의 `EN` 버튼(휴대폰은 서랍 메뉴의 `English`)으로 영어 화면을 볼 수 있습니다. 다시 `KO`(`한국어`)를 누르면 한국어로 돌아갑니다. 주소에 `?lang=en`을 붙여 영어 화면을 바로 공유할 수도 있습니다.
 
 - 번역문은 AI 번역이며 사람 검수를 거치지 않았습니다. 약관과 개인정보처리방침은 한국어 원문을 기준으로 합니다.
 - 같은 주소에서 글자만 바꾸므로 성인 확인·관심 목록·화면 모드는 그대로 동작합니다. 선택한 언어는 이 브라우저(`devforge-language`)에만 저장됩니다.
-- 로그인·회원가입·뉴스 상세·성인 확인·관리자 같은 Next.js 화면과, 관리자·회원이 쓴 뉴스·상품·댓글은 원문(한국어)으로 표시합니다.
+- 관리자 화면(`/admin`)과, 관리자·회원이 직접 쓴 뉴스·상품·댓글은 원문(한국어)으로 표시합니다. 시연 데이터와 날짜 표기는 영어로 바뀝니다.
 - 실제 SNS 해시태그(`#DEVFORGE…`)는 번역하지 않습니다.
 
 한국어 문구를 바꾸거나 새 페이지를 추가하면 영어 사전(`public/i18n/en/`)도 함께 고쳐야 합니다. 다음 명령이 빠진 번역을 알려 줍니다. 자동 검사(`pnpm test`)도 같은 내용을 확인합니다.
@@ -140,9 +141,10 @@ pnpm i18n:check
 4. `supabase/migrations/202609110001_admin_products.sql` 전체 실행
 5. `supabase/migrations/202609120001_member_comments.sql` 전체 실행(회원 닉네임·댓글·반응·신고와 댓글 이미지 버킷)
 6. `supabase/migrations/202610010001_member_signup_moderation.sql` 전체 실행(가입 동의 기록, 관리자 전용 댓글 숨김·신고 처리 권한)
-7. **Authentication → Users**에서 관리자 계정 생성
+7. `supabase/migrations/202610010002_member_account_deletion.sql` 전체 실행(회원 본인 탈퇴 함수)
+8. **Authentication → Users**에서 관리자 계정 생성
 
-네 파일은 반드시 위 순서대로 실행합니다. 뒤 파일이 앞 파일의 뉴스·댓글 테이블과 관리자 판정 함수를 사용합니다.
+다섯 파일은 반드시 위 순서대로 실행합니다. 뒤 파일이 앞 파일의 뉴스·댓글 테이블과 관리자 판정 함수를 사용합니다.
 
 관리자 이메일과 비밀번호는 저장소 파일에 기록하지 않습니다.
 
@@ -229,11 +231,12 @@ Supabase의 **Authentication → URL Configuration**에서 개발 단계 주소�
 
 ## 5. Vercel 환경 변수 설정
 
-Vercel 프로젝트의 **Settings → Environment Variables**에 다음 세 항목을 등록합니다.
+Vercel 프로젝트의 **Settings → Environment Variables**에 다음 항목을 등록합니다.
 
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - `ADMIN_EMAIL`
+- `SITE_URL`(선택): 공식 도메인을 쓰면 `https://도메인`을 넣습니다. 비우면 Vercel 운영 주소로 `robots.txt`와 사이트맵을 만듭니다.
 
 Production, Preview, Development 환경 가운데 실제로 사용할 환경을 선택합니다. 관리자 비밀번호는 Vercel 환경 변수에 저장하지 않고 Supabase Auth에서만 관리합니다.
 
@@ -258,6 +261,7 @@ Production, Preview, Development 환경 가운데 실제로 사용할 환경을 
 3. 공개 뉴스 상세 화면에서 댓글·답글·이미지 첨부·반응·신고 확인
 4. 공개 페이지 상단 회원 버튼에 닉네임이 표시되는지 확인
 5. `/login/forgot`에서 비밀번호 재설정 메일을 받고 링크로 들어온 `/login/reset`에서 새 비밀번호 저장
+6. `/account`(로그인 화면의 "내 정보 관리")에서 닉네임 변경, 내 댓글 확인·삭제, 회원 탈퇴 확인. 탈퇴는 확인 칸에 `탈퇴` 또는 `DELETE`를 입력해야 실행되며 프로필·댓글·반응·신고 기록과 첨부 이미지를 바로 지웁니다. 관리자 계정은 이 화면에서 탈퇴할 수 없습니다.
 
 이메일 가입 회원은 가입 때 입력한 닉네임과 동의 시각으로 첫 로그인 때 프로필이 자동으로 만들어집니다. 동의 시각은 공개 프로필 조회에서 보이지 않습니다. 댓글 이미지는 회원별 폴더(`comment-images/회원-ID/`)에 저장되며 JPG·PNG·WebP·GIF 5MB 이하만 허용됩니다. 같은 회원은 같은 댓글을 한 번만 신고할 수 있습니다. 시연 뉴스(`/news/demo-…`)는 연결 후에도 시연 댓글을 사용합니다.
 

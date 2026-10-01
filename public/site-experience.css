@@ -365,7 +365,10 @@ select:focus-visible /* 키보드 선택 초점 */
 .hero-stat span /* 현황 설명 */
 { /* 규칙 시작 */
     color: #c6d3e3; /* 보조 색상 */
+    display: block; /* 숫자 아래 줄 */
     font-size: 0.78rem; /* 설명 크기 */
+    line-height: 1.4; /* 줄 간격 */
+    word-break: keep-all; /* 단어 중간 줄바꿈 방지 */
 } /* 규칙 끝 */
 
 .experience-section /* 신규 정보 구역 */
@@ -755,6 +758,11 @@ select:focus-visible /* 키보드 선택 초점 */
     .hero-stats /* 모바일 현황 목록 */
     { /* 규칙 시작 */
         gap: 0.45rem; /* 좁은 간격 */
+    } /* 규칙 끝 */
+
+    .hero-stat /* 모바일 현황 항목 */
+    { /* 규칙 시작 */
+        padding: 0.7rem 0.4rem; /* 좌우 여백 축소 */
     } /* 규칙 끝 */
 
     .studio-grid /* 모바일 소개 카드 */

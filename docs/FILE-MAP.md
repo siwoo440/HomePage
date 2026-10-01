@@ -53,6 +53,13 @@ css-styling/
 | `app/layout.tsx` | 전체 HTML 레이아웃, 공통 테마·개인정보 동의·분석 모듈 연결 |
 | `app/page.tsx` | 루트 경로를 `/main.html`로 이동 |
 | `app/globals.css` | Next.js 화면의 전역 기본 스타일 |
+| `app/site-header.tsx` | Next 화면용 공통 헤더(정적 페이지와 같은 메뉴, 반응형 메뉴 스크립트 연결) |
+| `app/not-found.tsx` | 없는 페이지(404) 안내 |
+| `app/error.tsx` | 화면 오류 안내와 다시 시도 |
+| `app/global-error.tsx` | 공통 틀까지 실패했을 때의 단독 오류 안내 |
+| `app/page-translator.tsx` | 하이드레이션 뒤 영어 화면 번역 시작 |
+| `app/robots.ts` | 검색엔진 수집 규칙(관리자·회원·성인 경로 제외) |
+| `app/sitemap.ts` | 공개 페이지와 성인 제외 게임 소개 사이트맵 |
 
 ---
 ### 관리자 영역
@@ -110,6 +117,9 @@ css-styling/
 | `app/age-verification/age-verification.module.css` | 연령 확인 스타일 |
 | `app/auth/callback/route.ts` | Supabase 인증 결과와 안전한 복귀 처리, 실패 시 로그인 안내 |
 | `app/auth/confirm/route.ts` | 이메일 인증·비밀번호 재설정 메일 링크 확인 |
+| `app/account/page.tsx` | 내 정보 페이지(검색 제외) |
+| `app/account/account-panel.tsx` | 닉네임 변경, 내 댓글 확인·삭제, 회원 탈퇴(시연·Supabase 모드) |
+| `app/account/account.module.css` | 내 정보 전용 스타일 |
 
 ---
 ### API
@@ -157,6 +167,8 @@ css-styling/
 | `lib/member/profile.ts` | 닉네임 규칙(1~20자), Supabase 회원 프로필 조회·저장과 이메일 가입 프로필 자동 생성 |
 | `lib/member/auth-providers.ts` | 간편 로그인 지원 목록(카카오·Google·Apple·Discord·X·Facebook)과 Supabase 인증 설정 조회 |
 | `lib/member/signup.ts` | 이메일·비밀번호·필수 동의 검증과 인증 오류 안내 문구 |
+| `lib/member/account.ts` | 내 댓글 조회·삭제, 댓글 이미지 정리와 회원 탈퇴 요청 |
+| `lib/site-url.ts` | 공개 사이트 주소(`SITE_URL`·Vercel 주소)와 검색 노출·제외 경로 |
 | `lib/comments/domain.ts` | 댓글, 이미지, 반응과 신고 규칙 |
 | `lib/comments/service.ts` | 댓글 저장소 공통 계약과 오류 형식 |
 | `lib/comments/rules.ts` | 로컬·Supabase 댓글 서비스 공통 입력 검증 |
@@ -231,7 +243,7 @@ css-styling/
 | `public/responsive-nav.mjs` | 반응형 메뉴, 서랍, 라이트·다크 모드와 영어·한국어 전환 버튼 |
 | `public/i18n.mjs` | 영어 화면 번역(사전 불러오기, 문구·형식 번역, 화면 변경 감시, 날짜 표기 언어) |
 | `public/i18n-bootstrap.js` | 정적 페이지 표시와 영어 선택 시 번역 전 본문 가림 |
-| `public/i18n/en/` | 영어 사전(`site.json` 공통, `project_*.json` 게임별) |
+| `public/i18n/en/` | 영어 사전(`site.json` 공통, `next.json` Next 화면, `project_*.json` 게임별) |
 | `public/privacy-consent.mjs` | 개인정보 선택 저장과 변경 이벤트 |
 | `public/site-analytics.mjs` | 동의 기반 GA4 로드와 이벤트 제한 |
 | `public/analytics-config.mjs` | 공개 GA4 측정 ID 설정 |
@@ -300,6 +312,7 @@ css-styling/
 | `202609110001_admin_products.sql` | `products`, 공개·관리자 RLS, 상품 이미지 Storage 정책 |
 | `202609120001_member_comments.sql` | 회원 프로필, 댓글, 반응, 신고, 관리 기록, 댓글 이미지 정책 |
 | `202610010001_member_signup_moderation.sql` | 가입 동의 시각 열, 공개 프로필 열 제한, 관리자 전용 댓글 상태·신고 처리 권한 |
+| `202610010002_member_account_deletion.sql` | 회원 본인 탈퇴 함수(`delete_own_account`, 관리자 계정·남은 이미지 거부) |
 
 파일명 앞 숫자는 적용 순서입니다. 운영에 적용한 SQL 파일을 고치는 대신 새로운 번호의 마이그레이션을 추가합니다.
 
@@ -364,6 +377,7 @@ css-styling/
 - `auth-providers.test.mjs`: 간편 로그인 목록과 Supabase 인증 설정 해석
 - `member-auth-pages.test.mjs`: 가입·간편 로그인·비밀번호 재설정·댓글 관리 화면 연결
 - `member-signup-moderation-migration.test.mjs`: 동의 기록과 관리자 전용 처리 SQL
+- `account.test.mjs`: 내 댓글·탈퇴 처리, 탈퇴 SQL, 검색엔진 파일과 오류 화면
 
 ---
 ### 개인정보와 분석
