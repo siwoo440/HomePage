@@ -267,7 +267,7 @@ button /* 버튼 기본 스타일을 설정한다. */
     gap: 16px; /* 카드 사이 간격을 설정한다. */
     margin-bottom: 72px; /* 아래 여백을 설정한다. */
 } /* 특징 카드 영역 스타일을 끝낸다. */
-.feature-card, .info-panel, .region-card, .system-panel, .character-card /* 카드형 요소의 공통 스타일을 설정한다. */
+.feature-card, .info-panel, .region-card, .system-panel, .companion-card /* 카드형 요소 공통 스타일 */
 { /* 공통 카드 스타일을 시작한다. */
     border: 1px solid var(--line); /* 카드 테두리를 만든다. */
     border-radius: 24px; /* 카드 모서리를 둥글게 만든다. */
@@ -389,14 +389,14 @@ button /* 버튼 기본 스타일을 설정한다. */
 { /* 검색 입력칸 포커스 스타일을 시작한다. */
     border-color: var(--gold); /* 포커스 시 테두리를 금색으로 바꾼다. */
 } /* 검색 입력칸 포커스 스타일을 끝낸다. */
-.filter-row, .tab-list /* 필터와 탭 버튼 묶음을 설정한다. */
+.companion-filter-row, .tab-list /* 동료 필터와 탭 버튼 묶음 */
 { /* 버튼 묶음 스타일을 시작한다. */
     display: flex; /* 버튼을 가로로 배치한다. */
     flex-wrap: wrap; /* 작은 화면에서 줄바꿈되게 한다. */
     gap: 10px; /* 버튼 사이 간격을 설정한다. */
     margin-bottom: 18px; /* 아래 여백을 설정한다. */
 } /* 버튼 묶음 스타일을 끝낸다. */
-.filter-button, .tab-button /* 필터 버튼과 탭 버튼을 설정한다. */
+.companion-filter-button, .tab-button /* 동료 필터 버튼과 탭 버튼 */
 { /* 필터 버튼과 탭 버튼 스타일을 시작한다. */
     border: 1px solid var(--line); /* 버튼 테두리를 만든다. */
     border-radius: 999px; /* 버튼을 알약 모양으로 만든다. */
@@ -406,7 +406,7 @@ button /* 버튼 기본 스타일을 설정한다. */
     cursor: pointer; /* 마우스 커서를 손가락 모양으로 바꾼다. */
     font-weight: 900; /* 버튼 글자를 굵게 만든다. */
 } /* 필터 버튼과 탭 버튼 스타일을 끝낸다. */
-.filter-button.active, .tab-button.active, .filter-button:hover, .tab-button:hover /* 활성 버튼과 호버 버튼을 설정한다. */
+.companion-filter-button.active, .tab-button.active, .companion-filter-button:hover, .tab-button:hover /* 활성·호버 버튼 */
 { /* 활성 버튼 스타일을 시작한다. */
     border-color: rgba(246, 200, 99, 0.55); /* 활성 테두리를 금색으로 바꾼다. */
     color: #ffe7ab; /* 활성 글자색을 밝게 만든다. */
@@ -418,88 +418,221 @@ button /* 버튼 기본 스타일을 설정한다. */
     color: var(--muted); /* 글자색을 설정한다. */
     font-weight: 800; /* 글자를 굵게 만든다. */
 } /* 결과 개수 스타일을 끝낸다. */
-.character-grid /* 캐릭터 카드 그리드를 설정한다. */
-{ /* 캐릭터 그리드 스타일을 시작한다. */
-    display: grid; /* 카드를 격자로 배치한다. */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 반응형 열을 만든다. */
-    gap: 16px; /* 카드 사이 간격을 설정한다. */
-} /* 캐릭터 그리드 스타일을 끝낸다. */
-.character-card /* 캐릭터 카드 개별 스타일을 설정한다. */
-{ /* 캐릭터 카드 스타일을 시작한다. */
-    padding: 22px; /* 카드 안쪽 여백을 설정한다. */
-    overflow: hidden; /* 내부 장식이 튀어나오지 않게 한다. */
-    position: relative; /* 내부 장식 위치 기준을 만든다. */
-} /* 캐릭터 카드 스타일을 끝낸다. */
-.character-card::before /* 캐릭터 카드 배경 장식을 설정한다. */
-{ /* 캐릭터 카드 배경 장식 스타일을 시작한다. */
-    content: ""; /* 장식용 가상 요소를 만든다. */
-    position: absolute; /* 카드 안에 절대 배치한다. */
-    width: 110px; /* 장식 원의 너비를 설정한다. */
-    height: 110px; /* 장식 원의 높이를 설정한다. */
-    right: -28px; /* 오른쪽 밖으로 살짝 배치한다. */
-    top: -28px; /* 위쪽 밖으로 살짝 배치한다. */
-    border-radius: 50%; /* 원형으로 만든다. */
-    background: radial-gradient(circle, rgba(255, 123, 189, 0.22), transparent 68%); /* 은은한 장미빛을 만든다. */
-} /* 캐릭터 카드 배경 장식 스타일을 끝낸다. */
-.character-top /* 캐릭터 카드 상단을 설정한다. */
-{ /* 캐릭터 카드 상단 스타일을 시작한다. */
-    position: relative; /* 장식보다 위에 놓기 위한 기준을 만든다. */
-    z-index: 1; /* 장식보다 위에 배치한다. */
-    display: flex; /* 이름과 배지를 가로로 배치한다. */
-    justify-content: space-between; /* 양쪽 끝으로 배치한다. */
-    gap: 14px; /* 요소 사이 간격을 설정한다. */
-} /* 캐릭터 카드 상단 스타일을 끝낸다. */
-.character-card h3 /* 캐릭터 이름을 설정한다. */
-{ /* 캐릭터 이름 스타일을 시작한다. */
-    margin: 0; /* 기본 여백을 제거한다. */
-    font-size: 24px; /* 이름 크기를 설정한다. */
-} /* 캐릭터 이름 스타일을 끝낸다. */
-.role-badge /* 캐릭터 역할 배지를 설정한다. */
-{ /* 역할 배지 스타일을 시작한다. */
-    height: fit-content; /* 내용 높이에 맞춘다. */
-    padding: 6px 10px; /* 배지 안쪽 여백을 설정한다. */
-    border: 1px solid rgba(124, 236, 255, 0.28); /* 배지 테두리를 설정한다. */
-    border-radius: 999px; /* 배지를 둥글게 만든다. */
-    color: var(--cyan); /* 배지 글자색을 설정한다. */
-    background: rgba(124, 236, 255, 0.08); /* 배지 배경을 설정한다. */
-    font-size: 12px; /* 배지 글자 크기를 설정한다. */
-    font-weight: 900; /* 배지 글자를 굵게 만든다. */
-    white-space: nowrap; /* 배지 문구가 줄바꿈되지 않게 한다. */
-} /* 역할 배지 스타일을 끝낸다. */
-.character-job /* 캐릭터 직군을 설정한다. */
-{ /* 캐릭터 직군 스타일을 시작한다. */
-    position: relative; /* 장식보다 위에 놓기 위한 기준을 만든다. */
-    z-index: 1; /* 장식보다 위에 배치한다. */
-    margin: 8px 0 14px; /* 위아래 여백을 설정한다. */
-    color: var(--gold); /* 직군 색상을 금색으로 설정한다. */
-    font-weight: 900; /* 직군을 굵게 만든다. */
-} /* 캐릭터 직군 스타일을 끝낸다. */
-.character-card p /* 캐릭터 설명을 설정한다. */
-{ /* 캐릭터 설명 스타일을 시작한다. */
-    position: relative; /* 장식보다 위에 놓기 위한 기준을 만든다. */
-    z-index: 1; /* 장식보다 위에 배치한다. */
-    margin: 0; /* 기본 여백을 제거한다. */
-    color: var(--muted); /* 설명 글자색을 설정한다. */
-    line-height: 1.68; /* 설명 줄 간격을 설정한다. */
-    font-size: 14px; /* 설명 글자 크기를 설정한다. */
-} /* 캐릭터 설명 스타일을 끝낸다. */
-.keyword-row /* 캐릭터 키워드 묶음을 설정한다. */
-{ /* 키워드 묶음 스타일을 시작한다. */
-    position: relative; /* 장식보다 위에 놓기 위한 기준을 만든다. */
-    z-index: 1; /* 장식보다 위에 배치한다. */
-    display: flex; /* 키워드를 가로로 배치한다. */
-    flex-wrap: wrap; /* 작은 화면에서 줄바꿈되게 한다. */
-    gap: 6px; /* 키워드 사이 간격을 설정한다. */
-    margin-top: 16px; /* 키워드 위쪽 여백을 설정한다. */
-} /* 키워드 묶음 스타일을 끝낸다. */
-.keyword-row span /* 캐릭터 키워드를 설정한다. */
-{ /* 키워드 스타일을 시작한다. */
-    padding: 5px 8px; /* 키워드 안쪽 여백을 설정한다. */
-    border-radius: 999px; /* 키워드를 둥글게 만든다. */
-    color: #eadfff; /* 키워드 글자색을 설정한다. */
-    background: rgba(255, 255, 255, 0.07); /* 키워드 배경을 설정한다. */
-    font-size: 12px; /* 키워드 글자 크기를 설정한다. */
-} /* 키워드 스타일을 끝낸다. */
+.companion-filter-button:focus-visible, .tab-button:focus-visible, .companion-arrow:focus-visible, .companion-dot:focus-visible /* 키보드 초점 표시 */
+{ /* 규칙 시작 */
+    outline: 2px solid var(--gold); /* 금색 초점 테두리 */
+    outline-offset: 3px; /* 초점 테두리 간격 */
+} /* 규칙 끝 */
+.companion-carousel /* 동료 캐러셀 배치 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: auto minmax(0, 1fr) auto; /* 화살표·카드·화살표 열 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 16px; /* 요소 간격 */
+} /* 규칙 끝 */
+.companion-viewport /* 동료 카드 표시 창 */
+{ /* 규칙 시작 */
+    min-width: 0; /* 격자 축소 허용 */
+} /* 규칙 끝 */
+.companion-card /* 동료 카드 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); /* 이미지·설명 열 비율 */
+    min-height: 380px; /* 카드 최소 높이 */
+    overflow: hidden; /* 모서리 밖 내용 자르기 */
+} /* 규칙 끝 */
+.companion-card.is-entering /* 카드 전환 상태 */
+{ /* 규칙 시작 */
+    animation: companion-enter 0.32s ease-out; /* 카드 등장 효과 */
+} /* 규칙 끝 */
+@keyframes companion-enter /* 카드 등장 움직임 */
+{ /* 규칙 시작 */
+    from /* 시작 상태 */
+    { /* 상태 시작 */
+        opacity: 0; /* 투명 시작 */
+        transform: translateY(8px); /* 아래쪽 시작 위치 */
+    } /* 상태 끝 */
+    to /* 끝 상태 */
+    { /* 상태 시작 */
+        opacity: 1; /* 완전 표시 */
+        transform: translateY(0); /* 원래 위치 */
+    } /* 상태 끝 */
+} /* 규칙 끝 */
+.companion-image-slot /* 동료 이미지 자리 */
+{ /* 규칙 시작 */
+    position: relative; /* 안내 문구 위치 기준 */
+    display: grid; /* 이니셜 배치 */
+    place-items: center; /* 가로·세로 가운데 정렬 */
+    min-height: 380px; /* 이미지 자리 최소 높이 */
+    border-right: 1px solid var(--line); /* 설명 영역 구분선 */
+    background-image: var(--companion-image, none), radial-gradient(circle at 50% 38%, rgba(255, 123, 189, 0.26), transparent 58%), linear-gradient(160deg, rgba(143, 109, 255, 0.28), rgba(8, 7, 19, 0.92)); /* 캐릭터 이미지와 대체 배경 */
+    background-position: center; /* 배경 가운데 정렬 */
+    background-size: cover; /* 배경 영역 채움 */
+} /* 규칙 끝 */
+.companion-image-label /* 이미지 자리 안내 문구 */
+{ /* 규칙 시작 */
+    position: absolute; /* 이미지 자리 안 고정 위치 */
+    top: 20px; /* 위쪽 위치 */
+    left: 22px; /* 왼쪽 위치 */
+    color: rgba(246, 200, 99, 0.72); /* 흐린 금색 글자 */
+    font-family: "Orbitron", sans-serif; /* 제목 글꼴 */
+    font-size: 11px; /* 작은 글자 크기 */
+    letter-spacing: 0.22em; /* 넓은 글자 간격 */
+} /* 규칙 끝 */
+.companion-image-initial /* 이미지 대체 이니셜 */
+{ /* 규칙 시작 */
+    color: rgba(255, 244, 198, 0.86); /* 달빛 글자색 */
+    font-family: "Orbitron", sans-serif; /* 제목 글꼴 */
+    font-size: clamp(88px, 14vw, 150px); /* 반응형 이니셜 크기 */
+    font-weight: 900; /* 굵은 이니셜 */
+    line-height: 1; /* 이니셜 줄 높이 */
+    text-shadow: 0 0 42px rgba(246, 200, 99, 0.45); /* 금빛 발광 효과 */
+} /* 규칙 끝 */
+.companion-image-slot.has-image .companion-image-label, .companion-image-slot.has-image .companion-image-initial /* 실제 이미지 보유 시 대체 요소 */
+{ /* 규칙 시작 */
+    display: none; /* 대체 요소 숨김 */
+} /* 규칙 끝 */
+.companion-info-slot /* 동료 설명 자리 */
+{ /* 규칙 시작 */
+    display: flex; /* 세로 흐름 배치 */
+    flex-direction: column; /* 위에서 아래 배치 */
+    justify-content: center; /* 세로 가운데 정렬 */
+    align-items: flex-start; /* 왼쪽 정렬 */
+    gap: 14px; /* 요소 간격 */
+    padding: clamp(24px, 4vw, 42px); /* 반응형 안쪽 여백 */
+} /* 규칙 끝 */
+.companion-role /* 동료 역할 배지 */
+{ /* 규칙 시작 */
+    padding: 6px 12px; /* 배지 안쪽 여백 */
+    border: 1px solid rgba(124, 236, 255, 0.28); /* 청록 테두리 */
+    border-radius: 999px; /* 알약 모양 */
+    color: var(--cyan); /* 청록 글자 */
+    background: rgba(124, 236, 255, 0.08); /* 청록 배경 */
+    font-size: 12px; /* 배지 글자 크기 */
+    font-weight: 900; /* 굵은 배지 글자 */
+} /* 규칙 끝 */
+.companion-info-slot h3 /* 동료 이름 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    font-size: clamp(30px, 4vw, 42px); /* 반응형 이름 크기 */
+    letter-spacing: -0.04em; /* 좁은 글자 간격 */
+} /* 규칙 끝 */
+.companion-job /* 동료 영문명과 직군 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--gold); /* 금색 글자 */
+    font-weight: 900; /* 굵은 글자 */
+} /* 규칙 끝 */
+.companion-description /* 동료 설명 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--muted); /* 보조 글자색 */
+    line-height: 1.8; /* 넓은 줄 간격 */
+} /* 규칙 끝 */
+.companion-tags /* 동료 키워드 묶음 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 6px; /* 키워드 간격 */
+} /* 규칙 끝 */
+.companion-tags span /* 동료 키워드 */
+{ /* 규칙 시작 */
+    padding: 5px 9px; /* 키워드 안쪽 여백 */
+    border-radius: 999px; /* 알약 모양 */
+    color: #eadfff; /* 밝은 보라 글자 */
+    background: rgba(255, 255, 255, 0.07); /* 반투명 배경 */
+    font-size: 12px; /* 키워드 글자 크기 */
+} /* 규칙 끝 */
+.companion-empty /* 동료 검색 결과 없음 안내 */
+{ /* 규칙 시작 */
+    grid-column: 1 / -1; /* 카드 전체 너비 사용 */
+    align-self: center; /* 세로 가운데 정렬 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 48px 24px; /* 안내 안쪽 여백 */
+    color: var(--muted); /* 보조 글자색 */
+    text-align: center; /* 가운데 정렬 */
+    line-height: 1.7; /* 줄 간격 */
+} /* 규칙 끝 */
+.companion-arrow /* 동료 이동 화살표 */
+{ /* 규칙 시작 */
+    display: inline-flex; /* 기호 가운데 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    width: 52px; /* 터치 영역 너비 */
+    height: 52px; /* 터치 영역 높이 */
+    padding: 0; /* 기본 여백 제거 */
+    border: 1px solid var(--line); /* 얇은 테두리 */
+    border-radius: 50%; /* 원형 버튼 */
+    color: var(--gold); /* 금색 기호 */
+    background: rgba(8, 7, 19, 0.72); /* 반투명 어두운 배경 */
+    font-size: 30px; /* 화살표 기호 크기 */
+    line-height: 1; /* 기호 줄 높이 */
+    cursor: pointer; /* 선택 커서 */
+    transition: border-color 0.2s ease, background 0.2s ease; /* 상태 전환 효과 */
+} /* 규칙 끝 */
+.companion-arrow:hover:not(:disabled) /* 화살표 호버 상태 */
+{ /* 규칙 시작 */
+    border-color: rgba(246, 200, 99, 0.55); /* 금색 테두리 */
+    background: rgba(246, 200, 99, 0.12); /* 금색 계열 배경 */
+} /* 규칙 끝 */
+.companion-arrow:disabled /* 이동 불가 화살표 */
+{ /* 규칙 시작 */
+    cursor: default; /* 기본 커서 */
+    opacity: 0.35; /* 흐린 표시 */
+} /* 규칙 끝 */
+.companion-dots /* 동료 위치 점 묶음 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    justify-content: center; /* 가운데 정렬 */
+    gap: 4px; /* 점 간격 */
+    margin-top: 18px; /* 위쪽 여백 */
+} /* 규칙 끝 */
+.companion-dots[hidden] /* 숨김 위치 점 묶음 */
+{ /* 규칙 시작 */
+    display: none; /* 위치 점 숨김 */
+} /* 규칙 끝 */
+.companion-dot /* 동료 위치 점 버튼 */
+{ /* 규칙 시작 */
+    display: inline-grid; /* 점 가운데 배치 */
+    place-items: center; /* 가로·세로 가운데 정렬 */
+    width: 32px; /* 터치 영역 너비 */
+    height: 32px; /* 터치 영역 높이 */
+    padding: 0; /* 기본 여백 제거 */
+    border: 0; /* 테두리 제거 */
+    border-radius: 999px; /* 초점 테두리 모양 */
+    background: transparent; /* 투명 배경 */
+    cursor: pointer; /* 선택 커서 */
+} /* 규칙 끝 */
+.companion-dot::before /* 위치 점 모양 */
+{ /* 규칙 시작 */
+    content: ""; /* 장식 요소 생성 */
+    width: 10px; /* 점 너비 */
+    height: 10px; /* 점 높이 */
+    border-radius: 999px; /* 둥근 점 */
+    background: rgba(255, 255, 255, 0.24); /* 흐린 점 색상 */
+    transition: width 0.2s ease, background 0.2s ease; /* 상태 전환 효과 */
+} /* 규칙 끝 */
+.companion-dot:hover::before /* 위치 점 호버 상태 */
+{ /* 규칙 시작 */
+    background: rgba(246, 200, 99, 0.6); /* 금색 계열 점 */
+} /* 규칙 끝 */
+.companion-dot.active::before /* 현재 위치 점 */
+{ /* 규칙 시작 */
+    width: 24px; /* 긴 막대 모양 */
+    background: var(--gold); /* 금색 강조 */
+} /* 규칙 끝 */
+@media (prefers-reduced-motion: reduce) /* 움직임 감소 설정 */
+{ /* 규칙 시작 */
+    .companion-card.is-entering /* 카드 전환 상태 */
+    { /* 상태 시작 */
+        animation: none; /* 등장 효과 제거 */
+    } /* 상태 끝 */
+    .companion-arrow, .companion-dot::before /* 전환 효과 요소 */
+    { /* 상태 시작 */
+        transition: none; /* 전환 효과 제거 */
+    } /* 상태 끝 */
+} /* 규칙 끝 */
 .system-panel /* 시스템 패널을 설정한다. */
 { /* 시스템 패널 스타일을 시작한다. */
     padding: 30px; /* 패널 안쪽 여백을 설정한다. */
@@ -647,4 +780,44 @@ button /* 버튼 기본 스타일을 설정한다. */
         flex-direction: column; /* 푸터 요소를 세로로 배치한다. */
         text-align: center; /* 글자를 가운데 정렬한다. */
     } /* 모바일 푸터 스타일을 끝낸다. */
+    .companion-carousel /* 모바일 동료 캐러셀 배치 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr 1fr; /* 화살표 두 열 */
+        grid-template-areas: "viewport viewport" "prev next"; /* 카드 아래 화살표 배치 */
+        gap: 14px; /* 요소 간격 */
+    } /* 규칙 끝 */
+    .companion-viewport /* 모바일 동료 카드 표시 창 */
+    { /* 규칙 시작 */
+        grid-area: viewport; /* 전체 너비 카드 영역 */
+    } /* 규칙 끝 */
+    .companion-arrow-left /* 모바일 이전 화살표 */
+    { /* 규칙 시작 */
+        grid-area: prev; /* 왼쪽 아래 위치 */
+        justify-self: end; /* 가운데 쪽 정렬 */
+    } /* 규칙 끝 */
+    .companion-arrow-right /* 모바일 다음 화살표 */
+    { /* 규칙 시작 */
+        grid-area: next; /* 오른쪽 아래 위치 */
+        justify-self: start; /* 가운데 쪽 정렬 */
+    } /* 규칙 끝 */
+    .companion-card /* 모바일 동료 카드 */
+    { /* 규칙 시작 */
+        grid-template-columns: 1fr; /* 이미지·설명 세로 배치 */
+        min-height: 0; /* 최소 높이 해제 */
+    } /* 규칙 끝 */
+    .companion-image-slot /* 모바일 동료 이미지 자리 */
+    { /* 규칙 시작 */
+        min-height: 220px; /* 축소 이미지 높이 */
+        border-right: 0; /* 세로 구분선 제거 */
+        border-bottom: 1px solid var(--line); /* 가로 구분선 */
+    } /* 규칙 끝 */
+    .companion-dots /* 모바일 위치 점 묶음 */
+    { /* 규칙 시작 */
+        gap: 2px; /* 좁은 점 간격 */
+    } /* 규칙 끝 */
+    .companion-dot /* 모바일 위치 점 버튼 */
+    { /* 규칙 시작 */
+        width: 24px; /* 최소 터치 너비 */
+        height: 24px; /* 최소 터치 높이 */
+    } /* 규칙 끝 */
 } /* 모바일 반응형 스타일을 끝낸다. */

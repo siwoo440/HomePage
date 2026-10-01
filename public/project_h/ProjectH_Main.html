@@ -134,12 +134,12 @@
                 <button class="companion-filter-button" type="button" data-role="서포터">서포터</button> <!-- 서포터 필터 버튼을 만든다. -->
                 <button class="companion-filter-button" type="button" data-role="컨트롤">컨트롤</button> <!-- 컨트롤 필터 버튼을 만든다. -->
             </div> <!-- 동료 역할 필터 버튼 묶음을 끝낸다. -->
-            <p id="companionCount" class="result-count">0명의 동료</p> <!-- 현재 표시 가능한 동료 수를 보여준다. -->
+            <p id="companionCount" class="result-count">12명의 동료</p> <!-- 현재 표시 가능한 동료 수를 보여준다. -->
             <div class="companion-carousel" aria-label="동료 캐러셀"> <!-- 동료 카드를 넘겨보는 캐러셀 영역을 만든다. -->
                 <button id="prevCompanionButton" class="companion-arrow companion-arrow-left" type="button" aria-label="이전 동료 보기">‹</button> <!-- 이전 동료로 이동하는 왼쪽 화살표를 만든다. -->
                 <div class="companion-viewport"> <!-- 동료 카드가 보이는 창을 만든다. -->
                     <div id="companionCard" class="companion-card" aria-live="polite"> <!-- 동료 카드 내용이 들어갈 영역을 만든다. -->
-                        <div class="companion-image-slot" style="--companion-image: url('images/characters/serena.jpg');"> <!-- 왼쪽 캐릭터 이미지 자리 기본값을 만든다. -->
+                        <div class="companion-image-slot" aria-hidden="true"> <!-- 이미지 준비 전 장식용 캐릭터 이미지 자리 -->
                             <span class="companion-image-label">CHARACTER IMAGE</span> <!-- 이미지 자리 안내 문구를 표시한다. -->
                             <span class="companion-image-initial">S</span> <!-- 이미지가 없을 때 보이는 이니셜을 표시한다. -->
                         </div> <!-- 왼쪽 캐릭터 이미지 자리를 끝낸다. -->
