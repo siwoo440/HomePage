@@ -178,7 +178,7 @@ export function initializeResponsiveNavigation(root = document, view = window) /
     drawerLinks.append(loginLink); // 로그인 링크 연결
     controls.push(loginLink); // 초점 목록 연결
     drawer.append(drawerHeader, drawerLinks); // 패널 내용 연결
-    const toggleHost = navRoot.querySelector(".nav-actions, .project-nav-actions") ?? navRoot; // 헤더 조작 묶음 조회
+    const toggleHost = navRoot.querySelector(".nav-actions") ?? navRoot; // 헤더 조작 묶음 조회
     toggleHost.append(toggle); // 로그인 오른쪽에 메뉴 버튼 연결
     let headerThemeToggle = null; // 넓은 화면 테마 버튼
 

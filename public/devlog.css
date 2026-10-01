@@ -293,51 +293,6 @@ h1 span /* 제목 강조 */
 { /* 하단 선택 설정 시작 */
     color: var(--cyan); /* 선택 글자색 */
 } /* 하단 선택 설정 끝 */
-.contact-dialog /* 문의 대화상자 */
-{ /* 대화상자 설정 시작 */
-    width: min(540px, 90%); /* 반응형 대화상자 너비 */
-    padding: 0; /* 기본 안쪽 여백 제거 */
-    border: 1px solid var(--border); /* 대화상자 경계선 */
-    background: var(--surface); /* 대화상자 배경 */
-    color: var(--text); /* 대화상자 글자색 */
-} /* 대화상자 설정 끝 */
-.contact-dialog::backdrop /* 문의 배경 */
-{ /* 배경 설정 시작 */
-    background: rgba(0, 0, 0, 0.78); /* 어두운 배경 */
-    backdrop-filter: blur(8px); /* 배경 흐림 효과 */
-} /* 배경 설정 끝 */
-.contact-dialog form /* 문의 내용 */
-{ /* 내용 설정 시작 */
-    position: relative; /* 닫기 버튼 기준 */
-    padding: 36px; /* 내용 안쪽 여백 */
-} /* 내용 설정 끝 */
-.contact-dialog h2 /* 문의 제목 */
-{ /* 제목 설정 시작 */
-    margin-bottom: 12px; /* 제목 아래 여백 */
-    font-size: 1.7rem; /* 제목 크기 */
-} /* 제목 설정 끝 */
-.contact-dialog p:not(.eyebrow) /* 문의 설명 */
-{ /* 설명 설정 시작 */
-    color: var(--muted); /* 보조 글자색 */
-} /* 설명 설정 끝 */
-.dialog-close /* 문의 닫기 버튼 */
-{ /* 닫기 버튼 설정 시작 */
-    position: absolute; /* 오른쪽 위 배치 */
-    top: 16px; /* 위쪽 위치 */
-    right: 18px; /* 오른쪽 위치 */
-    border: 0; /* 테두리 제거 */
-    background: transparent; /* 투명 배경 */
-    color: var(--muted); /* 보조 글자색 */
-    font-size: 1.6rem; /* 닫기 기호 크기 */
-    cursor: pointer; /* 클릭 커서 */
-} /* 닫기 버튼 설정 끝 */
-.dialog-link /* 문의 정보 링크 */
-{ /* 링크 설정 시작 */
-    display: inline-block; /* 링크 영역 */
-    margin-top: 12px; /* 위쪽 여백 */
-    color: var(--cyan); /* 링크 강조색 */
-    border-bottom: 1px solid var(--cyan); /* 링크 밑줄 */
-} /* 링크 설정 끝 */
 @media (max-width: 760px) /* 모바일 화면 */
 { /* 모바일 설정 시작 */
     .hero-copy /* 모바일 소개문 */

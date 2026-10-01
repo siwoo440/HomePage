@@ -51,13 +51,15 @@ test("메인 페이지가 홈 로고와 문의하기 페이지 링크를 제공�
     assert.doesNotMatch(html, /id="contact-modal"/); // 문의창 식별자 확인
 }); // 테스트 끝
 
-test("공통 페이지는 같은 대화상자 접근성 모듈을 사용한다", () => // 대화상자 모듈 연결 테스트
+test("대화상자 접근성 모듈은 보관하고 대화상자가 있는 페이지만 불러온다", () => // 대화상자 모듈 연결 테스트
 { // 테스트 시작
+    assert.equal(fs.existsSync(path.join("public", "dialog-accessibility.mjs")), true); // 재사용 모듈 보관 확인
     const files = ["main.html", "goods.html", "devlog.html", "community.html"]; // 공통 페이지 목록
     for (const file of files) // 페이지 반복
     { // 반복 시작
         const html = readPublicFile(file); // HTML 읽기
-        assert.equal((html.match(/dialog-accessibility\.mjs/g) ?? []).length, 1, file); // 모듈 단일 연결 확인
+        const expected = /\bdata-dialog\b/.test(html) ? 1 : 0; // 대화상자 유무 기준 연결 수
+        assert.equal((html.match(/dialog-accessibility\.mjs/g) ?? []).length, expected, file); // 필요한 페이지만 연결 확인
     } // 반복 끝
 }); // 테스트 끝
 
@@ -162,8 +164,7 @@ test("공통 스타일이 모바일 태블릿 PC 경계를 모두 정의한다",
     assert.match(privacyCss, /max-height:\s*calc\(100dvh - 2rem\)/); // 개인정보 높이 안전 영역 확인
     assert.match(privacyCss, /left:\s*1rem[\s\S]*?right:\s*1rem[\s\S]*?width:\s*auto/); // 개인정보 모바일 좌우 여백 확인
     assert.match(privacyCss, /overflow-y:\s*auto/); // 개인정보 내부 이동 확인
-    assert.match(themeCss, /:is\(\.modal-box, \.contact-dialog\)[\s\S]*?width:\s*calc\(100% - 2rem\)/); // 최종 테마 모달 너비 확인
-    assert.doesNotMatch(themeCss, /:is\(\.modal-box, \.contact-dialog\)[\s\S]*?width:\s*calc\(100vw - 2rem\)/); // 최종 테마 스크롤바 폭 방지
+    assert.doesNotMatch(themeCss, /width:\s*calc\(100vw - 2rem\)/); // 최종 테마 스크롤바 폭 방지
 }); // 테스트 끝
 
 test("메인과 굿즈가 모바일 한 열과 태블릿 두세 열을 제공한다", () => // 카드 격자 테스트

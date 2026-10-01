@@ -58,17 +58,14 @@ test("960px 전환 시 메뉴와 스크롤 잠금을 해제한다", () => // 너
 test("모바일 로그인은 사이트 메뉴 왼쪽에 붙고 같은 버튼 외형을 사용한다", async () => // 모바일 헤더 배치 테스트
 { // 테스트 시작
     const environment = createNavigationEnvironment(); // 모바일 메뉴 환경 생성
-    const projectEnvironment = createNavigationEnvironment({ actionClass: "project-nav-actions" }); // 프로젝트 메뉴 환경 생성
     initializeResponsiveNavigation(environment.root, environment.view); // 메뉴 초기화
-    initializeResponsiveNavigation(projectEnvironment.root, projectEnvironment.view); // 프로젝트 메뉴 초기화
     const cssUrl = new URL("../public/responsive-shell.css", import.meta.url); // 공통 메뉴 스타일 경로
     const css = await import("node:fs/promises").then(({ readFile }) => readFile(cssUrl, "utf8")); // 공통 메뉴 스타일 읽기
     const drawerSection = css.match(/@media \(max-width: 959px\)[\s\S]*?\} \/\* 구간 끝 \*\//)?.[0] ?? ""; // 서랍 화면 스타일 추출
-    const actionGroup = drawerSection.match(/:is\(\.nav-actions, \.project-nav-actions\)[\s\S]*?\} \/\* 규칙 끝 \*\//)?.[0] ?? ""; // 조작 묶음 규칙 추출
+    const actionGroup = drawerSection.match(/\[data-responsive-nav-root\] \.nav-actions \/\* 헤더 조작 묶음 \*\/[\s\S]*?\} \/\* 규칙 끝 \*\//)?.[0] ?? ""; // 조작 묶음 규칙 추출
     const sharedButton = drawerSection.match(/\.responsive-nav-toggle,[\s\S]*?\[data-member-action\][\s\S]*?\} \/\* 규칙 끝 \*\//)?.[0] ?? ""; // 공통 버튼 규칙 추출
     const loginButton = drawerSection.match(/\[data-member-action\] \/\* 긴 회원 이름 제한 \*\/[\s\S]*?\} \/\* 규칙 끝 \*\//)?.[0] ?? ""; // 로그인 너비 규칙 추출
     assert.deepEqual(environment.navActions.children, [environment.loginLink, environment.toggle]); // 로그인과 메뉴 인접 순서 확인
-    assert.deepEqual(projectEnvironment.navActions.children, [projectEnvironment.loginLink, projectEnvironment.toggle]); // 프로젝트 로그인과 메뉴 순서 확인
     assert.match(actionGroup, /margin-left:\s*auto/); // 오른쪽 조작 묶음 확인
     assert.match(actionGroup, /gap:\s*8px/); // 버튼 인접 간격 확인
     assert.match(sharedButton, /background:\s*rgba\(10, 24, 45, 0\.92\)/); // 공통 버튼 배경 확인

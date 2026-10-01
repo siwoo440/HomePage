@@ -57,9 +57,9 @@ class FakeElement // 요소 대역
 
     querySelector(selector) // 하위 요소 조회
     { // 조회 시작
-        if (selector === ".nav-actions, .project-nav-actions") // 헤더 조작 묶음 확인
+        if (selector === ".nav-actions") // 헤더 조작 묶음 확인
         { // 조건 시작
-            return this.children.find((child) => ["nav-actions", "project-nav-actions"].includes(child.className)) ?? null; // 조작 묶음 반환
+            return this.children.find((child) => child.className === "nav-actions") ?? null; // 조작 묶음 반환
         } // 조건 끝
 
         return null; // 요소 없음 반환
@@ -181,7 +181,7 @@ export function createNavigationEnvironment(options = {}) // 내비게이션 환
     const header = root.createElement("nav"); // 헤더 요소
     header.dataset.responsiveNavRoot = "true"; // 헤더 식별자
     const navActions = root.createElement("div"); // 헤더 조작 묶음
-    navActions.className = options.actionClass ?? "nav-actions"; // 조작 묶음 클래스
+    navActions.className = "nav-actions"; // 조작 묶음 클래스
     const loginLink = root.createElement("a"); // 헤더 로그인 링크
     loginLink.dataset.memberAction = "login"; // 회원 동작 표시
     navActions.append(loginLink); // 로그인 링크 연결

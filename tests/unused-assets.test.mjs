@@ -54,3 +54,22 @@ test("프로젝트 B·L에는 연결 대상이 없는 예전 메뉴 코드가 �
         assert.doesNotMatch(readPublicFile(style), /\.(top-header|brand-logo|top-nav|menu-toggle)\b/, style); // 예전 메뉴 스타일 제거 확인
     } // 반복 끝
 }); // 테스트 끝
+
+test("사용하는 화면이 없는 대화상자 스타일이 공통·페이지 스타일에 남아 있지 않다", () => // 대화상자 잔여 스타일 검사
+{ // 테스트 시작
+    const unusedDialog = /\.(modal-box|modal-overlay|contact-dialog|dialog-link|dialog-close)\b/; // 미사용 대화상자 선택자
+    for (const file of ["responsive-shell.css", "playful-lab-theme.css", "devlog.css"]) // 스타일 반복
+    { // 반복 시작
+        assert.doesNotMatch(readPublicFile(file), unusedDialog, file); // 잔여 대화상자 스타일 제거 확인
+    } // 반복 끝
+    assert.match(readPublicFile("responsive-shell.css"), /body\.dialog-open/); // 보관 모듈용 스크롤 잠금 유지 확인
+}); // 테스트 끝
+
+test("공통 헤더로 대체된 예전 프로젝트 메뉴 지원 코드가 남아 있지 않다", () => // 예전 프로젝트 메뉴 검사
+{ // 테스트 시작
+    for (const file of ["responsive-shell.css", "responsive-nav.mjs"]) // 공통 메뉴 파일 반복
+    { // 반복 시작
+        assert.doesNotMatch(readPublicFile(file), /project-nav|nav-cta|eta-brand/, file); // 예전 메뉴 지원 제거 확인
+    } // 반복 끝
+    assert.doesNotMatch(readPublicFile("project_eta/ProjectEta_Style.css"), /\.(eta-nav|eta-brand|nav-cta)\b/); // 에타 예전 헤더 제거 확인
+}); // 테스트 끝

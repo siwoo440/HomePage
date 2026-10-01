@@ -4,7 +4,7 @@
 이 문서는 다른 컴퓨터에서 Claude가 DEVFORGE 홈페이지 개발을 바로 이어가기 위한 전달 문서입니다. 작업 기준은 이 파일이 포함된 `origin/main` 최신 커밋입니다.
 
 - 마지막 갱신: 2026년 10월 1일
-- 마지막 검증: 테스트 352개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
+- 마지막 검증: 테스트 354개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
 - 검증 환경: Windows 11, Node.js `24.19.0`, pnpm `11.19.0`
 
 ---
@@ -132,11 +132,14 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 - `main.html`·`devlog.css`·`project-page.css`의 예전 헤더 규칙 삭제. 브라우저 계산 스타일 비교로 화면 영향이 없음을 확인했고, 실제로 적용되던 메인 헤더 스크롤 배경 전환(`transition: all 0.3s ease`)만 유지
 - 프로젝트 B·L의 예전 메뉴 스크립트(`connectMenu`)와 스타일(`.top-header`·`.top-nav`·`.menu-toggle`) 삭제
 
-남은 후보입니다. 동작에는 영향이 없으며 삭제 전 참조 여부와 관련 테스트를 확인합니다.
+같은 날 2차 정리를 완료했습니다. 8개 페이지를 PC·태블릿·모바일·가로 휴대폰 4가지 크기로 정리 전후 계산 스타일을 비교해 32개 화면 모두 차이가 없음을 확인했습니다.
 
-- `public/dialog-accessibility.mjs`: 대화상자가 없는 메인·뉴스·굿즈·커뮤니티 페이지에서 계속 불러옴(`tests/responsive-integration.test.mjs`가 연결 확인)
-- `responsive-shell.css`·`playful-lab-theme.css`의 `.modal-box`·`.modal-overlay`·`.contact-dialog` 규칙: 사용하는 화면 없음(테마 테스트가 규칙 존재 확인)
-- `responsive-nav.mjs`·`responsive-shell.css`의 예전 `.project-nav`·`.project-nav-links` 지원 코드
+- `public/dialog-accessibility.mjs`는 재사용을 위해 보관하고, 대화상자가 없는 메인·뉴스·굿즈·커뮤니티 페이지의 연결만 제거. 배경 스크롤 잠금 규칙(`body.dialog-open`)은 유지
+- `responsive-shell.css`·`playful-lab-theme.css`·`devlog.css`의 미사용 대화상자 스타일(`.modal-box`·`.modal-overlay`·`.contact-dialog`·`.dialog-close`·`.dialog-link`) 삭제
+- `responsive-nav.mjs`·`responsive-shell.css`의 예전 프로젝트 메뉴 지원(`.project-nav-actions`·`.project-nav-links`·`.nav-cta`·`.eta-brand`) 삭제
+- `ProjectEta_Style.css`의 예전 에타 전용 헤더 스타일(`.eta-nav`·`.eta-brand`·`.eta-nav-links`·`.nav-cta`) 삭제
+
+현재 확인된 정리 후보는 없습니다. 새 후보는 삭제 전 참조 여부와 관련 테스트를 확인합니다.
 
 ---
 ## 외부 확인 대기 항목

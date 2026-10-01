@@ -67,7 +67,7 @@
     text-shadow: 0.12rem 0.12rem 0 var(--pl-mint); /* 미술형 강조 */
 } /* 브랜드 끝 */
 
-[data-theme="playful-lab"] :is(.btn-nav, .hero-action, .filter-btn, .dialog-link) /* 공통 행동 요소 */
+[data-theme="playful-lab"] :is(.btn-nav, .hero-action, .filter-btn) /* 공통 행동 요소 */
 { /* 행동 시작 */
     border: 0.0625rem solid var(--pl-violet); /* 행동 경계선 */
     border-radius: 999rem; /* 캡슐 모서리 */
@@ -98,15 +98,6 @@
     box-shadow: var(--pl-shadow-small); /* 카드 그림자 */
     color: var(--pl-ink); /* 카드 글자색 */
 } /* 카드 끝 */
-
-[data-theme="playful-lab"] :is(.contact-dialog, .modal-box) /* 공통 대화상자 */
-{ /* 대화상자 시작 */
-    border: 0.0625rem solid var(--pl-border-strong); /* 대화상자 경계선 */
-    border-radius: var(--pl-radius-large); /* 대화상자 모서리 */
-    background: var(--pl-canvas); /* 대화상자 배경 */
-    box-shadow: var(--pl-shadow-medium); /* 대화상자 그림자 */
-    color: var(--pl-ink); /* 대화상자 글자색 */
-} /* 대화상자 끝 */
 
 [data-theme="playful-lab"][data-responsive-page="main"] /* 메인 화면 */
 { /* 메인 시작 */
@@ -933,7 +924,7 @@
     color: var(--pl-muted); /* 상태 글자색 */
 } /* 조회 상태 끝 */
 
-[data-theme="playful-lab"] :is(button, .btn-nav, .hero-action, .filter-btn, .dialog-link, .admin-primary-button, .admin-button-link, input, select) /* 상호작용 요소 */
+[data-theme="playful-lab"] :is(button, .btn-nav, .hero-action, .filter-btn, .admin-primary-button, .admin-button-link, input, select) /* 상호작용 요소 */
 { /* 요소 시작 */
     min-height: 44px; /* 최소 터치 높이 */
 } /* 요소 끝 */
@@ -958,13 +949,6 @@
         bottom: 4.75rem; /* 방향 버튼 위 배치 */
         width: min(15rem, calc(100vw - 6rem)); /* 안전 너비 */
     } /* 게이지 끝 */
-
-    [data-theme="playful-lab"] :is(.modal-box, .contact-dialog) /* 모바일 대화상자 */
-    { /* 대화상자 시작 */
-        width: calc(100% - 2rem); /* 포함 영역 안쪽 너비 */
-        max-height: calc(100dvh - 2rem); /* 화면 안쪽 높이 */
-        overflow-y: auto; /* 세로 이동 */
-    } /* 대화상자 끝 */
 
     [data-theme="playful-lab"] :is(.page-shell, .legal-shell) /* 모바일 하위 페이지 */
     { /* 하위 페이지 시작 */

@@ -74,15 +74,14 @@ test("프로젝트 페이지와 기기 미리보기는 공통 테마에서 제�
     assert.doesNotMatch(preview, /playful-lab-theme|data-theme="playful-lab"/); // 미리보기 제외 확인
 }); // 테스트 끝
 
-test("공통 테마가 탐색·버튼·카드·대화상자 계약을 제공한다", async () => // 공통 구성 요소 검사
+test("공통 테마가 탐색·버튼·카드 계약을 제공한다", async () => // 공통 구성 요소 검사
 { // 테스트 시작
     const css = await readFile(themeUrl, "utf8"); // 테마 읽기
     assert.match(css, /\[data-theme="playful-lab"\] \.navbar/); // 상단 메뉴 확인
     assert.match(css, /\[data-theme="playful-lab"\] \.nav-logo/); // 브랜드 확인
-    assert.match(css, /\[data-theme="playful-lab"\] :is\(\.btn-nav, \.hero-action, \.filter-btn, \.dialog-link\)/); // 버튼 묶음 확인
+    assert.match(css, /\[data-theme="playful-lab"\] :is\(\.btn-nav, \.hero-action, \.filter-btn\)/); // 버튼 묶음 확인
     assert.match(css, /\[data-theme="playful-lab"\] :is\(input, textarea, select\)/); // 입력 요소 확인
     assert.match(css, /\[data-theme="playful-lab"\] :is\(\.goods-card, \.community-card, \.news-row/); // 카드 묶음 확인
-    assert.match(css, /\[data-theme="playful-lab"\] :is\(\.contact-dialog, \.modal-box\)/); // 대화상자 확인
 }); // 테스트 끝
 
 test("메인 테마가 히어로·캐러셀·게임·질문 영역을 밝게 표현한다", async () => // 메인 시각 검사
@@ -190,7 +189,6 @@ test("공통 테마가 반응형·상태·움직임 축소 계약을 제공한�
     assert.match(css, /:is\(\.error, \.admin-message-error, \.field-error\)/); // 오류 상태 확인
     assert.match(css, /min-height:\s*44px/); // 터치 높이 확인
     assert.match(css, /@media \(max-width:\s*767px\)[\s\S]*?\.hero-carousel-timer[\s\S]*?bottom:\s*4\.75rem/); // 모바일 게이지 위치 확인
-    assert.match(css, /@media \(max-width:\s*767px\)[\s\S]*?:is\(\.modal-box, \.contact-dialog\)[\s\S]*?width:\s*calc\(100% - 2rem\)/); // 모바일 대화상자 포함 폭 확인
 }); // 테스트 끝
 
 test("메인 커뮤니티 카드는 화면 폭이 바뀌어도 최대 크기를 넘지 않는다", async () => // 커뮤니티 크기 회귀 검사

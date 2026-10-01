@@ -303,6 +303,8 @@ devforge_privacy_consent_v1
 
 새 정적 대화상자는 고유 제목 ID와 `aria-labelledby`를 제공해야 합니다. 사용자 정의 모달은 `role="dialog"`, `aria-modal="true"`, `hidden`을 함께 사용하고, 공통 모듈을 페이지마다 한 번만 연결합니다. 개별 페이지에서 `showModal()`이나 `open` 클래스를 직접 제어하지 않습니다.
 
+2026년 10월 1일 기준으로 대화상자를 쓰는 공개 페이지가 없어 이 모듈은 어느 페이지에서도 불러오지 않고 재사용을 위해 보관합니다. 대화상자를 다시 추가하는 페이지에만 `<script type="module" src="/dialog-accessibility.mjs"></script>`를 연결하며, 배경 스크롤 잠금 규칙(`body.dialog-open`)은 `public/responsive-shell.css`에 유지합니다.
+
 로그인과 성인 확인 폼은 제출 중 `aria-busy`를 표시합니다. 입력값 때문에 실패한 경우에만 해당 입력에 `aria-invalid`와 고유 오류 문구 ID를 `aria-describedby`로 연결하며, 통신·설정·OAuth 오류는 입력 오류로 표시하지 않습니다. 관리자 뉴스·상품 편집기도 서버 액션 진행 상태를 `aria-busy`로 전달합니다.
 
 ---

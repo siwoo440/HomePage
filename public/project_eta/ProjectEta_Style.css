@@ -570,66 +570,6 @@ body.intro-active /* 초대장 재생 중 본문 */
     } /* 주요 전환 끝 */
 } /* 동작 감소 끝 */
 
-.eta-nav /* 상단 고정 메뉴 */
-{ /* 메뉴 시작 */
-    position: fixed; /* 화면 상단 고정 */
-    top: 0; /* 위쪽 위치 */
-    right: 0; /* 오른쪽 위치 */
-    left: 0; /* 왼쪽 위치 */
-    z-index: 100; /* 다른 내용 위 배치 */
-    min-height: 72px; /* 메뉴 최소 높이 */
-    padding: 0 clamp(22px, 5vw, 76px); /* 반응형 좌우 여백 */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12); /* 메뉴 구분선 */
-    background: rgba(8, 9, 11, 0.82); /* 반투명 메뉴 배경 */
-    backdrop-filter: blur(18px); /* 배경 흐림 효과 */
-    display: flex; /* 가로 배치 */
-    align-items: center; /* 세로 가운데 정렬 */
-    justify-content: space-between; /* 양쪽 정렬 */
-    gap: 28px; /* 메뉴 간격 */
-} /* 메뉴 끝 */
-
-.eta-brand /* 상단 브랜드 */
-{ /* 브랜드 시작 */
-    font-family: Georgia, "Times New Roman", serif; /* 고전형 글꼴 */
-    font-size: 0.95rem; /* 브랜드 크기 */
-    font-weight: 700; /* 브랜드 굵기 */
-    letter-spacing: 0.2em; /* 브랜드 글자 간격 */
-    white-space: nowrap; /* 브랜드 줄바꿈 차단 */
-} /* 브랜드 끝 */
-
-.eta-brand span /* 프로젝트 기호 */
-{ /* 기호 시작 */
-    color: var(--gold); /* 금색 강조 */
-} /* 기호 끝 */
-
-.eta-nav-links /* 상단 링크 묶음 */
-{ /* 링크 묶음 시작 */
-    display: flex; /* 가로 배치 */
-    align-items: center; /* 세로 가운데 정렬 */
-    gap: clamp(16px, 3vw, 42px); /* 반응형 링크 간격 */
-} /* 링크 묶음 끝 */
-
-.eta-nav-links a /* 상단 내부 링크 */
-{ /* 내부 링크 시작 */
-    color: #bbb8b0; /* 기본 링크색 */
-    font-size: 0.78rem; /* 링크 크기 */
-    letter-spacing: 0.12em; /* 링크 글자 간격 */
-    transition: color 0.2s ease; /* 색상 전환 */
-} /* 내부 링크 끝 */
-
-.eta-nav-links a:hover, .eta-nav-links a:focus-visible /* 내부 링크 선택 */
-{ /* 선택 시작 */
-    color: #ffffff; /* 선택 글자색 */
-} /* 선택 끝 */
-
-.nav-cta /* 상단 행동 유도 */
-{ /* 행동 유도 시작 */
-    padding: 8px 14px; /* 안쪽 여백 */
-    border: 1px solid var(--paper); /* 아이보리 경계선 */
-    font-size: 0.7rem; /* 글자 크기 */
-    letter-spacing: 0.15em; /* 글자 간격 */
-} /* 행동 유도 끝 */
-
 .eta-hero /* 대표 소개 영역 */
 { /* 대표 영역 시작 */
     position: relative; /* 장식 배치 기준 */
@@ -1682,10 +1622,6 @@ body.intro-active /* 초대장 재생 중 본문 */
 
 @media (max-width: 980px) /* 태블릿 화면 */
 { /* 태블릿 시작 */
-    .eta-nav-links /* 태블릿 내부 링크 */
-    { /* 링크 시작 */
-        display: none; /* 공간 확보를 위한 숨김 */
-    } /* 링크 끝 */
     .identity-flow /* 태블릿 핵심 흐름 */
     { /* 흐름 시작 */
         grid-template-columns: 1fr; /* 한 열 배치 */
@@ -1741,14 +1677,6 @@ body.intro-active /* 초대장 재생 중 본문 */
 
 @media (max-width: 640px) /* 모바일 화면 */
 { /* 모바일 시작 */
-    .eta-nav /* 모바일 상단 메뉴 */
-    { /* 메뉴 시작 */
-        min-height: 62px; /* 메뉴 높이 축소 */
-    } /* 메뉴 끝 */
-    .nav-cta /* 모바일 행동 유도 */
-    { /* 행동 유도 시작 */
-        display: none; /* 좁은 화면 숨김 */
-    } /* 행동 유도 끝 */
     .eta-hero /* 모바일 대표 영역 */
     { /* 대표 영역 시작 */
         min-height: 92svh; /* 모바일 화면 높이 */
@@ -1840,22 +1768,6 @@ body.intro-active /* 초대장 재생 중 본문 */
         width: min(100% - 40px, 1180px); /* 본문 좌우 여백 */
     } /* 규칙 끝 */
 
-    .eta-nav-links /* 태블릿 내부 메뉴 */
-    { /* 규칙 시작 */
-        flex-wrap: nowrap; /* 메뉴 한 줄 유지 */
-        overflow-x: auto; /* 내부 메뉴 가로 이동 */
-        overscroll-behavior-inline: contain; /* 가로 이동 범위 제한 */
-        scrollbar-width: thin; /* 얇은 스크롤 막대 */
-    } /* 규칙 끝 */
-
-    .eta-nav-links a /* 태블릿 내부 링크 */
-    { /* 규칙 시작 */
-        min-height: 44px; /* 터치 높이 */
-        display: inline-flex; /* 링크 배치 */
-        align-items: center; /* 링크 세로 정렬 */
-        white-space: nowrap; /* 메뉴 줄바꿈 차단 */
-    } /* 규칙 끝 */
-
     .fusion-tree-shell /* 태블릿 합성 트리 화면 */
     { /* 규칙 시작 */
         max-width: 100%; /* 화면 폭 제한 */
@@ -1866,28 +1778,6 @@ body.intro-active /* 초대장 재생 중 본문 */
 
 @media (max-width: 959px) /* 에타 서랍 메뉴 화면 */
 { /* 구간 시작 */
-    .eta-nav /* 좁은 화면 상단 메뉴 */
-    { /* 규칙 시작 */
-        align-content: center; /* 메뉴 행 정렬 */
-        flex-wrap: wrap; /* 내부 메뉴 다음 행 배치 */
-        gap: 4px 12px; /* 메뉴 행 간격 */
-        padding-bottom: 8px; /* 아래쪽 여백 */
-        padding-top: 8px; /* 위쪽 여백 */
-    } /* 규칙 끝 */
-
-    .eta-nav-links /* 좁은 화면 내부 메뉴 */
-    { /* 규칙 시작 */
-        display: flex !important; /* 내부 메뉴 유지 */
-        gap: 24px; /* 내부 링크 간격 */
-        order: 3; /* 두 번째 행 배치 */
-        width: 100%; /* 내부 메뉴 전체 너비 */
-    } /* 규칙 끝 */
-
-    .eta-nav .responsive-nav-toggle /* 에타 공통 메뉴 버튼 */
-    { /* 규칙 시작 */
-        margin-left: auto; /* 버튼 오른쪽 배치 */
-    } /* 규칙 끝 */
-
     .eta-hero /* 좁은 화면 대표 영역 */
     { /* 규칙 시작 */
         padding-top: 142px; /* 두 줄 메뉴 공간 */
@@ -1904,11 +1794,6 @@ body.intro-active /* 초대장 재생 중 본문 */
     .section-shell /* 모바일 본문 너비 */
     { /* 규칙 시작 */
         width: min(100% - 32px, 1180px); /* 모바일 좌우 여백 */
-    } /* 규칙 끝 */
-
-    .eta-nav-links /* 모바일 내부 메뉴 */
-    { /* 규칙 시작 */
-        gap: 18px; /* 링크 간격 축소 */
     } /* 규칙 끝 */
 
     .atlas-toolbar /* 모바일 도감 도구 */
