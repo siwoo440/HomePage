@@ -612,8 +612,11 @@
     border-radius: 999px; /* 둥근 모양 */
     color: #e8fff9; /* 버튼 글자 */
     cursor: pointer; /* 선택 표시 */
-    min-height: 44px; /* 터치 높이 */
-    padding: 0.6rem 0.9rem; /* 내부 여백 */
+    height: 1.65rem; /* 해시태그 글자와 같은 높이 */
+    padding: 0 0.75rem; /* 내부 여백 */
+    font-size: 0.8125rem; /* 해시태그 글자와 맞춘 크기 */
+    font-weight: 700; /* 해시태그 글자와 같은 굵기 */
+    line-height: 1; /* 글자 세로 가운데 */
 } /* 규칙 끝 */
 
 .hashtag-copy-status /* 해시태그 복사 결과 */

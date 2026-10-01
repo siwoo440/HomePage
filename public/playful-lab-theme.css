@@ -880,6 +880,11 @@
     color: var(--pl-canvas); /* 흰 글자 */
 } /* 복사 버튼 끝 */
 
+[data-theme="playful-lab"][data-responsive-page="community"] .hashtag-copy-button /* 해시태그 복사 크기 */
+{ /* 복사 크기 시작 */
+    min-height: 0; /* 해시태그 글자 높이에 맞춤 */
+} /* 복사 크기 끝 */
+
 [data-theme="playful-lab"][data-responsive-page="community"] :is(.platforms-heading, .platform-heading, .platform-identity) /* 커뮤니티 제목 */
 { /* 커뮤니티 제목 시작 */
     color: var(--pl-ink); /* 제목 글자색 */
