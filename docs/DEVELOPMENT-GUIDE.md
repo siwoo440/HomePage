@@ -326,6 +326,19 @@ devforge_privacy_consent_v1
 로그인과 성인 확인 폼은 제출 중 `aria-busy`를 표시합니다. 입력값 때문에 실패한 경우에만 해당 입력에 `aria-invalid`와 고유 오류 문구 ID를 `aria-describedby`로 연결하며, 통신·설정·OAuth 오류는 입력 오류로 표시하지 않습니다. 관리자 뉴스·상품 편집기도 서버 액션 진행 상태를 `aria-busy`로 전달합니다.
 
 ---
+### 6.12 영어 화면(AI 번역)
+
+공개 정적 페이지는 같은 주소에서 한국어 원문을 영어 사전으로 바꿔 보여 줍니다. 페이지 머리의 `public/i18n-bootstrap.js`가 정적 페이지 표시(`data-i18n-page="static"`)를 남기고, 영어를 고른 경우 번역이 끝날 때까지 본문을 최대 3초 가립니다. `public/responsive-nav.mjs`가 헤더 `EN`/`KO` 버튼과 서랍 메뉴 `English`/`한국어` 버튼을 만들고 `public/i18n.mjs`의 번역을 시작합니다. Next.js 화면은 표시가 없으므로 버튼도 번역도 생기지 않습니다.
+
+- 사전: `public/i18n/en/site.json`(공통 페이지·공통 모듈)과 게임 폴더별 `project_*.json`. 형식은 `{ "entries": { 한국어: 영어 }, "patterns": [{ "ko": "{0}개의 뉴스", "en": "{0} posts" }] }`입니다.
+- 번역 순서: 문맥별 문구(`title::게임`, `data-i18n-context`가 붙은 요소 안) → 문구 → 형식 문구(고정 글자가 긴 것부터) → 따옴표·`#` 태그·`·`·`+`·`→`·`/` 조합의 조각별 번역 순서입니다.
+- 화면 글자와 `alt`·`title`·`aria-label`·`placeholder` 속성만 바꾸고 `data-*` 값은 그대로 두어 필터·저장 로직이 깨지지 않습니다. 이후 스크립트가 바꾸는 글자도 `MutationObserver`로 번역합니다.
+- `data-i18n-skip`·`translate="no"` 요소(언어 버튼, 실제 SNS 해시태그)는 번역하지 않습니다. 날짜는 `getPageLocale()`로 영어 화면에서 `en-US` 형식을 씁니다.
+- `scripts/i18n-extract.mjs`가 HTML 글자·속성과 JS 문자열·형식 문구(템플릿과 `+` 연결)를 추출합니다. `pnpm i18n:check`와 `tests/i18n.test.mjs`가 빠진 번역, 원문에서 사라진 번역, 자리 표시 불일치를 검사합니다.
+
+문구를 바꾸면 사전의 같은 키를 고치고, 새 문구는 영어 번역을 추가한 뒤 `pnpm i18n:check`로 확인합니다. 화면에서 영어로 바뀌지 않은 글자는 영어 화면 콘솔의 `window.__devforgeI18n.missing`에 모입니다.
+
+---
 ## 7. 디자인 시스템
 
 ---

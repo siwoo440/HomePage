@@ -228,7 +228,10 @@ css-styling/
 | `public/game-catalog.mjs` | 프로젝트 검색, 필터와 더 보기 |
 | `public/hero-carousel.mjs` | 방향 이동, 자동 전환과 진행 게이지 |
 | `public/site-experience.mjs` | 관심·최근 목록, 통계와 FAQ 상호작용 |
-| `public/responsive-nav.mjs` | 반응형 메뉴, 서랍과 라이트·다크 모드 |
+| `public/responsive-nav.mjs` | 반응형 메뉴, 서랍, 라이트·다크 모드와 영어·한국어 전환 버튼 |
+| `public/i18n.mjs` | 영어 화면 번역(사전 불러오기, 문구·형식 번역, 화면 변경 감시, 날짜 표기 언어) |
+| `public/i18n-bootstrap.js` | 정적 페이지 표시와 영어 선택 시 번역 전 본문 가림 |
+| `public/i18n/en/` | 영어 사전(`site.json` 공통, `project_*.json` 게임별) |
 | `public/privacy-consent.mjs` | 개인정보 선택 저장과 변경 이벤트 |
 | `public/site-analytics.mjs` | 동의 기반 GA4 로드와 이벤트 제한 |
 | `public/analytics-config.mjs` | 공개 GA4 측정 ID 설정 |
@@ -309,6 +312,7 @@ css-styling/
 | `scripts/archive-project-pages.mjs` | `node scripts/archive-project-pages.mjs` | 변경 전 프로젝트 HTML을 내부 보관소로 복사 |
 | `scripts/optimize_goods_images.py` | Python 환경에서 직접 실행 | 상품 원본 이미지 최적화 |
 | `scripts/check-supabase-env.mjs` | `pnpm supabase:check` | `.env.local`의 Supabase 주소·공개 키·관리자 이메일 형식과 비밀 키 노출 점검 |
+| `scripts/i18n-extract.mjs` | `pnpm i18n:check` | 정적 페이지 한국어 문구 추출과 영어 사전 누락·잔여 점검 |
 
 페이지 생성과 보관 스크립트를 실행한 뒤 변경 파일을 반드시 검토합니다. 개별 디자인 프로젝트를 공통 템플릿으로 덮어쓰지 않도록 대상 목록을 확인합니다.
 
@@ -378,6 +382,7 @@ css-styling/
 - `responsive-integration.test.mjs`: 전체 페이지 반응형 연결
 - `responsive-navigation.test.mjs`: 서랍 메뉴와 테마 전환
 - `playful-lab-theme.test.mjs`: 공통 토큰과 적용 제외 범위
+- `i18n.test.mjs`: 영어 사전 범위·품질, 번역기 동작, 언어 버튼과 준비 스크립트 연결
 - `device-preview.test.mjs`: 개발용 기기 크기와 제어
 
 ---
@@ -447,6 +452,7 @@ ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `publi
 | 공통 색상·외곽선 | `public/playful-lab-theme.css` | 각 페이지 전용 CSS |
 | 모바일 메뉴 | `public/responsive-nav.mjs` | `public/responsive-shell.css` |
 | 다크 모드 | `public/responsive-nav.mjs` | `public/playful-lab-theme.css` |
+| 영어 화면 | `public/i18n.mjs` | `public/i18n/en/`, `scripts/i18n-extract.mjs`, `public/i18n-bootstrap.js` |
 | 뉴스 관리 | `app/admin/news/` | `lib/news/`, 뉴스 마이그레이션 |
 | 상품 관리 | `app/admin/products/` | `lib/products/`, 상품 마이그레이션 |
 | 로그인 권한 | `lib/auth/admin-policy.ts` | `proxy.ts`, Supabase 클라이언트 |

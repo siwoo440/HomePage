@@ -1,6 +1,7 @@
 import { getAgeVerificationStatus } from "./age-gate.mjs"; // 성인 인증 상태 도구
 import { COMMUNITY_GAMES, COMMUNITY_PLATFORMS, createDemoItems, isAdultCommunityGame } from "./community-data.mjs"; // 커뮤니티 화면 데이터
 import { createDataStateController, requestJson, resolveCollectionState } from "./data-state.mjs"; // 공통 데이터 상태 도구
+import { getPageLocale } from "./i18n.mjs"; // 화면 언어 표기
 
 let ageVerified = false; // 현재 성인 인증 상태
 let selectionVersion = 0; // 선택 변경 번호
@@ -106,7 +107,7 @@ function createContentCard(item) // 최신 소식 카드 생성
     } // 대안 끝
 
     copy.append(createTextElement("h3", "", item.title)); // 안전한 제목 추가
-    copy.append(createTextElement("p", "", item.description ?? `${item.author} · ${new Date(item.publishedAt).toLocaleDateString("ko-KR")}`)); // 안전한 설명 추가
+    copy.append(createTextElement("p", "", item.description ?? `${item.author} · ${new Date(item.publishedAt).toLocaleDateString(getPageLocale())}`)); // 안전한 설명 추가
     article.append(copy); // 카드 내용 추가
     return article; // 완성 카드 반환
 } // 함수 끝
@@ -164,7 +165,7 @@ function renderFeatured(item) // 대표 콘텐츠 렌더링
     badge.textContent = item.isDemo ? "시연 화면" : item.contentType === "live" ? "LIVE" : item.contentType === "short_candidate" ? "쇼츠 후보" : "최신 영상"; // 대표 상태 표시
     title.textContent = item.title; // 안전한 대표 제목 삽입
     description.textContent = item.isDemo ? item.description : `${item.author}의 최신 공개 콘텐츠입니다.`; // 안전한 대표 설명 삽입
-    meta.textContent = `${item.author} · ${item.isDemo ? "연동 준비 중" : new Date(item.publishedAt).toLocaleString("ko-KR")}`; // 안전한 대표 정보 삽입
+    meta.textContent = `${item.author} · ${item.isDemo ? "연동 준비 중" : new Date(item.publishedAt).toLocaleString(getPageLocale())}`; // 안전한 대표 정보 삽입
 
     const nextAction = document.createElement(!item.isDemo && item.url ? "a" : "span"); // 새 이동 요소 생성
     nextAction.id = "featured-action"; // 대표 이동 식별자 연결

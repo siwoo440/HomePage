@@ -207,6 +207,30 @@ nav.navbar[data-site-header].is-scrolled /* 스크롤한 헤더 */
     color: var(--sh-on-cyan); /* 선택 아이콘 */
 } /* 규칙 끝 */
 
+[data-site-header] .site-language-toggle /* 넓은 화면 언어 버튼 */
+{ /* 규칙 시작 */
+    display: inline-grid; /* 글자 가운데 배치 */
+    place-items: center; /* 가운데 정렬 */
+    width: 44px; /* 터치 너비 */
+    height: 44px; /* 터치 높이 */
+    padding: 0; /* 기본 여백 제거 */
+    border: 1px solid var(--sh-violet); /* 버튼 경계선 */
+    border-radius: 50%; /* 원형 */
+    background: var(--sh-canvas); /* 버튼 배경 */
+    color: var(--sh-ink); /* 글자 색상 */
+    cursor: pointer; /* 선택 커서 */
+    font: 800 0.78rem/1 inherit; /* 짧은 언어 표기 */
+    letter-spacing: 0.04em; /* 글자 간격 */
+} /* 규칙 끝 */
+
+[data-site-header] .site-language-toggle:is(:hover, :focus-visible) /* 언어 버튼 선택 */
+{ /* 규칙 시작 */
+    background: var(--sh-cyan); /* 선택 배경 */
+    color: var(--sh-on-cyan); /* 선택 글자 */
+    outline: 2px solid var(--sh-violet); /* 초점 외곽선 */
+    outline-offset: 3px; /* 외곽선 간격 */
+} /* 규칙 끝 */
+
 nav.navbar[data-site-header] :is(.nav-logo, .nav-menu a, .btn-nav):focus-visible /* 키보드 초점 */
 { /* 규칙 시작 */
     outline: 2px solid var(--sh-violet); /* 초점 외곽선 */

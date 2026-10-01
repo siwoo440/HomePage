@@ -1,5 +1,6 @@
 import { GAME_PROJECTS } from "./game-projects.mjs"; // 공개 프로젝트 목록
 import { CONSENT_POLICY_VERSION, PRIVACY_CONSENT_EVENT, PRIVACY_CONSENT_STORAGE_KEY } from "./privacy-consent.mjs"; // 동의 저장 규칙
+import { getPageLocale, LANGUAGE_STORAGE_KEY } from "./i18n.mjs"; // 화면 언어 규칙
 
 export const BROWSER_DATA_ITEMS = Object.freeze( // 사이트 브라우저 저장 항목 목록
 [ // 목록 시작
@@ -9,6 +10,7 @@ export const BROWSER_DATA_ITEMS = Object.freeze( // 사이트 브라우저 저�
     Object.freeze({ id: "demo-member", key: "devforge_demo_member", storage: "session", label: "시연 회원 닉네임", purpose: "시연 로그인에 사용한 닉네임을 현재 탭에서만 기억합니다.", clearAll: true }), // 시연 회원
     Object.freeze({ id: "eta-invitation", key: "etaInvitationSeen", storage: "session", label: "프로젝트 η 초대장 확인", purpose: "같은 탭에서 초대장 연출을 다시 재생하지 않도록 기억합니다.", clearAll: true }), // 초대장 기록
     Object.freeze({ id: "color-mode", key: "devforge-color-mode", storage: "local", label: "화면 모드", purpose: "라이트·다크 화면 선택을 기억합니다. 전체 삭제에서는 제외합니다.", clearAll: false }), // 화면 모드
+    Object.freeze({ id: "language", key: LANGUAGE_STORAGE_KEY, storage: "local", label: "화면 언어", purpose: "한국어·영어 화면 선택을 기억합니다. 전체 삭제에서는 제외합니다.", clearAll: false }), // 화면 언어
 ]); // 목록 끝
 
 const STORAGE_LABELS = Object.freeze({ local: "이 브라우저 (localStorage)", session: "현재 탭 (sessionStorage · 탭을 닫으면 삭제)" }); // 저장 위치 문구
@@ -31,9 +33,9 @@ function parseJson(rawValue) // 안전한 JSON 해석
     } // 오류 처리 끝
 } // 함수 끝
 
-export function formatStoredDate(value, timeZone) // 저장 시각 표시
+export function formatStoredDate(value, timeZone, locale = getPageLocale()) // 저장 시각 표시
 { // 함수 시작
-    return new Intl.DateTimeFormat("ko-KR", { dateStyle: "medium", timeStyle: "short", timeZone }).format(new Date(value)); // 한국어 날짜 반환
+    return new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeStyle: "short", timeZone }).format(new Date(value)); // 화면 언어 날짜 반환
 } // 함수 끝
 
 function describeConsent(rawValue, timeZone) // 분석 동의 요약
@@ -102,6 +104,10 @@ export function describeBrowserDataValue(item, rawValue, timeZone) // 저장 항
     if (item.id === "color-mode") // 화면 모드 확인
     { // 조건 시작
         return rawValue === "light" || rawValue === "dark" ? { state: "stored", summary: rawValue === "dark" ? "다크 모드" : "라이트 모드" } : { state: "invalid", summary: "손상된 값 · 삭제하면 시스템 설정을 따름" }; // 화면 모드 요약 반환
+    } // 조건 끝
+    if (item.id === "language") // 화면 언어 확인
+    { // 조건 시작
+        return rawValue === "en" || rawValue === "ko" ? { state: "stored", summary: rawValue === "en" ? "영어" : "한국어" } : { state: "invalid", summary: "손상된 값 · 삭제하면 한국어로 표시" }; // 화면 언어 요약 반환
     } // 조건 끝
     return { state: "stored", summary: "저장됨" }; // 기본 요약 반환
 } // 함수 끝
@@ -188,6 +194,10 @@ export function describeRemovalResult(removed) // 삭제 결과 안내 문구
     if (removed.some((item) => item.id === "color-mode")) // 화면 모드 삭제 확인
     { // 조건 시작
         notes.push("화면 모드는 다음 페이지부터 기기 설정을 따릅니다."); // 화면 모드 삭제 안내
+    } // 조건 끝
+    if (removed.some((item) => item.id === "language")) // 화면 언어 삭제 확인
+    { // 조건 시작
+        notes.push("화면 언어는 다음 페이지부터 한국어로 표시됩니다."); // 화면 언어 삭제 안내
     } // 조건 끝
     if (removed.some((item) => item.id === "demo-member")) // 시연 회원 삭제 확인
     { // 조건 시작

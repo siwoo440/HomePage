@@ -1,4 +1,5 @@
 import { getSessionStorage, initializeMemberActions } from "./member-session.mjs"; // 회원 상태 표시 도구
+import { getLanguageSwitchUrl, isTranslatablePage, readStoredLanguage, resolveLanguage, saveLanguage, startPageTranslation } from "./i18n.mjs"; // 페이지 번역 도구
 
 export const DRAWER_MAX_WIDTH = 959; // 서랍 최대 너비
 export const COLOR_MODE_STORAGE_KEY = "devforge-color-mode"; // 색상 모드 저장 키
@@ -83,6 +84,19 @@ function createDrawerLink(root, item, currentPath, currentHash) // 메뉴 링크
     } // 조건 끝
 
     return link; // 메뉴 링크 반환
+} // 함수 끝
+
+function createLanguageButton(root, className, role, label, language) // 언어 전환 버튼 생성
+{ // 함수 시작
+    const button = createElement(root, "button", className, role); // 버튼 요소 생성
+    button.type = "button"; // 버튼 형식 설정
+    button.textContent = label; // 버튼 문구 설정
+    button.lang = language === "en" ? "ko" : "en"; // 버튼 문구 언어
+    button.dataset.i18nSkip = ""; // 번역 제외 표시
+    button.setAttribute("translate", "no"); // 브라우저 번역 제외
+    button.setAttribute("aria-label", language === "en" ? "한국어로 보기 (View in Korean)" : "영어로 보기 (View in English)"); // 접근성 이름 설정
+    button.title = button.getAttribute("aria-label"); // 마우스 도움말 설정
+    return button; // 버튼 반환
 } // 함수 끝
 
 function handleContactHash(root, view) // 이전 문의 주소 처리
@@ -171,6 +185,16 @@ export function initializeResponsiveNavigation(root = document, view = window) /
         controls.push(themeToggle); // 초점 목록 연결
     } // 조건 끝
 
+    const language = resolveLanguage(view.location?.search, readStoredLanguage(view)); // 현재 언어
+    let languageToggle = null; // 서랍 언어 버튼
+
+    if (isTranslatablePage(root)) // 번역 가능 페이지 확인
+    { // 조건 시작
+        languageToggle = createLanguageButton(root, "responsive-nav-language-toggle", "language-toggle", language === "en" ? "한국어" : "English", language); // 서랍 언어 버튼 생성
+        drawerLinks.append(languageToggle); // 언어 버튼 연결
+        controls.push(languageToggle); // 초점 목록 연결
+    } // 조건 끝
+
     const loginLink = createElement(root, "a", "responsive-nav-login", "drawer-control"); // 로그인 링크 생성
     loginLink.href = getLoginUrl(view.location?.pathname); // 로그인 주소 설정
     loginLink.textContent = "로그인"; // 로그인 문구 설정
@@ -194,6 +218,21 @@ export function initializeResponsiveNavigation(root = document, view = window) /
         else // 삽입 불가 처리
         { // 대안 시작
             toggleHost.append(headerThemeToggle); // 끝에 연결
+        } // 대안 끝
+    } // 조건 끝
+    let headerLanguageToggle = null; // 넓은 화면 언어 버튼
+
+    if (languageToggle) // 언어 전환 사용 확인
+    { // 조건 시작
+        headerLanguageToggle = createLanguageButton(root, "site-language-toggle", "header-language-toggle", language === "en" ? "KO" : "EN", language); // 헤더 언어 버튼 생성
+        const anchor = headerThemeToggle ?? toggleHost.querySelector?.("[data-member-action]") ?? null; // 앞쪽 기준 버튼
+        if (anchor && typeof toggleHost.insertBefore === "function") // 앞쪽 삽입 가능 확인
+        { // 조건 시작
+            toggleHost.insertBefore(headerLanguageToggle, anchor); // 테마·로그인 앞에 연결
+        } // 조건 끝
+        else // 삽입 불가 처리
+        { // 대안 시작
+            toggleHost.append(headerLanguageToggle); // 끝에 연결
         } // 대안 끝
     } // 조건 끝
     root.body.append(overlay, drawer); // 본문에 메뉴 요소 연결
@@ -278,6 +317,18 @@ export function initializeResponsiveNavigation(root = document, view = window) /
         updateThemeToggle(); // 버튼 상태 갱신
     } // 함수 끝
 
+    function onLanguageToggleClick() // 언어 버튼 처리
+    { // 함수 시작
+        saveLanguage(view, language === "en" ? "ko" : "en"); // 반대 언어 저장
+        const target = getLanguageSwitchUrl(view.location.href); // 이동 주소
+        if (target === view.location.href) // 같은 주소 확인
+        { // 조건 시작
+            view.location.reload(); // 새 언어로 다시 열기
+            return; // 처리 종료
+        } // 조건 끝
+        view.location.replace(target); // 언어 요청 없는 주소로 이동
+    } // 함수 끝
+
     function onKeyDown(event) // 키 입력 처리
     { // 함수 시작
         if (drawer.hidden) // 메뉴 닫힘 확인
@@ -330,7 +381,10 @@ export function initializeResponsiveNavigation(root = document, view = window) /
         toggle.removeEventListener("click", onToggleClick); // 메뉴 처리기 해제
         closeButton.removeEventListener("click", close); // 닫기 처리기 해제
         overlay.removeEventListener("click", close); // 배경 처리기 해제
-        controls.slice(1).filter((control) => control !== themeToggle).forEach((control) => control.removeEventListener("click", onDrawerLinkClick)); // 링크 처리기 해제
+        controls.slice(1).filter((control) => control !== themeToggle && control !== languageToggle).forEach((control) => control.removeEventListener("click", onDrawerLinkClick)); // 링크 처리기 해제
+        languageToggle?.removeEventListener("click", onLanguageToggleClick); // 언어 처리기 해제
+        headerLanguageToggle?.removeEventListener("click", onLanguageToggleClick); // 헤더 언어 처리기 해제
+        headerLanguageToggle?.remove(); // 헤더 언어 버튼 제거
         themeToggle?.removeEventListener("click", onThemeToggleClick); // 테마 처리기 해제
         headerThemeToggle?.removeEventListener("click", onThemeToggleClick); // 헤더 테마 처리기 해제
         headerThemeToggle?.remove(); // 헤더 테마 버튼 제거
@@ -346,7 +400,9 @@ export function initializeResponsiveNavigation(root = document, view = window) /
     toggle.addEventListener("click", onToggleClick); // 메뉴 처리기 등록
     closeButton.addEventListener("click", close); // 닫기 처리기 등록
     overlay.addEventListener("click", close); // 배경 처리기 등록
-    controls.slice(1).filter((control) => control !== themeToggle).forEach((control) => control.addEventListener("click", onDrawerLinkClick)); // 링크 처리기 등록
+    controls.slice(1).filter((control) => control !== themeToggle && control !== languageToggle).forEach((control) => control.addEventListener("click", onDrawerLinkClick)); // 링크 처리기 등록
+    languageToggle?.addEventListener("click", onLanguageToggleClick); // 언어 처리기 등록
+    headerLanguageToggle?.addEventListener("click", onLanguageToggleClick); // 헤더 언어 처리기 등록
     themeToggle?.addEventListener("click", onThemeToggleClick); // 테마 처리기 등록
     headerThemeToggle?.addEventListener("click", onThemeToggleClick); // 헤더 테마 처리기 등록
     root.addEventListener("keydown", onKeyDown); // 키 처리기 등록
@@ -362,6 +418,7 @@ export function initializeResponsiveNavigation(root = document, view = window) /
 if (typeof document !== "undefined" && typeof window !== "undefined") // 브라우저 환경 확인
 { // 조건 시작
     window.__devforgeResponsiveNavInit = initializeResponsiveNavigation; // 화면 전환형 페이지 재연결 함수
+    void startPageTranslation(document, window); // 선택 언어로 페이지 번역
     if (document.readyState === "loading") // 문서 준비 상태 확인
     { // 조건 시작
         document.addEventListener("DOMContentLoaded", () => initializeResponsiveNavigation(document, window), { once: true }); // 준비 후 초기화

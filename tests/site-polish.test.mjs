@@ -122,7 +122,7 @@ test("커뮤니티 소개는 가운데, 해시태그 복사는 태그 오른쪽,
     const html = fs.readFileSync("public/community.html", "utf8"); // 커뮤니티 문서
     const css = fs.readFileSync("public/community.css", "utf8"); // 커뮤니티 스타일
     assert.match(css, /\.community-hero \/\* 커뮤니티 소개 \*\/\s*\{[^}]*justify-items: center;[^}]*text-align: center;/); // 소개 가운데 정렬 확인
-    assert.match(html, /<div class="active-tag-row">\s*<!--[^>]*-->\s*<strong id="active-hashtag">[^<]*<\/strong>[^\n]*\n\s*<button class="hashtag-copy-button"/); // 태그와 버튼 같은 줄 구조 확인
+    assert.match(html, /<div class="active-tag-row">\s*<!--[^>]*-->\s*<strong id="active-hashtag"( data-i18n-skip)?>[^<]*<\/strong>[^\n]*\n\s*<button class="hashtag-copy-button"/); // 태그와 버튼 같은 줄 구조 확인
     assert.match(css, /\.active-tag-row[^{]*\{[^}]*display: flex;[^}]*align-items: center;[^}]*justify-content: space-between;/); // 태그 왼쪽 버튼 오른쪽 확인
     assert.match(css, /\.platform-stack \/\* 플랫폼 전체 묶음 \*\/\s*\{[^}]*grid-template-columns: minmax\(0, 1fr\)/); // 플랫폼 한 줄 하나 확인
     assert.match(css, /\.hashtag-copy-button \/\* 해시태그 복사 버튼 \*\/\s*\{[^}]*height: 1\.65rem;/); // 복사 버튼 글자 높이 확인

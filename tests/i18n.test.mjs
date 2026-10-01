@@ -1,0 +1,122 @@
+import assert from "node:assert/strict"; // 엄격 비교 도구
+import fs from "node:fs"; // 파일 읽기 도구
+import path from "node:path"; // 경로 처리 도구
+import test from "node:test"; // 테스트 실행 도구
+import { createTranslator, getLanguageSwitchUrl, getPageLocale, bundleForPath, LANGUAGE_STORAGE_KEY, resolveLanguage } from "../public/i18n.mjs"; // 페이지 번역 도구
+import { DICTIONARY_ROOT, extractAll, findMissing, findStale } from "../scripts/i18n-extract.mjs"; // 번역 문구 추출 도구
+import { BROWSER_DATA_ITEMS, describeBrowserDataValue, getClearAllIds } from "../public/browser-data.mjs"; // 브라우저 저장 항목
+
+const HANGUL = /[가-힣]/; // 한글 판별 규칙
+const read = (file) => fs.readFileSync(file, "utf8"); // 원본 읽기 도구
+
+test("모든 정적 페이지 문구는 영어 사전에 빠짐없이 있고 사라진 문구는 남기지 않는다", () => // 사전 범위 검사
+{ // 테스트 시작
+    const bundles = extractAll(); // 현재 원문 추출
+    const missing = findMissing(bundles); // 빠진 번역
+    const stale = findStale(bundles); // 오래된 번역
+    assert.deepEqual(missing.map((item) => `${item.bundle}: ${item.entry}`), [], "번역 누락: node scripts/i18n-extract.mjs 로 확인"); // 누락 없음 확인
+    assert.deepEqual(stale.map((item) => `${item.bundle}: ${item.entry}`), [], "원문에서 사라진 번역 정리 필요"); // 오래된 번역 없음 확인
+    assert.ok(bundles.size >= 36); // 공통과 게임 페이지 묶음 확인
+}); // 테스트 끝
+
+test("영어 사전은 한글 없이 번역되고 형식 문구는 같은 자리 표시를 쓴다", () => // 사전 품질 검사
+{ // 테스트 시작
+    for (const file of fs.readdirSync(DICTIONARY_ROOT)) // 사전 파일 반복
+    { // 반복 시작
+        const dictionary = JSON.parse(read(path.join(DICTIONARY_ROOT, file))); // 사전 읽기
+        assert.deepEqual(Object.keys(dictionary), ["entries", "patterns"], file); // 사전 형식 확인
+        for (const [ko, en] of Object.entries(dictionary.entries)) // 문구 반복
+        { // 반복 시작
+            assert.equal(typeof en, "string", `${file}: ${ko}`); // 번역 형식 확인
+            assert.ok(en.trim().length > 0 || ko.trim().length > 0, `${file}: ${ko}`); // 빈 번역 확인
+            assert.doesNotMatch(en, HANGUL, `${file}: ${ko}`); // 한글 미포함 확인
+        } // 반복 끝
+        for (const pattern of dictionary.patterns) // 형식 반복
+        { // 반복 시작
+            const holders = (value) => [...value.matchAll(/\{(\d+)\}/g)].map((match) => match[1]).sort().join(","); // 자리 표시 목록
+            assert.equal(holders(pattern.en), holders(pattern.ko), `${file}: ${pattern.ko}`); // 자리 표시 일치 확인
+        } // 반복 끝
+    } // 반복 끝
+}); // 테스트 끝
+
+test("번역기는 문구·형식·가운뎃점 조합을 번역하고 해시태그와 공백을 지킨다", () => // 번역기 동작 검사
+{ // 테스트 시작
+    const translator = createTranslator([{ entries: { "커뮤니티": "Community", "전체 프로젝트": "All projects", "개발 영상": "Dev videos", "#카오스폰즈": "#Chaospons" }, patterns: [{ ko: "{0} 복사 완료", en: "{0} copied" }, { ko: "{0}개의 뉴스", en: "{0} news posts" }, { ko: "{0} 썸네일", en: "{0} thumbnail" }] }]); // 시험 사전
+    assert.equal(translator.translate("커뮤니티"), "Community"); // 단순 문구 확인
+    assert.equal(translator.translate("  커뮤니티\n  "), " Community "); // 앞뒤 공백 유지 확인
+    assert.equal(translator.translate("12개의 뉴스"), "12 news posts"); // 형식 문구 확인
+    assert.equal(translator.translate("#카오스폰즈 복사 완료"), "#카오스폰즈 copied"); // 해시태그 원문 유지 확인
+    assert.equal(translator.translate("전체 프로젝트 · 개발 영상"), "All projects · Dev videos"); // 가운뎃점 조합 확인
+    assert.equal(translator.translate("전체 프로젝트 · 개발 영상 썸네일"), "All projects · Dev videos thumbnail"); // 형식 안 조합 확인
+    assert.equal(translator.translate("전체 프로젝트 · 모르는 문구"), null); // 일부 미번역 조합 제외 확인
+    assert.equal(translator.translate("없는 문구"), null); // 미번역 확인
+    assert.equal(translator.translate("DEVFORGE"), null); // 한글 없는 문구 제외 확인
+}); // 테스트 끝
+
+test("언어는 주소 요청·저장 값·한국어 순서로 정하고 정적 페이지에서만 영어 표기를 쓴다", () => // 언어 결정 검사
+{ // 테스트 시작
+    assert.equal(LANGUAGE_STORAGE_KEY, "devforge-language"); // 저장 키 확인
+    assert.equal(resolveLanguage("?lang=en", "ko"), "en"); // 주소 요청 우선 확인
+    assert.equal(resolveLanguage("", "en"), "en"); // 저장 값 확인
+    assert.equal(resolveLanguage("?lang=fr", "jp"), "ko"); // 미지원 언어 기본값 확인
+    assert.equal(bundleForPath("/project_c/ProjectC_Cards.html"), "project_c"); // 게임 사전 확인
+    assert.equal(bundleForPath("/main.html"), "site"); // 공통 사전 확인
+    assert.equal(getLanguageSwitchUrl("http://localhost:3000/main.html?lang=en&q=x#games"), "http://localhost:3000/main.html?q=x#games"); // 언어 요청 제거 확인
+    const view = (page, stored) => ({ document: { documentElement: { dataset: page ? { i18nPage: "static" } : {} } }, location: { search: "" }, localStorage: { getItem: () => stored } }); // 시험 창
+    assert.equal(getPageLocale(view(true, "en")), "en-US"); // 영어 정적 페이지 확인
+    assert.equal(getPageLocale(view(false, "en")), "ko-KR"); // Next 화면 한국어 유지 확인
+    assert.equal(getPageLocale(view(true, "ko")), "ko-KR"); // 한국어 선택 확인
+}); // 테스트 끝
+
+test("정적 페이지는 언어 준비 스크립트를 머리에 두고 메뉴가 번역 제외 언어 버튼을 만든다", () => // 페이지 연결 검사
+{ // 테스트 시작
+    const pages = []; // 정적 페이지 목록
+    const walk = (directory) => fs.readdirSync(directory, { withFileTypes: true }).forEach((entry) => (entry.isDirectory() ? walk(path.join(directory, entry.name)) : entry.name.endsWith(".html") && pages.push(path.join(directory, entry.name)))); // 문서 수집
+    walk("public"); // 공개 폴더 순회
+    const navPages = pages.filter((file) => read(file).includes("/responsive-nav.mjs") && !file.endsWith("device-preview.html")); // 공통 메뉴 페이지
+    assert.ok(navPages.length >= 45); // 대상 수 확인
+    for (const file of navPages) // 페이지 반복
+    { // 반복 시작
+        const html = read(file); // 문서 읽기
+        const head = html.slice(0, html.indexOf("</head>")); // 문서 머리
+        assert.match(head, /<script src="\/i18n-bootstrap\.js"><\/script>/, `${file} 언어 준비 누락`); // 머리 스크립트 확인
+    } // 반복 끝
+    assert.match(read("scripts/generate-project-pages.mjs"), /<script src="\/i18n-bootstrap\.js"><\/script>/); // 생성 도구 반영 확인
+    const bootstrap = read("public/i18n-bootstrap.js"); // 준비 스크립트
+    assert.match(bootstrap, /dataset\.i18nPage = "static"/); // 정적 페이지 표시 확인
+    assert.match(bootstrap, /html\.i18n-pending body\{visibility:hidden\}/); // 번역 전 가림 확인
+    assert.match(bootstrap, /setTimeout\(function revealPage\(\)[\s\S]*?3000\)/); // 가림 해제 대비 확인
+    const nav = read("public/responsive-nav.mjs"); // 공통 메뉴
+    assert.match(nav, /if \(isTranslatablePage\(root\)\)/); // Next 화면 제외 확인
+    assert.match(nav, /button\.dataset\.i18nSkip = ""/); // 언어 버튼 번역 제외 확인
+    assert.match(nav, /void startPageTranslation\(document, window\)/); // 번역 시작 확인
+    assert.match(read("public/community.html"), /<strong id="active-hashtag" data-i18n-skip>/); // 해시태그 원문 유지 확인
+}); // 테스트 끝
+
+test("화면 언어 선택은 브라우저 저장 항목으로 안내하고 전체 삭제에서 제외한다", () => // 저장 항목 검사
+{ // 테스트 시작
+    const item = BROWSER_DATA_ITEMS.find((candidate) => candidate.id === "language"); // 언어 항목
+    assert.equal(item.key, LANGUAGE_STORAGE_KEY); // 저장 키 확인
+    assert.equal(describeBrowserDataValue(item, "en").summary, "영어"); // 영어 요약 확인
+    assert.equal(describeBrowserDataValue(item, "xx").state, "invalid"); // 손상 값 확인
+    assert.ok(!getClearAllIds().includes("language")); // 전체 삭제 제외 확인
+    assert.match(read("public/privacy.html"), /화면 모드, 화면 언어는 이용 중인 브라우저 로컬 저장소에/); // 개인정보 안내 확인
+}); // 테스트 끝
+
+test("번역기는 따옴표·태그·기호 조합을 풀어 번역하고 더 구체적인 형식을 먼저 쓴다", () => // 조합 문구 검사
+{ // 테스트 시작
+    const translator = createTranslator([{ entries: { "이계": "Otherworld", "비숍": "Bishop", "나이트": "Knight", "아크비숍": "Archbishop", "탭": "Tap", "리듬이 이어진다.": "The rhythm goes on." }, patterns: [{ ko: "{0} 이미지", en: "{0} image" }, { ko: "{0} 튜토리얼 이미지", en: "{0} tutorial image" }] }]); // 시험 사전
+    assert.equal(translator.translate("“리듬이 이어진다.”"), "“The rhythm goes on.”"); // 따옴표 유지 확인
+    assert.equal(translator.translate("#이계"), "#Otherworld"); // 태그 확인
+    assert.equal(translator.translate("비숍 + 나이트 → 아크비숍"), "Bishop + Knight → Archbishop"); // 기호 조합 확인
+    assert.equal(translator.translate("탭 튜토리얼 이미지"), "Tap tutorial image"); // 구체적 형식 우선 확인
+}); // 테스트 끝
+
+test("문맥 표시가 있는 제목은 같은 낱말도 문맥별 번역을 먼저 쓴다", () => // 문맥 번역 검사
+{ // 테스트 시작
+    const translator = createTranslator([{ entries: { "게임": "Games", "title::게임": "Game" }, patterns: [] }]); // 시험 사전
+    assert.equal(translator.translate("게임"), "Games"); // 기본 번역 확인
+    assert.equal(translator.translate("게임 ", "title"), "Game "); // 문맥 번역 확인
+    assert.equal(translator.translate("게임", "menu"), "Games"); // 없는 문맥 기본값 확인
+    assert.match(read("public/main.html"), /<h2 class="section-title" data-i18n-context="title">게임 <span>프로젝트<\/span><\/h2>/); // 제목 문맥 표시 확인
+}); // 테스트 끝

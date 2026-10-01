@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
     <link rel="stylesheet" href="/data-state.css"> <!-- 공통 데이터 상태 스타일 -->
     <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
+    <script src="/i18n-bootstrap.js"></script> <!-- 언어 선택 준비 -->
 </head> <!-- 문서 정보 끝 -->
 <body data-responsive-page="community" data-theme="playful-lab"> <!-- 플레이풀 랩 커뮤니티 본문 -->
     <!-- site-header:start -->
@@ -62,7 +63,7 @@
                 <div class="active-tag"> <!-- 활성 해시태그 묶음 -->
                     <span>현재 태그</span> <!-- 해시태그 레이블 -->
                     <div class="active-tag-row"> <!-- 해시태그와 복사 버튼 한 줄 -->
-                        <strong id="active-hashtag">#DEVFORGE</strong> <!-- 활성 해시태그 -->
+                        <strong id="active-hashtag" data-i18n-skip>#DEVFORGE</strong> <!-- 활성 해시태그(실제 태그라 번역 제외) -->
                         <button class="hashtag-copy-button" type="button" data-copy-community-hashtag>해시태그 복사</button> <!-- 해시태그 복사 버튼 -->
                     </div> <!-- 해시태그와 복사 버튼 한 줄 끝 -->
                 </div> <!-- 활성 해시태그 묶음 끝 -->

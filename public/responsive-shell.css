@@ -212,7 +212,8 @@ body.dialog-open /* 열린 대화상자 본문 */
 
     .responsive-nav-link, /* 일반 메뉴 링크 */
     .responsive-nav-login, /* 로그인 링크 */
-    .responsive-nav-theme-toggle /* 테마 버튼 */
+    .responsive-nav-theme-toggle, /* 테마 버튼 */
+    .responsive-nav-language-toggle /* 언어 버튼 */
     { /* 규칙 시작 */
         align-items: center; /* 세로 정렬 */
         border: 1px solid transparent; /* 고정 테두리 */
@@ -240,7 +241,8 @@ body.dialog-open /* 열린 대화상자 본문 */
         content: "→"; /* 이동 표시 */
     } /* 규칙 끝 */
 
-    .responsive-nav-theme-toggle /* 테마 버튼 */
+    .responsive-nav-theme-toggle, /* 테마 버튼 */
+    .responsive-nav-language-toggle /* 언어 버튼 */
     { /* 규칙 시작 */
         background: rgba(255, 255, 255, 0.04); /* 버튼 배경 */
         border-color: var(--responsive-nav-line); /* 버튼 테두리 */
@@ -267,6 +269,20 @@ body.dialog-open /* 열린 대화상자 본문 */
     .responsive-nav-theme-toggle[aria-pressed="true"]::after /* 다크 상태 표시 */
     { /* 규칙 시작 */
         content: "🌙"; /* 다크 상태 표시 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-language-toggle::after /* 언어 전환 표시 */
+    { /* 규칙 시작 */
+        color: var(--responsive-nav-muted); /* 표시 색상 */
+        content: "🌐"; /* 지구본 표시 */
+        font-size: 1.1rem; /* 표시 크기 */
+    } /* 규칙 끝 */
+
+    .responsive-nav-language-toggle:hover /* 언어 버튼 마우스 */
+    { /* 규칙 시작 */
+        background: rgba(21, 231, 224, 0.08); /* 강조 배경 */
+        border-color: rgba(21, 231, 224, 0.28); /* 강조 테두리 */
+        color: var(--responsive-nav-cyan); /* 강조 글자 */
     } /* 규칙 끝 */
 
     .responsive-nav-link:hover, /* 일반 링크 마우스 */
@@ -333,7 +349,8 @@ body.dialog-open /* 열린 대화상자 본문 */
     .responsive-nav-close, /* 닫기 버튼 */
     .responsive-nav-link, /* 메뉴 링크 */
     .responsive-nav-login, /* 로그인 링크 */
-    .responsive-nav-theme-toggle /* 테마 버튼 */
+    .responsive-nav-theme-toggle, /* 테마 버튼 */
+    .responsive-nav-language-toggle /* 언어 버튼 */
     { /* 규칙 시작 */
         min-height: 44px; /* 최소 터치 높이 */
         min-width: 44px; /* 최소 터치 너비 */

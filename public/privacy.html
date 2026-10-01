@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
     <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
     <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
+    <script src="/i18n-bootstrap.js"></script> <!-- 언어 선택 준비 -->
 </head> <!-- 문서 정보 끝 -->
 <body data-site-header-offset data-responsive-page="legal" data-theme="playful-lab"> <!-- 플레이풀 랩 개인정보 본문 -->
     <!-- site-header:start -->
@@ -41,16 +42,16 @@
             <h2>1. 현재 처리 범위</h2> <!-- 처리 범위 제목 -->
             <p>현재 로컬 시연 사이트는 회원가입 정보를 서버에 저장하지 않습니다. 문의 주소와 실제 외부 계정도 아직 연결하지 않았습니다.</p> <!-- 처리 범위 내용 -->
             <h2>2. 브라우저 로컬 저장소</h2> <!-- 로컬 저장 제목 -->
-            <p>분석 동의 선택, 관심 프로젝트, 최근 본 프로젝트, 화면 모드는 이용 중인 브라우저 로컬 저장소에, 시연 회원 닉네임과 프로젝트 η 초대장 확인 기록은 현재 탭에만 기록됩니다. 이 정보는 서버로 전송하지 않으며 아래 관리 영역 또는 브라우저 설정에서 지울 수 있습니다.</p> <!-- 로컬 저장 내용 -->
+            <p>분석 동의 선택, 관심 프로젝트, 최근 본 프로젝트, 화면 모드, 화면 언어는 이용 중인 브라우저 로컬 저장소에, 시연 회원 닉네임과 프로젝트 η 초대장 확인 기록은 현재 탭에만 기록됩니다. 이 정보는 서버로 전송하지 않으며 아래 관리 영역 또는 브라우저 설정에서 지울 수 있습니다.</p> <!-- 로컬 저장 내용 -->
             <section class="browser-data" id="browser-data" aria-labelledby="browser-data-title" data-browser-data-manager> <!-- 브라우저 데이터 관리 영역 -->
                 <h2 id="browser-data-title" tabindex="-1" data-browser-data-heading>내 브라우저 데이터 관리</h2> <!-- 관리 영역 제목 -->
-                <p>이 사이트가 현재 브라우저에 저장한 항목입니다. 항목별로 삭제하거나 화면 모드를 제외하고 한 번에 삭제할 수 있습니다.</p> <!-- 관리 영역 설명 -->
+                <p>이 사이트가 현재 브라우저에 저장한 항목입니다. 항목별로 삭제하거나 화면 모드·화면 언어를 제외하고 한 번에 삭제할 수 있습니다.</p> <!-- 관리 영역 설명 -->
                 <p class="browser-data-blocked" data-browser-data-blocked hidden>브라우저 설정이나 개인정보 보호 모드 때문에 일부 저장소를 확인할 수 없습니다. 해당 항목은 브라우저 설정에서 직접 삭제해 주세요.</p> <!-- 저장소 차단 안내 -->
                 <ul class="browser-data-list" data-browser-data-list> <!-- 저장 항목 목록 -->
                     <li class="browser-data-item">저장 항목을 확인하려면 JavaScript가 필요합니다.</li> <!-- 스크립트 미동작 안내 -->
                 </ul> <!-- 저장 항목 목록 끝 -->
                 <div class="browser-data-actions"> <!-- 전체 작업 영역 -->
-                    <button class="browser-data-clear-all" type="button" data-browser-data-clear-all disabled>전체 삭제 (화면 모드 제외)</button> <!-- 전체 삭제 버튼 -->
+                    <button class="browser-data-clear-all" type="button" data-browser-data-clear-all disabled>전체 삭제 (화면 모드·언어 제외)</button> <!-- 전체 삭제 버튼 -->
                 </div> <!-- 전체 작업 영역 끝 -->
                 <p class="browser-data-status" role="status" aria-live="polite" data-browser-data-status></p> <!-- 삭제 결과 안내 -->
             </section> <!-- 브라우저 데이터 관리 영역 끝 -->

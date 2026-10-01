@@ -1719,6 +1719,7 @@
     <link rel="stylesheet" href="/site-experience.css"> <!-- 로컬 경험 스타일 -->
     <link rel="stylesheet" href="/data-state.css"> <!-- 공통 데이터 상태 스타일 -->
     <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
+    <script src="/i18n-bootstrap.js"></script> <!-- 언어 선택 준비 -->
 </head>
 <body data-responsive-page="main" data-theme="playful-lab"> <!-- 플레이풀 랩 메인 본문 -->
     <a class="skip-link" href="#main-content">본문으로 바로가기</a> <!-- 키보드 본문 이동 -->
@@ -1839,17 +1840,17 @@
     <section class="section games-section" id="games">
         <div class="section-header reveal">
             <div class="section-tag">// GAMES</div>
-            <h2 class="section-title">게임 <span>프로젝트</span></h2>
+            <h2 class="section-title" data-i18n-context="title">게임 <span>프로젝트</span></h2>
             <div class="section-line"></div>
         </div>
 
         <div class="games-catalog-block reveal"> <!-- 추천 프로젝트 구역 -->
-            <h3 class="games-subheading">추천 <span>프로젝트</span></h3> <!-- 추천 제목 -->
+            <h3 class="games-subheading" data-i18n-context="title">추천 <span>프로젝트</span></h3> <!-- 추천 제목 -->
             <div class="featured-games-grid" data-featured-games aria-label="추천 프로젝트"></div> <!-- 추천 카드 목록 -->
         </div> <!-- 추천 프로젝트 구역 끝 -->
 
         <div class="games-catalog-block"> <!-- 전체 프로젝트 구역 -->
-            <h3 class="games-subheading">전체 <span>프로젝트</span></h3> <!-- 전체 목록 제목 -->
+            <h3 class="games-subheading" data-i18n-context="title">전체 <span>프로젝트</span></h3> <!-- 전체 목록 제목 -->
             <div class="game-catalog-toolbar"> <!-- 검색과 필터 도구 -->
                 <label class="game-search-field"> <!-- 프로젝트 검색 -->
                     <span class="game-search-icon" aria-hidden="true">⌕</span> <!-- 검색 아이콘 -->
