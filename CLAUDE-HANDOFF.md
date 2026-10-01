@@ -4,7 +4,7 @@
 이 문서는 다른 컴퓨터에서 Claude가 DEVFORGE 홈페이지 개발을 바로 이어가기 위한 전달 문서입니다. 작업 기준은 이 파일이 포함된 `origin/main` 최신 커밋입니다.
 
 - 마지막 갱신: 2026년 10월 1일
-- 마지막 검증: 테스트 348개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
+- 마지막 검증: 테스트 352개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
 - 검증 환경: Windows 11, Node.js `24.19.0`, pnpm `11.19.0`
 
 ---
@@ -125,12 +125,18 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 ---
 ## 정리 후보
 
-동작에는 영향이 없지만 정리하면 좋은 항목입니다. 삭제 전 참조 여부를 검색으로 확인합니다.
+2026년 10월 1일 1차 정리를 완료했습니다. 재발 방지 검사는 `tests/unused-assets.test.mjs`입니다.
 
-- 공통 프로젝트 폴더의 사용되지 않는 `ProjectX_Script.js`·`ProjectX_Style.css`(약 1.9MB)
-- `main.html` 인라인 스타일, `devlog.css`, `project-page.css`에 남은 예전 헤더 스타일
-- 프로젝트 B·L 스크립트의 예전 메뉴 코드
-- `main.html`의 사용되지 않는 대화상자와 `public/style.css`·`public/script.js`
+- 공통 프로젝트 폴더 23곳의 연결되지 않은 `ProjectX_Script.js`·`ProjectX_Style.css` 46개(약 2.0MB)와 `public/style.css`·`public/script.js` 삭제
+- `main.html`의 열 수 없던 게임 상세·이용약관·개인정보 대화상자와 관련 스타일·`openGameModal` 함수 삭제
+- `main.html`·`devlog.css`·`project-page.css`의 예전 헤더 규칙 삭제. 브라우저 계산 스타일 비교로 화면 영향이 없음을 확인했고, 실제로 적용되던 메인 헤더 스크롤 배경 전환(`transition: all 0.3s ease`)만 유지
+- 프로젝트 B·L의 예전 메뉴 스크립트(`connectMenu`)와 스타일(`.top-header`·`.top-nav`·`.menu-toggle`) 삭제
+
+남은 후보입니다. 동작에는 영향이 없으며 삭제 전 참조 여부와 관련 테스트를 확인합니다.
+
+- `public/dialog-accessibility.mjs`: 대화상자가 없는 메인·뉴스·굿즈·커뮤니티 페이지에서 계속 불러옴(`tests/responsive-integration.test.mjs`가 연결 확인)
+- `responsive-shell.css`·`playful-lab-theme.css`의 `.modal-box`·`.modal-overlay`·`.contact-dialog` 규칙: 사용하는 화면 없음(테마 테스트가 규칙 존재 확인)
+- `responsive-nav.mjs`·`responsive-shell.css`의 예전 `.project-nav`·`.project-nav-links` 지원 코드
 
 ---
 ## 외부 확인 대기 항목

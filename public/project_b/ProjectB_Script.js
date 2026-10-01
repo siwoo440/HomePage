@@ -86,8 +86,6 @@ let currentArchiveFilter = "전체"; // 현재 선택된 아카이브 필터를 
 let currentArchiveIndex = 0; // 현재 표시 중인 차트 인덱스를 저장한다.
 let currentFilteredItems = []; // 현재 필터·검색 결과 배열을 저장한다.
 
-const menuToggle = document.querySelector("#menuToggle"); // 모바일 메뉴 버튼을 가져온다.
-const topNav = document.querySelector("#topNav"); // 상단 메뉴 영역을 가져온다.
 const inputList = document.querySelector("#inputList"); // 합성 카드 목록 영역을 가져온다.
 const characterGrid = document.querySelector("#characterGrid"); // 캐릭터 카드 목록 영역을 가져온다.
 const chapterDetail = document.querySelector("#modeDetail"); // 챕터 상세 설명 영역을 가져온다.
@@ -107,24 +105,11 @@ document.addEventListener("DOMContentLoaded", () => // 문서가 모두 준비�
     renderChapter("ch1"); // 기본 챕터 설명을 챕터 1로 출력한다.
     renderFilters(); // 아카이브 필터 버튼을 화면에 출력한다.
     renderArchive(0); // 아카이브 첫 번째 차트를 화면에 출력한다.
-    connectMenu(); // 모바일 메뉴 기능을 연결한다.
     connectChapterTabs(); // 챕터 탭 기능을 연결한다.
     connectArchiveSearch(); // 아카이브 검색 기능을 연결한다.
     connectArchiveNav(); // 아카이브 화살표 버튼 기능을 연결한다.
     connectRevealAnimation(); // 스크롤 등장 애니메이션을 연결한다.
 }); // 문서 준비 이벤트 등록을 끝낸다.
-
-function connectMenu() // 모바일 메뉴 버튼 기능을 연결한다.
-{ // 모바일 메뉴 연결 함수 내용을 시작한다.
-    if (!menuToggle || !topNav) // 공통 헤더 전환 후 요소 누락 확인
-    { // 조건 시작
-        return; // 연결 생략
-    } // 조건 끝
-    menuToggle.addEventListener("click", () => // 메뉴 버튼을 클릭했을 때 실행할 이벤트를 등록한다.
-    { // 메뉴 버튼 클릭 시 실행할 코드를 시작한다.
-        topNav.classList.toggle("open"); // 메뉴의 열린 상태를 켜거나 끈다.
-    }); // 메뉴 버튼 클릭 이벤트 등록을 끝낸다.
-} // 모바일 메뉴 연결 함수를 끝낸다.
 
 function renderMerges() // 감정 합성 카드를 출력한다.
 { // 합성 카드 출력 함수 내용을 시작한다.

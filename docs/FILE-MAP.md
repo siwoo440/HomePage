@@ -209,7 +209,6 @@ css-styling/
 | `public/age-gate.mjs` | 정적 프로젝트 링크의 연령 확인 연결 |
 | `public/project-page.mjs` | 공통 게임 프로젝트 상세 상호작용 |
 | `public/data-state.mjs` | 로딩·시연·빈 결과·오류·완료 상태, 시간 제한 요청과 재시도 제어 |
-| `public/script.js` | 기존 공통 페이지 동작 |
 
 ---
 ### 화면 전용 모듈
@@ -231,7 +230,6 @@ css-styling/
 | `public/playful-lab-theme.css` | 공통 디자인 토큰, 라이트·다크 모드와 영역 구분 |
 | `public/data-state.css` | 데이터 상태 카드, 아이콘, 다시 시도 버튼과 반응형 배치 |
 | `public/responsive-shell.css` | 공통 반응형 헤더와 서랍 메뉴 |
-| `public/style.css` | 메인 기본 레이아웃과 기존 공통 스타일 |
 | `public/site-experience.css` | 관심·최근 목록, 상태판, FAQ와 알림 |
 | `public/privacy-consent.css` | 개인정보 동의 배너와 설정 창 |
 | `public/legal.css` | 약관과 개인정보 문서 화면 |
@@ -402,7 +400,7 @@ ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `publi
 
 | 작업 | 먼저 볼 파일 | 함께 확인할 파일 |
 | --- | --- | --- |
-| 메인 슬라이드 | `public/hero-carousel.mjs` | `public/main.html`, `public/style.css` |
+| 메인 슬라이드 | `public/hero-carousel.mjs` | `public/main.html`, `public/site-experience.css`, `public/playful-lab-theme.css` |
 | ChatBot 링크 | `public/main.html` | ChatBot 별도 저장소의 실행 주소 |
 | 게임 추가 | `public/game-projects.mjs` | `public/images/games/`, 생성 스크립트 |
 | 관심·최근 목록 | `public/site-experience.mjs` | `public/site-experience.css` |

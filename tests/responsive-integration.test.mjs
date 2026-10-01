@@ -69,19 +69,19 @@ test("공통 스타일은 대화상자 배경 스크롤을 잠근다", () => // 
     assert.match(dialogLockRule, /overscroll-behavior:\s*none/); // 초과 스크롤 차단 확인
 }); // 테스트 끝
 
-test("메인 사용자 정의 모달은 역할과 데이터 동작을 제공한다", () => // 메인 모달 계약 테스트
+test("메인 페이지에는 열 수 없는 사용자 정의 모달이 없다", () => // 메인 모달 정리 테스트
 { // 테스트 시작
     const html = readPublicFile("main.html"); // 메인 HTML 읽기
-    const dialogIds = ["game-modal", "terms-modal", "privacy-modal"]; // 모달 식별자 목록
-    for (const dialogId of dialogIds) // 모달 반복
+    for (const dialogId of ["game-modal", "terms-modal", "privacy-modal"]) // 제거 모달 반복
     { // 반복 시작
-        const openingTag = html.match(new RegExp(`<div[^>]*id="${dialogId}"[^>]*>`))?.[0] ?? ""; // 모달 시작 태그 조회
-        assert.match(openingTag, /data-dialog/); // 데이터 계약 확인
-        assert.match(openingTag, /role="dialog"/); // 역할 확인
-        assert.match(openingTag, /aria-modal="true"/); // 모달 상태 확인
-        assert.match(openingTag, /aria-labelledby="[^"]+"/); // 제목 연결 확인
+        assert.doesNotMatch(html, new RegExp(`id="${dialogId}"`), dialogId); // 미사용 모달 제거 확인
     } // 반복 끝
-    assert.match(html, /data-dialog-close/); // 닫기 데이터 확인
+    assert.doesNotMatch(html, /openGameModal/); // 미호출 모달 함수 제거 확인
+    for (const [openingTag, dialogId] of html.matchAll(/<[^>]*\bdata-dialog\b[^>]*\bid="([^"]+)"[^>]*>/g)) // 남은 모달 반복
+    { // 반복 시작
+        assert.match(openingTag, /role="dialog"/, dialogId); // 역할 확인
+        assert.match(html, new RegExp(`data-dialog-open="${dialogId}"|\\.open\\(['"]${dialogId}['"]`), dialogId); // 열기 연결 확인
+    } // 반복 끝
     assert.doesNotMatch(html, /getElementById\('contact-modal'\)\.classList\.add\('open'\)/); // 인라인 열기 제거 확인
     assert.doesNotMatch(html, /classList\.remove\('open'\)/); // 인라인 닫기 제거 확인
 }); // 테스트 끝

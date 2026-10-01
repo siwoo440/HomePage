@@ -35,8 +35,6 @@ let currentArchiveFilter = "전체"; // 현재 선택된 아카이브 필터를 
 let currentCharacterIndex = 0; // 현재 선택된 캐릭터 순서를 저장한다.
 let currentCombatIndex = 0; // 현재 선택된 전투 입력 순서를 저장한다.
 
-const menuToggle = document.querySelector("#menuToggle"); // 모바일 메뉴 버튼을 가져온다.
-const topNav = document.querySelector("#topNav"); // 상단 메뉴 영역을 가져온다.
 const combatStep = document.querySelector("#combatStep"); // 전투 페이지 번호 영역을 가져온다.
 const combatType = document.querySelector("#combatType"); // 전투 입력 타입 영역을 가져온다.
 const combatImage = document.querySelector("#combatImage"); // 전투 튜토리얼 이미지 영역을 가져온다.
@@ -80,23 +78,10 @@ document.addEventListener("DOMContentLoaded", () => // 문서가 모두 준비�
     renderMode("story"); // 기본 모드 설명을 스토리 모드로 출력한다.
     renderFilters(); // 아카이브 필터 버튼을 화면에 출력한다.
     renderArchive(); // 아카이브 카드를 화면에 출력한다.
-    connectMenu(); // 모바일 메뉴 기능을 연결한다.
     connectModeTabs(); // 모드 탭 기능을 연결한다.
     connectArchiveSearch(); // 아카이브 검색 기능을 연결한다.
     connectRevealAnimation(); // 스크롤 등장 애니메이션을 연결한다.
 }); // 문서 준비 이벤트 등록을 끝낸다.
-
-function connectMenu() // 모바일 메뉴 버튼 기능을 연결한다.
-{ // 모바일 메뉴 연결 함수 내용을 시작한다.
-    if (!menuToggle || !topNav) // 공통 헤더 전환 후 요소 누락 확인
-    { // 조건 시작
-        return; // 연결 생략
-    } // 조건 끝
-    menuToggle.addEventListener("click", () => // 메뉴 버튼을 클릭했을 때 실행할 이벤트를 등록한다.
-    { // 메뉴 버튼 클릭 시 실행할 코드를 시작한다.
-        topNav.classList.toggle("open"); // 메뉴의 열린 상태를 켜거나 끈다.
-    }); // 메뉴 버튼 클릭 이벤트 등록을 끝낸다.
-} // 모바일 메뉴 연결 함수를 끝낸다.
 
 function connectCombatCarousel() // 전투 슬라이드 버튼 기능을 연결한다.
 { // 전투 슬라이드 연결 함수 내용을 시작한다.

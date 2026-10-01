@@ -40,56 +40,6 @@ a /* 전체 링크 */
     min-height: 100vh; /* 화면 높이 채움 */
 } /* 규칙 끝 */
 
-.project-nav /* 상단 메뉴 */
-{ /* 규칙 시작 */
-    align-items: center; /* 세로 가운데 정렬 */
-    background: rgba(5, 10, 20, 0.92); /* 반투명 메뉴 배경 */
-    border-bottom: 1px solid var(--project-line); /* 하단 구분선 */
-    display: flex; /* 가로 메뉴 배치 */
-    gap: 2rem; /* 메뉴 간격 */
-    min-height: 74px; /* 메뉴 높이 */
-    padding: 0 5vw; /* 메뉴 좌우 여백 */
-    position: sticky; /* 화면 상단 고정 */
-    top: 0; /* 상단 위치 */
-    z-index: 20; /* 메뉴 표시 순서 */
-} /* 규칙 끝 */
-
-.project-logo /* 로고 링크 */
-{ /* 규칙 시작 */
-    color: var(--project-cyan); /* 로고 색상 */
-    font-size: 1.05rem; /* 로고 크기 */
-    font-weight: 900; /* 로고 굵기 */
-    letter-spacing: 0.16em; /* 로고 자간 */
-} /* 규칙 끝 */
-
-.project-nav-links, /* 주요 메뉴 */
-.project-nav-actions /* 계정 메뉴 */
-{ /* 규칙 시작 */
-    align-items: center; /* 메뉴 세로 정렬 */
-    display: flex; /* 메뉴 가로 배치 */
-    gap: 1.25rem; /* 링크 간격 */
-} /* 규칙 끝 */
-
-.project-nav-links /* 주요 메뉴 */
-{ /* 규칙 시작 */
-    color: var(--project-muted); /* 메뉴 글자색 */
-    margin-left: auto; /* 메뉴 오른쪽 배치 */
-} /* 규칙 끝 */
-
-.project-button /* 상단 버튼 */
-{ /* 규칙 시작 */
-    border: 1px solid var(--project-cyan); /* 버튼 테두리 */
-    color: var(--project-cyan); /* 버튼 글자색 */
-    min-height: 40px; /* 버튼 높이 */
-    padding: 0.65rem 1rem; /* 버튼 안쪽 여백 */
-} /* 규칙 끝 */
-
-.project-button-ghost /* 보조 버튼 */
-{ /* 규칙 시작 */
-    border-color: var(--project-line); /* 보조 테두리 */
-    color: var(--project-text); /* 보조 글자색 */
-} /* 규칙 끝 */
-
 main /* 주요 내용 */
 { /* 규칙 시작 */
     margin: 0 auto; /* 가운데 배치 */
@@ -310,12 +260,6 @@ a:focus-visible /* 키보드 링크 초점 */
 
 @media (max-width: 767px) /* 모바일 화면 */
 { /* 구간 시작 */
-    .project-nav-links, /* 모바일 주요 메뉴 */
-    .project-nav-actions /* 모바일 계정 메뉴 */
-    { /* 규칙 시작 */
-        display: none; /* 데스크톱 메뉴 숨김 */
-    } /* 규칙 끝 */
-
     main /* 모바일 주요 내용 */
     { /* 규칙 시작 */
         padding: 2rem 1rem 4rem; /* 모바일 내용 여백 */
