@@ -14,26 +14,28 @@ const newsScriptPath = path.join(publicRoot, "devlog.mjs"); // 개발 뉴스 스
 test("메인 메뉴의 개발 뉴스가 전용 페이지로 이동한다", async () => // 메뉴 연결 회귀 검사
 { // 테스트 본문 시작
     const mainHtml = await readFile(path.join(publicRoot, "main.html"), "utf8"); // 메인 문서 읽기
-    assert.match(mainHtml, /<li><a href="devlog\.html">개발 뉴스<\/a><\/li>/, "개발 뉴스 메뉴 링크 누락"); // 메뉴 링크 검증
+    assert.match(mainHtml, /<li><a href="\/devlog\.html">개발 뉴스<\/a><\/li>/, "개발 뉴스 메뉴 링크 누락"); // 메뉴 링크 검증
     assert.match(mainHtml, /class="section-detail-link" href="devlog\.html">상세 페이지로 이동 →<\/a>/, "개발 뉴스 상세 버튼 누락"); // 상세 버튼 검증
 }); // 테스트 본문 끝
 
-test("모바일 화면에도 개발 뉴스 바로가기가 유지된다", async () => // 모바일 메뉴 회귀 검사
+test("공통 헤더는 페이지별 바로가기 없이 문의하기와 로그인을 제공한다", async () => // 모바일 메뉴 회귀 검사
 { // 테스트 본문 시작
     const mainHtml = await readFile(path.join(publicRoot, "main.html"), "utf8"); // 메인 문서 읽기
-    assert.match(mainHtml, /<a href="devlog\.html" class="btn-nav news-shortcut">개발 뉴스<\/a>/, "모바일 개발 뉴스 바로가기 누락"); // 모바일 바로가기 검증
+    const header = mainHtml.slice(mainHtml.indexOf("<!-- site-header:start -->"), mainHtml.indexOf("<!-- site-header:end -->")); // 공통 헤더 구간
+    assert.doesNotMatch(header, /news-shortcut|goods-shortcut/, "페이지별 바로가기 잔존"); // 바로가기 제거 확인
+    assert.match(mainHtml, /href="\/contact\.html" class="btn-nav nav-contact-link">문의하기<\/a>[\s\S]*?data-member-action/, "공통 헤더 버튼 누락"); // 모바일 바로가기 검증
 }); // 테스트 본문 끝
 
 test("개발 뉴스 페이지에 메인과 동일한 상단 메뉴가 있다", async () => // 뉴스 헤더 회귀 검사
 { // 테스트 본문 시작
     const newsHtml = await readFile(newsPagePath, "utf8"); // 뉴스 문서 읽기
     assert.match(newsHtml, /<nav class="navbar" id="navbar"/, "상단 메뉴 누락"); // 상단 메뉴 영역 검증
-    assert.match(newsHtml, /href="main\.html#games">게임<\/a>/, "게임 이동 링크 누락"); // 게임 링크 검증
-    assert.match(newsHtml, /href="goods\.html">굿즈<\/a>/, "굿즈 전용 페이지 이동 링크 누락"); // 굿즈 링크 검증
-    assert.match(newsHtml, /href="devlog\.html" aria-current="page">개발 뉴스<\/a>/, "현재 뉴스 링크 누락"); // 뉴스 링크 검증
-    assert.match(newsHtml, /href="community\.html">커뮤니티<\/a>/, "커뮤니티 전용 페이지 이동 링크 누락"); // 커뮤니티 링크 검증
-    assert.match(newsHtml, /id="contact-open"[^>]*data-dialog-open="contact-dialog"[^>]*>문의하기<\/button>/, "문의 버튼 접근성 계약 누락"); // 문의 버튼 검증
-    assert.match(newsHtml, /id="contact-dialog"[^>]*data-dialog/, "문의 대화상자 접근성 계약 누락"); // 문의 대화상자 검증
+    assert.match(newsHtml, /href="\/main\.html#games">게임<\/a>/, "게임 이동 링크 누락"); // 게임 링크 검증
+    assert.match(newsHtml, /href="\/goods\.html">굿즈<\/a>/, "굿즈 전용 페이지 이동 링크 누락"); // 굿즈 링크 검증
+    assert.match(newsHtml, /href="\/devlog\.html" aria-current="page">개발 뉴스<\/a>/, "현재 뉴스 링크 누락"); // 뉴스 링크 검증
+    assert.match(newsHtml, /href="\/community\.html">커뮤니티<\/a>/, "커뮤니티 전용 페이지 이동 링크 누락"); // 커뮤니티 링크 검증
+    assert.match(newsHtml, /href="\/contact\.html" class="btn-nav nav-contact-link">문의하기<\/a>/, "문의하기 페이지 링크 누락"); // 문의 버튼 검증
+    assert.doesNotMatch(newsHtml, /id="contact-dialog"/, "미사용 문의 대화상자 잔존"); // 문의 대화상자 검증
 }); // 테스트 본문 끝
 
 test("개발 뉴스 페이지가 네 개의 가로 뉴스와 필터 상태를 제공한다", async () => // 뉴스 목록 계약 검사

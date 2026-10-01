@@ -44,21 +44,21 @@ test("굿즈 전용 페이지에 공통 헤더와 전체 상품 영역이 있다
 { // 테스트 시작
     const html = await readFile(path.join(publicRoot, "goods.html"), "utf8"); // 굿즈 문서 읽기
     assert.match(html, /class="navbar"/); // 공통 헤더 확인
-    assert.match(html, /href="main\.html#games">게임<\/a>/); // 게임 메뉴 확인
-    assert.match(html, /href="goods\.html" aria-current="page">굿즈<\/a>/); // 현재 굿즈 메뉴 확인
-    assert.match(html, /href="devlog\.html">개발 뉴스<\/a>/); // 뉴스 메뉴 확인
+    assert.match(html, /href="\/main\.html#games">게임<\/a>/); // 게임 메뉴 확인
+    assert.match(html, /href="\/goods\.html" aria-current="page">굿즈<\/a>/); // 현재 굿즈 메뉴 확인
+    assert.match(html, /href="\/devlog\.html">개발 뉴스<\/a>/); // 뉴스 메뉴 확인
     assert.match(html, /id="goods-list"/); // 상품 목록 확인
     assert.match(html, /id="goods-load-status"/); // 불러오기 상태 확인
-    assert.match(html, /id="contact-dialog"/); // 문의 대화상자 확인
-    assert.match(html, /id="contact-open"[^>]*data-dialog-open="contact-dialog"/); // 문의 열기 계약 확인
-    assert.match(html, /id="contact-dialog"[^>]*data-dialog/); // 문의 창 계약 확인
+    assert.doesNotMatch(html, /id="contact-dialog"/); // 문의 대화상자 확인
+    assert.match(html, /href="\/contact\.html" class="btn-nav nav-contact-link"/); // 문의 열기 계약 확인
+    assert.match(html, /data-site-header/); // 문의 창 계약 확인
     assert.match(html, /href="\/admin\/login"/); // 관리자 로그인 확인
 }); // 테스트 끝
 
 test("메인 헤더와 굿즈 상세 버튼이 전용 페이지로 이동한다", async () => // 메인 연결 계약
 { // 테스트 시작
     const html = await readFile(path.join(publicRoot, "main.html"), "utf8"); // 메인 문서 읽기
-    assert.match(html, /<li><a href="goods\.html">굿즈<\/a><\/li>/); // 헤더 굿즈 연결 확인
+    assert.match(html, /<li><a href="\/goods\.html">굿즈<\/a><\/li>/); // 헤더 굿즈 연결 확인
     assert.match(html, /class="section-detail-link" href="goods\.html">상세 페이지로 이동 →<\/a>/); // 굿즈 상세 버튼 확인
     assert.doesNotMatch(html, /class="goods-footer"/); // 굿즈 중복 버튼 제거 확인
     assert.match(html, /data-product-limit="4"/); // 메인 미리보기 제한 확인

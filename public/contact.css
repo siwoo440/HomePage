@@ -1,0 +1,351 @@
+body[data-responsive-page="contact"] /* 문의하기 본문 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    min-height: 100dvh; /* 화면 높이 */
+    background: radial-gradient(circle at 85% 0%, color-mix(in srgb, var(--pl-violet, #7768f8) 12%, transparent), transparent 34%), var(--pl-surface, #f7fbff); /* 공간형 배경 */
+    color: var(--pl-ink, #172a49); /* 기본 글자색 */
+    font-family: "Noto Sans KR", "Segoe UI", sans-serif; /* 기본 글꼴 */
+    line-height: 1.7; /* 줄 간격 */
+} /* 규칙 끝 */
+
+.contact-shell /* 문의하기 전체 영역 */
+{ /* 규칙 시작 */
+    box-sizing: border-box; /* 크기 계산 통일 */
+    width: min(960px, 100%); /* 읽기 너비 */
+    margin: 0 auto; /* 가운데 배치 */
+    padding: clamp(32px, 6vw, 64px) 20px 72px; /* 안쪽 여백 */
+} /* 규칙 끝 */
+
+.contact-eyebrow /* 영문 분류 */
+{ /* 규칙 시작 */
+    margin: 0 0 8px; /* 아래 여백 */
+    color: var(--pl-violet, #7768f8); /* 강조 글자색 */
+    font-family: Consolas, monospace; /* 기술형 글꼴 */
+} /* 규칙 끝 */
+
+.contact-hero h1 /* 화면 제목 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    font-size: clamp(2.2rem, 7vw, 3.6rem); /* 반응형 제목 크기 */
+    letter-spacing: -0.04em; /* 좁은 글자 간격 */
+} /* 규칙 끝 */
+
+.contact-lead /* 사용 안내 */
+{ /* 규칙 시작 */
+    max-width: 640px; /* 문장 너비 */
+    margin: 12px 0 0; /* 위쪽 여백 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+} /* 규칙 끝 */
+
+.faq-toolbar /* 질문 목록 조작 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양쪽 배치 */
+    gap: 12px; /* 요소 간격 */
+    margin: 32px 0 8px; /* 바깥 여백 */
+} /* 규칙 끝 */
+
+.faq-categories, .faq-bulk-actions /* 분류와 전체 버튼 묶음 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 8px; /* 요소 간격 */
+} /* 규칙 끝 */
+
+.faq-categories a, .faq-bulk-actions button /* 분류 링크와 전체 버튼 */
+{ /* 규칙 시작 */
+    display: inline-flex; /* 내용 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    min-height: 40px; /* 터치 높이 */
+    padding: 0 14px; /* 좌우 여백 */
+    border: 1px solid var(--pl-border, #dce7f0); /* 경계선 */
+    border-radius: 999rem; /* 캡슐 모서리 */
+    background: var(--pl-canvas, #ffffff); /* 배경 */
+    color: var(--pl-ink, #172a49); /* 글자색 */
+    font: inherit; /* 글꼴 상속 */
+    font-size: 0.88rem; /* 글자 크기 */
+    font-weight: 600; /* 글자 굵기 */
+    text-decoration: none; /* 밑줄 제거 */
+    cursor: pointer; /* 선택 커서 */
+} /* 규칙 끝 */
+
+.faq-categories a:hover, .faq-bulk-actions button:hover /* 분류와 버튼 강조 */
+{ /* 규칙 시작 */
+    border-color: var(--pl-violet, #7768f8); /* 강조 경계선 */
+} /* 규칙 끝 */
+
+.faq-group /* 질문 묶음 */
+{ /* 규칙 시작 */
+    margin-top: 36px; /* 위쪽 여백 */
+} /* 규칙 끝 */
+
+.faq-group h2, .contact-channels h2 /* 묶음 제목 */
+{ /* 규칙 시작 */
+    margin: 0 0 12px; /* 아래 여백 */
+    color: var(--pl-violet, #7768f8); /* 강조 글자색 */
+    font-size: 1.05rem; /* 제목 크기 */
+    letter-spacing: 0.02em; /* 글자 간격 */
+} /* 규칙 끝 */
+
+.faq-item /* 질문 카드 */
+{ /* 규칙 시작 */
+    margin: 0 0 10px; /* 아래 여백 */
+    border: 1px solid var(--pl-border, #dce7f0); /* 카드 경계선 */
+    border-radius: var(--pl-radius-medium, 1.25rem); /* 카드 모서리 */
+    background: var(--pl-canvas, #ffffff); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small, none); /* 카드 그림자 */
+    overflow: hidden; /* 모서리 밖 자르기 */
+    transition: border-color 0.2s ease; /* 경계선 전환 */
+} /* 규칙 끝 */
+
+.faq-item[open] /* 열린 질문 카드 */
+{ /* 규칙 시작 */
+    border-color: var(--pl-violet, #7768f8); /* 강조 경계선 */
+} /* 규칙 끝 */
+
+.faq-item summary /* 질문 줄 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: auto minmax(0, 1fr) auto; /* Q·질문·아이콘 열 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 14px; /* 요소 간격 */
+    min-height: 56px; /* 터치 높이 */
+    padding: 12px 20px; /* 안쪽 여백 */
+    cursor: pointer; /* 선택 커서 */
+    list-style: none; /* 기본 삼각형 제거 */
+    font-weight: 700; /* 질문 굵기 */
+} /* 규칙 끝 */
+
+.faq-item summary::-webkit-details-marker /* 사파리 기본 삼각형 */
+{ /* 규칙 시작 */
+    display: none; /* 기본 표시 숨김 */
+} /* 규칙 끝 */
+
+.faq-item summary::after /* 열림 표시 아이콘 */
+{ /* 규칙 시작 */
+    content: "+"; /* 닫힘 기호 */
+    display: grid; /* 가운데 배치 */
+    place-items: center; /* 가운데 정렬 */
+    width: 28px; /* 아이콘 너비 */
+    height: 28px; /* 아이콘 높이 */
+    border-radius: 50%; /* 원형 */
+    background: color-mix(in srgb, var(--pl-violet, #7768f8) 12%, transparent); /* 아이콘 배경 */
+    color: var(--pl-violet, #7768f8); /* 아이콘 색상 */
+    font-size: 1.1rem; /* 아이콘 크기 */
+    line-height: 1; /* 줄 높이 */
+} /* 규칙 끝 */
+
+.faq-item[open] summary::after /* 열린 표시 아이콘 */
+{ /* 규칙 시작 */
+    content: "−"; /* 열림 기호 */
+} /* 규칙 끝 */
+
+.faq-item summary:hover .faq-question /* 질문 마우스 강조 */
+{ /* 규칙 시작 */
+    color: var(--pl-link, #5746d9); /* 강조 글자색 */
+} /* 규칙 끝 */
+
+.faq-item summary:focus-visible /* 질문 키보드 초점 */
+{ /* 규칙 시작 */
+    outline: 3px solid var(--pl-violet, #7768f8); /* 초점 외곽선 */
+    outline-offset: -3px; /* 카드 안쪽 외곽선 */
+} /* 규칙 끝 */
+
+.faq-question /* 질문 문구 */
+{ /* 규칙 시작 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+} /* 규칙 끝 */
+
+.faq-mark /* Q·A 표시 */
+{ /* 규칙 시작 */
+    display: grid; /* 가운데 배치 */
+    place-items: center; /* 가운데 정렬 */
+    width: 34px; /* 표시 너비 */
+    height: 34px; /* 표시 높이 */
+    border-radius: 10px; /* 표시 모서리 */
+    font-family: "Orbitron", Consolas, monospace; /* 표시 글꼴 */
+    font-size: 0.85rem; /* 표시 크기 */
+    font-weight: 900; /* 표시 굵기 */
+} /* 규칙 끝 */
+
+.faq-mark-q /* 질문 표시 */
+{ /* 규칙 시작 */
+    background: var(--pl-violet, #7768f8); /* 질문 표시 배경 */
+    color: var(--pl-canvas, #ffffff); /* 질문 표시 글자 */
+} /* 규칙 끝 */
+
+.faq-mark-a /* 답변 표시 */
+{ /* 규칙 시작 */
+    background: color-mix(in srgb, var(--pl-mint, #43d7c3) 24%, transparent); /* 답변 표시 배경 */
+    color: var(--pl-ink, #172a49); /* 답변 표시 글자 */
+} /* 규칙 끝 */
+
+.faq-answer /* 답변 영역 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: auto minmax(0, 1fr); /* A·답변 열 */
+    align-items: start; /* 위쪽 정렬 */
+    gap: 14px; /* 요소 간격 */
+    margin: 0 20px 16px; /* 바깥 여백 */
+    padding: 16px 0 0; /* 안쪽 여백 */
+    border-top: 1px dashed var(--pl-border, #dce7f0); /* 질문 구분선 */
+    animation: faq-open 0.22s ease-out; /* 열림 효과 */
+} /* 규칙 끝 */
+
+.faq-answer p /* 답변 문장 */
+{ /* 규칙 시작 */
+    margin: 4px 0 0; /* 위쪽 여백 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+} /* 규칙 끝 */
+
+.faq-answer a, .contact-channels a /* 답변 안 링크 */
+{ /* 규칙 시작 */
+    color: var(--pl-link, #5746d9); /* 링크 글자색 */
+    font-weight: 700; /* 링크 굵기 */
+} /* 규칙 끝 */
+
+@keyframes faq-open /* 답변 열림 움직임 */
+{ /* 규칙 시작 */
+    from /* 시작 상태 */
+    { /* 상태 시작 */
+        opacity: 0; /* 투명 시작 */
+        transform: translateY(-4px); /* 위쪽 시작 위치 */
+    } /* 상태 끝 */
+    to /* 끝 상태 */
+    { /* 상태 시작 */
+        opacity: 1; /* 완전 표시 */
+        transform: translateY(0); /* 원래 위치 */
+    } /* 상태 끝 */
+} /* 규칙 끝 */
+
+.contact-channels /* 직접 문의 안내 */
+{ /* 규칙 시작 */
+    margin-top: 48px; /* 위쪽 여백 */
+    padding: clamp(20px, 4vw, 32px); /* 안쪽 여백 */
+    border: 1px dashed var(--pl-border-strong, #aebfd0); /* 점선 경계 */
+    border-radius: var(--pl-radius-large, 2rem); /* 영역 모서리 */
+    background: var(--pl-canvas, #ffffff); /* 영역 배경 */
+} /* 규칙 끝 */
+
+.contact-channels p /* 직접 문의 설명 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+} /* 규칙 끝 */
+
+.contact-channel-list /* 채널 목록 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 반응형 열 */
+    gap: 10px; /* 항목 간격 */
+    margin: 16px 0 0; /* 위쪽 여백 */
+    padding: 0; /* 기본 여백 제거 */
+    list-style: none; /* 목록 점 제거 */
+} /* 규칙 끝 */
+
+.contact-channel-list li /* 채널 항목 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양쪽 배치 */
+    gap: 12px; /* 요소 간격 */
+    min-height: 52px; /* 항목 높이 */
+    padding: 0 16px; /* 좌우 여백 */
+    border: 1px solid var(--pl-border, #dce7f0); /* 항목 경계선 */
+    border-radius: var(--pl-radius-small, 0.75rem); /* 항목 모서리 */
+} /* 규칙 끝 */
+
+.contact-channel-icon /* 채널 아이콘 */
+{ /* 규칙 시작 */
+    display: grid; /* 가운데 배치 */
+    place-items: center; /* 가운데 정렬 */
+    flex: 0 0 auto; /* 크기 유지 */
+    width: 36px; /* 아이콘 너비 */
+    height: 36px; /* 아이콘 높이 */
+    border-radius: 10px; /* 아이콘 모서리 */
+} /* 규칙 끝 */
+
+.contact-channel-icon svg /* 채널 아이콘 그림 */
+{ /* 규칙 시작 */
+    width: 20px; /* 그림 너비 */
+    height: 20px; /* 그림 높이 */
+} /* 규칙 끝 */
+
+.contact-channel-icon-mail /* 메일 아이콘 */
+{ /* 규칙 시작 */
+    background: color-mix(in srgb, var(--pl-violet, #7768f8) 16%, transparent); /* 보라 배경 */
+    color: var(--pl-violet, #7768f8); /* 보라 선 */
+} /* 규칙 끝 */
+
+.contact-channel-icon-discord /* 디스코드 아이콘 */
+{ /* 규칙 시작 */
+    background: linear-gradient(145deg, #4752c4, #5865f2); /* 디스코드 파랑 배경 */
+    color: #ffffff; /* 흰색 로고 */
+} /* 규칙 끝 */
+
+.contact-channel-name /* 채널 이름 */
+{ /* 규칙 시작 */
+    flex: 1 1 auto; /* 남은 너비 사용 */
+    font-weight: 700; /* 이름 굵기 */
+} /* 규칙 끝 */
+
+.contact-channel-state /* 채널 준비 상태 */
+{ /* 규칙 시작 */
+    padding: 2px 10px; /* 배지 여백 */
+    border-radius: 999rem; /* 캡슐 모서리 */
+    background: color-mix(in srgb, var(--pl-orange, #ff9256) 18%, transparent); /* 준비 배경 */
+    font-size: 0.82rem; /* 배지 크기 */
+    font-weight: 700; /* 배지 굵기 */
+} /* 규칙 끝 */
+
+.contact-footer /* 하단 정보 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    justify-content: center; /* 가운데 정렬 */
+    gap: 18px; /* 요소 간격 */
+    padding: 28px 20px 40px; /* 안쪽 여백 */
+    border-top: 1px solid var(--pl-border, #dce7f0); /* 위쪽 경계선 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    font-size: 0.88rem; /* 글자 크기 */
+} /* 규칙 끝 */
+
+.contact-footer a /* 하단 링크 */
+{ /* 규칙 시작 */
+    color: inherit; /* 글자색 상속 */
+} /* 규칙 끝 */
+
+@media (max-width: 767px) /* 모바일 화면 */
+{ /* 구간 시작 */
+    .faq-item summary /* 모바일 질문 줄 */
+    { /* 규칙 시작 */
+        gap: 10px; /* 요소 간격 축소 */
+        padding: 12px 14px; /* 안쪽 여백 축소 */
+    } /* 규칙 끝 */
+
+    .faq-answer /* 모바일 답변 영역 */
+    { /* 규칙 시작 */
+        gap: 10px; /* 요소 간격 축소 */
+        margin-inline: 14px; /* 좌우 여백 축소 */
+    } /* 규칙 끝 */
+
+    .faq-mark /* 모바일 Q·A 표시 */
+    { /* 규칙 시작 */
+        width: 30px; /* 표시 너비 */
+        height: 30px; /* 표시 높이 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (prefers-reduced-motion: reduce) /* 움직임 감소 설정 */
+{ /* 구간 시작 */
+    .faq-answer /* 답변 영역 */
+    { /* 규칙 시작 */
+        animation: none; /* 열림 효과 제거 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */

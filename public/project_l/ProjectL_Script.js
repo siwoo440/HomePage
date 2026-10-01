@@ -88,6 +88,10 @@ document.addEventListener("DOMContentLoaded", () => // 문서가 모두 준비�
 
 function connectMenu() // 모바일 메뉴 버튼 기능을 연결한다.
 { // 모바일 메뉴 연결 함수 내용을 시작한다.
+    if (!menuToggle || !topNav) // 공통 헤더 전환 후 요소 누락 확인
+    { // 조건 시작
+        return; // 연결 생략
+    } // 조건 끝
     menuToggle.addEventListener("click", () => // 메뉴 버튼을 클릭했을 때 실행할 이벤트를 등록한다.
     { // 메뉴 버튼 클릭 시 실행할 코드를 시작한다.
         topNav.classList.toggle("open"); // 메뉴의 열린 상태를 켜거나 끈다.

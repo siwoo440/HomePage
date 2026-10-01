@@ -6,25 +6,27 @@
     <title>개발 뉴스 · DEVFORGE</title> <!-- 브라우저 제목 -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet"> <!-- 로고 글꼴 -->
     <link rel="stylesheet" href="devlog.css"> <!-- 개발 뉴스 스타일 -->
+    <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
     <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
     <link rel="stylesheet" href="/data-state.css"> <!-- 공통 데이터 상태 스타일 -->
     <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
 </head> <!-- 문서 정보 끝 -->
 <body data-responsive-page="news" data-theme="playful-lab"> <!-- 플레이풀 랩 뉴스 본문 -->
-    <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 상단 고정 메뉴 -->
-        <a href="main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
-        <ul class="nav-menu"> <!-- 메인 메뉴 목록 -->
-            <li><a href="main.html#games">게임</a></li> <!-- 게임 영역 이동 -->
-            <li><a href="goods.html">굿즈</a></li> <!-- 굿즈 전용 페이지 이동 -->
-            <li><a href="devlog.html" aria-current="page">개발 뉴스</a></li> <!-- 현재 뉴스 페이지 -->
-            <li><a href="community.html">커뮤니티</a></li> <!-- 커뮤니티 전용 페이지 이동 -->
-        </ul> <!-- 메인 메뉴 목록 끝 -->
+    <!-- site-header:start -->
+    <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root data-site-header> <!-- 공통 상단 메뉴 -->
+        <a href="/main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+        <ul class="nav-menu"> <!-- 주요 메뉴 목록 -->
+            <li><a href="/main.html#games">게임</a></li> <!-- 게임 메뉴 -->
+            <li><a href="/goods.html">굿즈</a></li> <!-- 굿즈 메뉴 -->
+            <li><a href="/devlog.html" aria-current="page">개발 뉴스</a></li> <!-- 개발 뉴스 메뉴 -->
+            <li><a href="/community.html">커뮤니티</a></li> <!-- 커뮤니티 메뉴 -->
+        </ul> <!-- 주요 메뉴 목록 끝 -->
         <div class="nav-actions"> <!-- 상단 작업 묶음 -->
-            <a href="devlog.html" class="btn-nav news-shortcut" aria-current="page">개발 뉴스</a> <!-- 모바일 뉴스 바로가기 -->
-            <button class="btn-nav" id="contact-open" data-dialog-open="contact-dialog" type="button">문의하기</button> <!-- 문의 창 열기 -->
-            <a href="/login" class="btn-nav member-login-link" data-member-action>로그인</a> <!-- 회원 로그인 이동 -->
+            <a href="/contact.html" class="btn-nav nav-contact-link">문의하기</a> <!-- 문의하기 페이지 이동 -->
+            <a href="/login" class="btn-nav member-login-link" data-member-action data-analytics-event="login_start" data-analytics-destination="member-login">로그인</a> <!-- 회원 로그인 이동 -->
         </div> <!-- 상단 작업 묶음 끝 -->
-    </nav> <!-- 상단 고정 메뉴 끝 -->
+    </nav> <!-- 공통 상단 메뉴 끝 -->
+    <!-- site-header:end -->
     <div class="page-shell"> <!-- 전체 너비 영역 -->
         <header class="site-header"> <!-- 상단 영역 -->
             <div class="hero-copy"> <!-- 페이지 소개 영역 -->
@@ -110,15 +112,6 @@
             <a href="/admin/login">관리자 로그인</a> <!-- 관리자 로그인 이동 -->
         </footer> <!-- 하단 정보 끝 -->
     </div> <!-- 전체 너비 영역 끝 -->
-    <dialog class="contact-dialog" id="contact-dialog" data-dialog aria-labelledby="contact-title"> <!-- 문의 대화상자 -->
-        <form method="dialog"> <!-- 문의 대화상자 폼 -->
-            <button class="dialog-close" type="submit" data-dialog-close aria-label="문의 창 닫기">×</button> <!-- 문의 창 닫기 -->
-            <p class="eyebrow">// CONTACT</p> <!-- 문의 영문 분류 -->
-            <h2 id="contact-title">문의하기</h2> <!-- 문의 제목 -->
-            <p>협업 제안, 버그 제보와 관련된 연락은 메인 사이트의 공식 문의 정보를 이용해 주세요.</p> <!-- 문의 안내 -->
-            <a class="dialog-link" href="community.html">커뮤니티 및 문의 정보 보기</a> <!-- 문의 정보 이동 -->
-        </form> <!-- 문의 대화상자 폼 끝 -->
-    </dialog> <!-- 문의 대화상자 끝 -->
     <script type="module" src="devlog.mjs"></script> <!-- 필터 동작 연결 -->
     <script type="module" src="member-session.mjs"></script> <!-- 회원 상태 연결 -->
     <script type="module" src="/dialog-accessibility.mjs"></script> <!-- 공통 대화상자 접근성 연결 -->

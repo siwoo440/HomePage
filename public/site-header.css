@@ -1,0 +1,274 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Orbitron:wght@400;700;900&display=swap"); /* 헤더 공통 글꼴 */
+
+:is([data-site-header], [data-site-subnav]) /* 공통 헤더 밝은 토큰 */
+{ /* 규칙 시작 */
+    --sh-canvas: #ffffff; /* 헤더 배경 */
+    --sh-border: #dce7f0; /* 헤더 경계선 */
+    --sh-shadow: 0 0.5rem 1.5rem rgba(23, 42, 73, 0.1); /* 헤더 그림자 */
+    --sh-ink: #172a49; /* 주요 글자 */
+    --sh-muted: #5a6a8a; /* 메뉴 글자 */
+    --sh-mint: #43d7c3; /* 로고 강조 */
+    --sh-violet: #7768f8; /* 버튼 경계선 */
+    --sh-cyan: #00f5d4; /* 선택 강조 */
+    --sh-purple: #b048ff; /* 로고 보조 강조 */
+    --sh-on-cyan: #070b14; /* 강조 배경 글자 */
+} /* 규칙 끝 */
+
+:is(html, body)[data-color-mode="dark"] :is([data-site-header], [data-site-subnav]) /* 공통 헤더 다크 토큰 */
+{ /* 규칙 시작 */
+    --sh-canvas: #0b1220; /* 다크 헤더 배경 */
+    --sh-border: #2a3a52; /* 다크 경계선 */
+    --sh-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.28); /* 다크 그림자 */
+    --sh-ink: #f4f7fb; /* 다크 주요 글자 */
+    --sh-mint: #69e3d2; /* 다크 로고 강조 */
+    --sh-violet: #9b8cff; /* 다크 버튼 경계선 */
+} /* 규칙 끝 */
+
+@media (prefers-color-scheme: dark) /* 저장 설정 없는 다크 기기 */
+{ /* 구간 시작 */
+    html:not([data-color-mode]) body:not([data-color-mode]) :is([data-site-header], [data-site-subnav]) /* 기기 다크 토큰 */
+    { /* 규칙 시작 */
+        --sh-canvas: #0b1220; /* 다크 헤더 배경 */
+        --sh-border: #2a3a52; /* 다크 경계선 */
+        --sh-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.28); /* 다크 그림자 */
+        --sh-ink: #f4f7fb; /* 다크 주요 글자 */
+        --sh-mint: #69e3d2; /* 다크 로고 강조 */
+        --sh-violet: #9b8cff; /* 다크 버튼 경계선 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+[data-site-header] /* 공통 헤더 배치 */
+{ /* 규칙 시작 */
+    position: fixed; /* 화면 상단 고정 */
+    top: 0; /* 위쪽 위치 */
+    right: 0; /* 오른쪽 위치 */
+    left: 0; /* 왼쪽 위치 */
+    z-index: 100; /* 콘텐츠 위 배치 */
+    box-sizing: border-box; /* 크기 계산 통일 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양쪽 배치 */
+    column-gap: 24px; /* 요소 간격 */
+    height: 70px; /* 헤더 높이 */
+    margin: 0; /* 바깥 여백 제거 */
+    padding: 0 5%; /* 좌우 여백 */
+} /* 규칙 끝 */
+
+nav.navbar[data-site-header] /* 공통 헤더 표시 */
+{ /* 규칙 시작 */
+    border: 0; /* 기존 경계 초기화 */
+    border-bottom: 1px solid var(--sh-border); /* 하단 경계선 */
+    background: color-mix(in srgb, var(--sh-canvas) 92%, transparent); /* 반투명 배경 */
+    box-shadow: var(--sh-shadow); /* 낮은 그림자 */
+    color: var(--sh-ink); /* 기본 글자색 */
+    font-family: "Noto Sans KR", sans-serif; /* 기본 글꼴 */
+    line-height: normal; /* 기본 줄 높이 */
+    backdrop-filter: blur(20px); /* 배경 흐림 */
+    -webkit-backdrop-filter: blur(20px); /* 사파리 배경 흐림 */
+} /* 규칙 끝 */
+
+:where([data-site-header]) .nav-logo /* 로고 크기 */
+{ /* 규칙 시작 */
+    font-size: 1.4rem; /* 로고 크기 */
+    letter-spacing: 3px; /* 로고 간격 */
+} /* 규칙 끝 */
+
+nav.navbar[data-site-header] .nav-logo /* 로고 표시 */
+{ /* 규칙 시작 */
+    flex: 0 0 auto; /* 로고 크기 유지 */
+    background: linear-gradient(135deg, var(--sh-cyan), var(--sh-purple)); /* 로고 그라데이션 */
+    -webkit-background-clip: text; /* 글자 배경 제한 */
+    background-clip: text; /* 표준 글자 배경 제한 */
+    color: var(--sh-ink); /* 대체 글자색 */
+    -webkit-text-fill-color: transparent; /* 그라데이션 글자 */
+    font-family: "Orbitron", sans-serif; /* 로고 글꼴 */
+    font-weight: 900; /* 로고 굵기 */
+    text-decoration: none; /* 밑줄 제거 */
+    text-shadow: 0.12rem 0.12rem 0 var(--sh-mint); /* 입체 강조 */
+    white-space: nowrap; /* 줄바꿈 차단 */
+} /* 규칙 끝 */
+
+[data-site-header] .nav-menu /* 주요 메뉴 배치 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 2.5rem; /* 메뉴 간격 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 0; /* 기본 여백 제거 */
+    list-style: none; /* 목록 점 제거 */
+} /* 규칙 끝 */
+
+:where([data-site-header]) .nav-menu a /* 메뉴 글자 크기 */
+{ /* 규칙 시작 */
+    font-size: 0.85rem; /* 메뉴 글자 크기 */
+} /* 규칙 끝 */
+
+nav.navbar[data-site-header] .nav-menu a /* 메뉴 링크 표시 */
+{ /* 규칙 시작 */
+    position: relative; /* 밑줄 기준 */
+    color: var(--sh-muted); /* 메뉴 글자색 */
+    font-family: "Noto Sans KR", sans-serif; /* 메뉴 글꼴 */
+    font-weight: 500; /* 메뉴 굵기 */
+    letter-spacing: 1.5px; /* 메뉴 간격 */
+    text-decoration: none; /* 밑줄 제거 */
+    text-transform: uppercase; /* 영문 대문자 */
+    transition: color 0.3s; /* 색상 전환 */
+} /* 규칙 끝 */
+
+nav.navbar[data-site-header] .nav-menu a::after /* 메뉴 밑줄 */
+{ /* 규칙 시작 */
+    content: ""; /* 장식 생성 */
+    position: absolute; /* 링크 기준 배치 */
+    bottom: -4px; /* 아래 위치 */
+    left: 0; /* 왼쪽 위치 */
+    width: 0; /* 기본 숨김 너비 */
+    height: 1px; /* 밑줄 두께 */
+    background: var(--sh-cyan); /* 밑줄 색상 */
+    transform: none; /* 기존 변형 초기화 */
+    transition: width 0.3s ease; /* 밑줄 전환 */
+} /* 규칙 끝 */
+
+nav.navbar[data-site-header] .nav-menu a:is(:hover, :focus-visible, [aria-current="page"]) /* 선택 메뉴 */
+{ /* 규칙 시작 */
+    color: var(--sh-cyan); /* 선택 글자색 */
+} /* 규칙 끝 */
+
+nav.navbar[data-site-header] .nav-menu a:is(:hover, :focus-visible, [aria-current="page"])::after /* 선택 밑줄 */
+{ /* 규칙 시작 */
+    width: 100%; /* 밑줄 표시 */
+} /* 규칙 끝 */
+
+[data-site-header] .nav-actions /* 작업 버튼 묶음 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 1rem; /* 버튼 간격 */
+} /* 규칙 끝 */
+
+:where([data-site-header]) .btn-nav /* 버튼 크기 */
+{ /* 규칙 시작 */
+    font-size: 0.75rem; /* 버튼 글자 크기 */
+    letter-spacing: 2px; /* 버튼 글자 간격 */
+    padding: 0.5rem 1.2rem; /* 버튼 여백 */
+} /* 규칙 끝 */
+
+[data-site-header] .btn-nav /* 버튼 표시 */
+{ /* 규칙 시작 */
+    display: inline-flex; /* 내용 가운데 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    box-sizing: border-box; /* 크기 계산 통일 */
+    min-height: 44px; /* 터치 높이 */
+    border: 1px solid var(--sh-violet); /* 버튼 경계선 */
+    border-radius: 999rem; /* 캡슐 모서리 */
+    background: var(--sh-canvas); /* 버튼 배경 */
+    color: var(--sh-ink); /* 버튼 글자색 */
+    cursor: pointer; /* 선택 커서 */
+    font-family: "Orbitron", "Noto Sans KR", sans-serif; /* 버튼 글꼴 */
+    font-weight: 400; /* 버튼 굵기 */
+    text-decoration: none; /* 밑줄 제거 */
+    text-transform: uppercase; /* 영문 대문자 */
+    white-space: nowrap; /* 줄바꿈 차단 */
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s; /* 상태 전환 */
+} /* 규칙 끝 */
+
+[data-site-header] .btn-nav:is(:hover, :focus-visible, [aria-current="page"]) /* 선택 버튼 */
+{ /* 규칙 시작 */
+    background: var(--sh-cyan); /* 선택 배경 */
+    color: var(--sh-on-cyan); /* 선택 글자색 */
+    box-shadow: 0 0 20px rgba(0, 245, 212, 0.3); /* 발광 효과 */
+    outline: none; /* 기본 외곽선 제거 */
+} /* 규칙 끝 */
+
+nav.navbar[data-site-header] :is(.nav-logo, .nav-menu a, .btn-nav):focus-visible /* 키보드 초점 */
+{ /* 규칙 시작 */
+    outline: 2px solid var(--sh-violet); /* 초점 외곽선 */
+    outline-offset: 3px; /* 외곽선 간격 */
+} /* 규칙 끝 */
+
+body[data-site-header-offset] /* 흐름형 헤더였던 페이지 */
+{ /* 규칙 시작 */
+    padding-top: 70px; /* 고정 헤더 높이 확보 */
+} /* 규칙 끝 */
+
+html:has([data-site-header]) /* 공통 헤더 사용 문서 */
+{ /* 규칙 시작 */
+    scroll-padding-top: 86px; /* 앵커 이동 가림 방지 */
+} /* 규칙 끝 */
+
+html:has([data-site-subnav]) /* 보조 메뉴 사용 문서 */
+{ /* 규칙 시작 */
+    scroll-padding-top: 136px; /* 보조 메뉴 포함 가림 방지 */
+} /* 규칙 끝 */
+
+nav.site-subnav[data-site-subnav] /* 페이지 내부 보조 메뉴 */
+{ /* 규칙 시작 */
+    position: sticky; /* 스크롤 중 고정 */
+    top: 70px; /* 공통 헤더 아래 */
+    z-index: 90; /* 콘텐츠 위 배치 */
+    box-sizing: border-box; /* 크기 계산 통일 */
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 6px; /* 링크 간격 */
+    width: 100%; /* 전체 너비 */
+    min-height: 52px; /* 보조 메뉴 높이 */
+    margin: 0; /* 바깥 여백 제거 */
+    padding: 6px 5%; /* 안쪽 여백 */
+    overflow-x: auto; /* 넘친 링크 가로 이동 */
+    border: 0; /* 기존 경계 초기화 */
+    border-bottom: 1px solid var(--sh-border); /* 하단 경계선 */
+    background: color-mix(in srgb, var(--sh-canvas) 88%, transparent); /* 반투명 배경 */
+    backdrop-filter: blur(16px); /* 배경 흐림 */
+    -webkit-backdrop-filter: blur(16px); /* 사파리 배경 흐림 */
+    font-family: "Noto Sans KR", sans-serif; /* 기본 글꼴 */
+    scrollbar-width: thin; /* 얇은 스크롤바 */
+} /* 규칙 끝 */
+
+nav.site-subnav[data-site-subnav] .site-subnav-title /* 보조 메뉴 페이지 이름 */
+{ /* 규칙 시작 */
+    flex: 0 0 auto; /* 크기 유지 */
+    margin-right: 8px; /* 오른쪽 간격 */
+    color: var(--sh-violet); /* 강조 글자색 */
+    font-family: "Orbitron", sans-serif; /* 제목 글꼴 */
+    font-size: 0.72rem; /* 제목 크기 */
+    font-weight: 700; /* 제목 굵기 */
+    letter-spacing: 0.18em; /* 제목 간격 */
+    text-transform: none; /* 이름 대소문자 유지 */
+    white-space: nowrap; /* 줄바꿈 차단 */
+} /* 규칙 끝 */
+
+nav.site-subnav[data-site-subnav] a /* 보조 메뉴 링크 */
+{ /* 규칙 시작 */
+    display: inline-flex; /* 터치 영역 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    flex: 0 0 auto; /* 크기 유지 */
+    min-height: 36px; /* 터치 높이 */
+    padding: 0 14px; /* 좌우 여백 */
+    border: 1px solid transparent; /* 기본 경계 */
+    border-radius: 999rem; /* 캡슐 모서리 */
+    color: var(--sh-muted); /* 링크 글자색 */
+    font-size: 0.85rem; /* 링크 글자 크기 */
+    font-weight: 500; /* 링크 굵기 */
+    text-decoration: none; /* 밑줄 제거 */
+    white-space: nowrap; /* 줄바꿈 차단 */
+} /* 규칙 끝 */
+
+nav.site-subnav[data-site-subnav] a:is(:hover, :focus-visible) /* 보조 링크 선택 */
+{ /* 규칙 시작 */
+    border-color: var(--sh-violet); /* 선택 경계선 */
+    color: var(--sh-ink); /* 선택 글자색 */
+    outline: none; /* 기본 외곽선 제거 */
+} /* 규칙 끝 */
+
+@media (max-width: 767px) /* 모바일 화면 */
+{ /* 구간 시작 */
+    nav.site-subnav[data-site-subnav] /* 모바일 보조 메뉴 */
+    { /* 규칙 시작 */
+        padding-inline: 16px; /* 좌우 여백 축소 */
+    } /* 규칙 끝 */
+
+    html:has([data-site-subnav]) /* 모바일 보조 메뉴 문서 */
+    { /* 규칙 시작 */
+        scroll-padding-top: 132px; /* 앵커 이동 가림 방지 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */

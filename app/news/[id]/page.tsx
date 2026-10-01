@@ -4,6 +4,7 @@ import { getSupabasePublicConfig } from "@/lib/supabase/config"; // Supabase 설
 import { createServerSupabaseClient } from "@/lib/supabase/server"; // 서버 데이터 도구
 import { resolveDemoNewsPost, type PublicNewsPost } from "@/lib/news/demo-posts"; // 시연 뉴스 도구
 import CommentsPanel from "./comments-panel"; // 댓글 상호작용 영역
+import SiteHeader from "../../site-header"; // 공통 상단 헤더
 import styles from "./news-detail.module.css"; // 뉴스 상세 스타일
 
 interface NewsDetailPageProps // 뉴스 상세 속성
@@ -47,11 +48,12 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) //
     const publishedDate = post.publishedAt ? new Intl.DateTimeFormat("ko-KR", { dateStyle: "long" }).format(new Date(post.publishedAt)) : "공개일 미정"; // 공개 날짜 표시
 
     return ( // 상세 화면 반환
+        <> {/* 화면 묶음 */}
+        <SiteHeader current="news" /> {/* 공통 상단 헤더 */}
         <main className={styles.shell}> {/* 뉴스 상세 전체 영역 */}
-            <nav className={styles.navigation} aria-label="주요 메뉴"> {/* 상단 이동 메뉴 */}
-                <Link className={styles.brand} href="/main.html">DEVFORGE</Link> {/* 메인 이동 브랜드 */}
-                <Link className={styles.backLink} href="/devlog.html">개발 뉴스로 돌아가기</Link> {/* 뉴스 목록 복귀 */}
-            </nav> {/* 상단 이동 메뉴 끝 */}
+            <nav className={styles.navigation} aria-label="뉴스 이동"> {/* 뉴스 목록 복귀 메뉴 */}
+                <Link className={styles.backLink} href="/devlog.html">← 개발 뉴스로 돌아가기</Link> {/* 뉴스 목록 복귀 */}
+            </nav> {/* 뉴스 목록 복귀 메뉴 끝 */}
             <article className={styles.article}> {/* 뉴스 본문 */}
                 <div className={styles.tags}> {/* 태그 목록 */}
                     {post.tags.map((tag: string) => <span key={tag}>{TAG_LABELS[tag] ?? tag}</span>)} {/* 태그 표시 */}
@@ -62,6 +64,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) //
                 <div className={styles.content}>{post.content}</div> {/* 뉴스 본문 내용 */}
             </article> {/* 뉴스 본문 끝 */}
             <CommentsPanel newsId={post.id} demoMode={!getSupabasePublicConfig() || Boolean(demoPost)} /> {/* 댓글 기능 */}
-        </main> // 뉴스 상세 전체 영역 끝
+        </main> {/* 뉴스 상세 전체 영역 끝 */}
+        </> // 화면 묶음 끝
     ); // 상세 화면 반환 끝
 } // 함수 끝

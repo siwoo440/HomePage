@@ -29,8 +29,6 @@ const nextCompanionButton = document.querySelector("#nextCompanionButton"); // �
 const companionDots = document.querySelector("#companionDots"); // 동료 위치 점 영역
 const tabButtons = document.querySelectorAll(".tab-button"); // 시스템 탭 버튼들을 가져온다.
 const systemPanel = document.querySelector("#systemPanel"); // 시스템 설명 패널을 가져온다.
-const navToggle = document.querySelector(".nav-toggle"); // 모바일 메뉴 버튼을 가져온다.
-const navLinks = document.querySelector(".nav-links"); // 상단 메뉴 링크 묶음을 가져온다.
 let currentRole = ALL_COMPANION_ROLE; // 현재 역할 필터
 let visibleCompanions = companions; // 현재 표시 대상 동료 목록
 let currentCompanionIndex = 0; // 현재 동료 위치
@@ -42,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => // 문서가 준비되면 �
     applyCompanionFilter(); // 첫 동료 목록 표시
     renderSystem("stamina"); // 처음에는 활력 시스템을 표시한다.
     connectSystemTabs(); // 시스템 탭 이벤트를 연결한다.
-    connectMobileNavigation(); // 모바일 메뉴 이벤트를 연결한다.
     startStarCanvas(); // 배경 별빛 애니메이션을 실행한다.
 }); // 문서 준비 이벤트 등록을 끝낸다.
 function filterCompanions(items, role, keyword) // 역할·검색어 기준 동료 선별
@@ -263,24 +260,6 @@ function renderSystem(key) // 선택된 시스템 데이터를 화면에 그리�
         </ul>
     `; // 시스템 패널 내부 HTML을 만든다.
 } // 시스템 출력 함수를 끝낸다.
-function connectMobileNavigation() // 모바일 메뉴 기능을 연결하는 함수를 만든다.
-{ // 모바일 메뉴 연결 함수 내용을 시작한다.
-    if (!navToggle || !navLinks) // 메뉴 요소 누락 확인
-    { // 조건 시작
-        return; // 연결 생략
-    } // 조건 끝
-    navToggle.addEventListener("click", () => // 모바일 메뉴 버튼을 클릭하면 실행한다.
-    { // 모바일 메뉴 클릭 블록을 시작한다.
-        navLinks.classList.toggle("open"); // 메뉴의 열림 상태를 바꾼다.
-    }); // 모바일 메뉴 클릭 이벤트 등록을 끝낸다.
-    navLinks.querySelectorAll("a").forEach((link) => // 메뉴 안의 모든 링크를 반복한다.
-    { // 메뉴 링크 반복 블록을 시작한다.
-        link.addEventListener("click", () => // 메뉴 링크를 클릭하면 실행한다.
-        { // 메뉴 링크 클릭 블록을 시작한다.
-            navLinks.classList.remove("open"); // 모바일 메뉴를 닫는다.
-        }); // 메뉴 링크 클릭 이벤트 등록을 끝낸다.
-    }); // 메뉴 링크 반복을 끝낸다.
-} // 모바일 메뉴 연결 함수를 끝낸다.
 function startStarCanvas() // 배경 별빛 캔버스를 실행하는 함수를 만든다.
 { // 별빛 캔버스 함수 내용을 시작한다.
     const canvas = document.querySelector("#starCanvas"); // 캔버스 요소를 가져온다.

@@ -7,9 +7,10 @@
     <title>Project η | 게임 소개</title> <!-- 공개 브라우저 제목 -->
     <link rel="stylesheet" href="../project-detail.css"> <!-- 공통 상세 스타일 연결 -->
     <link rel="stylesheet" href="ProjectEta_Style.css"> <!-- 전용 스타일 연결 -->
+    <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
     <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
 </head> <!-- 문서 정보 끝 -->
-<body data-responsive-page="eta" data-public-project-page data-project-id="project-eta"> <!-- 공개 프로젝트 본문 -->
+<body data-site-header-offset data-responsive-page="eta" data-public-project-page data-project-id="project-eta"> <!-- 공개 프로젝트 본문 -->
     <div class="invitation-intro" id="invitation-intro" role="dialog" aria-modal="true" aria-label="프로젝트 에타 초대장" hidden> <!-- 첫 진입 초대장 화면 -->
         <div class="invitation-room" aria-hidden="true"> <!-- 어두운 방 배경 -->
             <span class="room-ceiling-line"></span> <!-- 천장 경계선 -->
@@ -39,16 +40,29 @@
         </div> <!-- 초대장 상호작용 영역 끝 -->
         <button class="invitation-skip" id="invitation-skip" type="button">건너뛰기</button> <!-- 연출 건너뛰기 -->
     </div> <!-- 첫 진입 초대장 화면 끝 -->
-    <nav class="eta-nav" aria-label="프로젝트 에타 주요 메뉴" data-responsive-nav-root> <!-- 상단 고정 메뉴 -->
-        <a class="eta-brand" href="../main.html">DEVFORGE <span>/ η</span></a> <!-- 메인 복귀 로고 -->
-        <div class="eta-nav-links"> <!-- 내부 이동 링크 묶음 -->
-            <a href="#gameplay">전투</a> <!-- 전투 이동 -->
-            <a href="#fusion">합성</a> <!-- 합성 이동 -->
-            <a href="#pieces">기물</a> <!-- 기물 이동 -->
-            <a href="#beyond-table">미스터리</a> <!-- 미스터리 이동 -->
-        </div> <!-- 내부 이동 링크 끝 -->
-        <a class="nav-cta" href="#wishlist">WISHLIST</a> <!-- 마지막 행동 유도 이동 -->
-    </nav> <!-- 상단 고정 메뉴 끝 -->
+    <!-- site-header:start -->
+    <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root data-site-header> <!-- 공통 상단 메뉴 -->
+        <a href="/main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+        <ul class="nav-menu"> <!-- 주요 메뉴 목록 -->
+            <li><a href="/main.html#games" aria-current="page">게임</a></li> <!-- 게임 메뉴 -->
+            <li><a href="/goods.html">굿즈</a></li> <!-- 굿즈 메뉴 -->
+            <li><a href="/devlog.html">개발 뉴스</a></li> <!-- 개발 뉴스 메뉴 -->
+            <li><a href="/community.html">커뮤니티</a></li> <!-- 커뮤니티 메뉴 -->
+        </ul> <!-- 주요 메뉴 목록 끝 -->
+        <div class="nav-actions"> <!-- 상단 작업 묶음 -->
+            <a href="/contact.html" class="btn-nav nav-contact-link">문의하기</a> <!-- 문의하기 페이지 이동 -->
+            <a href="/login" class="btn-nav member-login-link" data-member-action data-analytics-event="login_start" data-analytics-destination="member-login">로그인</a> <!-- 회원 로그인 이동 -->
+        </div> <!-- 상단 작업 묶음 끝 -->
+    </nav> <!-- 공통 상단 메뉴 끝 -->
+    <nav class="site-subnav" aria-label="프로젝트 η 페이지 메뉴" data-site-subnav> <!-- 페이지 내부 이동 메뉴 -->
+        <span class="site-subnav-title">PROJECT η</span> <!-- 현재 페이지 이름 -->
+        <a href="#gameplay">전투</a> <!-- 전투 이동 -->
+        <a href="#fusion">합성</a> <!-- 합성 이동 -->
+        <a href="#pieces">기물</a> <!-- 기물 이동 -->
+        <a href="#beyond-table">미스터리</a> <!-- 미스터리 이동 -->
+        <a href="#wishlist">WISHLIST</a> <!-- WISHLIST 이동 -->
+    </nav> <!-- 페이지 내부 이동 메뉴 끝 -->
+    <!-- site-header:end -->
 
     <header class="eta-hero" id="overview"> <!-- 대표 소개 영역 -->
         <img class="hero-art" src="../images/games/project-eta.png?v=20260909-2" alt="흑백 체스 기물과 마법 카드가 놓인 프로젝트 에타 보드"> <!-- 대표 이미지 -->

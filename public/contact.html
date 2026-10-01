@@ -1,0 +1,150 @@
+<!DOCTYPE html> <!-- HTML5 문서 선언 -->
+<html lang="ko"> <!-- 한국어 문서 시작 -->
+<head> <!-- 문서 정보 시작 -->
+    <meta charset="UTF-8"> <!-- 한글 인코딩 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
+    <meta name="description" content="DEVFORGE 자주 묻는 질문과 문의 채널 안내"> <!-- 검색 설명 -->
+    <title>문의하기 · DEVFORGE</title> <!-- 브라우저 제목 -->
+    <link rel="stylesheet" href="/contact.css"> <!-- 문의하기 페이지 스타일 -->
+    <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+    <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
+</head> <!-- 문서 정보 끝 -->
+<body data-site-header-offset data-responsive-page="contact" data-theme="playful-lab"> <!-- 문의하기 본문 -->
+    <!-- site-header:start -->
+    <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root data-site-header> <!-- 공통 상단 메뉴 -->
+        <a href="/main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+        <ul class="nav-menu"> <!-- 주요 메뉴 목록 -->
+            <li><a href="/main.html#games">게임</a></li> <!-- 게임 메뉴 -->
+            <li><a href="/goods.html">굿즈</a></li> <!-- 굿즈 메뉴 -->
+            <li><a href="/devlog.html">개발 뉴스</a></li> <!-- 개발 뉴스 메뉴 -->
+            <li><a href="/community.html">커뮤니티</a></li> <!-- 커뮤니티 메뉴 -->
+        </ul> <!-- 주요 메뉴 목록 끝 -->
+        <div class="nav-actions"> <!-- 상단 작업 묶음 -->
+            <a href="/contact.html" class="btn-nav nav-contact-link" aria-current="page">문의하기</a> <!-- 문의하기 페이지 이동 -->
+            <a href="/login" class="btn-nav member-login-link" data-member-action data-analytics-event="login_start" data-analytics-destination="member-login">로그인</a> <!-- 회원 로그인 이동 -->
+        </div> <!-- 상단 작업 묶음 끝 -->
+    </nav> <!-- 공통 상단 메뉴 끝 -->
+    <!-- site-header:end -->
+    <main class="contact-shell"> <!-- 문의하기 전체 영역 -->
+        <header class="contact-hero"> <!-- 문의하기 소개 -->
+            <p class="contact-eyebrow">// SUPPORT &amp; FAQ</p> <!-- 영문 분류 -->
+            <h1>문의하기</h1> <!-- 화면 제목 -->
+            <p class="contact-lead">자주 묻는 질문을 먼저 확인해 주세요. 질문(Q.)을 누르면 바로 아래에 답변(A.)이 열립니다.</p> <!-- 사용 안내 -->
+        </header> <!-- 문의하기 소개 끝 -->
+        <div class="faq-toolbar"> <!-- 질문 목록 조작 -->
+            <nav class="faq-categories" aria-label="질문 분류"> <!-- 분류 이동 -->
+                <a href="#faq-games">게임·출시</a> <!-- 게임 분류 이동 -->
+                <a href="#faq-account">회원·이용</a> <!-- 회원 분류 이동 -->
+                <a href="#faq-goods">굿즈</a> <!-- 굿즈 분류 이동 -->
+                <a href="#faq-privacy">개인정보</a> <!-- 개인정보 분류 이동 -->
+                <a href="#faq-contact">문의 채널</a> <!-- 문의 채널 이동 -->
+            </nav> <!-- 분류 이동 끝 -->
+            <div class="faq-bulk-actions"> <!-- 전체 열기 묶음 -->
+                <button type="button" data-faq-expand="open">모두 펼치기</button> <!-- 전체 펼치기 -->
+                <button type="button" data-faq-expand="close">모두 접기</button> <!-- 전체 접기 -->
+            </div> <!-- 전체 열기 묶음 끝 -->
+        </div> <!-- 질문 목록 조작 끝 -->
+        <section class="faq-group" id="faq-games" aria-labelledby="faq-games-title"> <!-- 게임 질문 묶음 -->
+            <h2 id="faq-games-title">게임·출시</h2> <!-- 묶음 제목 -->
+            <details class="faq-item" open> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">프로젝트 출시 일정이 정해졌나요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>출시 일정은 아직 확정되지 않았습니다. 확인된 개발 상태와 공개 가능한 소식만 <a href="/devlog.html">개발 뉴스</a>에서 안내합니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">어떤 게임을 만들고 있나요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>현재 35개 프로젝트를 공개하고 있으며 대표 프로젝트 6개를 메인에서 먼저 소개합니다. 장르와 개발 상태별로 <a href="/main.html#games">게임 목록</a>에서 찾아볼 수 있습니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">게임 상태의 "개발 중", "기획", "보류"는 무슨 뜻인가요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>개발 중은 제작이 진행되는 프로젝트, 기획은 콘셉트와 방향을 정리하는 단계, 보류는 일정이 잠시 멈춘 프로젝트입니다. 상태가 바뀌면 프로젝트 페이지와 개발 뉴스에 반영합니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">일부 게임에서 성인 확인을 요구하는 이유는 무엇인가요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>청소년 이용불가로 분류한 프로젝트는 상세 페이지와 대표 이미지를 보기 전에 만 19세 이상인지 확인합니다. 확인 결과는 서명된 쿠키로 일정 시간 유지되며 생년월일은 저장하지 않습니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+        </section> <!-- 게임 질문 묶음 끝 -->
+        <section class="faq-group" id="faq-account" aria-labelledby="faq-account-title"> <!-- 회원 질문 묶음 -->
+            <h2 id="faq-account-title">회원·이용</h2> <!-- 묶음 제목 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">회원가입을 해야 사이트를 이용할 수 있나요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>아니요. 게임 소개, 개발 뉴스, 굿즈, 커뮤니티는 로그인 없이 볼 수 있습니다. 로그인은 개발 뉴스에 댓글과 반응을 남길 때만 필요합니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">회원 정보와 댓글은 서버에 저장되나요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>현재 회원과 댓글 기능은 시연 모드입니다. 닉네임은 현재 탭에만 저장되고, 댓글은 새로고침하면 초기화되며 서버에 저장하지 않습니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">로그아웃은 어떻게 하나요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>상단의 닉네임 버튼을 누르면 회원 화면이 열리고, 그곳의 로그아웃 버튼으로 로그인을 해제할 수 있습니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">다크 모드로 바꿀 수 있나요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>휴대폰과 태블릿에서는 상단의 사이트 메뉴에서 다크 모드를 켜고 끌 수 있습니다. 선택하지 않으면 기기 설정을 따릅니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+        </section> <!-- 회원 질문 묶음 끝 -->
+        <section class="faq-group" id="faq-goods" aria-labelledby="faq-goods-title"> <!-- 굿즈 질문 묶음 -->
+            <h2 id="faq-goods-title">굿즈</h2> <!-- 묶음 제목 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">굿즈를 지금 구매할 수 있나요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>아직 구매할 수 없습니다. 현재 <a href="/goods.html">굿즈</a> 이미지는 화면 검증용 목업이며, 실제 판매가 시작되기 전까지 결제 기능을 제공하지 않습니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">판매가 시작되면 어떻게 알 수 있나요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>판매처와 일정이 확정되면 굿즈 페이지의 상품 상태가 "판매 준비 중"에서 바뀌고 개발 뉴스로도 안내합니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+        </section> <!-- 굿즈 질문 묶음 끝 -->
+        <section class="faq-group" id="faq-privacy" aria-labelledby="faq-privacy-title"> <!-- 개인정보 질문 묶음 -->
+            <h2 id="faq-privacy-title">개인정보</h2> <!-- 묶음 제목 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">관심 프로젝트와 최근 본 기록은 어디에 저장되나요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>이용 중인 브라우저에만 프로젝트 식별자를 저장하며 서버로 보내지 않습니다. <a href="/privacy.html#browser-data">내 브라우저 데이터 관리</a>에서 확인하고 삭제할 수 있습니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">방문 분석은 언제 실행되나요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>화면 아래 개인정보 설정에서 "분석 허용"을 선택한 경우에만 실행합니다. 거부하거나 선택하지 않으면 분석 스크립트를 불러오지 않습니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+        </section> <!-- 개인정보 질문 묶음 끝 -->
+        <section class="faq-group" id="faq-contact" aria-labelledby="faq-contact-title"> <!-- 문의 채널 묶음 -->
+            <h2 id="faq-contact-title">문의 채널</h2> <!-- 묶음 제목 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">공식 SNS와 문의 채널은 어디인가요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>공식 외부 채널은 아직 연결되지 않았습니다. 주소가 확정되기 전에는 이동 링크를 제공하지 않으며, 확정되면 이 페이지와 <a href="/community.html">커뮤니티</a>에 안내합니다.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+            <details class="faq-item"> <!-- 질문 항목 -->
+                <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">버그 제보나 제휴 문의는 어떻게 하나요?</span></summary> <!-- 질문 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>문의 이메일과 Discord는 운영 준비 단계에서 연결합니다. 연결 전까지는 아래 문의 채널 안내에서 준비 상태를 확인해 주세요.</p></div> <!-- 답변 -->
+            </details> <!-- 질문 항목 끝 -->
+        </section> <!-- 문의 채널 묶음 끝 -->
+        <section class="contact-channels" aria-labelledby="contact-channels-title"> <!-- 직접 문의 안내 -->
+            <h2 id="contact-channels-title">찾는 답이 없나요?</h2> <!-- 직접 문의 제목 -->
+            <p>공식 문의 채널은 운영 준비 단계에서 연결됩니다. 아래 채널은 주소가 확정되면 활성화됩니다.</p> <!-- 직접 문의 설명 -->
+            <ul class="contact-channel-list"> <!-- 채널 목록 -->
+                <li> <!-- 이메일 채널 -->
+                    <span class="contact-channel-icon contact-channel-icon-mail" aria-hidden="true"> <!-- 메일 아이콘 -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> <!-- 봉투 모양 -->
+                    </span> <!-- 메일 아이콘 끝 -->
+                    <span class="contact-channel-name">문의 이메일</span> <!-- 채널 이름 -->
+                    <span class="contact-channel-state">준비 중</span> <!-- 준비 상태 -->
+                </li> <!-- 이메일 채널 끝 -->
+                <li> <!-- 디스코드 채널 -->
+                    <span class="contact-channel-icon contact-channel-icon-discord" aria-hidden="true"> <!-- 디스코드 아이콘 -->
+                        <svg viewBox="0 0 127.14 96.36" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg> <!-- 디스코드 로고 -->
+                    </span> <!-- 디스코드 아이콘 끝 -->
+                    <span class="contact-channel-name">Discord</span> <!-- 채널 이름 -->
+                    <span class="contact-channel-state">준비 중</span> <!-- 준비 상태 -->
+                </li> <!-- 디스코드 채널 끝 -->
+            </ul> <!-- 채널 목록 끝 -->
+        </section> <!-- 직접 문의 안내 끝 -->
+    </main> <!-- 문의하기 전체 영역 끝 -->
+    <footer class="contact-footer"> <!-- 하단 정보 -->
+        <a href="/terms.html">이용약관</a> <!-- 이용약관 이동 -->
+        <a href="/privacy.html">개인정보처리방침</a> <!-- 개인정보 이동 -->
+        <span>© DEVFORGE Studio</span> <!-- 저작권 표시 -->
+    </footer> <!-- 하단 정보 끝 -->
+    <script type="module" src="/contact-faq.mjs"></script> <!-- 질문 펼치기 기능 -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 문서 본문 끝 -->
+</html> <!-- 한국어 문서 끝 -->

@@ -40,7 +40,7 @@ test("주요 콘텐츠 영역은 선명한 외곽선과 은은한 깊이 효과�
     assert.match(css, /data-responsive-page="news"\] \.filter-panel[\s\S]*?border-color:\s*var\(--pl-border-strong\)/); // 뉴스 주요 영역 확인
     assert.match(css, /data-responsive-page="community"\] :is\(\.game-selector, \.featured-feed, \.platform-section\)[\s\S]*?border-color:\s*var\(--pl-border-strong\)/); // 커뮤니티 주요 영역 확인
     assert.match(css, /data-responsive-page="legal"\] \.legal-document[\s\S]*?border:[^;]*var\(--pl-border-strong\)/); // 법적 문서 주요 영역 확인
-    assert.match(loginCss, /\.panel[\s\S]*?border:[^;]*var\(--pl-border-strong\)/); // 로그인 카드 확인
+    assert.match(loginCss, /\.formArea[^{]*\{[^}]*border-left:[^;]*var\(--pl-border-strong\)/); // 로그인 카드 확인
     assert.match(ageCss, /\.card[\s\S]*?border:[^;]*var\(--pl-border-strong\)/); // 인증 카드 확인
     assert.match(newsCss, /\.article[\s\S]*?border:[^;]*var\(--pl-border-strong\)/); // 뉴스 상세 본문 확인
     assert.match(adminCss, /--admin-line:\s*var\(--pl-border-strong\)/); // 관리자 영역 확인
@@ -155,7 +155,7 @@ test("로그인과 성인 인증 화면이 밝은 공통 토큰을 사용한다"
     const loginCss = await readFile(new URL("../app/login/member-login.module.css", import.meta.url), "utf8"); // 로그인 스타일 읽기
     const ageCss = await readFile(new URL("../app/age-verification/age-verification.module.css", import.meta.url), "utf8"); // 성인 인증 스타일 읽기
     assert.match(loginCss, /background:[^;]*var\(--pl-surface\)/); // 로그인 밝은 배경 확인
-    assert.match(loginCss, /\.panel[^\{]*\{[^\}]*background:\s*var\(--pl-canvas\)/); // 로그인 카드 테마 배경 확인
+    assert.match(loginCss, /\.layout[^{]*\{[^}]*width:\s*min\(1180px, 100%\)/); // 로그인 카드 테마 배경 확인
     assert.match(loginCss, /color:\s*var\(--pl-ink\)/); // 로그인 기본 글자 확인
     assert.match(loginCss, /var\(--pl-violet\)/); // 로그인 강조색 확인
     assert.match(ageCss, /background:[^;]*var\(--pl-surface\)/); // 인증 밝은 배경 확인

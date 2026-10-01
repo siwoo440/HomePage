@@ -43,11 +43,12 @@ test("공통 자원은 페이지 스타일 뒤와 개인정보 모듈 앞에 놓
     } // 반복 끝
 }); // 테스트 끝
 
-test("메인 페이지가 홈 로고와 문의 해시 대상 창을 제공한다", () => // 메인 연결 테스트
+test("메인 페이지가 홈 로고와 문의하기 페이지 링크를 제공한다", () => // 메인 연결 테스트
 { // 테스트 시작
     const html = readPublicFile("main.html"); // 메인 HTML 읽기
     assert.match(html, /<a href="\/main\.html" class="nav-logo">DEVFORGE<\/a>/); // 홈 로고 확인
-    assert.match(html, /id="contact-modal"/); // 문의창 식별자 확인
+    assert.match(html, /href="\/contact\.html" class="btn-nav nav-contact-link"/); // 문의하기 페이지 링크 확인
+    assert.doesNotMatch(html, /id="contact-modal"/); // 문의창 식별자 확인
 }); // 테스트 끝
 
 test("공통 페이지는 같은 대화상자 접근성 모듈을 사용한다", () => // 대화상자 모듈 연결 테스트
@@ -71,7 +72,7 @@ test("공통 스타일은 대화상자 배경 스크롤을 잠근다", () => // 
 test("메인 사용자 정의 모달은 역할과 데이터 동작을 제공한다", () => // 메인 모달 계약 테스트
 { // 테스트 시작
     const html = readPublicFile("main.html"); // 메인 HTML 읽기
-    const dialogIds = ["game-modal", "contact-modal", "terms-modal", "privacy-modal"]; // 모달 식별자 목록
+    const dialogIds = ["game-modal", "terms-modal", "privacy-modal"]; // 모달 식별자 목록
     for (const dialogId of dialogIds) // 모달 반복
     { // 반복 시작
         const openingTag = html.match(new RegExp(`<div[^>]*id="${dialogId}"[^>]*>`))?.[0] ?? ""; // 모달 시작 태그 조회
@@ -80,7 +81,6 @@ test("메인 사용자 정의 모달은 역할과 데이터 동작을 제공한�
         assert.match(openingTag, /aria-modal="true"/); // 모달 상태 확인
         assert.match(openingTag, /aria-labelledby="[^"]+"/); // 제목 연결 확인
     } // 반복 끝
-    assert.match(html, /data-dialog-open="contact-modal"/); // 문의 실행 요소 확인
     assert.match(html, /data-dialog-close/); // 닫기 데이터 확인
     assert.doesNotMatch(html, /getElementById\('contact-modal'\)\.classList\.add\('open'\)/); // 인라인 열기 제거 확인
     assert.doesNotMatch(html, /classList\.remove\('open'\)/); // 인라인 닫기 제거 확인
@@ -127,7 +127,7 @@ test("공개 메인 헤더는 개발용 기기 선택기를 노출하지 않는�
     const html = readPublicFile("main.html"); // 메인 HTML 읽기
     const actions = html.match(/<div class="nav-actions">[\s\S]*?<\/div>/)?.[0] ?? ""; // 상단 작업 영역 추출
     assert.doesNotMatch(actions, /data-site-device-picker|device-preview\.html/); // 개발 제어기 제외 확인
-    assert.match(actions, />문의하기<\/button>[\s\S]*?data-member-action/); // 문의와 로그인 순서 확인
+    assert.match(actions, />문의하기<\/a>[\s\S]*?data-member-action/); // 문의와 로그인 순서 확인
 }); // 테스트 끝
 
 test("개인정보 설정 버튼은 비활성 상담 버튼 자리를 남기지 않는다", () => // 개인정보 버튼 간격 테스트
@@ -204,7 +204,7 @@ test("Next 입력과 관리 화면은 동적 높이와 긴 문구를 안전하�
     const newsCss = fs.readFileSync("app/news/[id]/news-detail.module.css", "utf8"); // 뉴스 상세 스타일 읽기
     const adminCss = fs.readFileSync("app/admin/admin.css", "utf8"); // 관리자 스타일 읽기
     assert.match(loginCss, /min-height:\s*100dvh/); // 로그인 동적 높이 확인
-    assert.match(loginCss, /\.panel[\s\S]*?min-width:\s*0[\s\S]*?overflow-wrap:\s*anywhere/); // 로그인 긴 문구 확인
+    assert.match(loginCss, /\.intro, \.formArea[\s\S]*?min-width:\s*0[\s\S]*?overflow-wrap:\s*anywhere/); // 로그인 긴 문구 확인
     assert.match(ageCss, /min-height:\s*100dvh/); // 성인 확인 동적 높이 확인
     assert.match(ageCss, /\.card[\s\S]*?min-width:\s*0[\s\S]*?overflow-wrap:\s*anywhere/); // 성인 확인 긴 문구 확인
     assert.match(newsCss, /\.article[\s\S]*?min-width:\s*0/); // 뉴스 본문 최소 폭 확인
@@ -238,7 +238,7 @@ function collectPublicHtmlFiles(directory = "public") // 공개 HTML 수집
 test("모든 공개 HTML이 공통 모바일 메뉴를 제공한다", () => // 전체 페이지 연결 테스트
 { // 테스트 시작
     const files = collectPublicHtmlFiles().filter((file) => !file.endsWith("device-preview.html")); // 공개 페이지 수집
-    assert.equal(files.length, 44); // 법적 문서 포함 페이지 수 확인
+    assert.equal(files.length, 45); // 법적 문서 포함 페이지 수 확인
 
     for (const file of files) // 페이지 반복
     { // 반복 시작

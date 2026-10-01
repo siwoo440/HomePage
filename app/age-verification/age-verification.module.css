@@ -1,9 +1,10 @@
 .shell /* 전체 화면 */
 { /* 화면 시작 */
+    box-sizing: border-box; /* 여백 포함 높이 계산 */
     min-height: 100dvh; /* 동적 화면 높이 */
     display: grid; /* 중앙 배치 방식 */
     place-items: center; /* 중앙 정렬 */
-    padding: 2rem 1rem; /* 바깥 여백 */
+    padding: calc(70px + 2rem) 1rem 2rem; /* 고정 헤더 포함 바깥 여백 */
     background: radial-gradient(circle at top, color-mix(in srgb, var(--pl-orange) 16%, var(--pl-canvas)) 0%, var(--pl-surface) 58%, var(--pl-panel) 100%); /* 밝은 배경 */
     color: var(--pl-ink); /* 기본 글자색 */
 } /* 화면 끝 */
@@ -200,7 +201,7 @@
     .shell /* 모바일 화면 */
     { /* 모바일 화면 시작 */
         place-items: start center; /* 모바일 정렬 */
-        padding-top: 1rem; /* 모바일 위 여백 */
+        padding-top: calc(70px + 1rem); /* 고정 헤더 포함 모바일 위 여백 */
     } /* 모바일 화면 끝 */
 
     .card /* 모바일 카드 */

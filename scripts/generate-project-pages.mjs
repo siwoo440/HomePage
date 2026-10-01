@@ -2,6 +2,7 @@ import fs from "node:fs"; // 파일 시스템 도구
 import path from "node:path"; // 경로 처리 도구
 import { fileURLToPath } from "node:url"; // 모듈 주소 변환 도구
 import { GAME_PROJECTS } from "../public/game-projects.mjs"; // 프로젝트 공개 데이터
+import { renderSiteHeader } from "./site-header.mjs"; // 공통 상단 헤더 생성
 
 function escapeHtml(value) // HTML 특수 문자 처리
 { // 함수 시작
@@ -56,7 +57,7 @@ export function renderProjectHtml(project) // 프로젝트 공개 HTML 생성
                 <p>현재 공개 가능한 콘셉트와 개발 상태만 안내하고 있습니다.</p> <!-- 준비 안내 설명 -->
             </section> <!-- 준비 안내 영역 끝 -->` : ""; // 준비 안내 생성
     const featureSection = renderFeatures(project); // 특징 영역 생성
-    const loginReturn = encodeURIComponent(project.detailPath); // 로그인 복귀 주소 생성
+    const siteHeader = renderSiteHeader({ current: "games", indent: "        " }); // 공통 상단 헤더
 
     return `<!DOCTYPE html> <!-- HTML5 문서 형식 -->
 <html lang="ko"> <!-- 한국어 문서 -->
@@ -67,23 +68,12 @@ export function renderProjectHtml(project) // 프로젝트 공개 HTML 생성
     <title>${escapeHtml(project.title)} | 게임 소개</title> <!-- 브라우저 제목 -->
     <link rel="stylesheet" href="/project-page.css"> <!-- 공개 소개 스타일 -->
     <link rel="stylesheet" href="/device-preview-control.css"> <!-- 기기 선택 스타일 -->
+    <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
     <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
 </head> <!-- 문서 정보 끝 -->
-<body data-responsive-page="project"> <!-- 화면 내용 시작 -->
+<body data-site-header-offset data-responsive-page="project"> <!-- 화면 내용 시작 -->
     <div class="project-page" data-public-project-page data-project-id="${escapeHtml(project.id)}" data-project-mode="${mode}"> <!-- 공개 프로젝트 루트 -->
-        <nav class="project-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 공통 상단 메뉴 -->
-            <a class="project-logo" href="/main.html">DEVFORGE</a> <!-- 메인 이동 -->
-            <div class="project-nav-links"> <!-- 주요 메뉴 목록 -->
-                <a href="/main.html#games">게임</a> <!-- 게임 목록 이동 -->
-                <a href="/goods.html">굿즈</a> <!-- 굿즈 이동 -->
-                <a href="/devlog.html">개발 뉴스</a> <!-- 뉴스 이동 -->
-                <a href="/community.html">커뮤니티</a> <!-- 커뮤니티 이동 -->
-            </div> <!-- 주요 메뉴 목록 끝 -->
-            <div class="project-nav-actions"> <!-- 계정 메뉴 묶음 -->
-                <a class="project-button project-button-ghost" href="/main.html#contact">문의하기</a> <!-- 문의 이동 -->
-                <a class="project-button" href="/login?returnTo=${loginReturn}" data-member-action>로그인</a> <!-- 로그인 이동 -->
-            </div> <!-- 계정 메뉴 묶음 끝 -->
-        </nav> <!-- 공통 상단 메뉴 끝 -->
+${siteHeader}
         <main> <!-- 주요 내용 시작 -->
             <section class="project-hero"> <!-- 대표 소개 영역 -->
                 <div class="project-hero-media"> <!-- 대표 이미지 영역 -->

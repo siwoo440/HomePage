@@ -1,7 +1,9 @@
 .shell /* 뉴스 상세 전체 영역 */
 { /* 전체 영역 설정 시작 */
     width: min(960px, 92%); /* 반응형 최대 너비 */
+    box-sizing: border-box; /* 여백 포함 높이 계산 */
     min-height: 100dvh; /* 동적 화면 높이 */
+    padding-top: 70px; /* 고정 헤더 높이 확보 */
     min-width: 0; /* 전체 최소 폭 해제 */
     overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
     margin: 0 auto; /* 가운데 배치 */

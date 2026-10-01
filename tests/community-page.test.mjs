@@ -16,13 +16,13 @@ test("커뮤니티 페이지는 공통 헤더와 게임 선택기를 제공한�
 { // 테스트 시작
     const html = await readProjectFile("public/community.html"); // 커뮤니티 문서 읽기
     assert.match(html, /class="navbar"/); // 공통 헤더 확인
-    assert.match(html, /href="community\.html" aria-current="page"/); // 현재 메뉴 확인
+    assert.match(html, /href="\/community\.html" aria-current="page"/); // 현재 메뉴 확인
     assert.match(html, /id="game-filter"/); // 게임 선택기 확인
     assert.match(html, /id="active-hashtag"/); // 해시태그 표시 확인
     assert.match(html, /aria-live="polite"/); // 상태 안내 확인
     assert.match(html, /type="module" src="community\.mjs"/); // 화면 기능 연결 확인
-    assert.match(html, /id="contact-open"[^>]*data-dialog-open="contact-dialog"/); // 문의 열기 계약 확인
-    assert.match(html, /id="contact-dialog"[^>]*data-dialog/); // 문의 창 계약 확인
+    assert.match(html, /data-site-header/); // 문의 열기 계약 확인
+    assert.match(html, /href="\/contact\.html" class="btn-nav nav-contact-link"/); // 문의 창 계약 확인
 }); // 테스트 끝
 
 test("여섯 플랫폼 영역과 직접 이동 지점을 제공한다", async () => // 플랫폼 구조 검증
@@ -97,9 +97,9 @@ test("기존 주요 페이지가 커뮤니티 전용 페이지로 연결된다",
     const main = await readProjectFile("public/main.html"); // 메인 문서 읽기
     const goods = await readProjectFile("public/goods.html"); // 굿즈 문서 읽기
     const devlog = await readProjectFile("public/devlog.html"); // 개발 뉴스 문서 읽기
-    assert.match(main, /<li><a href="community\.html">커뮤니티<\/a><\/li>/); // 메인 메뉴 연결 확인
-    assert.match(goods, /<li><a href="community\.html">커뮤니티<\/a><\/li>/); // 굿즈 메뉴 연결 확인
-    assert.match(devlog, /<li><a href="community\.html">커뮤니티<\/a><\/li>/); // 개발 뉴스 메뉴 연결 확인
+    assert.match(main, /<li><a href="\/community\.html">커뮤니티<\/a><\/li>/); // 메인 메뉴 연결 확인
+    assert.match(goods, /<li><a href="\/community\.html">커뮤니티<\/a><\/li>/); // 굿즈 메뉴 연결 확인
+    assert.match(devlog, /<li><a href="\/community\.html">커뮤니티<\/a><\/li>/); // 개발 뉴스 메뉴 연결 확인
     assert.match(main, /class="section-detail-link" href="community\.html"/); // 메인 상세 버튼 확인
 }); // 테스트 끝
 

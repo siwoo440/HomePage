@@ -5,25 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 화면에서도 화면 크기에 맞게 보이도록 설정한다. -->
     <title>바스티온 | 게임 소개</title> <!-- 공개 브라우저 제목 -->
     <link rel="stylesheet" href="style.css"> <!-- 외부 CSS 파일을 연결한다. -->
+    <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
     <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
 </head> <!-- 문서 정보 영역을 끝낸다. -->
-<body data-public-project-page data-project-id="project-d"> <!-- 공개 프로젝트 본문 -->
+<body data-site-header-offset data-public-project-page data-project-id="project-d"> <!-- 공개 프로젝트 본문 -->
     <div class="page-shell"> <!-- 전체 페이지 너비를 관리하는 큰 박스를 만든다. -->
         <header class="hero-section" id="overview"> <!-- 상단 세계관 소개 영역을 만든다. -->
-            <nav class="top-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 상단 메뉴 영역을 만든다. -->
-                <!-- DEVFORGE 로고: 클릭 시 홈(main.html)으로 이동 -->
-                <a href="../main.html" class="top-nav-logo">DEVFORGE</a>
-                <!-- 오른쪽 링크 묶음 -->
-                <div class="top-nav-links">
-                    <a href="ProjectD_Main.html#overview">메인</a> <!-- 메인 페이지의 개요 영역으로 이동하는 링크를 만든다. -->
-                    <a href="characters.html">캐릭터</a> <!-- 캐릭터 소개 페이지로 이동하는 링크를 만든다. -->
-                    <a href="factions.html">세력</a> <!-- 세력 소개 페이지로 이동하는 링크를 만든다. -->
-                    <a href="ProjectD_Main.html#visual">이미지 기록</a> <!-- 이미지 기록 영역으로 이동하는 링크를 만든다. -->
-                    <a href="ProjectD_Main.html#archive">아카이브</a> <!-- 아카이브 영역으로 이동하는 링크를 만든다. -->
-                    <a href="ProjectD_Main.html#timeline">사건 기록</a> <!-- 사건 기록 영역으로 이동하는 링크를 만든다. -->
-                    <a href="ProjectD_Main.html#glossary">용어</a> <!-- 용어 영역으로 이동하는 링크를 만든다. -->
-                </div>
-            </nav> <!-- 상단 메뉴 영역을 끝낸다. -->
+            <!-- site-header:start -->
+            <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root data-site-header> <!-- 공통 상단 메뉴 -->
+                <a href="/main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+                <ul class="nav-menu"> <!-- 주요 메뉴 목록 -->
+                    <li><a href="/main.html#games" aria-current="page">게임</a></li> <!-- 게임 메뉴 -->
+                    <li><a href="/goods.html">굿즈</a></li> <!-- 굿즈 메뉴 -->
+                    <li><a href="/devlog.html">개발 뉴스</a></li> <!-- 개발 뉴스 메뉴 -->
+                    <li><a href="/community.html">커뮤니티</a></li> <!-- 커뮤니티 메뉴 -->
+                </ul> <!-- 주요 메뉴 목록 끝 -->
+                <div class="nav-actions"> <!-- 상단 작업 묶음 -->
+                    <a href="/contact.html" class="btn-nav nav-contact-link">문의하기</a> <!-- 문의하기 페이지 이동 -->
+                    <a href="/login" class="btn-nav member-login-link" data-member-action data-analytics-event="login_start" data-analytics-destination="member-login">로그인</a> <!-- 회원 로그인 이동 -->
+                </div> <!-- 상단 작업 묶음 끝 -->
+            </nav> <!-- 공통 상단 메뉴 끝 -->
+            <nav class="site-subnav" aria-label="바스티온 페이지 메뉴" data-site-subnav> <!-- 페이지 내부 이동 메뉴 -->
+                <span class="site-subnav-title">BASTION</span> <!-- 현재 페이지 이름 -->
+                <a href="ProjectD_Main.html#overview">메인</a> <!-- 메인 이동 -->
+                <a href="characters.html">캐릭터</a> <!-- 캐릭터 이동 -->
+                <a href="factions.html">세력</a> <!-- 세력 이동 -->
+                <a href="ProjectD_Main.html#visual">이미지 기록</a> <!-- 이미지 기록 이동 -->
+                <a href="ProjectD_Main.html#archive">아카이브</a> <!-- 아카이브 이동 -->
+                <a href="ProjectD_Main.html#timeline">사건 기록</a> <!-- 사건 기록 이동 -->
+                <a href="ProjectD_Main.html#glossary">용어</a> <!-- 용어 이동 -->
+            </nav> <!-- 페이지 내부 이동 메뉴 끝 -->
+            <!-- site-header:end -->
             <section class="hero-card image-panel" style="--image: url('images/world/hero-bastion.jpg');"> <!-- 배경 이미지가 들어가는 메인 소개 카드를 만든다. -->
                 <div class="image-overlay"></div> <!-- 이미지 위에 어두운 덮개를 올린다. -->
                 <div class="hero-content"> <!-- 메인 소개 글을 담는 영역을 만든다. -->

@@ -5,24 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>카오스폰즈 | 게임 소개</title> <!-- 공개 브라우저 제목 -->
     <link rel="stylesheet" href="ProjectC_style.css"> <!-- 카오스폰즈 전용 CSS 연결 -->
+    <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
     <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
 </head>
-<body data-public-project-page data-project-id="project-c"> <!-- 공개 프로젝트 본문 -->
+<body data-site-header-offset data-public-project-page data-project-id="project-c"> <!-- 공개 프로젝트 본문 -->
 <div class="page-shell">
 
     <!-- 히어로 / 내비게이션 -->
     <header class="hero-section" id="overview">
-        <nav class="top-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 공통 메뉴 마운트 -->
-            <a href="../main.html" class="top-nav-logo">DEVFORGE</a>
-            <div class="top-nav-links">
-                <a href="#overview">메인</a>
-                <a href="#usp">시스템</a> <!-- 핵심 차별점 섹션 이동 -->
-                <a href="#world">세계관</a>
-                <a href="#zones">구역</a>
-                <a href="ProjectC_Cards.html">카드</a>
-                <a href="ProjectC_Cards.html#keyword">용어</a> <!-- 카드 키워드 용어 이동 -->
-            </div>
-        </nav>
+        <!-- site-header:start -->
+        <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root data-site-header> <!-- 공통 상단 메뉴 -->
+            <a href="/main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+            <ul class="nav-menu"> <!-- 주요 메뉴 목록 -->
+                <li><a href="/main.html#games" aria-current="page">게임</a></li> <!-- 게임 메뉴 -->
+                <li><a href="/goods.html">굿즈</a></li> <!-- 굿즈 메뉴 -->
+                <li><a href="/devlog.html">개발 뉴스</a></li> <!-- 개발 뉴스 메뉴 -->
+                <li><a href="/community.html">커뮤니티</a></li> <!-- 커뮤니티 메뉴 -->
+            </ul> <!-- 주요 메뉴 목록 끝 -->
+            <div class="nav-actions"> <!-- 상단 작업 묶음 -->
+                <a href="/contact.html" class="btn-nav nav-contact-link">문의하기</a> <!-- 문의하기 페이지 이동 -->
+                <a href="/login" class="btn-nav member-login-link" data-member-action data-analytics-event="login_start" data-analytics-destination="member-login">로그인</a> <!-- 회원 로그인 이동 -->
+            </div> <!-- 상단 작업 묶음 끝 -->
+        </nav> <!-- 공통 상단 메뉴 끝 -->
+        <nav class="site-subnav" aria-label="카오스폰즈 페이지 메뉴" data-site-subnav> <!-- 페이지 내부 이동 메뉴 -->
+            <span class="site-subnav-title">CHAOSPONS</span> <!-- 현재 페이지 이름 -->
+            <a href="#overview">메인</a> <!-- 메인 이동 -->
+            <a href="#usp">시스템</a> <!-- 시스템 이동 -->
+            <a href="#world">세계관</a> <!-- 세계관 이동 -->
+            <a href="#zones">구역</a> <!-- 구역 이동 -->
+            <a href="ProjectC_Cards.html">카드</a> <!-- 카드 이동 -->
+            <a href="ProjectC_Cards.html#keyword">용어</a> <!-- 용어 이동 -->
+        </nav> <!-- 페이지 내부 이동 메뉴 끝 -->
+        <!-- site-header:end -->
 
         <section class="hero-card image-panel" style="--image: url('images/world/hero-main.jpg');">
             <div class="image-overlay"></div>

@@ -6,13 +6,26 @@
     <meta name="description" content="DEVFORGE 웹사이트 이용약관 운영 전 검토용 초안"> <!-- 검색 설명 -->
     <title>이용약관 초안 · DEVFORGE</title> <!-- 브라우저 제목 -->
     <link rel="stylesheet" href="/legal.css"> <!-- 법적 문서 스타일 -->
+    <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
     <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
     <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
 </head> <!-- 문서 정보 끝 -->
-<body data-responsive-page="legal" data-theme="playful-lab"> <!-- 플레이풀 랩 약관 본문 -->
-    <nav class="legal-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 공통 메뉴 기준 -->
-        <a class="legal-nav-logo" href="/main.html">DEVFORGE</a> <!-- 메인 이동 로고 -->
-    </nav> <!-- 공통 메뉴 기준 끝 -->
+<body data-site-header-offset data-responsive-page="legal" data-theme="playful-lab"> <!-- 플레이풀 랩 약관 본문 -->
+    <!-- site-header:start -->
+    <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root data-site-header> <!-- 공통 상단 메뉴 -->
+        <a href="/main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+        <ul class="nav-menu"> <!-- 주요 메뉴 목록 -->
+            <li><a href="/main.html#games">게임</a></li> <!-- 게임 메뉴 -->
+            <li><a href="/goods.html">굿즈</a></li> <!-- 굿즈 메뉴 -->
+            <li><a href="/devlog.html">개발 뉴스</a></li> <!-- 개발 뉴스 메뉴 -->
+            <li><a href="/community.html">커뮤니티</a></li> <!-- 커뮤니티 메뉴 -->
+        </ul> <!-- 주요 메뉴 목록 끝 -->
+        <div class="nav-actions"> <!-- 상단 작업 묶음 -->
+            <a href="/contact.html" class="btn-nav nav-contact-link">문의하기</a> <!-- 문의하기 페이지 이동 -->
+            <a href="/login" class="btn-nav member-login-link" data-member-action data-analytics-event="login_start" data-analytics-destination="member-login">로그인</a> <!-- 회원 로그인 이동 -->
+        </div> <!-- 상단 작업 묶음 끝 -->
+    </nav> <!-- 공통 상단 메뉴 끝 -->
+    <!-- site-header:end -->
     <main class="legal-shell"> <!-- 문서 너비 영역 -->
         <a class="legal-back" href="/main.html">← 메인으로 돌아가기</a> <!-- 메인 이동 -->
         <article class="legal-document"> <!-- 이용약관 문서 -->

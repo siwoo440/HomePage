@@ -1,7 +1,8 @@
 .shell /* 없는 페이지 전체 영역 */
 { /* 영역 시작 */
+    box-sizing: border-box; /* 여백 포함 높이 계산 */
     min-height: 100dvh; /* 동적 화면 높이 */
-    padding: 40px 20px; /* 바깥 여백 */
+    padding: calc(70px + 40px) 20px 40px; /* 고정 헤더 포함 바깥 여백 */
     background: radial-gradient(circle at 80% 0%, color-mix(in srgb, var(--pl-violet) 16%, transparent), transparent 36%), radial-gradient(circle at 10% 100%, color-mix(in srgb, var(--pl-mint) 14%, transparent), transparent 32%), var(--pl-surface); /* 공간형 배경 */
     color: var(--pl-ink); /* 기본 글자색 */
     display: grid; /* 가운데 배치 */
@@ -106,7 +107,7 @@
 { /* 모바일 시작 */
     .shell /* 모바일 전체 영역 */
     { /* 영역 시작 */
-        padding: 1rem; /* 모바일 바깥 여백 */
+        padding: calc(70px + 1rem) 1rem 1rem; /* 고정 헤더 포함 모바일 여백 */
         place-items: start center; /* 위 기준 중앙 배치 */
     } /* 영역 끝 */
 

@@ -7,23 +7,26 @@
     <title>프로젝트 K | 게임 소개</title> <!-- 브라우저 제목 -->
     <link rel="stylesheet" href="/project-page.css"> <!-- 공개 소개 스타일 -->
     <link rel="stylesheet" href="/device-preview-control.css"> <!-- 기기 선택 스타일 -->
+    <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
     <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
 </head> <!-- 문서 정보 끝 -->
-<body data-responsive-page="project"> <!-- 화면 내용 시작 -->
+<body data-site-header-offset data-responsive-page="project"> <!-- 화면 내용 시작 -->
     <div class="project-page" data-public-project-page data-project-id="project-k" data-project-mode="planning"> <!-- 공개 프로젝트 루트 -->
-        <nav class="project-nav" aria-label="주요 메뉴" data-responsive-nav-root> <!-- 공통 상단 메뉴 -->
-            <a class="project-logo" href="/main.html">DEVFORGE</a> <!-- 메인 이동 -->
-            <div class="project-nav-links"> <!-- 주요 메뉴 목록 -->
-                <a href="/main.html#games">게임</a> <!-- 게임 목록 이동 -->
-                <a href="/goods.html">굿즈</a> <!-- 굿즈 이동 -->
-                <a href="/devlog.html">개발 뉴스</a> <!-- 뉴스 이동 -->
-                <a href="/community.html">커뮤니티</a> <!-- 커뮤니티 이동 -->
-            </div> <!-- 주요 메뉴 목록 끝 -->
-            <div class="project-nav-actions"> <!-- 계정 메뉴 묶음 -->
-                <a class="project-button project-button-ghost" href="/main.html#contact">문의하기</a> <!-- 문의 이동 -->
-                <a class="project-button" href="/login?returnTo=%2Fproject_k%2FProjectK_Main.html" data-member-action>로그인</a> <!-- 로그인 이동 -->
-            </div> <!-- 계정 메뉴 묶음 끝 -->
+        <!-- site-header:start -->
+        <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root data-site-header> <!-- 공통 상단 메뉴 -->
+            <a href="/main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+            <ul class="nav-menu"> <!-- 주요 메뉴 목록 -->
+                <li><a href="/main.html#games" aria-current="page">게임</a></li> <!-- 게임 메뉴 -->
+                <li><a href="/goods.html">굿즈</a></li> <!-- 굿즈 메뉴 -->
+                <li><a href="/devlog.html">개발 뉴스</a></li> <!-- 개발 뉴스 메뉴 -->
+                <li><a href="/community.html">커뮤니티</a></li> <!-- 커뮤니티 메뉴 -->
+            </ul> <!-- 주요 메뉴 목록 끝 -->
+            <div class="nav-actions"> <!-- 상단 작업 묶음 -->
+                <a href="/contact.html" class="btn-nav nav-contact-link">문의하기</a> <!-- 문의하기 페이지 이동 -->
+                <a href="/login" class="btn-nav member-login-link" data-member-action data-analytics-event="login_start" data-analytics-destination="member-login">로그인</a> <!-- 회원 로그인 이동 -->
+            </div> <!-- 상단 작업 묶음 끝 -->
         </nav> <!-- 공통 상단 메뉴 끝 -->
+        <!-- site-header:end -->
         <main> <!-- 주요 내용 시작 -->
             <section class="project-hero"> <!-- 대표 소개 영역 -->
                 <div class="project-hero-media"> <!-- 대표 이미지 영역 -->

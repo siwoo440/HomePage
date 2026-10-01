@@ -121,14 +121,14 @@ test("문의 모달이 없으면 contact 해시를 유지하고 오류 없이 �
     assert.equal(environment.historyCalls.length, 0); // 주소 미변경 확인
 }); // 테스트 끝
 
-test("문의 모달이 있으면 contact 해시로 창을 열고 해시를 정리한다", () => // 문의창 열기 테스트
+test("이전 문의 주소는 문의하기 페이지로 이동한다", () => // 이전 문의 주소 테스트
 { // 테스트 시작
-    const environment = createNavigationEnvironment({ pathname: "/main.html", hash: "#contact", withContact: true }); // 문의창 환경 생성
+    const environment = createNavigationEnvironment({ pathname: "/main.html", hash: "#contact", withContact: true }); // 이전 문의 주소 환경 생성
+    const replacedUrls = []; // 이동 주소 기록
+    environment.view.location.replace = (url) => replacedUrls.push(url); // 주소 교체 기록
     initializeResponsiveNavigation(environment.root, environment.view); // 메뉴 초기화
-    assert.deepEqual(environment.dialogOpenCalls, ["contact-modal"]); // 공통 제어기 호출 확인
-    assert.equal(environment.contactModal.hidden, false); // 문의창 표시 확인
-    assert.equal(environment.contactModal.classList.contains("open"), true); // 문의창 열림 확인
-    assert.equal(environment.view.location.hash, "#"); // 해시 정리 확인
+    assert.deepEqual(replacedUrls, ["/contact.html"]); // 문의하기 페이지 이동 확인
+    assert.deepEqual(environment.dialogOpenCalls, []); // 문의창 미사용 확인
 }); // 테스트 끝
 
 test("플레이풀 랩 메뉴는 시스템 다크 선호를 초기 모드로 사용한다", () => // 초기 다크 모드 테스트

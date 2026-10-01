@@ -10,7 +10,7 @@ export const RESPONSIVE_NAV_ITEMS = Object.freeze( // 공통 메뉴 목록
     Object.freeze({ id: "goods", label: "굿즈", href: "/goods.html" }), // 굿즈 메뉴
     Object.freeze({ id: "news", label: "개발 뉴스", href: "/devlog.html" }), // 뉴스 메뉴
     Object.freeze({ id: "community", label: "커뮤니티", href: "/community.html" }), // 커뮤니티 메뉴
-    Object.freeze({ id: "contact", label: "문의하기", href: "/main.html#contact" }), // 문의 메뉴
+    Object.freeze({ id: "contact", label: "문의하기", href: "/contact.html" }), // 문의 메뉴
 ]); // 목록 끝
 
 export function isDrawerViewport(width) // 서랍 화면 판정
@@ -85,27 +85,14 @@ function createDrawerLink(root, item, currentPath, currentHash) // 메뉴 링크
     return link; // 메뉴 링크 반환
 } // 함수 끝
 
-function handleContactHash(root, view) // 문의 해시 처리
+function handleContactHash(root, view) // 이전 문의 주소 처리
 { // 함수 시작
-    if (view.location?.pathname !== "/main.html" || view.location?.hash !== "#contact") // 문의 주소 확인
+    if (view.location?.pathname !== "/main.html" || view.location?.hash !== "#contact") // 이전 문의 주소 확인
     { // 조건 시작
         return; // 처리 종료
     } // 조건 끝
 
-    const contactModal = root.querySelector("#contact-modal"); // 문의창 조회
-    const dialogController = root.__devforgeDialogController; // 공통 대화상자 제어기
-
-    if (!contactModal || typeof dialogController?.open !== "function") // 문의창 또는 제어기 누락 확인
-    { // 조건 시작
-        return; // 해시 유지
-    } // 조건 끝
-
-    const opened = dialogController.open("contact-modal"); // 공통 제어기로 문의창 표시
-    if (!opened) // 열기 실패 확인
-    { // 조건 시작
-        return; // 해시 유지
-    } // 조건 끝
-    view.history?.replaceState(null, "", view.location.pathname + "#"); // 문의 해시 정리
+    view.location.replace?.("/contact.html"); // 문의하기 페이지 이동
 } // 함수 끝
 
 export function initializeResponsiveNavigation(root = document, view = window) // 반응형 메뉴 초기화
@@ -122,9 +109,15 @@ export function initializeResponsiveNavigation(root = document, view = window) /
         return root.__devforgeResponsiveNav; // 기존 제어기 반환
     } // 조건 끝
 
-    const usesPlayfulLabTheme = root.body?.dataset.theme === "playful-lab"; // 공통 테마 확인
+    const usesPlayfulLabTheme = root.body?.dataset.theme === "playful-lab" || root.documentElement?.dataset?.theme === "playful-lab"; // 공통 테마 확인
     const prefersDark = view.matchMedia?.("(prefers-color-scheme: dark)")?.matches === true; // 시스템 다크 선호
-    let colorMode = usesPlayfulLabTheme ? resolveColorMode(readStoredColorMode(view), prefersDark) : null; // 초기 색상 모드
+    const headerColorMode = resolveColorMode(readStoredColorMode(view), prefersDark); // 공통 헤더 색상 모드
+    let colorMode = usesPlayfulLabTheme ? headerColorMode : null; // 초기 색상 모드
+
+    if (root.documentElement?.dataset) // 문서 루트 확인
+    { // 조건 시작
+        root.documentElement.dataset.colorMode = headerColorMode; // 공통 헤더 모드 적용
+    } // 조건 끝
 
     if (colorMode) // 색상 모드 확인
     { // 조건 시작
@@ -253,6 +246,10 @@ export function initializeResponsiveNavigation(root = document, view = window) /
 
         colorMode = colorMode === "dark" ? "light" : "dark"; // 색상 모드 전환
         root.body.dataset.colorMode = colorMode; // 본문 모드 적용
+        if (root.documentElement?.dataset) // 문서 루트 확인
+        { // 조건 시작
+            root.documentElement.dataset.colorMode = colorMode; // 문서 루트 모드 적용
+        } // 조건 끝
         saveColorMode(view, colorMode); // 선택 모드 저장
         updateThemeToggle(); // 버튼 상태 갱신
     } // 함수 끝
@@ -337,6 +334,7 @@ export function initializeResponsiveNavigation(root = document, view = window) /
 
 if (typeof document !== "undefined" && typeof window !== "undefined") // 브라우저 환경 확인
 { // 조건 시작
+    window.__devforgeResponsiveNavInit = initializeResponsiveNavigation; // 화면 전환형 페이지 재연결 함수
     if (document.readyState === "loading") // 문서 준비 상태 확인
     { // 조건 시작
         document.addEventListener("DOMContentLoaded", () => initializeResponsiveNavigation(document, window), { once: true }); // 준비 후 초기화
