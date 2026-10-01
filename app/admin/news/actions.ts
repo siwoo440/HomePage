@@ -175,7 +175,7 @@ export async function deleteNewsPost(formData: FormData): Promise<void> // 뉴�
     } // 조건 끝
 
     revalidatePath("/api/news"); // 공개 뉴스 캐시 갱신
-    redirect("/admin/news?status=deleted"); // 관리 목록 이동
+    redirect(`/admin/news?status=${deleteResult.error ? "delete-error" : "deleted"}`); // 처리 결과 목록 이동
 } // 함수 끝
 
 export async function signOutAdmin(): Promise<void> // 관리자 로그아웃

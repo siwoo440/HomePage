@@ -458,6 +458,42 @@ main /* 주요 콘텐츠 너비를 설정한다. */
     border-radius: 14px; /* 이미지 모서리를 둥글게 만든다. */
 } /* 전투 튜토리얼 이미지 블록을 끝낸다. */
 
+.combat-image-box img[hidden], .combat-image-fallback[hidden] /* 숨김 이미지와 대체 화면 */
+{ /* 규칙 시작 */
+    display: none; /* 화면에서 제외 */
+} /* 규칙 끝 */
+
+.combat-image-box.is-fallback /* 대체 화면 표시 중 이미지 영역 */
+{ /* 규칙 시작 */
+    background: linear-gradient(145deg, rgba(141, 91, 255, 0.24), rgba(77, 233, 255, 0.12)), var(--panel-strong); /* 어두운 보라·하늘 배경 */
+    border: 1px solid var(--line); /* 얇은 테두리 */
+} /* 규칙 끝 */
+
+.combat-image-fallback /* 튜토리얼 이미지 대체 화면 */
+{ /* 규칙 시작 */
+    display: grid; /* 세로 배치 */
+    place-content: center; /* 가운데 정렬 */
+    gap: 10px; /* 요소 간격 */
+    min-height: 220px; /* 최소 높이 */
+    text-align: center; /* 가운데 글자 */
+} /* 규칙 끝 */
+
+.combat-image-fallback strong /* 대체 화면 입력 키 */
+{ /* 규칙 시작 */
+    color: var(--cyan); /* 하늘색 강조 */
+    font-family: "Orbitron", sans-serif; /* 제목 글꼴 */
+    font-size: clamp(36px, 7vw, 56px); /* 반응형 크기 */
+    letter-spacing: 0.08em; /* 넓은 글자 간격 */
+    text-shadow: 0 0 28px rgba(77, 233, 255, 0.45); /* 하늘색 발광 */
+} /* 규칙 끝 */
+
+.combat-image-fallback span /* 대체 화면 안내 문구 */
+{ /* 규칙 시작 */
+    color: var(--muted); /* 보조 글자색 */
+    font-size: 14px; /* 안내 글자 크기 */
+    font-weight: 700; /* 안내 글자 굵기 */
+} /* 규칙 끝 */
+
 .combat-copy-box /* 전투 텍스트 설명 영역을 설정한다. */
 { /* 전투 텍스트 설명 블록을 시작한다. */
     padding: 24px 4px 4px; /* 설명 영역 여백을 설정한다. */

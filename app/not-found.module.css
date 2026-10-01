@@ -1,0 +1,117 @@
+.shell /* 없는 페이지 전체 영역 */
+{ /* 영역 시작 */
+    min-height: 100dvh; /* 동적 화면 높이 */
+    padding: 40px 20px; /* 바깥 여백 */
+    background: radial-gradient(circle at 80% 0%, color-mix(in srgb, var(--pl-violet) 16%, transparent), transparent 36%), radial-gradient(circle at 10% 100%, color-mix(in srgb, var(--pl-mint) 14%, transparent), transparent 32%), var(--pl-surface); /* 공간형 배경 */
+    color: var(--pl-ink); /* 기본 글자색 */
+    display: grid; /* 가운데 배치 */
+    place-items: center; /* 완전 가운데 정렬 */
+} /* 영역 끝 */
+
+.panel /* 안내 카드 */
+{ /* 카드 시작 */
+    width: min(560px, 100%); /* 반응형 너비 */
+    min-width: 0; /* 카드 최소 폭 해제 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+    padding: clamp(30px, 6vw, 54px); /* 반응형 여백 */
+    border: 1px solid var(--pl-border-strong); /* 카드 경계선 */
+    border-radius: var(--pl-radius-large); /* 카드 모서리 */
+    background: var(--pl-canvas); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-medium); /* 카드 그림자 */
+} /* 카드 끝 */
+
+.brand /* 브랜드 링크 */
+{ /* 브랜드 시작 */
+    color: var(--pl-violet); /* 브랜드 색상 */
+    font-family: Consolas, monospace; /* 기술형 글꼴 */
+    font-weight: 800; /* 브랜드 굵기 */
+    letter-spacing: 0.18em; /* 글자 간격 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 브랜드 끝 */
+
+.code /* 오류 번호 장식 */
+{ /* 번호 시작 */
+    margin: 32px 0 0; /* 위쪽 여백 */
+    color: color-mix(in srgb, var(--pl-violet) 28%, transparent); /* 흐린 보라 글자 */
+    font-family: Consolas, monospace; /* 기술형 글꼴 */
+    font-size: clamp(4.5rem, 18vw, 7.5rem); /* 큰 번호 크기 */
+    font-weight: 900; /* 굵은 번호 */
+    line-height: 1; /* 번호 줄 높이 */
+    letter-spacing: -0.04em; /* 좁은 글자 간격 */
+} /* 번호 끝 */
+
+.eyebrow /* 영문 분류 */
+{ /* 분류 시작 */
+    margin: 16px 0 8px; /* 바깥 여백 */
+    color: var(--pl-violet); /* 강조색 */
+    font-family: Consolas, monospace; /* 기술형 글꼴 */
+} /* 분류 끝 */
+
+.panel h1 /* 안내 제목 */
+{ /* 제목 시작 */
+    margin: 0 0 14px; /* 바깥 여백 */
+    font-size: clamp(1.8rem, 6vw, 2.6rem); /* 반응형 크기 */
+    letter-spacing: -0.04em; /* 글자 간격 */
+    word-break: keep-all; /* 한국어 낱말 단위 줄바꿈 */
+} /* 제목 끝 */
+
+.description /* 안내 문구 */
+{ /* 안내 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    line-height: 1.7; /* 줄 간격 */
+    word-break: keep-all; /* 한국어 낱말 단위 줄바꿈 */
+} /* 안내 끝 */
+
+.actions /* 이동 링크 묶음 */
+{ /* 묶음 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 10px; /* 링크 간격 */
+    margin-top: 28px; /* 위쪽 여백 */
+} /* 묶음 끝 */
+
+.primaryLink, .secondaryLink /* 이동 링크 공통 */
+{ /* 링크 시작 */
+    display: inline-flex; /* 내용 가운데 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    min-height: 48px; /* 터치 높이 */
+    padding: 0 18px; /* 좌우 여백 */
+    border: 1px solid var(--pl-violet); /* 링크 경계선 */
+    border-radius: var(--pl-radius-small); /* 링크 모서리 */
+    font-weight: 800; /* 링크 굵기 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 링크 끝 */
+
+.primaryLink /* 주요 이동 링크 */
+{ /* 링크 시작 */
+    background: var(--pl-violet); /* 보라 배경 */
+    color: var(--pl-canvas); /* 배경 대비 글자 */
+} /* 링크 끝 */
+
+.secondaryLink /* 보조 이동 링크 */
+{ /* 링크 시작 */
+    background: transparent; /* 투명 배경 */
+    color: var(--pl-link); /* 링크 글자색 */
+} /* 링크 끝 */
+
+.brand:focus-visible, .primaryLink:focus-visible, .secondaryLink:focus-visible /* 키보드 초점 */
+{ /* 초점 시작 */
+    outline: var(--pl-focus-ring); /* 공통 초점 외곽선 */
+    outline-offset: 3px; /* 외곽선 간격 */
+} /* 초점 끝 */
+
+@media (max-width: 36rem) /* 모바일 화면 */
+{ /* 모바일 시작 */
+    .shell /* 모바일 전체 영역 */
+    { /* 영역 시작 */
+        padding: 1rem; /* 모바일 바깥 여백 */
+        place-items: start center; /* 위 기준 중앙 배치 */
+    } /* 영역 끝 */
+
+    .actions > * /* 모바일 이동 링크 */
+    { /* 링크 시작 */
+        flex: 1 1 100%; /* 전체 너비 링크 */
+    } /* 링크 끝 */
+} /* 모바일 끝 */

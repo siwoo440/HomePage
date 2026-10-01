@@ -57,6 +57,11 @@ export function getProductCardModel(product) // 상품 카드 표시 계산
     return { stateLabel: state.stateLabel, buttonLabel: state.buttonLabel, linkEnabled, stockLabel }; // 카드 표시 반환
 } // 함수 끝
 
+export function getProductImageAlt(product) // 등록 상품 이미지 설명 생성
+{ // 함수 시작
+    return `${String(product?.name ?? "상품")} 이미지`; // 상품명 기반 설명 반환
+} // 함수 끝
+
 function textElement(tagName, className, text) // 안전한 글자 요소 생성
 { // 함수 시작
     const element = document.createElement(tagName); // 새 요소 생성
@@ -88,7 +93,7 @@ export function createProductCard(product) // 공개 상품 카드 생성
     const image = document.createElement("img"); // 상품 이미지 생성
     image.className = "goods-image"; // 상품 이미지 클래스
     image.src = typeof product.imageUrl === "string" && product.imageUrl ? product.imageUrl : "/placeholder.svg"; // 상품 이미지 주소
-    image.alt = `${String(product.name ?? "상품")} 임시 상품 목업`; // 상품 이미지 설명
+    image.alt = getProductImageAlt(product); // 등록 상품 이미지 설명
     thumb.append(image); // 이미지 추가
 
     if (product.badge && product.badge !== "none") // 상품 배지 확인

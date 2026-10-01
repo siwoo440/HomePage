@@ -3,7 +3,7 @@ import assert from "node:assert/strict"; // 엄격한 검증 도구
 import { readFile } from "node:fs/promises"; // 파일 읽기 도구
 import { fileURLToPath } from "node:url"; // URL 경로 변환 도구
 import path from "node:path"; // 경로 조합 도구
-import { applyProductLimit, getProductCardModel, getProductLoadStatus, shouldUseRemoteProducts } from "../public/goods-card.mjs"; // 상품 카드 표시 함수
+import { applyProductLimit, getProductCardModel, getProductImageAlt, getProductLoadStatus, shouldUseRemoteProducts } from "../public/goods-card.mjs"; // 상품 카드 표시 함수
 
 const testDirectory = path.dirname(fileURLToPath(import.meta.url)); // 테스트 폴더 경로
 const projectRoot = path.resolve(testDirectory, ".."); // 프로젝트 최상위 경로
@@ -62,4 +62,11 @@ test("메인 헤더와 굿즈 상세 버튼이 전용 페이지로 이동한다"
     assert.match(html, /class="section-detail-link" href="goods\.html">상세 페이지로 이동 →<\/a>/); // 굿즈 상세 버튼 확인
     assert.doesNotMatch(html, /class="goods-footer"/); // 굿즈 중복 버튼 제거 확인
     assert.match(html, /data-product-limit="4"/); // 메인 미리보기 제한 확인
+}); // 테스트 끝
+
+test("등록 상품 이미지 설명에는 임시 목업 표기를 붙이지 않는다", () => // 등록 상품 대체 설명 검증
+{ // 테스트 시작
+    assert.equal(getProductImageAlt(baseProduct), "테스트 상품 이미지"); // 상품명 기반 설명 확인
+    assert.equal(getProductImageAlt({}), "상품 이미지"); // 이름 누락 기본 설명 확인
+    assert.doesNotMatch(getProductImageAlt(baseProduct), /목업/); // 임시 표기 제외 확인
 }); // 테스트 끝

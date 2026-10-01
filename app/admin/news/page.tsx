@@ -3,6 +3,7 @@ import { requireAdmin } from "@/lib/auth/admin"; // 관리자 보호 함수
 import { createServerSupabaseClient } from "@/lib/supabase/server"; // 서버 데이터 도구
 import AdminHeader from "./admin-header"; // 관리자 상단 메뉴
 import { deleteNewsPost } from "./actions"; // 뉴스 삭제 액션
+import DeleteNewsButton from "./delete-news-button"; // 삭제 확인 버튼
 
 interface NewsAdminPageProps // 관리 화면 속성
 { // 형식 시작
@@ -14,7 +15,10 @@ const STATUS_MESSAGES: Record<string, string> = // 처리 결과 안내
     created: "새 개발 뉴스를 저장했습니다.", // 작성 완료 안내
     updated: "개발 뉴스를 수정했습니다.", // 수정 완료 안내
     deleted: "개발 뉴스를 삭제했습니다.", // 삭제 완료 안내
+    "delete-error": "개발 뉴스 삭제에 실패했습니다. 잠시 후 다시 시도해 주세요.", // 삭제 실패 안내
 }; // 안내 객체 끝
+
+const ERROR_STATUSES = new Set(["delete-error"]); // 오류 안내 상태 목록
 
 export const dynamic = "force-dynamic"; // 사용자별 동적 화면
 
@@ -37,7 +41,7 @@ export default async function NewsAdminPage({ searchParams }: NewsAdminPageProps
                 </div> {/* 제목 묶음 끝 */}
                 <Link className="admin-primary-button admin-button-link" href="/admin/news/new">새 글 작성</Link> {/* 새 글 이동 */}
             </section> {/* 화면 제목 영역 끝 */}
-            {STATUS_MESSAGES[status] ? <p className="admin-message admin-message-success" role="status">{STATUS_MESSAGES[status]}</p> : null} {/* 처리 완료 안내 */}
+            {STATUS_MESSAGES[status] ? <p className={`admin-message ${ERROR_STATUSES.has(status) ? "admin-message-error" : "admin-message-success"}`} role={ERROR_STATUSES.has(status) ? "alert" : "status"}>{STATUS_MESSAGES[status]}</p> : null} {/* 처리 결과 안내 */}
             {result.error ? <p className="admin-message admin-message-error" role="alert">게시물 목록을 불러오지 못했습니다.</p> : null} {/* 조회 실패 안내 */}
             {!result.error && posts.length === 0 ? <p className="admin-empty-state">작성된 개발 뉴스가 없습니다.</p> : null} {/* 빈 목록 안내 */}
             <div className="admin-post-list"> {/* 게시물 목록 */}
@@ -52,7 +56,7 @@ export default async function NewsAdminPage({ searchParams }: NewsAdminPageProps
                             <Link href={`/admin/news/${post.id}/edit`}>수정</Link> {/* 수정 이동 */}
                             <form action={deleteNewsPost}> {/* 삭제 폼 */}
                                 <input name="id" type="hidden" value={post.id} /> {/* 게시물 식별자 */}
-                                <button className="admin-delete-button" type="submit">삭제</button> {/* 삭제 버튼 */}
+                                <DeleteNewsButton /> {/* 삭제 확인 버튼 */}
                             </form> {/* 삭제 폼 끝 */}
                         </div> {/* 게시물 작업 묶음 끝 */}
                     </article> // 게시물 행 끝

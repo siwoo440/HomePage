@@ -3000,7 +3000,7 @@
                 </p>
                 <div class="devlog-meta">
                     <span class="devlog-date">2025.04.28</span>
-                    <a href="devlog.html#echo-void" class="devlog-read">전체 읽기 →</a>
+                    <a href="/news/demo-echo-void" class="devlog-read">전체 읽기 →</a>
                 </div>
             </div>
 
@@ -3016,7 +3016,7 @@
                 </p>
                 <div class="devlog-meta">
                     <span class="devlog-date">2025.04.15</span>
-                    <a href="devlog.html#star-vagrant" class="devlog-read">읽기 →</a>
+                    <a href="/news/demo-star-vagrant" class="devlog-read">읽기 →</a>
                 </div>
             </div>
 
@@ -3032,7 +3032,7 @@
                 </p>
                 <div class="devlog-meta">
                     <span class="devlog-date">2025.04.03</span>
-                    <a href="devlog.html#neon-pulse" class="devlog-read">읽기 →</a>
+                    <a href="/news/demo-neon-pulse" class="devlog-read">읽기 →</a>
                 </div>
             </div>
 
@@ -3048,7 +3048,7 @@
                 </p>
                 <div class="devlog-meta">
                     <span class="devlog-date">2025.03.22</span>
-                    <a href="devlog.html#blade-rift" class="devlog-read">읽기 →</a>
+                    <a href="/news/demo-blade-rift" class="devlog-read">읽기 →</a>
                 </div>
             </div>
         </div>
@@ -3512,8 +3512,11 @@
             particles.push(createParticle());
         }
 
-        // 파티클 애니메이션 루프
-        function animateParticles()
+        const reduceMotionQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null; // 움직임 줄이기 설정
+        let particleFrame = null; // 예약된 애니메이션 프레임
+
+        // 파티클 그리기와 선택적 이동
+        function drawParticles(move)
         {
             ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 초기화
 
@@ -3525,6 +3528,11 @@
                 ctx.fillStyle = `rgba(0, 245, 212, ${p.opacity})`; // 사이언 색상
                 ctx.fill();
 
+                if (!move) // 정지 화면 확인
+                {
+                    return; // 위치 이동 생략
+                }
+
                 // 위치 업데이트
                 p.x += p.speedX;
                 p.y += p.speedY;
@@ -3535,17 +3543,45 @@
                 if (p.y < 0) p.y = canvas.height;
                 if (p.y > canvas.height) p.y = 0;
             });
+        }
 
-            requestAnimationFrame(animateParticles); // 다음 프레임 요청
+        // 파티클 애니메이션 루프
+        function animateParticles()
+        {
+            if (reduceMotionQuery && reduceMotionQuery.matches) // 움직임 줄이기 사용 확인
+            {
+                particleFrame = null; // 애니메이션 예약 해제
+                drawParticles(false); // 정지 화면 한 번 그리기
+                return; // 애니메이션 중지
+            }
+
+            drawParticles(true); // 이동 화면 그리기
+            particleFrame = requestAnimationFrame(animateParticles); // 다음 프레임 요청
         }
 
         animateParticles(); // 애니메이션 시작
+
+        if (reduceMotionQuery && reduceMotionQuery.addEventListener) // 설정 변경 감지 지원 확인
+        {
+            reduceMotionQuery.addEventListener('change', function()
+            {
+                if (!reduceMotionQuery.matches && particleFrame === null) // 움직임 허용 전환 확인
+                {
+                    animateParticles(); // 애니메이션 재시작
+                }
+            });
+        }
 
         // 윈도우 리사이즈 시 캔버스 크기 재설정
         window.addEventListener('resize', function()
         {
             canvas.width  = window.innerWidth;
             canvas.height = window.innerHeight;
+
+            if (particleFrame === null) // 정지 화면 상태 확인
+            {
+                drawParticles(false); // 크기 변경 뒤 정지 화면 다시 그리기
+            }
         });
 
         // ============================================

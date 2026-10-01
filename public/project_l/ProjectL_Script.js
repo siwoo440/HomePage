@@ -40,6 +40,9 @@ const topNav = document.querySelector("#topNav"); // 상단 메뉴 영역을 가
 const combatStep = document.querySelector("#combatStep"); // 전투 페이지 번호 영역을 가져온다.
 const combatType = document.querySelector("#combatType"); // 전투 입력 타입 영역을 가져온다.
 const combatImage = document.querySelector("#combatImage"); // 전투 튜토리얼 이미지 영역을 가져온다.
+const combatImageBox = combatImage?.closest(".combat-image-box") ?? null; // 튜토리얼 이미지 묶음
+const combatImageFallback = document.querySelector("#combatImageFallback"); // 이미지 대체 화면
+const combatFallbackKey = document.querySelector("#combatFallbackKey"); // 대체 화면 입력 키
 const combatKey = document.querySelector("#combatKey"); // 전투 입력 키 라벨 영역을 가져온다.
 const combatTitle = document.querySelector("#combatTitle"); // 전투 입력 제목 영역을 가져온다.
 const combatGuide = document.querySelector("#combatGuide"); // 전투 입력 요약 영역을 가져온다.
@@ -68,6 +71,7 @@ const archiveCount = document.querySelector("#archiveCount"); // 아카이브 �
 document.addEventListener("DOMContentLoaded", () => // 문서가 모두 준비되면 실행할 이벤트를 등록한다.
 { // 문서 준비 후 실행할 코드를 시작한다.
     renderCombatDots(); // 전투 페이지 점 목록을 화면에 출력한다.
+    connectCombatImageFallback(); // 이미지 실패 대체 화면 연결
     renderCombatSlide(); // 현재 전투 입력 소개를 화면에 출력한다.
     connectCombatCarousel(); // 전투 슬라이드 기능을 연결한다.
     renderCharacterThumbnails(); // 캐릭터 썸네일을 화면에 출력한다.
@@ -125,14 +129,39 @@ function renderCombatSlide() // 선택된 전투 입력 소개를 출력한다.
     const item = inputData[currentCombatIndex]; // 현재 전투 입력 데이터를 가져온다.
     combatStep.textContent = `${currentCombatIndex + 1} / ${inputData.length}`; // 현재 페이지 번호를 표시한다.
     combatType.textContent = `입력 타입 : ${item.type}`; // 현재 입력 타입을 표시한다.
-    combatImage.src = item.image; // 현재 입력의 튜토리얼 이미지를 표시한다.
+    if (combatFallbackKey) // 대체 화면 입력 키 확인
+    { // 조건 시작
+        combatFallbackKey.textContent = item.key; // 대체 화면 입력 키 갱신
+    } // 조건 끝
     combatImage.alt = `${item.type} 튜토리얼 이미지`; // 현재 입력의 이미지 대체 설명을 설정한다.
+    combatImage.src = item.image; // 현재 입력의 튜토리얼 이미지를 표시한다.
     combatKey.textContent = item.key; // 현재 입력 키 라벨을 표시한다.
     combatTitle.textContent = item.title; // 현재 입력 제목을 표시한다.
     combatGuide.textContent = item.guide; // 현재 입력 조작 요약을 표시한다.
     combatDesc.textContent = item.desc; // 현재 입력 상세 설명을 표시한다.
     updateCombatDots(); // 점 버튼 활성 상태를 갱신한다.
 } // 전투 입력 소개 출력 함수를 끝낸다.
+
+function connectCombatImageFallback() // 튜토리얼 이미지 실패 처리 연결
+{ // 함수 시작
+    if (!combatImage) // 이미지 요소 누락 확인
+    { // 조건 시작
+        return; // 연결 생략
+    } // 조건 끝
+    combatImage.addEventListener("load", () => showCombatImageFallback(false)); // 이미지 성공 시 원본 표시
+    combatImage.addEventListener("error", () => showCombatImageFallback(true)); // 이미지 실패 시 대체 화면 표시
+} // 함수 끝
+
+function showCombatImageFallback(visible) // 이미지 대체 화면 전환
+{ // 함수 시작
+    if (!combatImageFallback) // 대체 화면 누락 확인
+    { // 조건 시작
+        return; // 전환 생략
+    } // 조건 끝
+    combatImage.hidden = visible; // 깨진 이미지 숨김
+    combatImageFallback.hidden = !visible; // 대체 화면 표시 여부
+    combatImageBox?.classList.toggle("is-fallback", visible); // 대체 화면 배경 전환
+} // 함수 끝
 
 function updateCombatDots() // 전투 페이지 점 활성 상태를 갱신한다.
 { // 전투 페이지 점 갱신 함수 내용을 시작한다.
