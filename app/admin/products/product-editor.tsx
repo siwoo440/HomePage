@@ -166,6 +166,7 @@ export default function ProductEditor({ action, initialValue, submitLabel }: Pro
                 </label> {/* 노출 순서 입력 묶음 끝 */}
                 <section className={`product-state-preview state-${saleState}`} aria-live="polite"><small>상품 상태 미리보기</small><strong>{STATE_LABELS[saleState]}</strong>{saleState === "low_stock" ? <span>재고 {Number(stockQuantity) || 0}개</span> : null}</section> {/* 상태 미리보기 */}
                 {visibleMessage ? <p className="admin-message admin-message-error" role="alert">{visibleMessage}</p> : null} {/* 저장 오류 안내 */}
+                {!visibleMessage && !isPending && state.notice ? <p className="admin-message admin-message-success" role="status">{state.notice}</p> : null} {/* 처리 성공 안내 */}
                 <button className="admin-primary-button" type="submit" disabled={isPending}>{isPending ? "저장 중…" : submitLabel}</button> {/* 저장 버튼 */}
             </aside> {/* 상품 설정 영역 끝 */}
         </form> // 상품 편집 폼 끝

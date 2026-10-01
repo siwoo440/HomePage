@@ -531,3 +531,142 @@ body /* 관리자 문서 */
         transition: none !important; /* 화면 전환 해제 */
     } /* 움직임 설정 끝 */
 } /* 접근성 설정 끝 */
+
+.admin-demo-link /* 데모 모드 이동 링크 */
+{ /* 링크 시작 */
+    display: inline-flex; /* 터치 영역 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    min-height: 44px; /* 터치 높이 */
+    margin-top: 16px; /* 위쪽 여백 */
+    color: var(--pl-link, #5746d9); /* 링크 글자색 */
+    font-weight: 800; /* 링크 굵기 */
+} /* 링크 끝 */
+
+.admin-demo-banner /* 데모 모드 안내 */
+{ /* 안내 시작 */
+    margin: 0 0 24px; /* 아래 여백 */
+    padding: 14px 18px; /* 안쪽 여백 */
+    border-left: 4px solid var(--pl-orange, #ff9256); /* 주의 강조선 */
+    border-radius: 12px; /* 모서리 */
+    background: color-mix(in srgb, var(--pl-orange, #ff9256) 12%, var(--pl-canvas, #ffffff)); /* 주의 배경 */
+    color: var(--pl-ink, #172a49); /* 안내 글자색 */
+    line-height: 1.7; /* 줄 간격 */
+} /* 안내 끝 */
+
+.admin-demo-banner strong /* 데모 모드 표시 */
+{ /* 표시 시작 */
+    margin-right: 8px; /* 오른쪽 여백 */
+    padding: 2px 10px; /* 배지 여백 */
+    border-radius: 999px; /* 알약 모양 */
+    background: var(--pl-orange, #ff9256); /* 배지 배경 */
+    color: var(--pl-on-accent, #172a49); /* 배지 글자색 */
+} /* 표시 끝 */
+
+.admin-nav a[aria-current="page"] /* 현재 데모 폼 메뉴 */
+{ /* 현재 메뉴 시작 */
+    border-color: var(--pl-violet, #7768f8); /* 강조 경계선 */
+    color: var(--pl-violet, #7768f8); /* 강조 글자색 */
+} /* 현재 메뉴 끝 */
+
+.admin-demo-layout /* 데모 편집·미리보기 배치 */
+{ /* 배치 시작 */
+    display: grid; /* 격자 배치 */
+    gap: 24px; /* 영역 간격 */
+} /* 배치 끝 */
+
+.admin-demo-editor /* 데모 편집기 영역 */
+{ /* 영역 시작 */
+    min-width: 0; /* 격자 축소 허용 */
+} /* 영역 끝 */
+
+.admin-demo-preview /* 데모 미리보기 영역 */
+{ /* 영역 시작 */
+    min-width: 0; /* 격자 축소 허용 */
+    padding: 20px; /* 안쪽 여백 */
+    border: 1px dashed var(--pl-border-strong, #aebfd0); /* 미리보기 점선 */
+    border-radius: 18px; /* 모서리 */
+} /* 영역 끝 */
+
+.admin-demo-preview h2 /* 미리보기 제목 */
+{ /* 제목 시작 */
+    margin: 0 0 14px; /* 아래 여백 */
+    font-size: 1.05rem; /* 제목 크기 */
+} /* 제목 끝 */
+
+.demo-preview-card /* 미리보기 카드 */
+{ /* 카드 시작 */
+    display: grid; /* 세로 격자 */
+    gap: 10px; /* 요소 간격 */
+    max-width: 560px; /* 카드 최대 너비 */
+    padding: 20px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border, #dce7f0); /* 카드 경계선 */
+    border-radius: 16px; /* 카드 모서리 */
+    background: var(--pl-canvas, #ffffff); /* 카드 배경 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+} /* 카드 끝 */
+
+.demo-preview-card h3 /* 미리보기 제목 */
+{ /* 제목 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    font-size: 1.35rem; /* 제목 크기 */
+} /* 제목 끝 */
+
+.demo-preview-card > .admin-status /* 미리보기 상태 배지 */
+{ /* 배지 시작 */
+    justify-self: start; /* 왼쪽 정렬 */
+    margin: 0; /* 기본 여백 제거 */
+} /* 배지 끝 */
+
+.demo-preview-image, .demo-preview-placeholder /* 미리보기 이미지 */
+{ /* 이미지 시작 */
+    width: 100%; /* 카드 너비 */
+    aspect-ratio: 16 / 9; /* 이미지 비율 */
+    border-radius: 12px; /* 이미지 모서리 */
+    object-fit: cover; /* 영역 채움 */
+} /* 이미지 끝 */
+
+.demo-preview-placeholder /* 이미지 없음 표시 */
+{ /* 표시 시작 */
+    display: grid; /* 가운데 배치 */
+    place-items: center; /* 가운데 정렬 */
+    background: var(--pl-panel, #eef3f8); /* 대체 배경 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+} /* 표시 끝 */
+
+.demo-preview-tags /* 미리보기 태그 묶음 */
+{ /* 묶음 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 6px; /* 태그 간격 */
+} /* 묶음 끝 */
+
+.demo-preview-tags span /* 미리보기 태그 */
+{ /* 태그 시작 */
+    padding: 2px 10px; /* 태그 여백 */
+    border-radius: 999px; /* 알약 모양 */
+    background: color-mix(in srgb, var(--pl-violet, #7768f8) 14%, transparent); /* 태그 배경 */
+    font-size: 0.8rem; /* 태그 크기 */
+    font-weight: 700; /* 태그 굵기 */
+} /* 태그 끝 */
+
+.demo-preview-card time, .demo-preview-summary, .demo-preview-content /* 미리보기 보조 문구 */
+{ /* 문구 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    line-height: 1.7; /* 줄 간격 */
+} /* 문구 끝 */
+
+.demo-preview-content /* 미리보기 본문 */
+{ /* 본문 시작 */
+    white-space: pre-wrap; /* 줄바꿈 유지 */
+} /* 본문 끝 */
+
+.demo-preview-price /* 미리보기 가격 */
+{ /* 가격 시작 */
+    margin: 0; /* 기본 여백 제거 */
+} /* 가격 끝 */
+
+.demo-preview-price s /* 할인 전 가격 */
+{ /* 가격 시작 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+} /* 가격 끝 */

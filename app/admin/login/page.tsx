@@ -1,6 +1,7 @@
 import Link from "next/link"; // 내부 이동 링크
 import { isSupabaseConfigured } from "@/lib/supabase/config"; // 설정 여부 판정
 import LoginForm from "./login-form"; // 로그인 입력 화면
+import { isAdminDemoAvailable } from "@/lib/admin/demo-mode"; // 데모 사용 가능 판정
 
 interface LoginPageProps // 로그인 화면 속성
 { // 형식 시작
@@ -23,6 +24,7 @@ export default async function AdminLoginPage({ searchParams }: LoginPageProps) /
                 <h1 id="login-title">관리자 로그인</h1> {/* 로그인 제목 */}
                 <p className="admin-description">개발 뉴스 작성과 수정은 등록된 관리자 계정만 사용할 수 있습니다.</p> {/* 로그인 설명 */}
                 <LoginForm configured={configured} errorCode={error} returnTo={returnTo} /> {/* 로그인 입력 */}
+                {isAdminDemoAvailable() ? <Link className="admin-demo-link" href="/admin/demo">저장 없이 뉴스·상품 폼 점검하기 (데모 모드) →</Link> : null} {/* 개발 환경 데모 이동 */}
                 <Link className="admin-back-link" href="/devlog.html">개발 뉴스로 돌아가기</Link> {/* 뉴스 복귀 링크 */}
             </section> {/* 로그인 카드 끝 */}
         </main> // 로그인 전체 영역 끝

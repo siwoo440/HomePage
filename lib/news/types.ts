@@ -50,4 +50,5 @@ export interface NewsActionState // 뉴스 액션 상태 형식
     message: string; // 전체 안내 문구
     errors: NewsValidationErrors & { coverImage?: string }; // 필드 오류 목록
     values: NewsEditorInitialValue | null; // 복원 입력 값
+    notice?: string; // 성공 안내 문구
 } // 형식 끝

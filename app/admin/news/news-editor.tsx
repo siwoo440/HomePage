@@ -130,6 +130,7 @@ export default function NewsEditor({ action, initialValue, submitLabel }: NewsEd
                     {errors.status ? <small className="field-error" id={getFieldErrorId(NEWS_FORM_ID, "status")}>{errors.status}</small> : null} {/* 상태 오류 */}
                 </label> {/* 상태 선택 묶음 끝 */}
                 {visibleMessage ? <p className="admin-message admin-message-error" role="alert">{visibleMessage}</p> : null} {/* 저장 오류 안내 */}
+                {!visibleMessage && !isPending && state.notice ? <p className="admin-message admin-message-success" role="status">{state.notice}</p> : null} {/* 처리 성공 안내 */}
                 <button className="admin-primary-button" type="submit" disabled={isPending}>{isPending ? "저장 중…" : submitLabel}</button> {/* 저장 버튼 */}
             </aside> {/* 발행 설정 영역 끝 */}
         </form> // 뉴스 편집 폼 끝

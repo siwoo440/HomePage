@@ -66,6 +66,7 @@ export interface ProductActionState // 상품 액션 상태 형식
     message: string; // 전체 안내 문구
     errors: ProductValidationErrors & { productImage?: string }; // 필드 오류 목록
     values: ProductEditorInitialValue | null; // 복원 입력 값
+    notice?: string; // 성공 안내 문구
 } // 형식 끝
 
 export interface ProductRecord // 저장 상품 형식
