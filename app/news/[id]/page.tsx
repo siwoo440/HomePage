@@ -64,17 +64,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) //
                 {post.coverImageUrl ? <img className={styles.cover} src={post.coverImageUrl} alt="" /> : null} {/* 대표 이미지 */}
                 <div className={styles.content}>{post.content}</div> {/* 뉴스 본문 내용 */}
             </article> {/* 뉴스 본문 끝 */}
-            {commentsDemoMode ? <CommentsPanel newsId={post.id} demoMode /> : ( // 시연 댓글 또는 준비 안내
-                <section className={styles.comments} aria-labelledby="comments-title"> {/* 댓글 준비 안내 영역 */}
-                    <div className={styles.commentsHeading}> {/* 댓글 제목 묶음 */}
-                        <div> {/* 제목 내용 */}
-                            <p className={styles.commentEyebrow}>{"// COMMUNITY TALK"}</p> {/* 영문 분류 */}
-                            <h2 id="comments-title">댓글과 반응</h2> {/* 댓글 제목 */}
-                        </div> {/* 제목 내용 끝 */}
-                    </div> {/* 댓글 제목 묶음 끝 */}
-                    <p className={styles.demoNotice} data-comments-closed>댓글 서버 연결을 준비하고 있습니다. 연결이 끝나면 이곳에서 댓글과 반응을 남길 수 있습니다.</p> {/* 준비 안내 */}
-                </section> // 댓글 준비 안내 영역 끝
-            )} {/* 댓글 기능 */}
+            <CommentsPanel newsId={post.id} demoMode={commentsDemoMode} /> {/* 시연·실제 모드 댓글 */}
         </main> {/* 뉴스 상세 전체 영역 끝 */}
         </> // 화면 묶음 끝
     ); // 상세 화면 반환 끝

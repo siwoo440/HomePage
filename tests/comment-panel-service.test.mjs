@@ -41,3 +41,14 @@ test("댓글은 제출 전에 내용과 이미지를 검증하고 첫 오류를 
     const style = await readFile(styleUrl, "utf8"); // 댓글 스타일 읽기
     assert.match(style, /\.imageButton:focus-within[\s\S]*?outline:/); // 이미지 포커스 표시 확인
 }); // 테스트 끝
+
+test("댓글 화면은 시연 모드에서 로컬 서비스, 실제 모드에서 Supabase 서비스와 회원 닉네임을 사용한다", async () => // 모드별 연결 계약
+{ // 테스트 시작
+    const source = await readFile(panelUrl, "utf8"); // 댓글 화면 읽기
+    const page = await readFile(new URL("../app/news/[id]/page.tsx", import.meta.url), "utf8"); // 뉴스 상세 화면 읽기
+    assert.match(source, /demoMode \? createLocalCommentService\([\s\S]*?\) : supabase \? createSupabaseCommentService\(\{ client: supabase \}\) : null/); // 모드별 서비스 선택 확인
+    assert.match(source, /fetchMemberProfile\(supabase, user\.id\)/); // 실제 회원 닉네임 조회 확인
+    assert.match(source, /닉네임을 정하고 댓글 남기기/); // 닉네임 설정 안내 확인
+    assert.match(source, /file: imageFile/); // 실제 업로드 파일 전달 확인
+    assert.match(page, /<CommentsPanel newsId=\{post\.id\} demoMode=\{commentsDemoMode\} \/>/); // 상세 화면 연결 확인
+}); // 테스트 끝

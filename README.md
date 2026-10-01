@@ -41,7 +41,7 @@ pnpm check
 - `supabase/migrations/`: 뉴스, 상품, 회원과 댓글 데이터베이스 정의
 - `tests/`: 현재 기능의 자동 회귀 검사
 
-관리자 로그인, 뉴스·상품 저장, 회원 로그인과 대표 이미지 업로드를 실제로 사용하려면 Supabase 설정이 필요합니다. 댓글은 로컬 서비스에서 조회·작성·답글·반응·신고 흐름을 재현하며 새로고침하면 초기화됩니다. 실제 저장에는 같은 서비스 계약을 구현하는 Supabase 어댑터가 추가로 필요합니다.
+관리자 로그인, 뉴스·상품 저장, 회원 로그인·닉네임, 댓글 저장과 이미지 업로드를 실제로 사용하려면 Supabase 설정이 필요합니다. 설정이 없으면 댓글은 로컬 서비스에서 조회·작성·답글·반응·신고 흐름을 재현하며 새로고침하면 초기화됩니다. 같은 서비스 계약을 구현한 Supabase 어댑터(`lib/comments/supabase-service.ts`)가 준비되어 있어 환경 변수만 넣으면 실제 저장으로 바뀝니다.
 
 ---
 
@@ -120,7 +120,10 @@ pnpm check
 2. 프로젝트의 **SQL Editor** 이동
 3. `supabase/migrations/202609100001_admin_news.sql` 전체 실행
 4. `supabase/migrations/202609110001_admin_products.sql` 전체 실행
-5. **Authentication → Users**에서 관리자 계정 생성
+5. `supabase/migrations/202609120001_member_comments.sql` 전체 실행(회원 닉네임·댓글·반응·신고와 댓글 이미지 버킷)
+6. **Authentication → Users**에서 관리자 계정 생성
+
+세 파일은 반드시 위 순서대로 실행합니다. 세 번째 파일이 첫 번째 파일의 뉴스 테이블과 관리자 판정 함수를 사용합니다.
 
 관리자 이메일과 비밀번호는 저장소 파일에 기록하지 않습니다.
 
@@ -163,7 +166,14 @@ ADMIN_EMAIL=관리자-이메일
 
 프로젝트 주소와 공개 키는 Supabase의 **Project Settings → API**에서 확인합니다. `service_role` 키는 브라우저 환경 변수나 저장소에 넣지 않습니다.
 
-환경 변수를 저장한 뒤 개발 서버를 다시 시작합니다.
+값을 넣은 뒤 다음 명령으로 형식을 점검합니다. 주소 끝 경로, 비어 있는 값, 공개 키 자리에 잘못 넣은 비밀 키(`sb_secret_…`·`service_role`)를 찾아 알려 주며, 값 자체는 화면에 표시하지 않습니다.
+
+```powershell
+# Supabase 연결 설정 점검
+pnpm supabase:check
+```
+
+점검을 통과하면 개발 서버를 다시 시작합니다. `NEXT_PUBLIC_` 값은 개발 서버 시작 시 읽으므로 바꾼 뒤에는 항상 다시 시작해야 합니다.
 
 ---
 
@@ -176,6 +186,8 @@ Supabase의 **Authentication → URL Configuration**에서 개발 단계 주소�
 - Vercel 배포 후 추가: `https://프로젝트주소.vercel.app/**`
 
 실제 Vercel 주소는 배포가 완료된 뒤 확인하여 입력합니다.
+
+Google 로그인을 쓰려면 **Authentication → Providers**에서 Google을 켜고 Google Cloud의 OAuth 클라이언트 정보를 등록해야 합니다. 설정하지 않으면 이메일 로그인만 사용하며, Google 버튼은 시작할 수 없다는 안내를 표시합니다.
 
 ---
 
@@ -201,6 +213,16 @@ Production, Preview, Development 환경 가운데 실제로 사용할 환경을 
 6. 공개 뉴스 선택 시 `/news/게시물-ID` 상세 화면 이동
 
 대표 이미지는 JPG, PNG, WebP 형식과 5MB 이하만 허용됩니다.
+
+---
+### 회원과 댓글 확인
+
+1. `/login`에서 회원 계정으로 로그인(이메일 또는 Google)
+2. 처음 로그인하면 **댓글에 표시할 닉네임**을 저장(1~20자)
+3. 공개 뉴스 상세 화면에서 댓글·답글·이미지 첨부·반응·신고 확인
+4. 공개 페이지 상단 회원 버튼에 닉네임이 표시되는지 확인
+
+댓글 이미지는 회원별 폴더(`comment-images/회원-ID/`)에 저장되며 JPG·PNG·WebP·GIF 5MB 이하만 허용됩니다. 같은 회원은 같은 댓글을 한 번만 신고할 수 있습니다. 시연 뉴스(`/news/demo-…`)는 연결 후에도 시연 댓글을 사용합니다.
 
 ---
 ### 상품 관리

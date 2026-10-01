@@ -14,7 +14,8 @@
     "lint": "eslint app lib scripts tests proxy.ts next.config.mjs postcss.config.mjs eslint.config.mjs --max-warnings=0",
     "test": "node --test tests/*.test.mjs",
     "typecheck": "tsc --noEmit --incremental false",
-    "check": "pnpm test && pnpm typecheck && pnpm lint && pnpm build"
+    "check": "pnpm test && pnpm typecheck && pnpm lint && pnpm build",
+    "supabase:check": "node scripts/check-supabase-env.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

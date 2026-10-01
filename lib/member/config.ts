@@ -1,8 +1,10 @@
+import { readSupabasePublicEnvironment } from "../supabase/config.ts"; // 공개 환경 변수 읽기
+
 type MemberEnvironment = Record<string, string | undefined>; // 환경 변수 집합
 
 export type MemberMode = "demo" | "supabase"; // 회원 모드 형식
 
-export function getMemberMode(environment: MemberEnvironment = process.env): MemberMode // 회원 모드 판정
+export function getMemberMode(environment: MemberEnvironment = readSupabasePublicEnvironment()): MemberMode // 회원 모드 판정
 { // 함수 시작
     const url = environment.NEXT_PUBLIC_SUPABASE_URL?.trim(); // 프로젝트 주소
     const key = environment.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim(); // 공개 키

@@ -7,7 +7,9 @@ export type CommentServiceErrorCode = // 댓글 서비스 오류 코드
     | "INVALID_IMAGE" // 댓글 이미지 오류
     | "INVALID_REPORT_REASON" // 신고 사유 오류
     | "REPORT_DETAIL_TOO_LONG" // 신고 상세 길이 오류
-    | "DUPLICATE_REPORT"; // 중복 신고 오류
+    | "DUPLICATE_REPORT" // 중복 신고 오류
+    | "SIGN_IN_REQUIRED" // 로그인 필요 오류
+    | "SERVICE_UNAVAILABLE"; // 댓글 서버 연결 오류
 
 export class CommentServiceError extends Error // 댓글 서비스 오류
 { // 클래스 시작
@@ -26,6 +28,7 @@ export interface CommentImageInput // 댓글 이미지 입력
     url: string; // 이미지 데이터 주소
     type: string; // 이미지 MIME 형식
     size: number; // 이미지 용량
+    file?: Blob; // 실제 업로드 파일
 } // 형식 끝
 
 export interface CreateCommentInput // 댓글 작성 입력

@@ -83,6 +83,8 @@ css-styling/
 | --- | --- |
 | `app/login/page.tsx` | 회원 로그인 페이지 |
 | `app/login/member-login-form.tsx` | 회원 로그인 폼과 데모·Supabase 분기 |
+| `app/login/member-access.tsx` | 현재 로그인 계정 표시, 로그아웃과 실제 모드 닉네임 확인 |
+| `app/login/member-nickname-form.tsx` | 실제 모드 댓글 닉네임 저장·변경 폼 |
 | `app/login/member-login.module.css` | 회원 로그인 화면 스타일 |
 | `app/news/[id]/page.tsx` | 뉴스 상세 조회 |
 | `app/news/[id]/comments-panel.tsx` | 댓글·답글·반응·신고 UI |
@@ -102,6 +104,7 @@ css-styling/
 | `app/api/community/youtube/route.ts` | YouTube 조회, 캐시, 연령 확인과 대체 데이터 |
 | `app/api/age/status/route.ts` | 연령 확인 쿠키 상태 반환 |
 | `app/api/age/verify/route.ts` | 연령 검증과 서명 쿠키 발급 |
+| `app/api/member/status/route.ts` | 정적 페이지 상단 회원 버튼용 로그인 여부·공개 닉네임 반환(이메일 미포함) |
 
 ---
 ## 4. `lib/` 업무 규칙
@@ -132,9 +135,12 @@ css-styling/
 | --- | --- |
 | `lib/member/config.ts` | 데모·Supabase 회원 모드 판정 |
 | `lib/member/demo-session.ts` | 로컬 데모 프로필 저장·읽기와 안전한 복귀 주소 |
+| `lib/member/profile.ts` | 닉네임 규칙(1~20자)과 Supabase 회원 프로필 조회·저장 |
 | `lib/comments/domain.ts` | 댓글, 이미지, 반응과 신고 규칙 |
 | `lib/comments/service.ts` | 댓글 저장소 공통 계약과 오류 형식 |
+| `lib/comments/rules.ts` | 로컬·Supabase 댓글 서비스 공통 입력 검증 |
 | `lib/comments/local-service.ts` | 새로고침 시 초기화되는 메모리 댓글 저장소 |
+| `lib/comments/supabase-service.ts` | 같은 계약의 Supabase 댓글 저장소(조회·작성·이미지·반응·신고) |
 
 ---
 ### 뉴스
@@ -279,6 +285,7 @@ css-styling/
 | `scripts/generate-project-pages.mjs` | `node scripts/generate-project-pages.mjs` | 공통 프로젝트 페이지 재생성 |
 | `scripts/archive-project-pages.mjs` | `node scripts/archive-project-pages.mjs` | 변경 전 프로젝트 HTML을 내부 보관소로 복사 |
 | `scripts/optimize_goods_images.py` | Python 환경에서 직접 실행 | 상품 원본 이미지 최적화 |
+| `scripts/check-supabase-env.mjs` | `pnpm supabase:check` | `.env.local`의 Supabase 주소·공개 키·관리자 이메일 형식과 비밀 키 노출 점검 |
 
 페이지 생성과 보관 스크립트를 실행한 뒤 변경 파일을 반드시 검토합니다. 개별 디자인 프로젝트를 공통 템플릿으로 덮어쓰지 않도록 대상 목록을 확인합니다.
 
@@ -410,7 +417,9 @@ ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `publi
 | 뉴스 관리 | `app/admin/news/` | `lib/news/`, 뉴스 마이그레이션 |
 | 상품 관리 | `app/admin/products/` | `lib/products/`, 상품 마이그레이션 |
 | 로그인 권한 | `lib/auth/admin-policy.ts` | `proxy.ts`, Supabase 클라이언트 |
-| 댓글 | `app/news/[id]/comments-panel.tsx` | `lib/comments/domain.ts`, `lib/comments/service.ts`, `lib/comments/local-service.ts`, 댓글 마이그레이션 |
+| 댓글 | `app/news/[id]/comments-panel.tsx` | `lib/comments/domain.ts`, `lib/comments/service.ts`, `lib/comments/local-service.ts`, `lib/comments/supabase-service.ts`, 댓글 마이그레이션 |
+| 회원 닉네임 | `lib/member/profile.ts` | `app/login/member-access.tsx`, `app/login/member-nickname-form.tsx`, `app/api/member/status/route.ts`, `public/member-session.mjs` |
+| Supabase 연결 준비 | `scripts/check-supabase-env.mjs` | `.env.example`, `README.md`의 Supabase 단계, `supabase/migrations/` |
 | 연령 제한 | `lib/age-gate/` | `proxy.ts`, 연령 API와 화면 |
 | 분석 동의 | `public/privacy-consent.mjs` | `public/site-analytics.mjs` |
 | 전체 품질 확인 | `package.json` | `tests/`, `tsconfig.json` |

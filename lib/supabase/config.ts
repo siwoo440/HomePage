@@ -6,7 +6,16 @@ export interface SupabasePublicConfig // 공개 설정 형식
     publishableKey: string; // 공개 키
 } // 형식 끝
 
-export function getSupabasePublicConfig(environment: SupabaseEnvironment = process.env): SupabasePublicConfig | null // 공개 설정 판정
+export function readSupabasePublicEnvironment(): SupabaseEnvironment // 공개 환경 변수 읽기
+{ // 함수 시작
+    return ( // 브라우저 번들 치환용 직접 참조
+    { // 환경 객체 시작
+        NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL, // 프로젝트 주소
+        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, // 공개 키
+    }); // 환경 객체 끝
+} // 함수 끝
+
+export function getSupabasePublicConfig(environment: SupabaseEnvironment = readSupabasePublicEnvironment()): SupabasePublicConfig | null // 공개 설정 판정
 { // 함수 시작
     const url = environment.NEXT_PUBLIC_SUPABASE_URL?.trim(); // 프로젝트 주소
     const publishableKey = environment.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim(); // 공개 키

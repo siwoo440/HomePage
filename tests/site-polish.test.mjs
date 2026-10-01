@@ -59,8 +59,8 @@ test("실제 모드 댓글·성인 확인·뉴스 수정·헤더 테마 버튼�
     const editPage = fs.readFileSync("app/admin/news/[id]/edit/page.tsx", "utf8"); // 뉴스 수정 화면
     const editor = fs.readFileSync("app/admin/news/news-editor.tsx", "utf8"); // 뉴스 편집기
     const navigation = fs.readFileSync("public/responsive-nav.mjs", "utf8"); // 공통 메뉴
-    assert.match(newsPage, /commentsDemoMode \? <CommentsPanel newsId=\{post\.id\} demoMode \/> :/); // 실제 모드 댓글 닫힘 확인
-    assert.match(newsPage, /data-comments-closed/); // 준비 안내 확인
+    assert.match(newsPage, /<CommentsPanel newsId=\{post\.id\} demoMode=\{commentsDemoMode\} \/>/); // 시연·실제 모드 댓글 연결 확인
+    assert.doesNotMatch(newsPage, /data-comments-closed/); // 준비 안내 제거 확인
     assert.match(agePage, /resolveAgeGateSecret\(process\.env\.NODE_ENV, process\.env\.AGE_GATE_SECRET\) !== null/); // 설정 확인 확인
     assert.match(ageForm, /disabled=\{!available \|\| submitting\}/); // 설정 누락 시 제출 차단 확인
     assert.match(ageForm, /성인 확인 설정이 아직 준비되지 않아/); // 설정 누락 안내 확인
