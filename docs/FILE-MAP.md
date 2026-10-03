@@ -156,6 +156,9 @@ css-styling/
 | `lib/auth/login-message.ts` | 로그인 결과 메시지 정리 |
 | `lib/admin/pagination.ts` | 관리자 목록 한 페이지 항목 수와 페이지 계산 |
 | `lib/admin/demo-mode.ts` | 관리자 데모 사용 가능 판정과 저장 없는 뉴스·상품 검증 |
+| `lib/forms/validation.ts` | 입력 오류 순서, 첫 오류 초점 이동과 잘못된 제출 차단 |
+| `lib/http/rate-limit.ts` | 서버 요청 횟수 제한(요청자별 기준 시간, 기억 한도)과 요청자 주소 읽기 |
+| `lib/http/json.ts` | JSON 요청 본문 크기·형식 확인, 캐시하지 않는 응답과 요청 제한 응답 |
 
 ---
 ### 회원과 댓글
@@ -244,6 +247,11 @@ css-styling/
 | `public/i18n.mjs` | 영어 화면 번역(사전 불러오기, 문구·형식 번역, 화면 변경 감시, 날짜 표기 언어) |
 | `public/i18n-bootstrap.js` | 정적 페이지 표시와 영어 선택 시 번역 전 본문 가림 |
 | `public/i18n/en/` | 영어 사전(`site.json` 공통, `next.json` Next 화면, `project_*.json` 게임별) |
+| `public/form-submit.mjs` | 정적 페이지 공통 양식 전송(전송 중 표시, 입력 오류·요청 제한·연결 실패 안내) |
+| `public/browser-data.mjs` | 개인정보 페이지의 브라우저 저장 항목 확인·삭제 |
+| `public/contact-faq.mjs` | 문의하기 질문 전체 펼치기와 주소 해시 열기 |
+| `public/color-mode-bootstrap.js` | Next 화면에서 저장된 라이트·다크 모드를 먼저 복원 |
+| `public/dialog-accessibility.mjs` | 대화상자 접근성 도구(현재 불러오는 페이지 없음, 재사용 보관) |
 | `public/privacy-consent.mjs` | 개인정보 선택 저장과 변경 이벤트 |
 | `public/site-analytics.mjs` | 동의 기반 GA4 로드와 이벤트 제한 |
 | `public/analytics-config.mjs` | 공개 GA4 측정 ID 설정 |
@@ -277,7 +285,7 @@ css-styling/
 | `public/privacy-consent.css` | 개인정보 동의 배너와 설정 창 |
 | `public/legal.css` | 약관과 개인정보 문서 화면 |
 | `public/project-page.css` | 공통 생성 프로젝트 페이지 |
-| `public/project-detail.css` | 프로젝트 상세 공통 요소 |
+| `public/project-detail.css` | 프로젝트 η 페이지의 기본 규칙(크기 계산·본문 여백·링크·제목) |
 
 ---
 ### 화면 전용 스타일
@@ -322,6 +330,10 @@ css-styling/
 | 파일 | 실행 예 | 역할 |
 | --- | --- | --- |
 | `scripts/generate-project-pages.mjs` | `node scripts/generate-project-pages.mjs` | 공통 프로젝트 페이지 재생성 |
+| `scripts/site-header.mjs` | 다른 도구가 불러 씀 | 공통 헤더 원본(메뉴 목록과 마크업) |
+| `scripts/apply-site-header.mjs` | `node scripts/apply-site-header.mjs` | 등록된 정적 페이지에 공통 헤더 적용 |
+| `scripts/apply-page-meta.mjs` | `node scripts/apply-page-meta.mjs` | 검색 설명과 공유 미리보기 태그 적용 |
+| `scripts/apply-static-pages.mjs` | `pnpm pages:apply`, `pnpm pages:check` | 공통 헤더·검색 설명·번역 준비 스크립트를 한 번에 적용하거나 빠진 페이지 확인 |
 | `scripts/archive-project-pages.mjs` | `node scripts/archive-project-pages.mjs` | 변경 전 프로젝트 HTML을 내부 보관소로 복사 |
 | `scripts/optimize_goods_images.py` | Python 환경에서 직접 실행 | 상품 원본 이미지 최적화 |
 | `scripts/check-supabase-env.mjs` | `pnpm supabase:check` | `.env.local`의 Supabase 주소·공개 키·관리자 이메일 형식과 비밀 키 노출 점검 |
@@ -398,6 +410,20 @@ css-styling/
 - `playful-lab-theme.test.mjs`: 공통 토큰과 적용 제외 범위
 - `i18n.test.mjs`: 영어 사전 범위·품질, 번역기 동작, 언어 버튼과 준비 스크립트 연결
 - `device-preview.test.mjs`: 개발용 기기 크기와 제어
+- `foundation.test.mjs`: 요청 제한·JSON 처리·양식 전송·페이지 적용 도구와 사이트맵 누락
+- `site-header.test.mjs`: 모든 페이지 공통 헤더 일치와 문의하기 질문 구조
+- `site-polish.test.mjs`: 검색 설명·공유 정보, 라이트·다크 토큰과 화면 배치 세부
+- `page-integrity-fixes.test.mjs`: 내부 앵커·시연 뉴스 링크, 이미지 실패 대체, 404 화면과 움직임 줄이기
+- `unused-assets.test.mjs`: 연결되지 않은 스크립트·스타일과 예전 규칙 재발 방지
+- `accessibility-forms.test.mjs`: 로그인·성인 확인 폼의 오류 연결과 제출 상태
+- `form-validation.test.mjs`: 첫 오류 필드 탐색과 초점 이동
+- `dialog-accessibility.test.mjs`: 대화상자 초점 순환과 닫기(`helpers/dialog-environment.mjs` 사용)
+- `color-mode-bootstrap.test.mjs`: 저장된 화면 모드 우선 복원
+- `browser-data.test.mjs`: 브라우저 저장 항목 요약과 삭제
+- `game-catalog-url.test.mjs`: 게임 검색 조건의 주소 저장·복원
+- `project-h-page.test.mjs`: 프로젝트 H 화면과 스크립트 연결
+- `development-tooling.test.mjs`: 린트·설치 설정과 제외 범위
+- `supabase-env-check.test.mjs`: Supabase 연결 설정 점검 도구
 
 ---
 ### 게임과 프로젝트
@@ -433,6 +459,8 @@ css-styling/
 | --- | --- |
 | `docs/DEVELOPMENT-GUIDE.md` | 프로젝트 전체 개발·운영 안내 |
 | `docs/DEVELOPMENT-NOTES.md` | 로컬·외부 API·유료 작업 분류와 우선순위 |
+| `docs/ROADMAP.md` | 단계별 개발 방향과 현재 진행 단계 |
+| `docs/EXTERNAL-SERVICES.md` | 외부 계정·유료 서비스의 비용과 제약 |
 | `docs/FILE-MAP.md` | 현재 파일과 폴더의 역할 지도 |
 | `docs/superpowers/specs/` | 승인된 기능 설계와 동작 기준 |
 | `docs/superpowers/plans/` | 구현 단계와 검증 계획 |

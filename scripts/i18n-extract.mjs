@@ -8,6 +8,7 @@ export const PROJECT_ROOT = fileURLToPath(new URL("../", import.meta.url)); // �
 export const NEXT_BUNDLE = "next"; // Next 화면 사전 이름
 const NEXT_SOURCE_DIRECTORIES = ["app", "lib/member", "lib/comments", "lib/age-gate"]; // Next 화면 문구 폴더
 const NEXT_SOURCE_FILES = ["lib/forms/validation.ts", "lib/news/demo-posts.ts"]; // Next 화면 문구 개별 파일
+const SHARED_SERVER_FILES = ["lib/http/json.ts"]; // 정적 페이지 양식에도 보이는 서버 안내 파일(공통 사전)
 const NEXT_EXCLUDED = [/^app\/admin\//, /^lib\/comments\/moderation\.ts$/]; // 관리자 전용 제외
 export const DICTIONARY_ROOT = path.join(PUBLIC_ROOT, "i18n", "en"); // 영어 사전 위치
 export const SITE_BUNDLE = "site"; // 공통 사전 이름
@@ -275,6 +276,12 @@ export function extractAll(root = PUBLIC_ROOT) // 전체 묶음 추출
         bundles.set(bundle, current); // 묶음 저장
     } // 반복 끝
     const site = bundles.get(SITE_BUNDLE); // 공통 묶음
+    for (const file of root === PUBLIC_ROOT && site ? SHARED_SERVER_FILES : []) // 정적·Next 화면이 함께 받는 서버 안내 반복
+    { // 반복 시작
+        const result = extractNextFile(file); // 파일 결과
+        result.entries.forEach((entry) => site.entries.set(entry, [...(site.entries.get(entry) ?? []), file])); // 공통 사전에 출처 기록
+        result.templates.forEach((template) => site.templates.set(template, [...(site.templates.get(template) ?? []), file])); // 공통 사전에 형식 기록
+    } // 반복 끝
     for (const [name, bundle] of bundles) // 프로젝트 묶음 반복
     { // 반복 시작
         if (name !== SITE_BUNDLE && site) // 공통 중복 확인

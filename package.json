@@ -16,7 +16,9 @@
     "typecheck": "tsc --noEmit --incremental false",
     "check": "pnpm test && pnpm typecheck && pnpm lint && pnpm build",
     "supabase:check": "node scripts/check-supabase-env.mjs",
-    "i18n:check": "node scripts/i18n-extract.mjs --strict"
+    "i18n:check": "node scripts/i18n-extract.mjs --strict",
+    "pages:apply": "node scripts/apply-static-pages.mjs",
+    "pages:check": "node scripts/apply-static-pages.mjs --check"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

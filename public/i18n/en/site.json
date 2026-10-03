@@ -689,7 +689,15 @@
     "프로젝트 V 게임 콘셉트 이미지": "Project V game concept art",
     "title::게임": "Game",
     "title::프로젝트": "Projects",
-    "오후": "PM"
+    "오후": "PM",
+    "영어 화면은 참고용 자동 번역이며, 내용이 다르면 한국어 원문이 우선합니다.": "This English version is an automatic translation provided for reference. If anything differs, the Korean original prevails.",
+    "입력 내용을 확인해 주세요.": "Please check what you entered.",
+    "요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.": "Too many requests. Please try again in a moment.",
+    "요청을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.": "We could not process your request. Please try again in a moment.",
+    "응답이 늦어지고 있습니다. 잠시 후 다시 시도해 주세요.": "The response is taking too long. Please try again in a moment.",
+    "연결할 수 없습니다. 인터넷 연결을 확인한 뒤 다시 시도해 주세요.": "Could not connect. Check your internet connection and try again.",
+    "요청 내용을 확인해 주세요.": "Please check your request.",
+    "보낸 내용이 너무 깁니다.": "The submitted content is too long."
   },
   "patterns": [
     {

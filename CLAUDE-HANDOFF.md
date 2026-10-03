@@ -3,8 +3,8 @@
 
 이 문서는 다른 컴퓨터에서 Claude가 DEVFORGE 홈페이지 개발을 바로 이어가기 위한 전달 문서입니다. 작업 기준은 이 파일이 포함된 `origin/main` 최신 커밋입니다.
 
-- 마지막 갱신: 2026년 10월 1일
-- 마지막 검증: 테스트 419개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
+- 마지막 갱신: 2026년 10월 3일
+- 마지막 검증: 테스트 427개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
 - 검증 환경: Windows 11, Node.js `24.19.0`, pnpm `11.19.0`
 
 ---
@@ -92,6 +92,7 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
   - 관리자·회원이 쓴 뉴스·상품·댓글은 한국어 원문 유지, 실제 SNS 해시태그는 번역 제외
 - 내 정보 페이지(`/account`): 닉네임 변경, 내 댓글 확인·삭제, 회원 탈퇴(확인어 `탈퇴` 또는 `DELETE`, 다섯 번째 마이그레이션의 `delete_own_account`)
 - 검색엔진 `robots.txt`·사이트맵(`SITE_URL` 또는 Vercel 운영 주소, 관리자·회원·성인 경로 제외), 서버 오류 화면(`app/error.tsx`·`app/global-error.tsx`)
+- 공통 기반(로드맵 0단계): `pnpm pages:apply`·`pages:check` 페이지 적용 도구, 서버 요청 제한·JSON 도구(`lib/http/`), 정적 페이지 양식 전송 도구(`public/form-submit.mjs`), 약관·개인정보 화면의 한국어 원문 우선 안내
 - 테스트·타입·ESLint·운영 빌드 통합 검사
 
 `로컬 완료`는 외부 서비스까지 운영 완료되었다는 의미가 아닙니다.
@@ -101,6 +102,7 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 
 | 커밋 | 내용 |
 | --- | --- |
+| `d043f4e` | 내 정보 페이지·검색엔진 파일·오류 화면 추가와 Next 화면 영어 번역 |
 | `2f38bfa` | 공개 페이지 영어 화면(AI 번역) 추가 |
 | `0bdfb86` | 메인 커뮤니티 카드 글자 찌그러짐 수정 |
 | `bdbc405` | 회원가입·간편 로그인·비밀번호 재설정과 관리자 댓글·신고 관리 추가 |
@@ -166,9 +168,11 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 - `responsive-nav.mjs`·`responsive-shell.css`의 예전 프로젝트 메뉴 지원(`.project-nav-actions`·`.project-nav-links`·`.nav-cta`·`.eta-brand`) 삭제
 - `ProjectEta_Style.css`의 예전 에타 전용 헤더 스타일(`.eta-nav`·`.eta-brand`·`.eta-nav-links`·`.nav-cta`) 삭제
 
-남은 후보입니다. 새 후보는 삭제 전 참조 여부와 관련 테스트를 확인합니다.
+2026년 10월 3일 3차 정리를 완료했습니다.
 
-- `public/project-detail.css`: 프로젝트 η 페이지만 불러오지만 이 파일의 이름(`.info-card`·`.hero-card` 등)을 쓰는 요소가 없어 실제로 적용되지 않음
+- `public/project-detail.css`: "적용되지 않음"이라는 이전 기록은 틀렸습니다. 클래스 규칙은 쓰이지 않지만 `*`·`body`·`a`·`h1` 기본 규칙이 프로젝트 η 페이지에 실제로 적용됩니다. 파일은 유지하고 쓰이지 않는 클래스 규칙만 지웠으며, 1280px·375px에서 772개 요소의 계산 스타일이 원본과 같음을 확인했습니다.
+
+현재 남은 후보는 없습니다. 새 후보는 삭제 전 참조 여부와 계산 스타일, 관련 테스트를 확인합니다.
 
 ---
 ## 외부 확인 대기 항목
@@ -209,6 +213,7 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 ## 우선 확인 문서
 
 1. `README.md`: 실행과 외부 서비스 설정
+2. `docs/ROADMAP.md`: 단계별 개발 방향과 현재 단계(각 단계는 개발 계획 → 개발 → 다음 단계 계획 순서)
 2. `TRANSFER-GUIDE.md`: 다른 컴퓨터 이관 절차
 3. `docs/DEVELOPMENT-GUIDE.md`: 구조·기능·데이터·보안·배포
 4. `docs/DEVELOPMENT-NOTES.md`: 로컬·외부·유료 작업 구분과 진행 상태

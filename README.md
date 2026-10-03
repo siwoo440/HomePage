@@ -26,6 +26,7 @@ pnpm check
 
 - [`docs/DEVELOPMENT-GUIDE.md`](docs/DEVELOPMENT-GUIDE.md): 구조, 기능, 데이터 흐름, 보안, 테스트와 배포 안내
 - [`docs/DEVELOPMENT-NOTES.md`](docs/DEVELOPMENT-NOTES.md): 로컬·외부 API·유료 작업 분류와 우선순위
+- [`docs/ROADMAP.md`](docs/ROADMAP.md): 단계별 개발 방향과 현재 진행 단계
 - [`docs/FILE-MAP.md`](docs/FILE-MAP.md): 폴더와 주요 파일의 역할
 - [`docs/EXTERNAL-SERVICES.md`](docs/EXTERNAL-SERVICES.md): 외부 계정·유료 서비스의 비용과 제약(2026년 10월 1일 조사)
 - [`CLAUDE-HANDOFF.md`](CLAUDE-HANDOFF.md): 다른 컴퓨터에서 Claude로 이어서 작업할 때 전달할 시작 문구와 확인 기준
