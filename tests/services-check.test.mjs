@@ -35,6 +35,10 @@ test("값을 넣으면 서비스별로 연결됨과 고칠 곳을 구분한다",
     assert.equal(partialMail.services[1].notes.length, 2); // 빠진 두 항목 안내
     assert.equal(statusOf(checkServices({ ...MAIL, RESEND_API_KEY: "sk_wrong" }), "mail"), "error"); // 다른 서비스 키 구분
     assert.match(checkServices({ ...MAIL, MAIL_FROM: "onboarding@resend.dev" }).services[1].notes[0], /본인 이메일로만 보낼 수 있으므로/); // 도메인 없는 시험 주소 안내
+    const personal = checkServices({ ...MAIL, MAIL_FROM: "owner@Gmail.com" }); // 보내는 주소에 개인 메일 입력
+    assert.equal(statusOf(personal, "mail"), "error"); // 개인 메일 주소는 발송 불가로 안내
+    assert.match(personal.services[1].notes[0], /onboarding@resend\.dev 를 넣고/); // 고치는 방법 안내
+    assert.equal(statusOf(checkServices({ ...MAIL, MAIL_FROM: "DEVFORGE <owner@naver.com>" }), "mail"), "error"); // 이름을 붙인 개인 메일도 같은 안내
     assert.equal(statusOf(checkServices({ YOUTUBE_API_KEY: "wrong" }), "youtube"), "error"); // YouTube 키 형식 오류
     assert.equal(statusOf(checkServices({}, 'export const GA_MEASUREMENT_ID = "UA-123"; // 옛 형식'), "analytics"), "error"); // 측정 ID 형식 오류
     assert.equal(statusOf(checkServices({ NEXT_PUBLIC_SUPABASE_URL: "https://abcdefgh.supabase.co" }), "supabase"), "error"); // Supabase 일부만 입력

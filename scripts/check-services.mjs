@@ -7,6 +7,7 @@ import { checkSupabaseEnvironment, classifySupabaseKey, parseEnvText } from "./c
 const ICONS = { connected: "✓", off: "–", error: "✗" }; // 상태 표시 기호
 const STATUS_LABELS = { connected: "연결됨", off: "아직 연결 전", error: "고칠 곳 있음" }; // 상태 이름
 const SUPABASE_NAMES = ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY", "ADMIN_EMAIL"]; // Supabase 설정 항목
+const PERSONAL_MAIL_DOMAINS = ["gmail.com", "googlemail.com", "naver.com", "daum.net", "hanmail.net", "kakao.com", "nate.com", "outlook.com", "hotmail.com", "live.com", "yahoo.com", "icloud.com", "proton.me", "protonmail.com"]; // 보내는 주소로 쓸 수 없는 개인 메일 도메인
 
 function read(env, name) // 환경 값 읽기
 { // 함수 시작
@@ -48,6 +49,10 @@ function checkMail(env) // 메일 발송 점검
     if (!parsedFrom) // 보내는 주소 확인
     { // 조건 시작
         problems.push("MAIL_FROM: 보내는 주소 형식이 올바르지 않습니다. 예: DEVFORGE <noreply@내도메인> (도메인이 없으면 onboarding@resend.dev)"); // 보내는 주소 안내
+    } // 조건 끝
+    else if (PERSONAL_MAIL_DOMAINS.includes(parsedFrom.address.toLowerCase().split("@").pop())) // 개인 메일 주소 확인
+    { // 조건 시작
+        problems.push("MAIL_FROM: Gmail·네이버 같은 개인 메일 주소로는 보낼 수 없습니다(Resend가 거부). 도메인이 없으면 onboarding@resend.dev 를 넣고, 본인 메일 주소는 CONTACT_NOTIFY_EMAIL에만 넣어 주세요."); // 개인 메일 안내
     } // 조건 끝
     if (!isEmailAddress(notifyTo)) // 알림 주소 확인
     { // 조건 시작

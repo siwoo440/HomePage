@@ -282,6 +282,7 @@ CONTACT_NOTIFY_EMAIL=운영자-이메일
 
 1. Resend에 가입하고 **API Keys**에서 키를 만들어 `RESEND_API_KEY`에 넣습니다. 이 키는 서버 전용이므로 `NEXT_PUBLIC_`으로 시작하는 항목에 넣지 않습니다.
 2. 도메인이 아직 없으면 `MAIL_FROM=onboarding@resend.dev`로 시험합니다. 이때는 Resend에 가입한 본인 이메일로만 보낼 수 있으므로 `CONTACT_NOTIFY_EMAIL`도 그 이메일로 넣습니다(가입 화면의 안내를 다시 확인).
+   `MAIL_FROM`에는 Gmail·네이버 같은 개인 메일 주소를 넣지 않습니다. Resend가 인증한 도메인의 주소만 보내는 주소로 받아 주므로 발송이 거부됩니다(`pnpm services:check`가 알려 줍니다). 본인 메일 주소는 `CONTACT_NOTIFY_EMAIL`에만 넣습니다.
 3. 도메인을 마련한 뒤에는 Resend의 **Domains**에서 도메인을 인증하고 `MAIL_FROM`을 그 도메인 주소로 바꿉니다.
 4. `pnpm services:check`로 형식을 확인하고 개발 서버를 다시 시작합니다.
 
