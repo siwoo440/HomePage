@@ -1,6 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js"; // Supabase 클라이언트 형식
 import { REACTION_TYPES, type CommentReaction, type NewsComment, type ReactionType } from "./domain.ts"; // 댓글 도메인 형식
-import { requireCommentContent, requireCommentImage, requireReportDetail, requireReportReason } from "./rules.ts"; // 댓글 공통 규칙
+import { COMMENT_DUPLICATE_HOURS, COMMENT_HISTORY_LIMIT, getCommentBlockMessage, type CommentBlockReason } from "./guard.ts"; // 작성 제한 규칙
+import { BLOCK_ERROR_CODES, requireCommentAllowed, requireCommentContent, requireCommentImage, requireReportDetail, requireReportReason } from "./rules.ts"; // 댓글 공통 규칙
 import { CommentServiceError, type CommentReport, type CommentService, type CreateCommentInput, type ReportCommentInput } from "./service.ts"; // 댓글 서비스 형식
 
 export const COMMENT_IMAGE_BUCKET = "comment-images"; // 댓글 이미지 저장 버킷
@@ -11,6 +12,7 @@ const COMMENT_WITH_REACTIONS = `${COMMENT_COLUMNS}, comment_reactions(user_id, r
 const REPORT_COLUMNS = "id, comment_id, reporter_id, reason, detail, created_at"; // 신고 기록 열
 const PROFILE_CHUNK_SIZE = 100; // 프로필 조회 묶음 크기
 const IMAGE_EXTENSIONS: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" }; // 이미지 확장자 목록
+const DATABASE_BLOCKS: [string, CommentBlockReason][] = [["COMMENT_TOO_FAST", "too_fast"], ["COMMENT_RATE_LIMITED", "rate_limited"], ["COMMENT_DUPLICATE", "duplicate"], ["COMMENT_TOO_MANY_LINKS", "too_many_links"], ["COMMENT_BANNED_WORD", "banned_word"]]; // 데이터베이스 차단 표시와 사유
 
 interface ReactionRow // 반응 행 형식
 { // 형식 시작
@@ -55,6 +57,7 @@ interface SupabaseCommentServiceOptions // Supabase 댓글 서비스 설정
 { // 형식 시작
     client: SupabaseClient; // Supabase 클라이언트
     createId?: () => string; // 이미지 파일 이름 생성기
+    now?: () => number; // 현재 시각 생성기
 } // 형식 끝
 
 export function toCommentServiceError(error: DatabaseError | null | undefined): CommentServiceError // 서버 오류 변환
@@ -65,6 +68,13 @@ export function toCommentServiceError(error: DatabaseError | null | undefined): 
     if (message.includes("INVALID_COMMENT_PARENT")) // 답글 단계 오류 확인
     { // 조건 시작
         return new CommentServiceError("INVALID_PARENT", "같은 뉴스의 최상위 댓글에만 답글을 작성할 수 있습니다."); // 부모 오류 반환
+    } // 조건 끝
+
+    const blocked = DATABASE_BLOCKS.find(([marker]) => message.includes(marker)); // 데이터베이스 작성 제한 확인
+
+    if (blocked) // 작성 제한 오류 확인
+    { // 조건 시작
+        return new CommentServiceError(BLOCK_ERROR_CODES[blocked[1]], getCommentBlockMessage(blocked[1])); // 작성 제한 오류 반환
     } // 조건 끝
 
     if (code === "23503") // 참조 대상 없음 확인
@@ -171,6 +181,7 @@ export function createSupabaseCommentService(options: SupabaseCommentServiceOpti
 { // 함수 시작
     const client = options.client; // Supabase 클라이언트
     const createId = options.createId ?? (() => crypto.randomUUID()); // 파일 이름 생성기 선택
+    const now = options.now ?? (() => Date.now()); // 현재 시각 생성기 선택
 
     return ( // 댓글 서비스 반환
     { // 서비스 시작
@@ -197,6 +208,15 @@ export function createSupabaseCommentService(options: SupabaseCommentServiceOpti
                 throw new CommentServiceError("INVALID_IMAGE", "이미지 파일을 다시 선택해 주세요."); // 파일 누락 오류 발생
             } // 조건 끝
 
+            const nowMs = now(); // 현재 시각
+            const history = await client.from("news_comments").select("content, created_at").eq("author_id", input.authorId).gte("created_at", new Date(nowMs - COMMENT_DUPLICATE_HOURS * 60 * 60 * 1000).toISOString()).order("created_at", { ascending: false }).limit(COMMENT_HISTORY_LIMIT); // 본인 최근 댓글 조회
+
+            if (history.error) // 조회 오류 확인
+            { // 조건 시작
+                throw toCommentServiceError(history.error); // 조회 오류 발생
+            } // 조건 끝
+
+            requireCommentAllowed(content, ((history.data ?? []) as unknown as { content: string; created_at: string }[]).map((row) => ({ content: row.content, createdAt: row.created_at })), nowMs); // 작성 빈도·반복 확인(이미지를 올리기 전)
             const imagePath = image ? `${input.authorId}/${createId()}.${IMAGE_EXTENSIONS[image.type] ?? "img"}` : null; // 본인 폴더 이미지 경로
 
             if (image?.file && imagePath) // 이미지 업로드 필요 확인

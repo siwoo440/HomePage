@@ -1,7 +1,19 @@
 import { REPORT_REASONS, validateCommentContent, validateCommentImage, type ReportReason } from "./domain.ts"; // 댓글 도메인 규칙
-import { CommentServiceError, type CommentImageInput } from "./service.ts"; // 댓글 서비스 오류 형식
+import { checkCommentRate, type CommentBlockReason, type CommentHistoryEntry } from "./guard.ts"; // 작성 제한 규칙
+import { CommentServiceError, type CommentImageInput, type CommentServiceErrorCode } from "./service.ts"; // 댓글 서비스 오류 형식
 
 export const REPORT_DETAIL_MAX_LENGTH = 500; // 신고 상세 최대 길이
+export const BLOCK_ERROR_CODES: Record<CommentBlockReason, CommentServiceErrorCode> = { too_fast: "TOO_FAST", rate_limited: "RATE_LIMITED", duplicate: "DUPLICATE_CONTENT", too_many_links: "INVALID_CONTENT", banned_word: "INVALID_CONTENT" }; // 차단 사유별 오류 코드
+
+export function requireCommentAllowed(content: string, history: readonly CommentHistoryEntry[], nowMs: number): void // 작성 빈도·반복 확인
+{ // 함수 시작
+    const blocked = checkCommentRate(content, history, nowMs); // 작성 제한 확인
+
+    if (blocked) // 제한 위반 확인
+    { // 조건 시작
+        throw new CommentServiceError(BLOCK_ERROR_CODES[blocked.reason], blocked.message); // 제한 오류 발생
+    } // 조건 끝
+} // 함수 끝
 
 export function requireCommentContent(content: string): string // 댓글 내용 확인
 { // 함수 시작

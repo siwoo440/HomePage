@@ -4,6 +4,9 @@ export type CommentServiceErrorCode = // 댓글 서비스 오류 코드
     | "COMMENT_NOT_FOUND" // 댓글 없음 오류
     | "INVALID_PARENT" // 부모 댓글 오류
     | "INVALID_CONTENT" // 댓글 내용 오류
+    | "DUPLICATE_CONTENT" // 같은 내용 반복 오류
+    | "TOO_FAST" // 연속 작성 오류
+    | "RATE_LIMITED" // 작성 수 초과 오류
     | "INVALID_IMAGE" // 댓글 이미지 오류
     | "INVALID_REPORT_REASON" // 신고 사유 오류
     | "REPORT_DETAIL_TOO_LONG" // 신고 상세 길이 오류

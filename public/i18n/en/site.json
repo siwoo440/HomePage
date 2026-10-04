@@ -855,7 +855,8 @@
     },
     {
       "ko": "{0} 회원 메뉴 (로그아웃 가능)",
-      "en": "{0} member menu (log out)"
+      "en": "{0} member menu (log out)",
+      "keep": true
     },
     {
       "ko": "{0} 관심 목록에서 제거",

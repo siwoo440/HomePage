@@ -277,7 +277,26 @@
     "시각·진동·음향 피드백 선택 구조를 검토합니다.": "Reviewing a selectable visual, haptic, and audio feedback system.",
     "패링 타이밍을 더 분명하게 전달하기 위해 시각, 진동과 음향 피드백을 각각 조절할 수 있는 구조를 설계했습니다. 접근성 설정에서는 효과 강도를 낮추거나 특정 종류의 안내만 사용할 수 있도록 구성할 예정입니다. 이 글은 기능 소개 형식을 검증하기 위한 시연 콘텐츠입니다.": "To make parry timing clearer, we've designed a system where visual, haptic, and audio feedback can each be adjusted. In the accessibility settings, you'll be able to lower effect intensity or use only certain types of cues. This post is demo content for testing the feature introduction format.",
     "확인 칸에 \"탈퇴\"를 정확히 입력해 주세요.": "Type \"DELETE\" (or \"탈퇴\") exactly in the confirmation box.",
-    "확인을 위해 \"탈퇴\"를 입력해 주세요": "Type \"DELETE\" (or \"탈퇴\") to confirm"
+    "확인을 위해 \"탈퇴\"를 입력해 주세요": "Type \"DELETE\" (or \"탈퇴\") to confirm",
+    "링크는": "You can add up to",
+    "개까지 넣을 수 있고, 댓글은": "links, and post one comment every",
+    "초에 한 번 쓸 수 있습니다.": "seconds.",
+    "댓글은": "You can post one comment every",
+    "초에 한 번만 쓸 수 있습니다.": "seconds.",
+    "초 뒤에 다시 시도해 주세요.": "seconds until you can try again.",
+    "초에 한 번만 쓸 수 있습니다. 잠시 뒤에 다시 시도해 주세요.": "seconds. Please try again in a moment.",
+    "분 동안 댓글을": "minutes: comment limit of",
+    "개까지 쓸 수 있습니다.": "comments.",
+    "분 뒤에 다시 시도해 주세요.": "minutes until you can try again.",
+    "개까지 쓸 수 있습니다. 잠시 뒤에 다시 시도해 주세요.": "comments. Please try again in a moment.",
+    "같은 내용의 댓글을 이미 남기셨습니다. 내용을 바꿔서 써 주세요.": "You have already posted the same comment. Please change the text.",
+    "댓글에는 링크를": "A comment can include up to",
+    "개까지만 넣을 수 있습니다.": "links.",
+    "댓글에 사용할 수 없는 표현이 들어 있습니다. 내용을 고쳐 주세요.": "Your comment contains language that is not allowed. Please edit it.",
+    "링크": "Links",
+    "개(허용": "(allowed",
+    "개)": ")",
+    "금칙어 포함": "Contains a banned word"
   },
   "patterns": [
     {
@@ -294,11 +313,41 @@
     },
     {
       "ko": "{0} 댓글 신고 사유",
-      "en": "Reason for reporting {0}'s comment"
+      "en": "Reason for reporting {0}'s comment",
+      "keep": true
     },
     {
       "ko": "{0} 이름으로 댓글 작성",
-      "en": "Write a comment as {0}"
+      "en": "Write a comment as {0}",
+      "keep": true
+    },
+    {
+      "ko": "링크는 {0}개까지 넣을 수 있고, 댓글은 {1}초에 한 번 쓸 수 있습니다.",
+      "en": "You can add up to {0} links and post one comment every {1} seconds."
+    },
+    {
+      "ko": "댓글은 {0}초에 한 번만 쓸 수 있습니다. {1}초 뒤에 다시 시도해 주세요.",
+      "en": "You can post one comment every {0} seconds. Please try again in {1} seconds."
+    },
+    {
+      "ko": "댓글은 {0}초에 한 번만 쓸 수 있습니다. 잠시 뒤에 다시 시도해 주세요.",
+      "en": "You can post one comment every {0} seconds. Please try again in a moment."
+    },
+    {
+      "ko": "{0}분 동안 댓글을 {1}개까지 쓸 수 있습니다. {2}분 뒤에 다시 시도해 주세요.",
+      "en": "You can post up to {1} comments in {0} minutes. Please try again in {2} min."
+    },
+    {
+      "ko": "{0}분 동안 댓글을 {1}개까지 쓸 수 있습니다. 잠시 뒤에 다시 시도해 주세요.",
+      "en": "You can post up to {1} comments in {0} minutes. Please try again in a moment."
+    },
+    {
+      "ko": "댓글에는 링크를 {0}개까지만 넣을 수 있습니다.",
+      "en": "A comment can include up to {0} links."
+    },
+    {
+      "ko": "링크 {0}개(허용 {1}개)",
+      "en": "{0} links ({1} allowed)"
     }
   ]
 }

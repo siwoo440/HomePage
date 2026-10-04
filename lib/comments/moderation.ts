@@ -383,7 +383,7 @@ export function createDemoModerationItems(): ModerationItem[] // 시연 관리 �
 { // 함수 시작
     const item = (commentId: string, nickname: string, content: string, status: CommentStatus, createdAt: string, reports: [ReportReason, string, ReportStatus, string][]): ModerationItem => ({ commentId, newsId: "demo-echo-void", newsTitle: "에코 보이드 v0.8 — 음향 엔진 전면 개편 완료", nickname, content, imagePath: null, imageUrl: null, status, createdAt, reports: reports.map(([reason, detail, reportStatus, reportedAt], index) => ({ id: `${commentId}-report-${index + 1}`, reason, detail, status: reportStatus, createdAt: reportedAt })) }); // 시연 항목 생성기
     return [ // 시연 목록 반환
-        item("demo-mod-1", "광고봇777", "지금 가입하면 게임 아이템 무료 지급! 아래 링크 클릭", "visible", "2026-09-30T10:00:00.000Z", [["spam", "같은 광고를 여러 번 올림", "pending", "2026-09-30T10:05:00.000Z"], ["spam", "", "pending", "2026-09-30T11:00:00.000Z"]]), // 광고 댓글
+        item("demo-mod-1", "광고봇777", "지금 가입하면 게임 아이템 무료 지급! http://ad.example/1 http://ad.example/2 http://ad.example/3", "visible", "2026-09-30T10:00:00.000Z", [["spam", "같은 광고를 여러 번 올림", "pending", "2026-09-30T10:05:00.000Z"], ["spam", "", "pending", "2026-09-30T11:00:00.000Z"]]), // 광고 댓글
         item("demo-mod-2", "새벽코더", "베타 테스트 신청했는데 연락처 010-0000-0000으로 주세요", "visible", "2026-09-29T09:00:00.000Z", [["privacy", "전화번호 노출", "pending", "2026-09-29T09:30:00.000Z"]]), // 개인정보 댓글
         item("demo-mod-3", "픽셀정비사", "운영 정책 위반으로 숨긴 시연 댓글입니다.", "hidden", "2026-09-28T08:00:00.000Z", [["harassment", "욕설 포함", "reviewed", "2026-09-28T08:20:00.000Z"]]), // 숨긴 댓글
         item("demo-mod-4", "별빛항해자", "개발 과정을 상세하게 볼 수 있어 좋네요.", "visible", "2026-09-27T12:20:00.000Z", []), // 일반 댓글

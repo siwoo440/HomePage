@@ -272,11 +272,24 @@ Supabase가 없을 때 공개 개발 소식 목록은 `public/devlog.html`의 �
 - 반응: 좋아요, 응원, 궁금해요
 - 신고 사유와 같은 사용자의 중복 신고 검증
 - 같은 뉴스의 최상위 댓글에만 한 단계 답글 허용
+- 작성 제한: 30초에 1개, 10분에 5개, 24시간 안 같은 내용 금지, 링크 2개까지, 금칙어 차단
 - 데모 댓글 조회·작성과 반응 추가·취소·전환
 
 댓글 화면은 `CommentService` 계약의 비동기 메서드로 조회·작성·반응·신고를 처리합니다. Supabase 설정이 없으면 로컬 서비스(`lib/comments/local-service.ts`)를 사용해 작성한 댓글, 반응과 신고가 현재 화면의 메모리에만 남고 새로고침하면 초기 데모 상태로 돌아갑니다.
 
 Supabase 설정이 있으면 같은 계약의 `lib/comments/supabase-service.ts`로 자동 전환합니다. 공개 댓글(`status = 'visible'`)을 작성 순서대로 읽고 작성자 닉네임(`member_profiles`)과 반응(`comment_reactions`)을 합치며, 이미지는 `comment-images/회원-ID/` 폴더에 올린 뒤 저장 실패 시 지웁니다. 반응은 회원별 하나로 추가·전환·취소하고, 중복 신고·답글 단계·권한 오류는 서비스 오류 코드(`DUPLICATE_REPORT`·`INVALID_PARENT`·`SIGN_IN_REQUIRED`)로 바꿔 안내합니다. 두 서비스가 같은 입력 규칙을 쓰도록 검증은 `lib/comments/rules.ts`에 모았습니다.
+
+작성 제한은 `lib/comments/guard.ts`가 수치와 판정을, `lib/comments/banned-words.ts`가 금칙어 목록을 관리합니다.
+
+- 내용 규칙(링크 수·금칙어)은 `validateCommentContent`에 연결되어 화면이 제출 전에 바로 알려 줍니다. 금칙어는 공백과 보이지 않는 글자를 뺀 소문자로 비교하며, 어떤 낱말이 걸렸는지는 알려 주지 않습니다.
+- 빈도 규칙(연속 작성·작성 수·같은 내용)은 `requireCommentAllowed`가 회원의 최근 댓글로 판정합니다. 로컬 서비스는 메모리의 댓글을, Supabase 서비스는 본인의 최근 24시간 댓글(최대 50개)을 조회해 이미지를 올리기 전에 확인합니다.
+- 오류 코드: `TOO_FAST`·`RATE_LIMITED`는 안내 영역에, `INVALID_CONTENT`·`DUPLICATE_CONTENT`는 내용 입력 칸에 표시합니다. 막힌 댓글의 입력 내용은 지우지 않습니다.
+- 데이터베이스(`202610040002_comment_limits.sql`)의 `enforce_comment_limits` 트리거가 같은 수치와 금칙어 표(`comment_banned_words`)로 다시 확인합니다. 화면을 거치지 않은 요청과 내용 수정도 막으며, 오류 표시(`COMMENT_TOO_FAST` 등)는 `toCommentServiceError`가 같은 안내로 바꿉니다. 수치와 금칙어가 화면과 다르면 `tests/comment-guard.test.mjs`가 실패합니다.
+- 기기 시계가 서버보다 늦으면 화면의 연속 작성 판정을 건너뛰고 데이터베이스 판단에 맡깁니다.
+- 주소(IP)별 제한은 없습니다. 댓글이 브라우저에서 Supabase로 바로 저장되어 서버가 주소를 알 수 없습니다.
+- 관리자 댓글 관리 화면은 `describeCommentFlags`로 지금 규칙에 걸리는 기존 댓글에 "자동 감지" 사유를 보여 줍니다.
+
+금칙어를 바꿀 때는 `banned-words.ts`를 고치고, 이미 운영에 적용한 뒤라면 `comment_banned_words` 표를 고치는 새 마이그레이션을 함께 추가합니다.
 
 실제 모드 댓글 작성에는 회원 닉네임이 필요합니다. 닉네임이 없으면 댓글 영역이 로그인 화면의 닉네임 설정으로 안내합니다. `202609120001_member_comments.sql`은 이 흐름의 데이터 구조와 접근 정책을 제공하며, 연결 후 실제 동작은 README의 회원과 댓글 확인 순서로 점검합니다.
 
@@ -364,7 +377,7 @@ devforge_privacy_consent_v1
 - Next 화면: 루트 레이아웃이 `data-i18n-page="next"` 준비 스크립트를 넣고, `app/page-translator.tsx`가 하이드레이션이 끝난 뒤(`useEffect`) 같은 번역기를 시작해 React와 충돌하지 않습니다. 관리자 화면(`/admin`)은 `none`으로 표시해 번역과 언어 버튼을 끕니다. 서버가 그린 한국어 날짜(`2025년 4월 28일`, `2025. 4. 28. 오후 1:05`)는 번역기가 영어 날짜로 바꿉니다.
 - 사전: `public/i18n/en/site.json`(공통 페이지·공통 모듈), `next.json`(Next 화면과 회원·댓글 문구)과 게임 폴더별 `project_*.json`. 형식은 `{ "entries": { 한국어: 영어 }, "patterns": [{ "ko": "{0}개의 뉴스", "en": "{0} posts" }] }`입니다.
 - 번역 순서: 문맥별 문구(`title::게임`, `data-i18n-context`가 붙은 요소 안) → 문구 → 형식 문구(고정 글자가 긴 것부터) → 따옴표·`#` 태그·`·`·`+`·`→`·`/` 조합의 조각별 번역 순서입니다.
-- 방문자가 입력한 글자가 들어가는 형식(`검색: "{0}"`)은 사전에 `"keep": true`를 붙입니다. 자리 값을 번역하지 않고 그대로 두며, 한글이 남아도 둘러싼 문구는 번역합니다.
+- 방문자가 입력한 글자가 들어가는 형식(`검색: "{0}"`, 닉네임이 들어가는 `{0} 이름으로 댓글 작성` 등)은 사전에 `"keep": true`를 붙입니다. 자리 값을 번역하지 않고 그대로 두며, 한글이 남아도 둘러싼 문구는 번역합니다.
 - 화면 글자와 `alt`·`title`·`aria-label`·`placeholder` 속성만 바꾸고 `data-*` 값은 그대로 두어 필터·저장 로직이 깨지지 않습니다. 이후 스크립트가 바꾸는 글자도 `MutationObserver`로 번역합니다.
 - `data-i18n-skip`·`translate="no"` 요소(언어 버튼, 실제 SNS 해시태그)는 번역하지 않습니다. 날짜는 `getPageLocale()`로 영어 화면에서 `en-US` 형식을 씁니다.
 - `scripts/i18n-extract.mjs`가 HTML 글자·속성과 JS 문자열·형식 문구(템플릿과 `+` 연결)를 추출합니다. `pnpm i18n:check`와 `tests/i18n.test.mjs`가 빠진 번역, 원문에서 사라진 번역, 자리 표시 불일치를 검사합니다.
@@ -449,8 +462,9 @@ devforge_privacy_consent_v1
 4. `supabase/migrations/202610010001_member_signup_moderation.sql`
 5. `supabase/migrations/202610010002_member_account_deletion.sql`
 6. `supabase/migrations/202610040001_contact_messages.sql`
+7. `supabase/migrations/202610040002_comment_limits.sql`
 
-첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다. 다섯 번째 파일은 로그인 회원이 본인 계정만 지우는 `delete_own_account` 함수를 만듭니다(관리자 계정과 남은 댓글 이미지가 있으면 거부). 여섯 번째 파일은 문의 양식 접수 테이블 `contact_messages`를 만듭니다. 누구나 대기 상태 문의만 추가할 수 있고, 조회와 처리는 관리자만 할 수 있습니다.
+첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다. 다섯 번째 파일은 로그인 회원이 본인 계정만 지우는 `delete_own_account` 함수를 만듭니다(관리자 계정과 남은 댓글 이미지가 있으면 거부). 여섯 번째 파일은 문의 양식 접수 테이블 `contact_messages`를 만듭니다. 누구나 대기 상태 문의만 추가할 수 있고, 조회와 처리는 관리자만 할 수 있습니다. 일곱 번째 파일은 댓글 작성 제한 트리거(`enforce_comment_limits`)와 관리자만 고칠 수 있는 금칙어 표(`comment_banned_words`)를 만듭니다.
 
 ---
 ### 관리자 권한

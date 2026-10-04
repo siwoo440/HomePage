@@ -178,6 +178,12 @@
     outline-offset: 1px; /* 외곽선 간격 */
 } /* 오류 입력 끝 */
 
+.fieldHint /* 댓글 작성 규칙 안내 */
+{ /* 안내 시작 */
+    color: var(--pl-muted); /* 안내 글자색 */
+    font-size: 0.86rem; /* 안내 글자 크기 */
+} /* 안내 끝 */
+
 .fieldError /* 댓글 필드 오류 */
 { /* 필드 오류 시작 */
     color: var(--pl-danger); /* 오류 글자색 */

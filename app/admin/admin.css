@@ -843,6 +843,16 @@ body /* 관리자 문서 */
     object-fit: contain; /* 비율 유지 */
 } /* 이미지 끝 */
 
+.moderation-flags /* 자동 감지 사유 */
+{ /* 감지 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 8px 12px; /* 안쪽 여백 */
+    border-left: 3px solid var(--admin-danger); /* 강조선 */
+    border-radius: 6px; /* 모서리 */
+    background: color-mix(in srgb, var(--admin-danger) 7%, var(--admin-surface)); /* 감지 배경 */
+    font-size: 0.9rem; /* 글자 크기 */
+} /* 감지 끝 */
+
 .moderation-reports /* 신고 정보 */
 { /* 신고 시작 */
     padding: 10px 12px; /* 안쪽 여백 */

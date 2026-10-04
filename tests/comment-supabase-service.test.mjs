@@ -24,6 +24,8 @@ function createFakeClient(handler) // 가짜 Supabase 클라이언트 생성
             delete() { state.action = "delete"; return builder; }, // 삭제 설정
             eq(column, value) { state.filters.push(["eq", column, value]); return builder; }, // 같음 조건
             in(column, values) { state.filters.push(["in", column, values]); return builder; }, // 포함 조건
+            gte(column, value) { state.filters.push(["gte", column, value]); return builder; }, // 이상 조건
+            limit(count) { state.limit = count; return builder; }, // 개수 제한
             order(column, options) { state.order = [column, options]; return builder; }, // 정렬 설정
             single() { state.mode = "single"; return builder; }, // 단일 결과 설정
             maybeSingle() { state.mode = "maybeSingle"; return builder; }, // 선택 단일 결과 설정
@@ -105,12 +107,14 @@ test("댓글이 없으면 프로필을 조회하지 않고 서버 오류는 연�
 
 test("댓글 작성은 입력을 검증하고 이미지를 본인 폴더에 올린 뒤 저장한다", async () => // 댓글 작성 테스트
 { // 테스트 시작
-    const fake = createFakeClient((state) => state.action === "insert" ? { data: commentRow({ content: state.values.content, image_path: state.values.image_path }), error: null } : null); // 저장 응답 정의
-    const service = createSupabaseCommentService({ client: fake.client, createId: () => "fixed" }); // 테스트 서비스
+    const fake = createFakeClient((state) => state.action === "insert" ? { data: commentRow({ content: state.values.content, image_path: state.values.image_path }), error: null } : { data: [], error: null }); // 저장 응답 정의
+    const service = createSupabaseCommentService({ client: fake.client, createId: () => "fixed", now: () => Date.parse("2026-10-02T00:00:00.000Z") }); // 테스트 서비스
     const file = new Blob(["image"], { type: "image/png" }); // 업로드 파일
     const created = await service.create({ newsId: NEWS_ID, parentId: null, authorId: MEMBER_ID, nickname: "포지", content: "  반가워요  ", image: { url: "", type: "image/png", size: 5, file } }); // 댓글 작성
     assert.deepEqual(fake.storageCalls[0], { action: "upload", bucket: COMMENT_IMAGE_BUCKET, path: `${MEMBER_ID}/fixed.png`, file, options: { contentType: "image/png", upsert: false } }); // 본인 폴더 업로드 확인
-    assert.deepEqual(fake.calls[0].values, { news_id: NEWS_ID, parent_id: null, author_id: MEMBER_ID, content: "반가워요", image_path: `${MEMBER_ID}/fixed.png` }); // 저장 값 확인
+    assert.deepEqual(fake.calls[0].filters, [["eq", "author_id", MEMBER_ID], ["gte", "created_at", "2026-10-01T00:00:00.000Z"]]); // 본인의 최근 24시간 댓글 조회 확인
+    assert.deepEqual([fake.calls[0].action, fake.calls[0].columns, fake.calls[0].limit], ["select", "content, created_at", 50]); // 조회 범위 확인
+    assert.deepEqual(fake.calls[1].values, { news_id: NEWS_ID, parent_id: null, author_id: MEMBER_ID, content: "반가워요", image_path: `${MEMBER_ID}/fixed.png` }); // 저장 값 확인
     assert.equal(created.nickname, "포지"); // 작성자 이름 확인
     assert.equal(created.imageUrl, `https://cdn.test/${COMMENT_IMAGE_BUCKET}/${MEMBER_ID}/fixed.png`); // 이미지 주소 확인
     assert.equal(created.reactions.like.count, 0); // 초기 반응 확인
@@ -118,7 +122,7 @@ test("댓글 작성은 입력을 검증하고 이미지를 본인 폴더에 올�
 
 test("잘못된 댓글은 서버 요청 없이 거부하고 저장 실패 시 올린 이미지를 지운다", async () => // 작성 실패 테스트
 { // 테스트 시작
-    const fake = createFakeClient((state) => state.action === "insert" ? { data: null, error: { code: "P0001", message: "INVALID_COMMENT_PARENT" } } : null); // 부모 오류 응답
+    const fake = createFakeClient((state) => state.action === "insert" ? { data: null, error: { code: "P0001", message: "INVALID_COMMENT_PARENT" } } : { data: [], error: null }); // 부모 오류 응답
     const service = createSupabaseCommentService({ client: fake.client, createId: () => "fixed" }); // 테스트 서비스
     const base = { newsId: NEWS_ID, parentId: "reply-1", authorId: MEMBER_ID, nickname: "포지", content: "답글", image: null }; // 기본 입력
     await assert.rejects(service.create({ ...base, content: "   " }), expectServiceError("INVALID_CONTENT")); // 빈 내용 거부 확인

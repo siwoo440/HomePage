@@ -126,6 +126,10 @@ test("방문자가 입력한 글자는 번역하지 않고 그대로 두되 둘�
     assert.equal(translator.translate("종류: 버그픽스 ×"), "Type: Bug fix ×"); // 번역되는 자리 값 확인
     assert.equal(translator.translate("종류: 없는말 ×"), null); // 입력 유지가 아닌 형식은 미번역 값 거부 확인
     assert.equal(JSON.parse(read("public/i18n/en/site.json")).patterns.find((pattern) => pattern.ko === "검색: \"{0}\"").keep, true); // 실제 사전 표시 확인
+    const nickname = createTranslator([JSON.parse(read("public/i18n/en/site.json")), JSON.parse(read("public/i18n/en/next.json"))]); // 실제 사전 번역기
+    assert.equal(nickname.translate("테스터 이름으로 댓글 작성"), "Write a comment as 테스터"); // 한글 닉네임 유지 확인
+    assert.equal(nickname.translate("테스터 댓글 신고 사유"), "Reason for reporting 테스터's comment"); // 신고 사유 이름 확인
+    assert.equal(nickname.translate("테스터 회원 메뉴 (로그아웃 가능)"), "테스터 member menu (log out)"); // 회원 메뉴 이름 확인
 }); // 테스트 끝
 
 test("문맥 표시가 있는 제목은 같은 낱말도 문맥별 번역을 먼저 쓴다", () => // 문맥 번역 검사

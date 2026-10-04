@@ -1,6 +1,7 @@
 "use client"; // 브라우저 상호작용 모듈
 
 import { useState } from "react"; // 화면 상태 도구
+import { describeCommentFlags } from "@/lib/comments/guard"; // 자동 감지 규칙
 import { countPendingReports, getAvailableActions, getReportReasonLabel, MODERATION_ACTION_LABELS, MODERATION_NOTE_MAX_LENGTH, summarizePendingReasons, type ModerationAction, type ModerationActionResult, type ModerationFilter, type ModerationItem } from "@/lib/comments/moderation"; // 댓글 관리 도구
 
 interface ModerationBoardProps // 관리 목록 속성
@@ -67,6 +68,7 @@ export default function ModerationBoard({ initialItems, filter, onApply }: Moder
                     const pending = countPendingReports(item); // 대기 신고 수
                     const actions = getAvailableActions(item); // 가능한 처리
                     const busy = busyId === item.commentId; // 처리 중 여부
+                    const flags = item.status === "deleted" ? [] : describeCommentFlags(item.content); // 현재 규칙에 걸리는 사유
                     return ( // 항목 카드 반환
                         <article className="moderation-card" data-status={item.status} key={item.commentId} aria-busy={busy}> {/* 항목 카드 */}
                             <header className="moderation-card-header"> {/* 작성 정보 */}
@@ -78,6 +80,7 @@ export default function ModerationBoard({ initialItems, filter, onApply }: Moder
                             </header> {/* 작성 정보 끝 */}
                             <p className="moderation-news">뉴스 · <a href={`/news/${item.newsId}`}>{item.newsTitle}</a></p> {/* 뉴스 연결 */}
                             <p className="moderation-content">{item.content}</p> {/* 댓글 내용 */}
+                            {flags.length > 0 ? <p className="moderation-flags"><strong>자동 감지</strong> · {flags.join(", ")} — 지금 규칙으로는 등록되지 않는 댓글입니다.</p> : null} {/* 자동 감지 사유 */}
                             {item.imageUrl ? <img className="moderation-image" src={item.imageUrl} alt="댓글 첨부 이미지" /> : null} {/* 첨부 이미지 */}
                             {item.reports.length > 0 ? ( // 신고 기록 확인
                                 <div className="moderation-reports"> {/* 신고 정보 */}

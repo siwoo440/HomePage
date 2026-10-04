@@ -1,5 +1,5 @@
 import { toggleCommentReaction, type CommentReaction, type NewsComment, type ReactionType } from "./domain.ts"; // 댓글 도메인 도구
-import { requireCommentContent, requireCommentImage, requireReportDetail, requireReportReason } from "./rules.ts"; // 댓글 공통 규칙
+import { requireCommentAllowed, requireCommentContent, requireCommentImage, requireReportDetail, requireReportReason } from "./rules.ts"; // 댓글 공통 규칙
 import { CommentServiceError, type CommentReport, type CommentService, type CreateCommentInput, type ReportCommentInput } from "./service.ts"; // 댓글 서비스 형식
 
 interface LocalCommentServiceOptions // 로컬 서비스 설정
@@ -83,6 +83,8 @@ export function createLocalCommentService(options: LocalCommentServiceOptions): 
             const content = requireCommentContent(input.content); // 댓글 내용 검증
             const image = requireCommentImage(input.image); // 이미지 입력 검증
             const parentId = validateParent(comments, input); // 부모 댓글 검증
+            const createdAt = now(); // 작성 시각
+            requireCommentAllowed(content, comments.filter((comment) => comment.authorId === input.authorId), Date.parse(createdAt)); // 작성 빈도·반복 확인
             const created: NewsComment = // 새 댓글 생성
             { // 댓글 시작
                 id: createId("comment"), // 댓글 식별자
@@ -92,7 +94,7 @@ export function createLocalCommentService(options: LocalCommentServiceOptions): 
                 nickname: input.nickname, // 작성자 이름
                 content, // 정리된 댓글 내용
                 imageUrl: image?.url ?? null, // 이미지 주소
-                createdAt: now(), // 작성 시각
+                createdAt, // 작성 시각
                 reactions: createEmptyReactions(), // 초기 반응
             }; // 댓글 끝
             comments = [...comments, created]; // 내부 댓글 추가

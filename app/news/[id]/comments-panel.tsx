@@ -4,6 +4,7 @@ import Link from "next/link"; // 내부 이동 링크
 import type { SupabaseClient } from "@supabase/supabase-js"; // Supabase 클라이언트 형식
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type FormEvent } from "react"; // 화면 상태 도구
 import { createDemoComments, REPORT_REASONS, REACTION_TYPES, validateCommentContent, validateCommentImage, type NewsComment, type ReactionType, type ReportReason } from "@/lib/comments/domain"; // 댓글 규칙 도구
+import { COMMENT_MAX_LINKS, COMMENT_MIN_INTERVAL_SECONDS } from "@/lib/comments/guard"; // 작성 제한 수치
 import { createLocalCommentService } from "@/lib/comments/local-service"; // 로컬 댓글 서비스
 import { CommentServiceError, type CommentService } from "@/lib/comments/service"; // 댓글 서비스 형식
 import { createSupabaseCommentService } from "@/lib/comments/supabase-service"; // Supabase 댓글 서비스
@@ -29,6 +30,8 @@ type MemberStatus = "checking" | "signed-out" | "needs-nickname" | "signed-in"; 
 
 const REACTION_LABELS: Record<ReactionType, string> = { like: "좋아요", cheer: "응원", curious: "궁금해요" }; // 반응 표시 이름
 const COMMENT_FIELD_ORDER = ["content", "image"] as const; // 댓글 필드 순서
+const CONTENT_ERROR_CODES = ["INVALID_CONTENT", "DUPLICATE_CONTENT"]; // 내용을 고쳐야 하는 오류 코드
+const COMMENT_RULE_HINT = `링크는 ${COMMENT_MAX_LINKS}개까지 넣을 수 있고, 댓글은 ${COMMENT_MIN_INTERVAL_SECONDS}초에 한 번 쓸 수 있습니다.`; // 작성 규칙 안내
 
 function getCommentErrorMessage(error: unknown, fallback: string): string // 댓글 오류 메시지 추출
 { // 함수 시작
@@ -103,6 +106,7 @@ export default function CommentsPanel({ newsId, demoMode }: CommentsPanelProps) 
     const [reportedIds, setReportedIds] = useState<string[]>([]); // 신고 완료 목록
     const [reportReasons, setReportReasons] = useState<Record<string, ReportReason>>({}); // 댓글별 신고 사유
     const imageInputRef = useRef<HTMLInputElement>(null); // 이미지 입력 참조
+    const contentInputRef = useRef<HTMLTextAreaElement>(null); // 내용 입력 참조
     const loginHref = `/login?returnTo=${encodeURIComponent(`/news/${newsId}`)}`; // 로그인 복귀 주소
 
     useEffect(() => // 실제 모드 클라이언트 준비
@@ -299,8 +303,17 @@ export default function CommentsPanel({ newsId, demoMode }: CommentsPanelProps) 
         } // 시도 끝
         catch (error: unknown) // 댓글 작성 오류
         { // 오류 처리 시작
-            setMessage(getCommentErrorMessage(error, "댓글을 등록하지 못했습니다.")); // 작성 오류 안내
-            setMessageRole("alert"); // 작성 오류 역할
+            if (error instanceof CommentServiceError && CONTENT_ERROR_CODES.includes(error.code)) // 내용을 고쳐야 하는 오류 확인
+            { // 조건 시작
+                setContentError(error.message); // 내용 칸에 오류 표시
+                setMessage(""); // 이전 안내 제거
+                window.setTimeout(() => contentInputRef.current?.focus(), 0); // 입력이 다시 켜진 뒤 내용 칸 포커스
+            } // 조건 끝
+            else // 그 밖의 오류
+            { // 대안 시작
+                setMessage(getCommentErrorMessage(error, "댓글을 등록하지 못했습니다.")); // 작성 오류 안내
+                setMessageRole("alert"); // 작성 오류 역할
+            } // 대안 끝
         } // 오류 처리 끝
         finally // 등록 종료 처리
         { // 정리 시작
@@ -388,7 +401,8 @@ export default function CommentsPanel({ newsId, demoMode }: CommentsPanelProps) 
                 <form className={styles.commentForm} onSubmit={handleSubmit} noValidate aria-busy={isSubmitting}> {/* 댓글 입력 폼 */}
                     <label htmlFor="comment-content">{replyTo ? "답글 작성" : `${profile.nickname} 이름으로 댓글 작성`}</label> {/* 댓글 입력 이름 */}
                     {replyTo ? <button className={styles.cancelReply} type="button" onClick={() => setReplyTo(null)}>답글 취소</button> : null} {/* 답글 취소 버튼 */}
-                    <textarea id="comment-content" name="content" value={content} onChange={handleContentChange} maxLength={2000} placeholder="서로 존중하는 댓글을 남겨 주세요." aria-invalid={Boolean(contentError)} aria-describedby={contentError ? "comment-content-error" : undefined} disabled={isSubmitting} /> {/* 댓글 내용 입력 */}
+                    <textarea id="comment-content" ref={contentInputRef} name="content" value={content} onChange={handleContentChange} maxLength={2000} placeholder="서로 존중하는 댓글을 남겨 주세요." aria-invalid={Boolean(contentError)} aria-describedby={contentError ? "comment-content-error comment-content-hint" : "comment-content-hint"} disabled={isSubmitting} /> {/* 댓글 내용 입력 */}
+                    <small className={styles.fieldHint} id="comment-content-hint">{COMMENT_RULE_HINT}</small> {/* 작성 규칙 안내 */}
                     {contentError ? <small className={styles.fieldError} id="comment-content-error" role="alert">{contentError}</small> : null} {/* 댓글 내용 오류 */}
                     <div className={styles.formActions}> {/* 입력 작업 묶음 */}
                         <label className={styles.imageButton} htmlFor="comment-image" aria-disabled={isSubmitting}> {/* 이미지 선택 영역 */}

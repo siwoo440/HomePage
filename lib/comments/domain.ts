@@ -1,3 +1,5 @@
+import { checkCommentContentRules } from "./guard.ts"; // 링크·금칙어 규칙
+
 export const COMMENT_IMAGE_MAX_BYTES = 5 * 1024 * 1024; // 이미지 최대 용량
 export const COMMENT_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"] as const; // 이미지 허용 형식
 export const REACTION_TYPES = ["like", "cheer", "curious"] as const; // 반응 종류
@@ -52,6 +54,13 @@ export function validateCommentContent(content: string): ValidationResult<string
     if (value.length > 2000) // 최대 길이 확인
     { // 조건 시작
         return { ok: false, message: "댓글은 2,000자 이하로 입력해 주세요." }; // 긴 내용 오류
+    } // 조건 끝
+
+    const blocked = checkCommentContentRules(value); // 링크 수·금칙어 확인
+
+    if (blocked) // 내용 규칙 위반 확인
+    { // 조건 시작
+        return { ok: false, message: blocked.message }; // 내용 규칙 오류
     } // 조건 끝
 
     return { ok: true, value }; // 정상 내용 반환

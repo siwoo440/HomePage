@@ -2,7 +2,7 @@ import fs from "node:fs"; // 파일 읽기 도구
 import path from "node:path"; // 경로 처리 도구
 import { fileURLToPath } from "node:url"; // 실행 경로 변환 도구
 
-export const SUPABASE_MIGRATIONS = ["202609100001_admin_news.sql", "202609110001_admin_products.sql", "202609120001_member_comments.sql", "202610010001_member_signup_moderation.sql", "202610010002_member_account_deletion.sql", "202610040001_contact_messages.sql"]; // 적용 순서
+export const SUPABASE_MIGRATIONS = ["202609100001_admin_news.sql", "202609110001_admin_products.sql", "202609120001_member_comments.sql", "202610010001_member_signup_moderation.sql", "202610010002_member_account_deletion.sql", "202610040001_contact_messages.sql", "202610040002_comment_limits.sql"]; // 적용 순서
 const SECRET_KEY_KINDS = new Set(["secret", "service-role-jwt"]); // 비밀 키 종류
 const RESULT_ICONS = { ok: "✓", warn: "!", error: "✗" }; // 결과 표시 기호
 

@@ -179,7 +179,9 @@ css-styling/
 | `lib/site-url.ts` | 공개 사이트 주소(`SITE_URL`·Vercel 주소)와 검색 노출·제외 경로 |
 | `lib/comments/domain.ts` | 댓글, 이미지, 반응과 신고 규칙 |
 | `lib/comments/service.ts` | 댓글 저장소 공통 계약과 오류 형식 |
-| `lib/comments/rules.ts` | 로컬·Supabase 댓글 서비스 공통 입력 검증 |
+| `lib/comments/rules.ts` | 로컬·Supabase 댓글 서비스 공통 입력 검증과 작성 제한 오류 변환 |
+| `lib/comments/guard.ts` | 댓글 작성 제한 수치와 판정(연속 작성·작성 수·같은 내용·링크 수·금칙어), 안내 문구, 관리자 자동 감지 사유 |
+| `lib/comments/banned-words.ts` | 댓글 금칙어 목록(데이터베이스 표와 같은 목록) |
 | `lib/comments/local-service.ts` | 새로고침 시 초기화되는 메모리 댓글 저장소 |
 | `lib/comments/supabase-service.ts` | 같은 계약의 Supabase 댓글 저장소(조회·작성·이미지·반응·신고) |
 | `lib/comments/moderation.ts` | 관리자 댓글 처리 규칙과 데모·Supabase 관리 서비스 |
@@ -332,6 +334,7 @@ css-styling/
 | `202610010001_member_signup_moderation.sql` | 가입 동의 시각 열, 공개 프로필 열 제한, 관리자 전용 댓글 상태·신고 처리 권한 |
 | `202610010002_member_account_deletion.sql` | 회원 본인 탈퇴 함수(`delete_own_account`, 관리자 계정·남은 이미지 거부) |
 | `202610040001_contact_messages.sql` | 문의 양식 접수 테이블(누구나 추가, 관리자만 조회·처리) |
+| `202610040002_comment_limits.sql` | 댓글 작성 제한 트리거, 관리자 전용 금칙어 표, 회원별 최근 댓글 색인 |
 
 파일명 앞 숫자는 적용 순서입니다. 운영에 적용한 SQL 파일을 고치는 대신 새로운 번호의 마이그레이션을 추가합니다.
 
@@ -392,6 +395,7 @@ css-styling/
 - `comment-local-service.test.mjs`: 로컬 댓글 조회·작성·답글·반응·신고와 초기화 정책
 - `comment-panel-service.test.mjs`: 댓글 화면과 로컬 서비스의 연결 계약
 - `comment-supabase-service.test.mjs`: Supabase 댓글 저장소의 같은 계약
+- `comment-guard.test.mjs`: 댓글 작성 제한 규칙, 두 서비스의 적용, 데이터베이스 제한과 수치·금칙어 일치, 화면 안내와 관리자 자동 감지
 - `comment-moderation.test.mjs`: 관리자 댓글 처리 규칙과 데모·Supabase 관리 서비스
 - `member-profile.test.mjs`: 닉네임 규칙과 프로필 조회·저장
 - `member-session-server.test.mjs`: 서버 회원 상태 확인과 공개 정보만 담은 응답
@@ -512,6 +516,7 @@ ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `publi
 | 상품 관리 | `app/admin/products/` | `lib/products/`, 상품 마이그레이션 |
 | 로그인 권한 | `lib/auth/admin-policy.ts` | `proxy.ts`, Supabase 클라이언트 |
 | 댓글 | `app/news/[id]/comments-panel.tsx` | `lib/comments/domain.ts`, `lib/comments/service.ts`, `lib/comments/local-service.ts`, `lib/comments/supabase-service.ts`, 댓글 마이그레이션 |
+| 댓글 작성 제한 | `lib/comments/guard.ts` | `lib/comments/banned-words.ts`, `lib/comments/rules.ts`, `202610040002_comment_limits.sql`, `app/admin/comments/moderation-board.tsx` |
 | 회원가입·간편 로그인 | `lib/member/auth-providers.ts` | `app/signup/`, `app/login/social-login-buttons.tsx`, `lib/member/signup.ts`, `app/auth/` |
 | 개발 뉴스 검색·필터 | `public/devlog.mjs` | `public/devlog.html`, `public/devlog.css`, `public/playful-lab-theme.css` |
 | 개발 로드맵 | `public/roadmap.mjs` | `public/roadmap.html`, `public/roadmap.css`, `public/game-projects.mjs` |
