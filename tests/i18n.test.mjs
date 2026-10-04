@@ -116,6 +116,18 @@ test("번역기는 따옴표·태그·기호 조합을 풀어 번역하고 더 �
     assert.equal(translator.translate("탭 튜토리얼 이미지"), "Tap tutorial image"); // 구체적 형식 우선 확인
 }); // 테스트 끝
 
+test("방문자가 입력한 글자는 번역하지 않고 그대로 두되 둘러싼 문구는 번역한다", () => // 입력 유지 형식 검사
+{ // 테스트 시작
+    const translator = createTranslator([{ entries: { "버그픽스": "Bug fix" }, patterns: [{ ko: "검색: \"{0}\"", en: "Search: \"{0}\"", keep: true }, { ko: "종류: {0}", en: "Type: {0}" }, { ko: "{0} 조건 해제", en: "Remove filter: {0}" }, { ko: "{0} ×", en: "{0} ×" }] }]); // 시험 사전
+    assert.equal(translator.translate("검색: \"은하계\""), "Search: \"은하계\""); // 한글 검색어 유지 확인
+    assert.equal(translator.translate("검색: \"은하계\" ×"), "Search: \"은하계\" ×"); // 칩 문구 확인
+    assert.equal(translator.translate("검색: \"은하계\" 조건 해제"), "Remove filter: Search: \"은하계\""); // 접근성 이름 확인
+    assert.equal(translator.translate("검색: \"galaxy\" ×"), "Search: \"galaxy\" ×"); // 영어 검색어 확인
+    assert.equal(translator.translate("종류: 버그픽스 ×"), "Type: Bug fix ×"); // 번역되는 자리 값 확인
+    assert.equal(translator.translate("종류: 없는말 ×"), null); // 입력 유지가 아닌 형식은 미번역 값 거부 확인
+    assert.equal(JSON.parse(read("public/i18n/en/site.json")).patterns.find((pattern) => pattern.ko === "검색: \"{0}\"").keep, true); // 실제 사전 표시 확인
+}); // 테스트 끝
+
 test("문맥 표시가 있는 제목은 같은 낱말도 문맥별 번역을 먼저 쓴다", () => // 문맥 번역 검사
 { // 테스트 시작
     const translator = createTranslator([{ entries: { "게임": "Games", "title::게임": "Game" }, patterns: [] }]); // 시험 사전

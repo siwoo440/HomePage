@@ -134,7 +134,7 @@ Next.js 서버
 | --- | --- | --- |
 | `/main.html` | `public/main.html` | 캐러셀, 프로젝트 목록, 관심·최근 목록, 소개, FAQ, ChatBot 연결 |
 | `/goods.html` | `public/goods.html` | 공개 상품과 재고 상태 |
-| `/devlog.html` | `public/devlog.html` | 공개 개발 뉴스와 태그 필터 |
+| `/devlog.html` | `public/devlog.html` | 공개 개발 뉴스와 검색·종류 필터 |
 | `/community.html` | `public/community.html` | 게임별 플랫폼 콘텐츠와 해시태그 |
 | `/contact.html` | `public/contact.html` | 자주 묻는 질문과 문의 양식 |
 | `/roadmap.html` | `public/roadmap.html` | 단계별 개발 로드맵과 장르 필터 |
@@ -239,6 +239,13 @@ Supabase가 없을 때 공개 개발 소식 목록은 `public/devlog.html`의 �
 대표 이미지는 JPEG, PNG, WebP 형식과 5MB 이하만 허용합니다. 검증 규칙은 `lib/news/validation.ts`에서 관리합니다.
 
 뉴스 목록은 `public/data-state.mjs`의 공통 요청을 사용합니다. 응답이 비었거나 서버 연결이 실패하면 기존 데모 뉴스를 유지하고 상태 카드에서 원인과 다시 시도 동작을 제공합니다.
+
+뉴스 목록의 검색과 종류 필터는 `public/devlog.mjs`가 처리합니다.
+
+- 조건 계산: `buildNewsView`가 종류(`NEWS_TYPES`)와 검색어를 함께 적용합니다. 검색 대상은 제목·요약·종류 이름이며, 영어 화면에서는 `getNewsSearchText`가 원문과 영어 번역을 함께 넣습니다.
+- 주소 저장: `parseNewsParams`·`serializeNewsParams`가 `?q=&type=`을 읽고 씁니다. 검색어는 60자로 자르고 허용되지 않은 종류는 전체로 읽습니다. 주소는 기록을 쌓지 않는 `replaceState`로 바꿉니다.
+- 화면: 조건 칩(`describeNewsFilters`)과 결과 수(`formatNewsCount`), 초기화 버튼. 검색 정보는 번역되기 전의 제목·요약을 행마다 한 번 읽어 두고, 서버 뉴스로 목록을 바꿀 때 다시 읽습니다.
+- 게임별 필터는 뉴스 데이터에 게임 항목이 생긴 뒤에 추가합니다.
 
 ---
 ### 6.5 상품과 재고 상태
@@ -357,6 +364,7 @@ devforge_privacy_consent_v1
 - Next 화면: 루트 레이아웃이 `data-i18n-page="next"` 준비 스크립트를 넣고, `app/page-translator.tsx`가 하이드레이션이 끝난 뒤(`useEffect`) 같은 번역기를 시작해 React와 충돌하지 않습니다. 관리자 화면(`/admin`)은 `none`으로 표시해 번역과 언어 버튼을 끕니다. 서버가 그린 한국어 날짜(`2025년 4월 28일`, `2025. 4. 28. 오후 1:05`)는 번역기가 영어 날짜로 바꿉니다.
 - 사전: `public/i18n/en/site.json`(공통 페이지·공통 모듈), `next.json`(Next 화면과 회원·댓글 문구)과 게임 폴더별 `project_*.json`. 형식은 `{ "entries": { 한국어: 영어 }, "patterns": [{ "ko": "{0}개의 뉴스", "en": "{0} posts" }] }`입니다.
 - 번역 순서: 문맥별 문구(`title::게임`, `data-i18n-context`가 붙은 요소 안) → 문구 → 형식 문구(고정 글자가 긴 것부터) → 따옴표·`#` 태그·`·`·`+`·`→`·`/` 조합의 조각별 번역 순서입니다.
+- 방문자가 입력한 글자가 들어가는 형식(`검색: "{0}"`)은 사전에 `"keep": true`를 붙입니다. 자리 값을 번역하지 않고 그대로 두며, 한글이 남아도 둘러싼 문구는 번역합니다.
 - 화면 글자와 `alt`·`title`·`aria-label`·`placeholder` 속성만 바꾸고 `data-*` 값은 그대로 두어 필터·저장 로직이 깨지지 않습니다. 이후 스크립트가 바꾸는 글자도 `MutationObserver`로 번역합니다.
 - `data-i18n-skip`·`translate="no"` 요소(언어 버튼, 실제 SNS 해시태그)는 번역하지 않습니다. 날짜는 `getPageLocale()`로 영어 화면에서 `en-US` 형식을 씁니다.
 - `scripts/i18n-extract.mjs`가 HTML 글자·속성과 JS 문자열·형식 문구(템플릿과 `+` 연결)를 추출합니다. `pnpm i18n:check`와 `tests/i18n.test.mjs`가 빠진 번역, 원문에서 사라진 번역, 자리 표시 불일치를 검사합니다.

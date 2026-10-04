@@ -46,9 +46,13 @@
             <section class="filter-panel" aria-labelledby="filter-title"> <!-- 필터 영역 -->
                 <div> <!-- 필터 제목 묶음 -->
                     <p class="eyebrow">NEWS FILTER</p> <!-- 필터 영문 분류 -->
-                    <h2 id="filter-title">태그별 뉴스</h2> <!-- 필터 제목 -->
+                    <h2 id="filter-title">뉴스 찾기</h2> <!-- 필터 제목 -->
                 </div> <!-- 필터 제목 묶음 끝 -->
-                <div class="filter-buttons" role="group" aria-label="뉴스 태그 필터"> <!-- 필터 버튼 묶음 -->
+                <label class="news-search-field"> <!-- 뉴스 검색 -->
+                    <span class="news-search-icon" aria-hidden="true">⌕</span> <!-- 검색 아이콘 -->
+                    <input class="news-search-input" type="search" data-news-search aria-label="뉴스 검색" placeholder="제목 또는 내용 검색" maxlength="60" autocomplete="off"> <!-- 검색 입력 -->
+                </label> <!-- 뉴스 검색 끝 -->
+                <div class="filter-buttons" role="group" aria-label="뉴스 종류 필터"> <!-- 필터 버튼 묶음 -->
                     <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">전체</button> <!-- 전체 필터 -->
                     <button class="filter-button" type="button" data-filter="update" aria-pressed="false">업데이트</button> <!-- 업데이트 필터 -->
                     <button class="filter-button" type="button" data-filter="feature" aria-pressed="false">신기능</button> <!-- 신기능 필터 -->
@@ -56,6 +60,10 @@
                     <button class="filter-button" type="button" data-filter="fix" aria-pressed="false">버그픽스</button> <!-- 버그픽스 필터 -->
                 </div> <!-- 필터 버튼 묶음 끝 -->
                 <p id="result-count" class="result-count" aria-live="polite">4개의 뉴스</p> <!-- 검색 결과 개수 -->
+                <div class="news-filter-summary" data-news-summary hidden> <!-- 적용 조건 요약 줄 -->
+                    <div class="news-active-filters" data-news-active-filters role="group" aria-label="적용 중인 조건"></div> <!-- 적용 조건 칩 -->
+                    <button class="news-filter-reset" type="button" data-news-reset>조건 초기화</button> <!-- 전체 조건 초기화 -->
+                </div> <!-- 적용 조건 요약 줄 끝 -->
                 <section id="news-load-status" class="data-state-panel" data-state-host data-state="loading" role="status" aria-live="polite" aria-busy="true"> <!-- 뉴스 조회 상태 -->
                     <img class="data-state-icon" src="/images/states/loading.svg" alt="" aria-hidden="true"> <!-- 로딩 상태 아이콘 -->
                     <div class="data-state-copy"><strong class="data-state-title">뉴스 확인 중</strong><p class="data-state-message">등록된 최신 뉴스를 불러오고 있습니다.</p></div> <!-- 로딩 상태 문구 -->
@@ -112,14 +120,14 @@
                     <a class="news-row-hit" href="/news/demo-blade-rift" aria-label="블레이드 리프트 개발 뉴스 상세 보기"></a> <!-- 뉴스 상세 이동 -->
                 </article> <!-- 블레이드 리프트 뉴스 끝 -->
             </section> <!-- 뉴스 목록 끝 -->
-            <p id="empty-state" class="empty-state" hidden>선택한 태그의 뉴스가 없습니다.</p> <!-- 빈 결과 안내 -->
+            <div id="empty-state" class="empty-state" hidden><p>조건에 맞는 뉴스가 없습니다.</p><button class="news-filter-reset" type="button" data-news-reset>검색 조건 초기화</button></div> <!-- 빈 결과 안내와 초기화 -->
         </main> <!-- 주요 내용 끝 -->
         <footer class="site-footer"> <!-- 하단 정보 시작 -->
             <span>DEVFORGE Development News</span> <!-- 하단 이름 -->
             <a href="/admin/login">관리자 로그인</a> <!-- 관리자 로그인 이동 -->
         </footer> <!-- 하단 정보 끝 -->
     </div> <!-- 전체 너비 영역 끝 -->
-    <script type="module" src="devlog.mjs"></script> <!-- 필터 동작 연결 -->
+    <script type="module" src="devlog.mjs"></script> <!-- 검색과 필터 동작 연결 -->
     <script type="module" src="member-session.mjs"></script> <!-- 회원 상태 연결 -->
     <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
     <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->

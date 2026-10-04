@@ -90,7 +90,7 @@ function escapeRegExp(value) // 정규식 문자 처리
 export function compilePattern(pattern) // 형식 번역 규칙 생성
 { // 함수 시작
     const source = escapeRegExp(normalizeText(pattern.ko)).replace(/\\\{(\d+)\\\}/g, "(?<p$1>.+?)"); // 자리 표시 변환
-    return { regex: new RegExp(`^${source}$`, "u"), en: pattern.en, weight: pattern.ko.replace(/\{\d+\}/g, "").length }; // 규칙과 고정 글자 수 반환
+    return { regex: new RegExp(`^${source}$`, "u"), en: pattern.en, weight: pattern.ko.replace(/\{\d+\}/g, "").length, keep: pattern.keep === true }; // 규칙·고정 글자 수·입력 유지 여부 반환
 } // 함수 끝
 
 export function normalizeText(value) // 비교용 문구 정리
@@ -119,13 +119,14 @@ export function createTranslator(dictionaries) // 번역기 생성
 
     patterns.sort((left, right) => right.weight - left.weight); // 구체적인 형식 먼저 비교
 
-    function translatePiece(value, depth) // 끼워진 값 번역
+    function resolvePiece(value, depth) // 끼워진 값 번역과 완료 여부
     { // 함수 시작
         if (value.startsWith("#") || !HANGUL.test(value)) // 해시태그·비한글 확인
         { // 조건 시작
-            return value; // 원래 값 유지
+            return { text: value, done: true }; // 원래 값 유지
         } // 조건 끝
-        return translateNormalized(normalizeText(value), depth + 1) ?? value; // 번역 또는 원래 값
+        const translated = translateNormalized(normalizeText(value), depth + 1); // 끼워진 값 번역
+        return translated === null ? { text: value, done: !hasUntranslated(value) } : { text: translated, done: true }; // 번역 또는 원래 값
     } // 함수 끝
 
     function translateNormalized(key, depth = 0) // 정리된 문구 번역
@@ -143,8 +144,19 @@ export function createTranslator(dictionaries) // 번역기 생성
             const match = pattern.regex.exec(key); // 형식 일치 확인
             if (match) // 일치 확인
             { // 조건 시작
-                const result = pattern.en.replace(/\{(\d+)\}/g, (placeholder, index) => translatePiece(match.groups?.[`p${index}`] ?? "", depth)); // 자리 값 채우기
-                if (!hasUntranslated(result)) // 완전 번역 확인
+                let done = true; // 모든 자리 값 번역 완료 여부
+                const result = pattern.en.replace(/\{(\d+)\}/g, (placeholder, index) => // 자리 값 채우기
+                { // 채우기 시작
+                    const value = match.groups?.[`p${index}`] ?? ""; // 자리 원문 값
+                    if (pattern.keep) // 방문자 입력 자리 확인
+                    { // 조건 시작
+                        return value; // 입력한 글자 그대로 유지
+                    } // 조건 끝
+                    const piece = resolvePiece(value, depth); // 자리 값 번역
+                    done = done && piece.done; // 완료 여부 누적
+                    return piece.text; // 자리 값 반환
+                }); // 채우기 끝
+                if (done) // 완전 번역 확인
                 { // 조건 시작
                     return result; // 형식 번역 반환
                 } // 조건 끝
@@ -168,8 +180,8 @@ export function createTranslator(dictionaries) // 번역기 생성
         } // 조건 끝
         if (/ (?:·|\+|→|\/|\|) /.test(key)) // 기호 조합 문구 확인
         { // 조건 시작
-            const pieces = key.split(/( (?:·|\+|→|\/|\|) )/).map((piece, index) => (index % 2 === 1 ? piece : translatePiece(piece, depth))); // 조각별 번역
-            return pieces.some((piece) => hasUntranslated(piece)) ? null : pieces.join(""); // 모두 번역된 경우만 반환
+            const pieces = key.split(/( (?:·|\+|→|\/|\|) )/).map((piece, index) => (index % 2 === 1 ? { text: piece, done: true } : resolvePiece(piece, depth))); // 조각별 번역
+            return pieces.every((piece) => piece.done) ? pieces.map((piece) => piece.text).join("") : null; // 모두 번역된 경우만 반환
         } // 조건 끝
         return null; // 번역 없음
     } // 함수 끝

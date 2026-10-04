@@ -793,6 +793,67 @@
     color: var(--pl-canvas); /* 선택 글자색 */
 } /* 선택 끝 */
 
+[data-theme="playful-lab"][data-responsive-page="news"] .news-search-field /* 뉴스 검색창 */
+{ /* 검색창 시작 */
+    border-color: var(--pl-border); /* 검색창 경계선 */
+    border-radius: var(--pl-radius-small); /* 검색창 모서리 */
+    background: var(--pl-surface); /* 검색창 배경 */
+    min-height: 3.5rem; /* 검색창 높이 */
+} /* 검색창 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .news-search-field:focus-within /* 뉴스 검색창 초점 */
+{ /* 검색 초점 시작 */
+    border-color: var(--pl-violet); /* 초점 경계선 */
+    background: var(--pl-canvas); /* 초점 배경 */
+    box-shadow: var(--pl-focus); /* 초점 그림자 */
+} /* 검색 초점 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .news-search-icon /* 뉴스 검색 아이콘 */
+{ /* 검색 아이콘 시작 */
+    color: var(--pl-link); /* 검색 아이콘 색상 */
+} /* 검색 아이콘 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .news-search-input /* 뉴스 검색 입력 */
+{ /* 검색 입력 시작 */
+    border: 0; /* 내부 경계선 제거 */
+    border-radius: 0; /* 내부 모서리 제거 */
+    background: transparent; /* 내부 배경 제거 */
+    color: var(--pl-ink); /* 검색 글자색 */
+    min-height: 2.75rem; /* 입력 높이 */
+    padding: 0; /* 내부 여백 제거 */
+} /* 검색 입력 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .news-search-input::placeholder /* 뉴스 검색 안내 */
+{ /* 검색 안내 시작 */
+    color: var(--pl-muted); /* 안내 글자색 */
+    opacity: 1; /* 안내 불투명도 */
+} /* 검색 안내 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .news-search-input:focus-visible /* 뉴스 검색 내부 초점 */
+{ /* 내부 초점 시작 */
+    outline: none; /* 중복 외곽선 제거 */
+} /* 내부 초점 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] :is(.news-filter-chip, .news-filter-reset) /* 뉴스 조건 칩 */
+{ /* 조건 칩 시작 */
+    border-color: var(--pl-violet); /* 칩 경계선 */
+    background: var(--pl-canvas); /* 칩 배경 */
+    color: var(--pl-ink); /* 칩 글자색 */
+} /* 조건 칩 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] :is(.news-filter-chip, .news-filter-reset):hover /* 뉴스 조건 칩 선택 */
+{ /* 칩 선택 시작 */
+    background: var(--pl-panel); /* 선택 배경 */
+} /* 칩 선택 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="news"] .empty-state /* 뉴스 빈 결과 */
+{ /* 빈 결과 시작 */
+    border-color: var(--pl-border); /* 빈 결과 경계선 */
+    border-radius: var(--pl-radius-medium); /* 빈 결과 모서리 */
+    background: var(--pl-panel); /* 빈 결과 배경 */
+    color: var(--pl-muted); /* 빈 결과 글자색 */
+} /* 빈 결과 끝 */
+
 [data-theme="playful-lab"][data-responsive-page="news"] .news-row /* 뉴스 행 */
 { /* 뉴스 행 시작 */
     border-color: var(--pl-border-strong); /* 뉴스 경계선 */

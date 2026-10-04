@@ -277,7 +277,7 @@ css-styling/
 | --- | --- |
 | `public/goods.mjs` | 상품 API 요청과 데모 대체 |
 | `public/goods-card.mjs` | 안전한 상품 카드 DOM 생성 |
-| `public/devlog.mjs` | 뉴스 API 요청, 데모 대체와 태그 필터 |
+| `public/devlog.mjs` | 뉴스 API 요청, 데모 대체, 검색·종류 필터와 주소 저장 |
 | `public/community-data.mjs` | 커뮤니티 데모 콘텐츠 |
 | `public/community.mjs` | 게임 선택, 플랫폼 콘텐츠와 해시태그 복사 |
 | `public/device-preview.mjs` | 기기 크기 선택, 확대·축소와 새 창 열기 |
@@ -304,7 +304,7 @@ css-styling/
 | `public/game-catalog.css` | 검색창, 장르와 상태 필터 |
 | `public/goods.css` | 상품 목록과 상태 버튼 |
 | `public/roadmap.css` | 개발 로드맵 요약·필터·단계 카드 |
-| `public/devlog.css` | 개발 뉴스 카드와 필터 |
+| `public/devlog.css` | 개발 뉴스 카드, 검색 칸·필터·조건 칩(굿즈·커뮤니티·로드맵 공통 바탕 포함) |
 | `public/community.css` | 커뮤니티 카드와 플랫폼 화면 |
 | `public/device-preview.css` | 기기 프레임과 미리보기 배치 |
 | `public/device-preview-control.css` | 미리보기 제어 버튼 |
@@ -455,7 +455,7 @@ css-styling/
 - `product-status.test.mjs`: 판매·재고 상태 계산
 - `products-api.test.mjs`: 상품 공개 API
 - `demo-news.test.mjs`: 뉴스 데모 데이터
-- `development-news.test.mjs`: 개발 뉴스 화면
+- `development-news.test.mjs`: 개발 뉴스 화면, 검색·종류 조건 계산, 주소 저장과 조건 칩 구조
 - `community-games.test.mjs`: 커뮤니티 게임 목록
 - `community-page.test.mjs`: 커뮤니티 화면 구조
 - `community-youtube.test.mjs`: YouTube 응답과 대체 처리
@@ -513,6 +513,7 @@ ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `publi
 | 로그인 권한 | `lib/auth/admin-policy.ts` | `proxy.ts`, Supabase 클라이언트 |
 | 댓글 | `app/news/[id]/comments-panel.tsx` | `lib/comments/domain.ts`, `lib/comments/service.ts`, `lib/comments/local-service.ts`, `lib/comments/supabase-service.ts`, 댓글 마이그레이션 |
 | 회원가입·간편 로그인 | `lib/member/auth-providers.ts` | `app/signup/`, `app/login/social-login-buttons.tsx`, `lib/member/signup.ts`, `app/auth/` |
+| 개발 뉴스 검색·필터 | `public/devlog.mjs` | `public/devlog.html`, `public/devlog.css`, `public/playful-lab-theme.css` |
 | 개발 로드맵 | `public/roadmap.mjs` | `public/roadmap.html`, `public/roadmap.css`, `public/game-projects.mjs` |
 | 문의 양식·문의함 | `lib/contact/domain.ts` | `public/contact-form.mjs`, `app/api/contact/route.ts`, `lib/contact/inbox.ts`, `app/admin/contact/`, `202610040001_contact_messages.sql` |
 | 댓글·신고 관리 | `app/admin/comments/` | `lib/comments/moderation.ts`, `202610010001_member_signup_moderation.sql` |
