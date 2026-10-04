@@ -24,19 +24,28 @@ export async function readJsonBody(request: Request, maxBytes = JSON_BODY_MAX_BY
     { // 조건 시작
         return { ok: false, status: 413, message: "보낸 내용이 너무 깁니다." }; // 크기 초과 반환
     } // 조건 끝
-    let text = ""; // 본문 글자
+    let bytes = new Uint8Array(); // 본문 바이트
     try // 본문 읽기 시도
     { // 시도 시작
-        text = await request.text(); // 본문 읽기
+        bytes = new Uint8Array(await request.arrayBuffer()); // 본문 읽기
     } // 시도 끝
     catch // 읽기 실패 처리
     { // 오류 처리 시작
         return { ok: false, status: 400, message: "요청 내용을 확인해 주세요." }; // 잘못된 요청 반환
     } // 오류 처리 끝
-    if (new TextEncoder().encode(text).length > maxBytes) // 실제 크기 확인
+    if (bytes.length > maxBytes) // 실제 크기 확인
     { // 조건 시작
         return { ok: false, status: 413, message: "보낸 내용이 너무 깁니다." }; // 크기 초과 반환
     } // 조건 끝
+    let text = ""; // 본문 글자
+    try // 글자 해석 시도
+    { // 시도 시작
+        text = new TextDecoder("utf-8", { fatal: true }).decode(bytes); // UTF-8이 아닌 깨진 글자는 받지 않음
+    } // 시도 끝
+    catch // 깨진 글자 처리
+    { // 오류 처리 시작
+        return { ok: false, status: 400, message: "요청 내용을 확인해 주세요." }; // 잘못된 요청 반환
+    } // 오류 처리 끝
     try // 해석 시도
     { // 시도 시작
         const value: unknown = JSON.parse(text); // JSON 해석

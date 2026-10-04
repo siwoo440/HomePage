@@ -45,6 +45,9 @@ test("JSON 요청은 크기와 형식을 확인하고 응답은 캐시하지 않
     assert.equal((await readJsonBody(post("{oops"))).status, 400); // 잘못된 JSON 확인
     assert.equal((await readJsonBody(post(JSON.stringify({ text: "가".repeat(50) })), 100)).status, 413); // 실제 크기 초과 확인
     assert.equal((await readJsonBody(post("{}", { "content-length": "999999" }))).status, 413); // 알려 준 크기 초과 확인
+    assert.deepEqual(await readJsonBody(post(JSON.stringify({ text: "한글 문의" }))), { ok: true, value: { text: "한글 문의" } }); // UTF-8 한글 본문 확인
+    const broken = new Uint8Array([...new TextEncoder().encode('{"text":"'), 0xc7, 0xd1, 0xb1, 0xdb, ...new TextEncoder().encode('"}')]); // UTF-8이 아닌 방식(CP949)으로 보낸 "한글"
+    assert.deepEqual(await readJsonBody(post(broken)), { ok: false, status: 400, message: "요청 내용을 확인해 주세요." }); // 깨진 글자 요청 거부 확인
     const response = jsonNoStore({ ok: true }, 201); // 시험 응답
     assert.equal(response.status, 201); // 상태 확인
     assert.equal(response.headers.get("Cache-Control"), "no-store"); // 캐시 금지 확인
