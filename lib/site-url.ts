@@ -45,6 +45,7 @@ export const CRAWL_BLOCKED_PATHS = Object.freeze( // 검색 수집 제외 경로
     "/login", // 로그인
     "/signup", // 회원가입
     "/account", // 내 정보
+    "/notify/", // 출시 알림 수신 거부
     "/age-verification", // 성인 확인
     "/project_h/", // 성인 게임 H
     "/project_u/", // 성인 게임 U

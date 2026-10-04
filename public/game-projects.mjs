@@ -121,6 +121,19 @@ export function getGameProject(id) // 프로젝트 공개 정보 조회
     return PROJECTS_BY_ID.get(id) ?? null; // 프로젝트 또는 빈 결과 반환
 } // 함수 끝
 
+export function getReleaseNotifyState(project) // 출시 알림 신청 가능 여부
+{ // 함수 시작
+    if (!project) // 프로젝트 누락 확인
+    { // 조건 시작
+        return "unknown"; // 알 수 없는 프로젝트
+    } // 조건 끝
+    if (project.adultOnly) // 성인 프로젝트 확인
+    { // 조건 시작
+        return "adult"; // 본인인증 전에는 신청을 받지 않음
+    } // 조건 끝
+    return project.developmentStatus === "paused" ? "paused" : "open"; // 보류 또는 신청 가능
+} // 함수 끝
+
 export function validateGameProjects(projects) // 프로젝트 공개 정보 검사
 { // 함수 시작
     if (!Array.isArray(projects)) // 배열 형식 확인

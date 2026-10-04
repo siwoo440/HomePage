@@ -94,6 +94,10 @@ css-styling/
 | `app/admin/contact/page.tsx` | 관리자 문의함 목록(답변 대기·완료·전체) |
 | `app/admin/contact/inbox-board.tsx` | 문의 카드, 처리 메모와 답변 완료·되돌리기 버튼 |
 | `app/admin/contact/actions.ts` | 관리자 확인 뒤 문의 처리 상태 저장 서버 작업 |
+| `app/admin/notify/page.tsx` | 관리자 출시 알림 화면(게임별 신청 수) |
+| `app/admin/notify/summary-table.tsx` | 게임별 수신 중·수신 거부 수 표(이메일 주소 미표시) |
+| `app/notify/unsubscribe/page.tsx` | 출시 알림 수신 거부 화면(주소 값 형식 확인) |
+| `app/notify/unsubscribe/unsubscribe-panel.tsx` | 수신 거부 버튼과 결과 안내 |
 
 ---
 ### 회원·뉴스·연령 확인
@@ -137,6 +141,8 @@ css-styling/
 | `app/api/age/verify/route.ts` | 연령 검증과 서명 쿠키 발급 |
 | `app/api/member/status/route.ts` | 정적 페이지 상단 회원 버튼용 로그인 여부·공개 닉네임 반환(이메일 미포함) |
 | `app/api/contact/route.ts` | 문의 접수(요청 횟수 제한, 검증, 시연 모드·저장 분기) |
+| `app/api/notify/route.ts` | 출시 알림 신청 접수(요청 횟수 제한, 검증, 시연 모드·저장 분기) |
+| `app/api/notify/unsubscribe/route.ts` | 출시 알림 수신 거부 처리 |
 
 ---
 ## 4. `lib/` 업무 규칙
@@ -187,6 +193,8 @@ css-styling/
 | `lib/comments/moderation.ts` | 관리자 댓글 처리 규칙과 데모·Supabase 관리 서비스 |
 | `lib/contact/domain.ts` | 문의 분류와 입력 검증(이메일·제목·내용·동의, 자동 입력 방지 칸) |
 | `lib/contact/inbox.ts` | 문의 저장, 관리자 문의함 목록·처리와 데모·Supabase 서비스 |
+| `lib/notify/domain.ts` | 출시 알림 대상 게임 판정, 신청 입력 검증, 수신 거부 값 형식 |
+| `lib/notify/store.ts` | 출시 알림 신청·수신 거부 함수 호출, 게임별 집계 정리와 시연 집계 |
 
 ---
 ### 뉴스
@@ -261,6 +269,7 @@ css-styling/
 | `public/browser-data.mjs` | 개인정보 페이지의 브라우저 저장 항목 확인·삭제 |
 | `public/contact-faq.mjs` | 문의하기 질문 전체 펼치기와 주소 해시 열기 |
 | `public/contact-form.mjs` | 문의 양식 값 모으기, 화면 검증, 글자 수 표시와 전송 연결 |
+| `public/release-notify.mjs` | 게임 소개 페이지의 출시 알림 영역 생성(대상 게임만), 화면 검증과 전송 연결 |
 | `public/color-mode-bootstrap.js` | Next 화면에서 저장된 라이트·다크 모드를 먼저 복원 |
 | `public/dialog-accessibility.mjs` | 대화상자 접근성 도구(현재 불러오는 페이지 없음, 재사용 보관) |
 | `public/privacy-consent.mjs` | 개인정보 선택 저장과 변경 이벤트 |
@@ -306,6 +315,7 @@ css-styling/
 | `public/game-catalog.css` | 검색창, 장르와 상태 필터 |
 | `public/goods.css` | 상품 목록과 상태 버튼 |
 | `public/roadmap.css` | 개발 로드맵 요약·필터·단계 카드 |
+| `public/release-notify.css` | 출시 알림 카드·입력·동의·결과 안내(모든 게임 소개 디자인에서 같은 모양) |
 | `public/devlog.css` | 개발 뉴스 카드, 검색 칸·필터·조건 칩(굿즈·커뮤니티·로드맵 공통 바탕 포함) |
 | `public/community.css` | 커뮤니티 카드와 플랫폼 화면 |
 | `public/device-preview.css` | 기기 프레임과 미리보기 배치 |
@@ -335,6 +345,7 @@ css-styling/
 | `202610010002_member_account_deletion.sql` | 회원 본인 탈퇴 함수(`delete_own_account`, 관리자 계정·남은 이미지 거부) |
 | `202610040001_contact_messages.sql` | 문의 양식 접수 테이블(누구나 추가, 관리자만 조회·처리) |
 | `202610040002_comment_limits.sql` | 댓글 작성 제한 트리거, 관리자 전용 금칙어 표, 회원별 최근 댓글 색인 |
+| `202610040003_release_notifications.sql` | 출시 알림 신청 표(관리자만 조회), 신청·수신 거부·게임별 집계 함수 |
 
 파일명 앞 숫자는 적용 순서입니다. 운영에 적용한 SQL 파일을 고치는 대신 새로운 번호의 마이그레이션을 추가합니다.
 
@@ -347,7 +358,7 @@ css-styling/
 | `scripts/site-header.mjs` | 다른 도구가 불러 씀 | 공통 헤더 원본(메뉴 목록과 마크업) |
 | `scripts/apply-site-header.mjs` | `node scripts/apply-site-header.mjs` | 등록된 정적 페이지에 공통 헤더 적용 |
 | `scripts/apply-page-meta.mjs` | `node scripts/apply-page-meta.mjs` | 검색 설명과 공유 미리보기 태그 적용 |
-| `scripts/apply-static-pages.mjs` | `pnpm pages:apply`, `pnpm pages:check` | 공통 헤더·검색 설명·번역 준비 스크립트를 한 번에 적용하거나 빠진 페이지 확인 |
+| `scripts/apply-static-pages.mjs` | `pnpm pages:apply`, `pnpm pages:check` | 공통 헤더·검색 설명·번역 준비·게임 소개의 출시 알림 스크립트를 한 번에 적용하거나 빠진 페이지 확인 |
 | `scripts/archive-project-pages.mjs` | `node scripts/archive-project-pages.mjs` | 변경 전 프로젝트 HTML을 내부 보관소로 복사 |
 | `scripts/optimize_goods_images.py` | Python 환경에서 직접 실행 | 상품 원본 이미지 최적화 |
 | `scripts/check-supabase-env.mjs` | `pnpm supabase:check` | `.env.local`의 Supabase 주소·공개 키·관리자 이메일 형식과 비밀 키 노출 점검 |
@@ -406,6 +417,7 @@ css-styling/
 - `member-signup-moderation-migration.test.mjs`: 동의 기록과 관리자 전용 처리 SQL
 - `account.test.mjs`: 내 댓글·탈퇴 처리, 탈퇴 SQL, 검색엔진 파일과 오류 화면
 - `contact.test.mjs`: 문의 검증, 화면·서버 문구 일치, 접수 순서, 문의함 처리와 문의 테이블 권한
+- `release-notify.test.mjs`: 출시 알림 대상 판정, 화면·서버 문구 일치, 접수 순서, 저장 함수와 집계, 표 권한, 35개 페이지 적용
 - `roadmap.test.mjs`: 로드맵 단계 분류, 장르 필터·주소 저장, 문서 구조와 메뉴·사이트맵 연결
 
 ---
@@ -521,6 +533,7 @@ ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `publi
 | 개발 뉴스 검색·필터 | `public/devlog.mjs` | `public/devlog.html`, `public/devlog.css`, `public/playful-lab-theme.css` |
 | 개발 로드맵 | `public/roadmap.mjs` | `public/roadmap.html`, `public/roadmap.css`, `public/game-projects.mjs` |
 | 문의 양식·문의함 | `lib/contact/domain.ts` | `public/contact-form.mjs`, `app/api/contact/route.ts`, `lib/contact/inbox.ts`, `app/admin/contact/`, `202610040001_contact_messages.sql` |
+| 출시 알림 신청 | `lib/notify/domain.ts` | `public/release-notify.mjs`, `public/release-notify.css`, `app/api/notify/`, `lib/notify/store.ts`, `app/notify/unsubscribe/`, `app/admin/notify/`, `202610040003_release_notifications.sql` |
 | 댓글·신고 관리 | `app/admin/comments/` | `lib/comments/moderation.ts`, `202610010001_member_signup_moderation.sql` |
 | 회원 닉네임 | `lib/member/profile.ts` | `app/login/member-access.tsx`, `app/login/member-nickname-form.tsx`, `app/api/member/status/route.ts`, `public/member-session.mjs` |
 | Supabase 연결 준비 | `scripts/check-supabase-env.mjs` | `.env.example`, `README.md`의 Supabase 단계, `supabase/migrations/` |

@@ -13,6 +13,7 @@ export default function AdminHeader() // 관리자 상단 메뉴
                 <Link href="/admin/products/new">새 상품</Link> {/* 새 상품 이동 */}
                 <Link href="/admin/comments">댓글 관리</Link> {/* 댓글·신고 관리 이동 */}
                 <Link href="/admin/contact">문의함</Link> {/* 문의함 이동 */}
+                <Link href="/admin/notify">출시 알림</Link> {/* 출시 알림 집계 이동 */}
                 <Link href="/devlog.html">공개 뉴스</Link> {/* 공개 뉴스 이동 */}
                 <Link href="/goods.html">공개 굿즈</Link> {/* 공개 굿즈 이동 */}
                 <form action={signOutAdmin}> {/* 로그아웃 폼 */}

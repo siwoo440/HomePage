@@ -111,7 +111,7 @@ test("데이터베이스 제한은 화면 규칙과 같은 수치·금칙어를 
 { // 테스트 시작
     const file = "202610040002_comment_limits.sql"; // 작성 제한 마이그레이션
     const sql = read(`supabase/migrations/${file}`); // 마이그레이션 내용
-    assert.equal(SUPABASE_MIGRATIONS.at(-1), file); // 마지막 적용 순서 확인
+    assert.ok(SUPABASE_MIGRATIONS.indexOf(file) > SUPABASE_MIGRATIONS.indexOf("202610010001_member_signup_moderation.sql")); // 댓글 권한 파일 뒤 적용 순서 확인
     assert.match(read("README.md"), new RegExp(`supabase/migrations/${file.replace(".", "\\.")}`)); // README 안내 확인
     assert.ok(sql.includes(`interval '${COMMENT_MIN_INTERVAL_SECONDS} seconds'`)); // 최소 간격 일치
     assert.ok(sql.includes(`interval '${COMMENT_WINDOW_MINUTES} minutes'`)); // 제한 구간 일치

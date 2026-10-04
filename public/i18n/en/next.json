@@ -296,7 +296,19 @@
     "링크": "Links",
     "개(허용": "(allowed",
     "개)": ")",
-    "금칙어 포함": "Contains a banned word"
+    "금칙어 포함": "Contains a banned word",
+    "수신 거부 주소가 올바르지 않습니다. 메일에 있는 주소를 다시 열어 주세요.": "This unsubscribe link is not valid. Please open the link in the email again.",
+    "시연 모드: 서버가 연결되지 않아 실제 신청 내역은 바뀌지 않습니다.": "Demo mode: no server is connected, so no real sign-up was changed.",
+    "수신 거부를 처리했습니다. 이 게임의 출시 소식 메일을 더 보내지 않습니다.": "You have been unsubscribed. We will not send any more release emails for this game.",
+    "신청 내역을 찾을 수 없습니다. 메일에 있는 주소를 다시 열어 주세요.": "We could not find that sign-up. Please open the link in the email again.",
+    "수신 거부를 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.": "We could not unsubscribe you. Please try again shortly.",
+    "출시 알림 수신 거부 · DEVFORGE": "Unsubscribe from Release Notices · DEVFORGE",
+    "출시 알림 수신 거부": "Unsubscribe from release notices",
+    "아래 버튼을 누르면 해당 게임의 출시 소식 메일을 더 보내지 않습니다. 다시 받고 싶으면 게임 소개 페이지에서 새로 신청할 수 있습니다.": "Press the button below and we will stop sending release emails for that game. If you want them again, you can sign up anew on the game's page.",
+    "수신 거부 확인": "Confirm unsubscribe",
+    "수신 거부를 처리했습니다.": "You have been unsubscribed.",
+    "처리 중…": "Working…",
+    "출시 알림 그만 받기": "Stop release notices"
   },
   "patterns": [
     {

@@ -369,6 +369,16 @@ devforge_privacy_consent_v1
 
 접수 알림·답변 메일 발송은 없습니다. 메일 서비스 연결(로드맵 7단계) 뒤 추가합니다.
 
+출시 알림 신청도 같은 구조를 씁니다.
+
+- 대상 판정: `public/game-projects.mjs`의 `getReleaseNotifyState`가 성인 게임은 `adult`, 보류 게임은 `paused`, 나머지는 `open`으로 정합니다. 화면(`public/release-notify.mjs`)과 서버(`lib/notify/domain.ts`)가 같은 판정을 씁니다.
+- 화면: 게임 소개 35개 첫 화면은 `/release-notify.mjs`만 불러옵니다. 스크립트가 `[data-public-project-page]`의 게임 식별자를 읽어 `open`이면 양식을, `paused`이면 안내만 `main` 바로 뒤에 넣고 스타일(`/release-notify.css`)을 연결합니다. 공통 형식 29개는 생성 도구가, 개별 디자인 6개는 `pnpm pages:apply`가 스크립트 줄을 넣습니다.
+- 접수(`POST /api/notify`): 요청자별 10분 5회 제한 → 본문 → 검증(게임·이메일·수신 동의) → 자동 입력 방지 → 시연 모드 → 저장. 이메일은 소문자로 통일합니다.
+- 저장: `release_notifications` 표는 방문자에게 열려 있지 않습니다. `subscribe_release_notification` 함수로만 추가하며, 같은 게임·같은 이메일은 한 번만 저장하고 이미 신청했는지는 알려 주지 않습니다. 수신 거부 뒤 다시 신청하면 수신 거부 값과 본인 확인을 새로 시작합니다.
+- 수신 거부: 메일에 넣을 주소는 `/notify/unsubscribe?token=수신거부값`입니다. 메일 프로그램이 주소를 미리 여는 것만으로 처리되지 않도록 화면의 버튼을 눌러야 `POST /api/notify/unsubscribe`가 처리합니다.
+- 관리자(`/admin/notify`): `release_notification_counts` 함수로 게임별 수신 중·수신 거부 수만 봅니다. 이메일 주소는 화면에 내지 않습니다.
+- 메일 발송 전 필수: 표를 우회해 남의 이메일을 넣는 장난을 막을 수 없으므로, 발송을 시작할 때 확인 메일을 먼저 보내고 `confirmed_at`이 채워진 신청에만 보냅니다. 발송 대상을 고를 때 `getReleaseNotifyState`가 `open`인 게임인지도 다시 확인합니다.
+
 ---
 ### 6.13 영어 화면(AI 번역)
 
@@ -463,8 +473,9 @@ devforge_privacy_consent_v1
 5. `supabase/migrations/202610010002_member_account_deletion.sql`
 6. `supabase/migrations/202610040001_contact_messages.sql`
 7. `supabase/migrations/202610040002_comment_limits.sql`
+8. `supabase/migrations/202610040003_release_notifications.sql`
 
-첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다. 다섯 번째 파일은 로그인 회원이 본인 계정만 지우는 `delete_own_account` 함수를 만듭니다(관리자 계정과 남은 댓글 이미지가 있으면 거부). 여섯 번째 파일은 문의 양식 접수 테이블 `contact_messages`를 만듭니다. 누구나 대기 상태 문의만 추가할 수 있고, 조회와 처리는 관리자만 할 수 있습니다. 일곱 번째 파일은 댓글 작성 제한 트리거(`enforce_comment_limits`)와 관리자만 고칠 수 있는 금칙어 표(`comment_banned_words`)를 만듭니다.
+첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다. 다섯 번째 파일은 로그인 회원이 본인 계정만 지우는 `delete_own_account` 함수를 만듭니다(관리자 계정과 남은 댓글 이미지가 있으면 거부). 여섯 번째 파일은 문의 양식 접수 테이블 `contact_messages`를 만듭니다. 누구나 대기 상태 문의만 추가할 수 있고, 조회와 처리는 관리자만 할 수 있습니다. 일곱 번째 파일은 댓글 작성 제한 트리거(`enforce_comment_limits`)와 관리자만 고칠 수 있는 금칙어 표(`comment_banned_words`)를 만듭니다. 여덟 번째 파일은 출시 알림 신청 표(`release_notifications`)와 신청·수신 거부·집계 함수를 만듭니다.
 
 ---
 ### 관리자 권한

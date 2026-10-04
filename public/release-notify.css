@@ -1,0 +1,213 @@
+.release-notify /* 출시 알림 영역 */
+{ /* 규칙 시작 */
+    --notify-panel: #0d192d; /* 카드 배경 */
+    --notify-field: #07101f; /* 입력 배경 */
+    --notify-line: #44638f; /* 테두리 색상 */
+    --notify-accent: #00f5d4; /* 강조 색상 */
+    --notify-text: #f4f7ff; /* 기본 글자 */
+    --notify-muted: #a9b7d0; /* 보조 글자 */
+    --notify-danger: #ff9a9a; /* 오류 글자 */
+    box-sizing: border-box; /* 크기 계산 통일 */
+    width: 100%; /* 전체 너비 */
+    padding: 48px 16px; /* 바깥 간격 */
+    color: var(--notify-text); /* 기본 글자색 */
+    font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif; /* 본문 글꼴 */
+    font-size: 16px; /* 기준 글자 크기 */
+    line-height: 1.6; /* 줄 간격 */
+    text-align: left; /* 왼쪽 정렬 */
+} /* 규칙 끝 */
+
+.release-notify *, .release-notify *::before, .release-notify *::after /* 영역 안 모든 요소 */
+{ /* 규칙 시작 */
+    box-sizing: border-box; /* 크기 계산 통일 */
+} /* 규칙 끝 */
+
+.release-notify-inner /* 가운데 정렬 카드 */
+{ /* 규칙 시작 */
+    max-width: 640px; /* 읽기 좋은 최대 너비 */
+    margin: 0 auto; /* 가운데 배치 */
+    padding: clamp(20px, 5vw, 32px); /* 안쪽 여백 */
+    border: 1px solid var(--notify-line); /* 카드 테두리 */
+    border-radius: 16px; /* 카드 모서리 */
+    background: var(--notify-panel); /* 카드 배경 */
+} /* 규칙 끝 */
+
+.release-notify-kicker /* 영문 분류 */
+{ /* 규칙 시작 */
+    margin: 0 0 6px; /* 아래 간격 */
+    color: var(--notify-accent); /* 강조 색상 */
+    font-family: Consolas, monospace; /* 고정폭 글꼴 */
+    font-size: 0.8rem; /* 글자 크기 */
+    font-weight: 700; /* 글자 굵기 */
+    letter-spacing: 0.14em; /* 글자 간격 */
+} /* 규칙 끝 */
+
+.release-notify-title /* 영역 제목 */
+{ /* 규칙 시작 */
+    margin: 0 0 10px; /* 아래 간격 */
+    color: var(--notify-text); /* 제목 글자색 */
+    font-size: clamp(1.3rem, 4vw, 1.6rem); /* 반응형 제목 크기 */
+    line-height: 1.3; /* 제목 줄 간격 */
+} /* 규칙 끝 */
+
+.release-notify-lead, .release-notify-note /* 안내 문장 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--notify-muted); /* 보조 글자색 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+    overflow-wrap: anywhere; /* 긴 낱말 줄바꿈 */
+} /* 규칙 끝 */
+
+.release-notify-note /* 수신 거부 안내 */
+{ /* 규칙 시작 */
+    margin-top: 14px; /* 위 간격 */
+    font-size: 0.86rem; /* 글자 크기 */
+} /* 규칙 끝 */
+
+.release-notify-form /* 신청 양식 */
+{ /* 규칙 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 14px; /* 입력 간격 */
+    margin-top: 18px; /* 안내와 간격 */
+} /* 규칙 끝 */
+
+.release-notify-field /* 입력 묶음 */
+{ /* 규칙 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 6px; /* 이름과 입력 간격 */
+    min-width: 0; /* 축소 허용 */
+} /* 규칙 끝 */
+
+.release-notify-field > label /* 입력 이름 */
+{ /* 규칙 시작 */
+    color: var(--notify-text); /* 이름 글자색 */
+    font-weight: 700; /* 이름 굵기 */
+} /* 규칙 끝 */
+
+.release-notify-field input[type="email"] /* 이메일 입력 */
+{ /* 규칙 시작 */
+    width: 100%; /* 전체 너비 */
+    min-height: 48px; /* 터치 높이 */
+    padding: 10px 14px; /* 안쪽 여백 */
+    border: 1px solid var(--notify-line); /* 입력 테두리 */
+    border-radius: 10px; /* 입력 모서리 */
+    background: var(--notify-field); /* 입력 배경 */
+    color: var(--notify-text); /* 입력 글자색 */
+    font: inherit; /* 본문 글꼴 */
+} /* 규칙 끝 */
+
+.release-notify-field input:focus-visible, .release-notify-submit:focus-visible, .release-notify-consent a:focus-visible /* 키보드 초점 */
+{ /* 규칙 시작 */
+    outline: 3px solid var(--notify-accent); /* 초점 외곽선 */
+    outline-offset: 2px; /* 외곽선 간격 */
+} /* 규칙 끝 */
+
+.release-notify-field [aria-invalid="true"] /* 오류 입력 */
+{ /* 규칙 시작 */
+    border-color: var(--notify-danger); /* 오류 테두리 */
+} /* 규칙 끝 */
+
+.release-notify-error /* 입력 오류 문구 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--notify-danger); /* 오류 글자색 */
+    font-size: 0.88rem; /* 글자 크기 */
+    font-weight: 700; /* 글자 굵기 */
+} /* 규칙 끝 */
+
+.release-notify-error[hidden], .release-notify-status[hidden] /* 숨긴 안내 */
+{ /* 규칙 시작 */
+    display: none; /* 화면에서 제거 */
+} /* 규칙 끝 */
+
+.release-notify-trap, .release-notify-hidden /* 화면에 보이지 않는 요소 */
+{ /* 규칙 시작 */
+    position: absolute; /* 흐름에서 제외 */
+    width: 1px; /* 최소 너비 */
+    height: 1px; /* 최소 높이 */
+    overflow: hidden; /* 넘침 숨김 */
+    clip-path: inset(50%); /* 보이는 영역 제거 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+} /* 규칙 끝 */
+
+.release-notify-consent > label /* 동의 선택 줄 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    gap: 10px; /* 체크 상자와 문구 간격 */
+    align-items: flex-start; /* 위쪽 정렬 */
+    min-height: 44px; /* 터치 높이 */
+    padding: 8px 0; /* 위아래 여백 */
+    font-weight: 400; /* 본문 굵기 */
+    cursor: pointer; /* 선택 커서 */
+} /* 규칙 끝 */
+
+.release-notify-consent input[type="checkbox"] /* 동의 체크 상자 */
+{ /* 규칙 시작 */
+    flex: 0 0 auto; /* 크기 고정 */
+    width: 22px; /* 상자 너비 */
+    height: 22px; /* 상자 높이 */
+    margin: 2px 0 0; /* 문구와 높이 맞춤 */
+    accent-color: var(--notify-accent); /* 선택 색상 */
+} /* 규칙 끝 */
+
+.release-notify-consent > a /* 처리방침 링크 */
+{ /* 규칙 시작 */
+    width: fit-content; /* 내용 너비 */
+    min-height: 44px; /* 터치 높이 */
+    display: inline-flex; /* 세로 가운데 정렬 */
+    align-items: center; /* 세로 가운데 */
+    color: var(--notify-accent); /* 링크 색상 */
+    font-size: 0.9rem; /* 글자 크기 */
+    text-decoration: underline; /* 링크 밑줄 */
+} /* 규칙 끝 */
+
+.release-notify-submit /* 제출 버튼 */
+{ /* 규칙 시작 */
+    min-height: 48px; /* 터치 높이 */
+    padding: 10px 22px; /* 안쪽 여백 */
+    border: 0; /* 테두리 제거 */
+    border-radius: 999px; /* 둥근 버튼 */
+    background: var(--notify-accent); /* 버튼 배경 */
+    color: #04121c; /* 버튼 글자색 */
+    font: inherit; /* 본문 글꼴 */
+    font-weight: 800; /* 버튼 굵기 */
+    cursor: pointer; /* 선택 커서 */
+    justify-self: start; /* 왼쪽 정렬 */
+} /* 규칙 끝 */
+
+.release-notify-submit:disabled /* 전송 중 버튼 */
+{ /* 규칙 시작 */
+    opacity: 0.6; /* 흐림 표시 */
+    cursor: progress; /* 진행 커서 */
+} /* 규칙 끝 */
+
+.release-notify-status /* 결과 안내 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 12px 14px; /* 안쪽 여백 */
+    border-left: 3px solid var(--notify-accent); /* 강조선 */
+    border-radius: 8px; /* 모서리 */
+    background: rgba(0, 245, 212, 0.1); /* 성공 배경 */
+    color: var(--notify-text); /* 안내 글자색 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+} /* 규칙 끝 */
+
+.release-notify-status[data-state="error"] /* 실패 안내 */
+{ /* 규칙 시작 */
+    border-left-color: var(--notify-danger); /* 오류 강조선 */
+    background: rgba(255, 154, 154, 0.12); /* 오류 배경 */
+} /* 규칙 끝 */
+
+@media (max-width: 480px) /* 좁은 휴대폰 화면 */
+{ /* 구간 시작 */
+    .release-notify /* 출시 알림 영역 */
+    { /* 규칙 시작 */
+        padding: 32px 12px; /* 바깥 간격 축소 */
+    } /* 규칙 끝 */
+
+    .release-notify-submit /* 제출 버튼 */
+    { /* 규칙 시작 */
+        width: 100%; /* 전체 너비 */
+        justify-self: stretch; /* 가로 채움 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */

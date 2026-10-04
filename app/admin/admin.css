@@ -843,6 +843,53 @@ body /* 관리자 문서 */
     object-fit: contain; /* 비율 유지 */
 } /* 이미지 끝 */
 
+.notify-summary /* 출시 알림 집계 영역 */
+{ /* 집계 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 14px; /* 요소 간격 */
+} /* 집계 끝 */
+
+.notify-summary-total, .notify-summary-note /* 합계와 안내 */
+{ /* 문장 시작 */
+    margin: 0; /* 기본 여백 제거 */
+} /* 문장 끝 */
+
+.notify-summary-note /* 표시 범위 안내 */
+{ /* 안내 시작 */
+    color: var(--admin-muted); /* 보조 글자색 */
+    font-size: 0.9rem; /* 글자 크기 */
+} /* 안내 끝 */
+
+.notify-summary-scroll /* 좁은 화면 가로 스크롤 */
+{ /* 스크롤 시작 */
+    overflow-x: auto; /* 가로 넘침 스크롤 */
+} /* 스크롤 끝 */
+
+.notify-summary-table /* 집계 표 */
+{ /* 표 시작 */
+    width: 100%; /* 전체 너비 */
+    border-collapse: collapse; /* 테두리 합침 */
+} /* 표 끝 */
+
+.notify-summary-table :is(th, td) /* 표 칸 */
+{ /* 칸 시작 */
+    padding: 10px 12px; /* 안쪽 여백 */
+    border-bottom: 1px solid var(--admin-border); /* 줄 구분선 */
+    text-align: left; /* 왼쪽 정렬 */
+} /* 칸 끝 */
+
+.notify-summary-table td /* 숫자 칸 */
+{ /* 숫자 시작 */
+    font-variant-numeric: tabular-nums; /* 숫자 폭 통일 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+} /* 숫자 끝 */
+
+.notify-summary-table tr[data-open="false"] th /* 지금은 받지 않는 게임 */
+{ /* 닫힌 게임 시작 */
+    color: var(--admin-muted); /* 보조 글자색 */
+    font-weight: 400; /* 보통 굵기 */
+} /* 닫힌 게임 끝 */
+
 .moderation-flags /* 자동 감지 사유 */
 { /* 감지 시작 */
     margin: 0; /* 기본 여백 제거 */

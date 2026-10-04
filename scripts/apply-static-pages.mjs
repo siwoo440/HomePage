@@ -3,6 +3,7 @@ import path from "node:path"; // 경로 처리 도구
 import { fileURLToPath } from "node:url"; // 모듈 주소 변환 도구
 import { applyPageMeta, listMetaTargetPages } from "./apply-page-meta.mjs"; // 검색·공유 정보 적용 도구
 import { applySiteHeader, STATIC_HEADER_PAGES } from "./apply-site-header.mjs"; // 공통 헤더 적용 도구
+import { GAME_PROJECTS } from "../public/game-projects.mjs"; // 공개 프로젝트 데이터
 
 export const I18N_BOOTSTRAP_TAG = '<script src="/i18n-bootstrap.js"></script> <!-- 언어 선택 준비 -->'; // 번역 준비 스크립트 줄
 
@@ -22,11 +23,26 @@ export function applyI18nBootstrap(html) // 번역 준비 스크립트 적용
     return `${html.slice(0, lineStart)}    ${I18N_BOOTSTRAP_TAG}${eol}${html.slice(lineStart)}`; // 머리 끝 앞에 삽입
 } // 함수 끝
 
+export const RELEASE_NOTIFY_TAG = '<script type="module" src="/release-notify.mjs"></script> <!-- 출시 알림 신청 -->'; // 출시 알림 스크립트 줄
+export const RELEASE_NOTIFY_PAGES = Object.freeze(GAME_PROJECTS.map((project) => project.detailPath.slice(1))); // 게임 소개 첫 화면 목록
+
+export function applyReleaseNotify(html, file) // 게임 소개 첫 화면에 출시 알림 스크립트 적용
+{ // 함수 시작
+    const anchor = html.indexOf('<script type="module" src="/responsive-nav.mjs">'); // 공통 메뉴 스크립트 위치
+    if (!RELEASE_NOTIFY_PAGES.includes(file) || html.includes("/release-notify.mjs") || anchor < 0) // 대상·이미 적용·기준 줄 확인
+    { // 조건 시작
+        return html; // 변경 없음
+    } // 조건 끝
+    const eol = html.includes("\r\n") ? "\r\n" : "\n"; // 기존 줄바꿈 형식
+    const lineStart = html.lastIndexOf("\n", anchor) + 1; // 기준 줄 시작
+    return `${html.slice(0, lineStart)}${html.slice(lineStart, anchor)}${RELEASE_NOTIFY_TAG}${eol}${html.slice(lineStart)}`; // 공통 메뉴 스크립트 앞에 같은 들여쓰기로 삽입
+} // 함수 끝
+
 export function applyStaticPage(html, file) // 페이지 하나에 공통 요소 적용
 { // 함수 시작
     const headerPage = STATIC_HEADER_PAGES.find((page) => page.file === file); // 공통 헤더 등록 정보
     const withHeader = headerPage ? applySiteHeader(html, headerPage) : html; // 공통 헤더 적용
-    return applyI18nBootstrap(applyPageMeta(withHeader, file)); // 검색 설명과 번역 준비 적용
+    return applyReleaseNotify(applyI18nBootstrap(applyPageMeta(withHeader, file)), file); // 검색 설명·번역 준비·출시 알림 적용
 } // 함수 끝
 
 export function findStaticPageChanges(root = "public") // 적용이 필요한 페이지 찾기
