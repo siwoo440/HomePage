@@ -29,6 +29,7 @@ pnpm check
 - [`docs/ROADMAP.md`](docs/ROADMAP.md): 단계별 개발 방향과 현재 진행 단계
 - [`docs/FILE-MAP.md`](docs/FILE-MAP.md): 폴더와 주요 파일의 역할
 - [`docs/EXTERNAL-SERVICES.md`](docs/EXTERNAL-SERVICES.md): 외부 계정·유료 서비스의 비용과 제약(2026년 10월 1일 조사)
+- [`docs/SUPABASE-GUIDE.md`](docs/SUPABASE-GUIDE.md): Supabase가 하는 일, 키와 비밀번호 구분, 저장하는 정보와 권한, 해킹·유출·스팸·데이터 손실 대비책과 사고 대응
 - [`CLAUDE-HANDOFF.md`](CLAUDE-HANDOFF.md): 다른 컴퓨터에서 Claude로 이어서 작업할 때 전달할 시작 문구와 확인 기준
 - [`TRANSFER-GUIDE.md`](TRANSFER-GUIDE.md): 기존 인수인계 정보
 - [`docs/superpowers/specs/`](docs/superpowers/specs/): 승인된 기능 설계 기록

@@ -504,6 +504,7 @@ css-styling/
 | `docs/DEVELOPMENT-NOTES.md` | 로컬·외부 API·유료 작업 분류와 우선순위 |
 | `docs/ROADMAP.md` | 단계별 개발 방향과 현재 진행 단계 |
 | `docs/EXTERNAL-SERVICES.md` | 외부 계정·유료 서비스의 비용과 제약 |
+| `docs/SUPABASE-GUIDE.md` | Supabase 사용 범위, 키·비밀번호 구분, 표별 권한, 실제 프로젝트 점검 결과, 보안 위험과 대비책, 사고 대응, 남은 약점 |
 | `docs/FILE-MAP.md` | 현재 파일과 폴더의 역할 지도 |
 | `docs/superpowers/specs/` | 승인된 기능 설계와 동작 기준 |
 | `docs/superpowers/plans/` | 구현 단계와 검증 계획 |
