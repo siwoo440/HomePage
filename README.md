@@ -52,11 +52,13 @@ pnpm check
 
 사이트는 이용자가 `분석 허용`을 선택하기 전까지 Google Analytics 스크립트를 불러오지 않습니다. 선택 결과는 브라우저의 `devforge_privacy_consent_v1` 항목에 동의 여부·정책 버전·갱신 시각만 저장합니다.
 
-운영 배포 전에 `public/analytics-config.mjs`의 공개 측정 ID 자리를 실제 GA4 웹 데이터 스트림의 `G-` 측정 ID로 변경합니다. 측정 ID가 비어 있거나 형식이 올바르지 않으면 분석 모듈은 외부 요청 없이 정지합니다.
+`public/analytics-config.mjs`에 GA4 웹 데이터 스트림의 `G-` 측정 ID를 넣습니다(2026-10-04 실제 측정 ID 연결). 측정 ID는 웹페이지에 공개되는 값이라 Git에 올려도 됩니다. 비우거나 형식이 올바르지 않으면 분석 모듈은 외부 요청 없이 정지합니다.
 
 ```javascript
 export const GA_MEASUREMENT_ID = "G-XXXXXXXX"; // 운영 GA4 측정 ID
 ```
+
+로컬 개발 화면에서도 `분석 허용`을 누르면 같은 측정 ID로 전송되므로, 공개 운영 뒤에는 개발 중 방문이 통계에 섞이지 않게 GA4의 "내부 트래픽 제외"를 설정합니다.
 
 검증 기준은 다음과 같습니다.
 

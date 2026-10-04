@@ -81,3 +81,15 @@ test("명령은 환경 파일이 없어도 안내하고 고칠 곳이 있을 때
     } // 정리 끝
     assert.match(fs.readFileSync("package.json", "utf8"), /"services:check": "node scripts\/check-services\.mjs"/); // 명령 등록 확인
 }); // 테스트 끝
+
+test("실제 측정 ID는 비어 있거나 올바른 형식이고 연결했으면 개인정보처리방침에 전송 대상을 적는다", () => // 분석 연결 기록 검사
+{ // 테스트 시작
+    const measurementId = readMeasurementId(fs.readFileSync("public/analytics-config.mjs", "utf8")); // 실제 측정 ID
+    assert.match(measurementId, /^(G-[A-Z0-9]{6,20})?$/); // 빈 값 또는 GA4 형식
+    if (measurementId) // 분석 연결 확인
+    { // 조건 시작
+        const privacy = fs.readFileSync("public/privacy.html", "utf8"); // 개인정보처리방침 원문
+        assert.match(privacy, /분석 저장에 동의한 경우에만 Google Analytics 4\(Google LLC, 미국\)로/); // 전송 대상과 국가 안내
+        assert.match(privacy, /언제든 동의를 철회할 수 있습니다/); // 철회 방법 안내
+    } // 조건 끝
+}); // 테스트 끝
