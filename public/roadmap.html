@@ -1,0 +1,113 @@
+<!DOCTYPE html> <!-- HTML5 문서 -->
+<html lang="ko"> <!-- 한국어 문서 -->
+<head> <!-- 문서 정보 시작 -->
+    <meta charset="UTF-8"> <!-- 한글 인코딩 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
+    <title>개발 로드맵 · DEVFORGE</title> <!-- 브라우저 제목 -->
+    <meta name="description" content="DEVFORGE 공개 프로젝트 35개의 개발 단계를 대표·개발 중·기획·보류로 나눠 한눈에 보여 줍니다."> <!-- 검색 설명 -->
+    <meta property="og:type" content="website"> <!-- 공유 형식 -->
+    <meta property="og:site_name" content="DEVFORGE"> <!-- 사이트 이름 -->
+    <meta property="og:locale" content="ko_KR"> <!-- 공유 언어 -->
+    <meta property="og:title" content="개발 로드맵 · DEVFORGE"> <!-- 공유 제목 -->
+    <meta property="og:description" content="DEVFORGE 공개 프로젝트 35개의 개발 단계를 대표·개발 중·기획·보류로 나눠 한눈에 보여 줍니다."> <!-- 공유 설명 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet"> <!-- 로고 글꼴 -->
+    <link rel="stylesheet" href="devlog.css"> <!-- 공통 페이지 스타일 -->
+    <link rel="stylesheet" href="roadmap.css"> <!-- 로드맵 전용 스타일 -->
+    <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+    <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
+    <script src="/i18n-bootstrap.js"></script> <!-- 언어 선택 준비 -->
+</head> <!-- 문서 정보 끝 -->
+<body data-responsive-page="roadmap" data-theme="playful-lab"> <!-- 플레이풀 랩 로드맵 본문 -->
+    <!-- site-header:start -->
+    <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root data-site-header> <!-- 공통 상단 메뉴 -->
+        <a href="/main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->
+        <ul class="nav-menu"> <!-- 주요 메뉴 목록 -->
+            <li><a href="/main.html#games">게임</a></li> <!-- 게임 메뉴 -->
+            <li><a href="/goods.html">굿즈</a></li> <!-- 굿즈 메뉴 -->
+            <li><a href="/devlog.html">개발 뉴스</a></li> <!-- 개발 뉴스 메뉴 -->
+            <li><a href="/community.html">커뮤니티</a></li> <!-- 커뮤니티 메뉴 -->
+        </ul> <!-- 주요 메뉴 목록 끝 -->
+        <div class="nav-actions"> <!-- 상단 작업 묶음 -->
+            <a href="/contact.html" class="btn-nav nav-contact-link">문의하기</a> <!-- 문의하기 페이지 이동 -->
+            <a href="/login" class="btn-nav member-login-link" data-member-action data-analytics-event="login_start" data-analytics-destination="member-login">로그인</a> <!-- 회원 로그인 이동 -->
+        </div> <!-- 상단 작업 묶음 끝 -->
+    </nav> <!-- 공통 상단 메뉴 끝 -->
+    <!-- site-header:end -->
+    <div class="page-shell"> <!-- 전체 너비 영역 -->
+        <header class="site-header"> <!-- 상단 소개 시작 -->
+            <div class="hero-copy"> <!-- 소개 문구 영역 -->
+                <p class="eyebrow">// DEVELOPMENT ROADMAP</p> <!-- 영문 분류 -->
+                <h1>개발 <span>로드맵</span></h1> <!-- 페이지 제목 -->
+                <p>공개 프로젝트의 현재 개발 단계를 한눈에 보여 줍니다. 확정된 출시 일정은 아직 없으며, 일정이 정해지면 개발 뉴스에서 먼저 알립니다.</p> <!-- 페이지 설명 -->
+            </div> <!-- 소개 문구 영역 끝 -->
+        </header> <!-- 상단 소개 끝 -->
+        <main> <!-- 주요 내용 시작 -->
+            <section class="roadmap-summary" aria-label="단계별 프로젝트 수"> <!-- 단계 요약 -->
+                <a href="#roadmap-stage-featured"><strong data-roadmap-count="featured">6</strong><span>대표 프로젝트</span></a> <!-- 대표 수 -->
+                <a href="#roadmap-stage-developing"><strong data-roadmap-count="developing">26</strong><span>개발 중</span></a> <!-- 개발 중 수 -->
+                <a href="#roadmap-stage-planning"><strong data-roadmap-count="planning">1</strong><span>기획</span></a> <!-- 기획 수 -->
+                <a href="#roadmap-stage-paused"><strong data-roadmap-count="paused">2</strong><span>보류</span></a> <!-- 보류 수 -->
+            </section> <!-- 단계 요약 끝 -->
+            <section class="roadmap-toolbar" aria-label="장르 필터"> <!-- 장르 필터 영역 -->
+                <div class="roadmap-filters" role="group" aria-label="장르 선택"> <!-- 장르 버튼 묶음 -->
+                    <button type="button" data-roadmap-genre="all" aria-pressed="true">전체</button> <!-- 전체 장르 -->
+                    <button type="button" data-roadmap-genre="rpg" aria-pressed="false">RPG</button> <!-- RPG 장르 -->
+                    <button type="button" data-roadmap-genre="strategy" aria-pressed="false">전략</button> <!-- 전략 장르 -->
+                    <button type="button" data-roadmap-genre="action" aria-pressed="false">액션</button> <!-- 액션 장르 -->
+                    <button type="button" data-roadmap-genre="puzzle" aria-pressed="false">퍼즐</button> <!-- 퍼즐 장르 -->
+                    <button type="button" data-roadmap-genre="roguelike" aria-pressed="false">로그라이크</button> <!-- 로그라이크 장르 -->
+                    <button type="button" data-roadmap-genre="other" aria-pressed="false">기타</button> <!-- 기타 장르 -->
+                </div> <!-- 장르 버튼 묶음 끝 -->
+                <p class="roadmap-result" data-roadmap-result role="status" aria-live="polite">35개 프로젝트</p> <!-- 결과 수 -->
+            </section> <!-- 장르 필터 영역 끝 -->
+            <noscript><p class="roadmap-empty">단계별 목록을 보려면 자바스크립트를 켜 주세요. 전체 게임 목록은 메인 페이지에서 볼 수 있습니다.</p></noscript> <!-- 스크립트 꺼짐 안내 -->
+            <div class="roadmap-stages" data-roadmap-stages> <!-- 단계별 목록 -->
+                <section class="roadmap-stage" data-roadmap-stage="featured" aria-labelledby="roadmap-stage-featured"> <!-- 대표 단계 -->
+                    <div class="roadmap-stage-heading"> <!-- 단계 제목 영역 -->
+                        <h2 class="roadmap-stage-title" id="roadmap-stage-featured">대표 프로젝트</h2> <!-- 단계 제목 -->
+                        <span class="roadmap-stage-count" data-roadmap-stage-count>0</span> <!-- 조건에 맞는 프로젝트 수 -->
+                        <p class="roadmap-stage-description">소개 자료가 가장 많이 공개된 프로젝트입니다.</p> <!-- 단계 설명 -->
+                    </div> <!-- 단계 제목 영역 끝 -->
+                    <div class="roadmap-grid" data-roadmap-grid></div> <!-- 프로젝트 카드 격자 -->
+                    <p class="roadmap-empty" data-roadmap-empty hidden>이 조건에 맞는 프로젝트가 없습니다.</p> <!-- 빈 단계 안내 -->
+                </section> <!-- 대표 단계 끝 -->
+                <section class="roadmap-stage" data-roadmap-stage="developing" aria-labelledby="roadmap-stage-developing"> <!-- 개발 중 단계 -->
+                    <div class="roadmap-stage-heading"> <!-- 단계 제목 영역 -->
+                        <h2 class="roadmap-stage-title" id="roadmap-stage-developing">개발 중</h2> <!-- 단계 제목 -->
+                        <span class="roadmap-stage-count" data-roadmap-stage-count>0</span> <!-- 조건에 맞는 프로젝트 수 -->
+                        <p class="roadmap-stage-description">규칙과 콘텐츠를 만들고 있는 프로젝트입니다.</p> <!-- 단계 설명 -->
+                    </div> <!-- 단계 제목 영역 끝 -->
+                    <div class="roadmap-grid" data-roadmap-grid></div> <!-- 프로젝트 카드 격자 -->
+                    <p class="roadmap-empty" data-roadmap-empty hidden>이 조건에 맞는 프로젝트가 없습니다.</p> <!-- 빈 단계 안내 -->
+                </section> <!-- 개발 중 단계 끝 -->
+                <section class="roadmap-stage" data-roadmap-stage="planning" aria-labelledby="roadmap-stage-planning"> <!-- 기획 단계 -->
+                    <div class="roadmap-stage-heading"> <!-- 단계 제목 영역 -->
+                        <h2 class="roadmap-stage-title" id="roadmap-stage-planning">기획</h2> <!-- 단계 제목 -->
+                        <span class="roadmap-stage-count" data-roadmap-stage-count>0</span> <!-- 조건에 맞는 프로젝트 수 -->
+                        <p class="roadmap-stage-description">방향과 핵심 규칙을 정하고 있는 프로젝트입니다.</p> <!-- 단계 설명 -->
+                    </div> <!-- 단계 제목 영역 끝 -->
+                    <div class="roadmap-grid" data-roadmap-grid></div> <!-- 프로젝트 카드 격자 -->
+                    <p class="roadmap-empty" data-roadmap-empty hidden>이 조건에 맞는 프로젝트가 없습니다.</p> <!-- 빈 단계 안내 -->
+                </section> <!-- 기획 단계 끝 -->
+                <section class="roadmap-stage" data-roadmap-stage="paused" aria-labelledby="roadmap-stage-paused"> <!-- 보류 단계 -->
+                    <div class="roadmap-stage-heading"> <!-- 단계 제목 영역 -->
+                        <h2 class="roadmap-stage-title" id="roadmap-stage-paused">보류</h2> <!-- 단계 제목 -->
+                        <span class="roadmap-stage-count" data-roadmap-stage-count>0</span> <!-- 조건에 맞는 프로젝트 수 -->
+                        <p class="roadmap-stage-description">잠시 멈추고 다시 시작할 시점을 살피는 프로젝트입니다.</p> <!-- 단계 설명 -->
+                    </div> <!-- 단계 제목 영역 끝 -->
+                    <div class="roadmap-grid" data-roadmap-grid></div> <!-- 프로젝트 카드 격자 -->
+                    <p class="roadmap-empty" data-roadmap-empty hidden>이 조건에 맞는 프로젝트가 없습니다.</p> <!-- 빈 단계 안내 -->
+                </section> <!-- 보류 단계 끝 -->
+            </div> <!-- 단계별 목록 끝 -->
+            <p class="roadmap-note">단계는 공개 데이터 기준이며 개발 상황에 따라 바뀔 수 있습니다. 성인 확인이 필요한 프로젝트는 소개 페이지로 들어갈 때 확인 화면을 거칩니다.</p> <!-- 기준 안내 -->
+        </main> <!-- 주요 내용 끝 -->
+        <footer class="site-footer"><span>DEVFORGE Development Roadmap</span><a href="/main.html#games">게임 목록 보기</a></footer> <!-- 하단 정보 -->
+    </div> <!-- 전체 너비 영역 끝 -->
+    <script type="module" src="/roadmap.mjs"></script> <!-- 로드맵 기능 연결 -->
+    <script type="module" src="member-session.mjs"></script> <!-- 회원 상태 연결 -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 화면 내용 끝 -->
+</html> <!-- HTML 문서 끝 -->

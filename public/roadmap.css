@@ -1,0 +1,261 @@
+.roadmap-summary /* 단계 요약 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* 네 단계 */
+    gap: clamp(0.5rem, 2vw, 1rem); /* 단계 간격 */
+    margin: 0 0 24px; /* 아래쪽 여백 */
+} /* 규칙 끝 */
+
+.roadmap-summary a /* 단계 요약 카드 */
+{ /* 규칙 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 4px; /* 숫자와 이름 간격 */
+    min-width: 0; /* 축소 허용 */
+    padding: 14px 10px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border-strong, #7a8ea6); /* 카드 경계선 */
+    border-radius: var(--pl-radius-medium, 1.25rem); /* 카드 모서리 */
+    background: var(--pl-canvas, #ffffff); /* 카드 배경 */
+    color: var(--pl-ink, #172a49); /* 카드 글자색 */
+    text-align: center; /* 가운데 정렬 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 규칙 끝 */
+
+.roadmap-summary strong /* 단계 숫자 */
+{ /* 규칙 시작 */
+    color: var(--pl-violet, #7768f8); /* 숫자 색상 */
+    font-size: clamp(1.4rem, 4vw, 2rem); /* 숫자 크기 */
+    line-height: 1.1; /* 숫자 줄 높이 */
+} /* 규칙 끝 */
+
+.roadmap-summary span /* 단계 이름 */
+{ /* 규칙 시작 */
+    color: var(--pl-muted, #53677e); /* 이름 색상 */
+    font-size: 0.85rem; /* 이름 크기 */
+    font-weight: 700; /* 이름 굵기 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+} /* 규칙 끝 */
+
+.roadmap-summary a:hover, .roadmap-summary a:focus-visible /* 요약 카드 선택 */
+{ /* 규칙 시작 */
+    border-color: var(--pl-violet, #7768f8); /* 강조 경계선 */
+    outline: none; /* 기본 외곽선 제거 */
+    box-shadow: var(--pl-focus, 0 0 0 0.2rem rgba(119, 104, 248, 0.32)); /* 초점 그림자 */
+} /* 규칙 끝 */
+
+.roadmap-toolbar /* 장르 필터 영역 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양쪽 배치 */
+    gap: 12px; /* 요소 간격 */
+    margin-bottom: 28px; /* 아래쪽 여백 */
+} /* 규칙 끝 */
+
+.roadmap-filters /* 장르 버튼 묶음 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 8px; /* 버튼 간격 */
+} /* 규칙 끝 */
+
+.roadmap-filters button /* 장르 버튼 */
+{ /* 규칙 시작 */
+    min-height: 44px; /* 터치 높이 */
+    padding: 0 16px; /* 좌우 여백 */
+    border: 1px solid var(--pl-border-strong, #7a8ea6); /* 버튼 경계선 */
+    border-radius: 999px; /* 둥근 버튼 */
+    background: var(--pl-canvas, #ffffff); /* 버튼 배경 */
+    color: var(--pl-ink, #172a49); /* 버튼 글자색 */
+    font: inherit; /* 본문 글꼴 */
+    font-weight: 700; /* 버튼 굵기 */
+    cursor: pointer; /* 선택 커서 */
+} /* 규칙 끝 */
+
+.roadmap-filters button[aria-pressed="true"] /* 선택된 장르 */
+{ /* 규칙 시작 */
+    border-color: var(--pl-violet, #7768f8); /* 선택 경계선 */
+    background: var(--pl-violet, #7768f8); /* 선택 배경 */
+    color: #ffffff; /* 선택 글자색 */
+} /* 규칙 끝 */
+
+.roadmap-filters button:focus-visible, .roadmap-card:focus-visible /* 키보드 초점 */
+{ /* 규칙 시작 */
+    outline: var(--pl-focus-ring, 0.18rem solid #7768f8); /* 공통 초점 외곽선 */
+    outline-offset: 3px; /* 외곽선 간격 */
+} /* 규칙 끝 */
+
+.roadmap-result /* 결과 수 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    font-weight: 700; /* 결과 굵기 */
+} /* 규칙 끝 */
+
+.roadmap-stages /* 단계별 목록 */
+{ /* 규칙 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 36px; /* 단계 간격 */
+} /* 규칙 끝 */
+
+.roadmap-stage-heading /* 단계 제목 영역 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    align-items: baseline; /* 글자 기준선 정렬 */
+    gap: 6px 12px; /* 요소 간격 */
+    margin-bottom: 14px; /* 아래쪽 여백 */
+    padding-bottom: 10px; /* 구분선 여백 */
+    border-bottom: 1px solid var(--pl-border, #a8b8ca); /* 제목 구분선 */
+} /* 규칙 끝 */
+
+.roadmap-stage-title /* 단계 제목 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-ink, #172a49); /* 제목 글자색 */
+    font-size: 1.3rem; /* 제목 크기 */
+    scroll-margin-top: 96px; /* 고정 헤더 가림 방지 */
+} /* 규칙 끝 */
+
+.roadmap-stage-count /* 단계 프로젝트 수 */
+{ /* 규칙 시작 */
+    min-width: 1.75rem; /* 최소 너비 */
+    padding: 2px 10px; /* 안쪽 여백 */
+    border-radius: 999px; /* 둥근 배지 */
+    background: color-mix(in srgb, var(--pl-violet, #7768f8) 16%, transparent); /* 배지 배경 */
+    color: var(--pl-link, #5746d9); /* 배지 글자색 */
+    font-weight: 800; /* 배지 굵기 */
+    text-align: center; /* 가운데 정렬 */
+} /* 규칙 끝 */
+
+.roadmap-stage-description /* 단계 설명 */
+{ /* 규칙 시작 */
+    flex: 1 1 100%; /* 다음 줄 전체 사용 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+} /* 규칙 끝 */
+
+.roadmap-grid /* 프로젝트 카드 격자 */
+{ /* 규칙 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); /* 화면별 열 수 */
+    gap: 12px; /* 카드 간격 */
+} /* 규칙 끝 */
+
+.roadmap-card /* 프로젝트 카드 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    align-items: flex-start; /* 위쪽 정렬 */
+    gap: 12px; /* 기호와 내용 간격 */
+    min-width: 0; /* 축소 허용 */
+    padding: 14px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border-strong, #7a8ea6); /* 카드 경계선 */
+    border-radius: var(--pl-radius-medium, 1.25rem); /* 카드 모서리 */
+    background: var(--pl-canvas, #ffffff); /* 카드 배경 */
+    box-shadow: var(--pl-shadow-small, 0 0.5rem 1.5rem rgba(23, 42, 73, 0.1)); /* 카드 그림자 */
+    color: var(--pl-ink, #172a49); /* 카드 글자색 */
+    text-decoration: none; /* 밑줄 제거 */
+    transition: border-color 0.2s ease, transform 0.2s ease; /* 선택 전환 */
+} /* 규칙 끝 */
+
+.roadmap-card:hover /* 카드 마우스 */
+{ /* 규칙 시작 */
+    border-color: var(--pl-violet, #7768f8); /* 강조 경계선 */
+    transform: translateY(-2px); /* 살짝 올림 */
+} /* 규칙 끝 */
+
+.roadmap-symbol /* 프로젝트 기호 */
+{ /* 규칙 시작 */
+    display: grid; /* 가운데 배치 */
+    flex: 0 0 2.75rem; /* 고정 크기 */
+    width: 2.75rem; /* 기호 너비 */
+    height: 2.75rem; /* 기호 높이 */
+    place-items: center; /* 가운데 정렬 */
+    border-radius: 0.9rem; /* 기호 모서리 */
+    background: color-mix(in srgb, var(--pl-mint, #43d7c3) 22%, transparent); /* 기호 배경 */
+    color: var(--pl-ink, #172a49); /* 기호 글자색 */
+    font-family: "Orbitron", sans-serif; /* 기호 글꼴 */
+    font-weight: 900; /* 기호 굵기 */
+} /* 규칙 끝 */
+
+.roadmap-card-body /* 카드 내용 */
+{ /* 규칙 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 4px; /* 내용 간격 */
+    min-width: 0; /* 축소 허용 */
+} /* 규칙 끝 */
+
+.roadmap-name /* 프로젝트 이름 */
+{ /* 규칙 시작 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+    overflow-wrap: anywhere; /* 긴 이름 줄바꿈 */
+} /* 규칙 끝 */
+
+.roadmap-tagline /* 한 줄 소개 */
+{ /* 규칙 시작 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    font-size: 0.9rem; /* 소개 크기 */
+    line-height: 1.5; /* 줄 간격 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+} /* 규칙 끝 */
+
+.roadmap-genres /* 장르 묶음 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 6px; /* 이름표 간격 */
+    margin-top: 4px; /* 위쪽 여백 */
+} /* 규칙 끝 */
+
+.roadmap-genre /* 장르 이름표 */
+{ /* 규칙 시작 */
+    padding: 2px 9px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border, #a8b8ca); /* 이름표 경계선 */
+    border-radius: 999px; /* 둥근 이름표 */
+    color: var(--pl-muted, #53677e); /* 이름표 글자색 */
+    font-size: 0.78rem; /* 이름표 크기 */
+    font-weight: 700; /* 이름표 굵기 */
+} /* 규칙 끝 */
+
+.roadmap-adult /* 성인 확인 이름표 */
+{ /* 규칙 시작 */
+    border-color: var(--pl-danger, #d94b64); /* 경고 경계선 */
+    color: var(--pl-danger, #d94b64); /* 경고 글자색 */
+} /* 규칙 끝 */
+
+.roadmap-empty, .roadmap-note /* 빈 안내와 기준 안내 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+} /* 규칙 끝 */
+
+.roadmap-note /* 기준 안내 */
+{ /* 규칙 시작 */
+    margin-top: 32px; /* 위쪽 여백 */
+    padding-top: 16px; /* 구분선 여백 */
+    border-top: 1px dashed var(--pl-border, #a8b8ca); /* 점선 구분 */
+    font-size: 0.9rem; /* 안내 크기 */
+} /* 규칙 끝 */
+
+@media (max-width: 539px) /* 좁은 휴대폰 화면 */
+{ /* 구간 시작 */
+    .roadmap-summary /* 좁은 화면 요약 */
+    { /* 규칙 시작 */
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 두 열 배치 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */
+
+@media (prefers-reduced-motion: reduce) /* 움직임 감소 설정 */
+{ /* 구간 시작 */
+    .roadmap-card /* 카드 전환 제거 */
+    { /* 규칙 시작 */
+        transition: none; /* 전환 없음 */
+    } /* 규칙 끝 */
+
+    .roadmap-card:hover /* 카드 이동 제거 */
+    { /* 규칙 시작 */
+        transform: none; /* 이동 없음 */
+    } /* 규칙 끝 */
+} /* 구간 끝 */

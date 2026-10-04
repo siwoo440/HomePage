@@ -1,7 +1,7 @@
 import fs from "node:fs"; // 파일 시스템 도구
 import path from "node:path"; // 경로 처리 도구
 import { fileURLToPath } from "node:url"; // 모듈 주소 변환 도구
-import { GAME_PROJECTS } from "../public/game-projects.mjs"; // 프로젝트 공개 데이터
+import { GAME_PROJECTS, getGenreLabel } from "../public/game-projects.mjs"; // 프로젝트 공개 데이터와 장르 이름
 import { renderSiteHeader } from "./site-header.mjs"; // 공통 상단 헤더 생성
 import { renderMetaTags } from "./apply-page-meta.mjs"; // 공유 미리보기 태그 생성
 
@@ -18,12 +18,6 @@ function developmentLabel(status) // 개발 상태 문구 변환
 function publicationLabel(status) // 공개 상태 문구 변환
 { // 함수 시작
     return ({ featured: "대표 프로젝트", developing: "개발 중 공개", planning: "기획 단계" })[status] ?? "공개 준비 중"; // 공개 문구 반환
-} // 함수 끝
-
-function genreLabel(genre) // 장르 표시 문구 변환
-{ // 함수 시작
-    const labels = Object.freeze({ strategy: "전략", srpg: "SRPG", rpg: "RPG", puzzle: "퍼즐", roguelike: "로그라이크", card: "카드", "tower-defense": "타워 디펜스", ccg: "CCG", action: "액션", fps: "FPS", story: "스토리", rhythm: "리듬", exploration: "탐사", "battle-royale": "배틀로얄", survivor: "생존", "open-world": "오픈월드", "match-three": "3매치", shooting: "슈팅", racing: "레이싱", survival: "생존", "mini-game": "미니게임", sandbox: "샌드박스", management: "경영", horror: "공포", metroidvania: "메트로배니아", mobile: "모바일", simulation: "시뮬레이션", dungeon: "던전", digging: "지형 변화", chess: "체스", gaze: "관찰", risk: "위험 판단", other: "기타" }); // 장르 문구 표
-    return labels[genre] ?? genre; // 장르 문구 반환
 } // 함수 끝
 
 function renderFeatures(project) // 핵심 특징 HTML 생성
@@ -51,7 +45,7 @@ export function renderProjectHtml(project) // 프로젝트 공개 HTML 생성
     } // 조건 끝
 
     const mode = project.publicationStatus === "planning" ? "planning" : "published"; // 공개 화면 모드
-    const genres = project.genres.map((genre) => `<span>${escapeHtml(genreLabel(genre))}</span>`).join(""); // 장르 태그 생성
+    const genres = project.genres.map((genre) => `<span>${escapeHtml(getGenreLabel(genre))}</span>`).join(""); // 장르 태그 생성
     const planningNotice = mode === "planning" ? `            <section class="project-planning" aria-labelledby="planning-title"> <!-- 준비 안내 영역 -->
                 <p class="project-kicker">IN DEVELOPMENT</p> <!-- 준비 상태 영문 -->
                 <h2 id="planning-title">새로운 정보가 준비되는 대로 공개됩니다</h2> <!-- 준비 안내 제목 -->

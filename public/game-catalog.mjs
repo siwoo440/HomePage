@@ -1,4 +1,4 @@
-import { FEATURED_PROJECT_IDS, getGameProject } from "./game-projects.mjs"; // 공개 프로젝트 데이터
+import { FEATURED_PROJECT_IDS, getFilterGenre, getGameProject } from "./game-projects.mjs"; // 공개 프로젝트 데이터
 
 export const FEATURED_GAME_IDS = FEATURED_PROJECT_IDS; // 기존 추천 이름 호환
 
@@ -157,7 +157,7 @@ function createGameRecord(card, index) // 카드 검색 정보 생성
     const nameElement = card.querySelector?.(".game-name"); // 프로젝트명 요소 조회
     const statusElement = card.querySelector?.(".game-platform .platform-tag"); // 공개 상태 요소 조회
     const name = project?.title ?? nameElement?.textContent?.trim() ?? "프로젝트"; // 공개 프로젝트명 결정
-    const genre = project?.genres?.[0] ?? card.dataset.genre ?? "other"; // 대표 장르 결정
+    const genre = project ? getFilterGenre(project) : card.dataset.genre ?? "other"; // 필터용 대표 장르 결정(필터에 없는 장르는 기타)
     const status = project?.developmentStatus ?? getGameStatus(card); // 개발 상태 결정
     const statusLabel = project?.publicationStatus === "featured" ? "대표 프로젝트" : status === "developing" ? "개발 중" : "기획 단계"; // 공개 상태 문구 결정
 

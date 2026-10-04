@@ -8,6 +8,7 @@ export const RESPONSIVE_NAV_ITEMS = Object.freeze( // 공통 메뉴 목록
 [ // 목록 시작
     Object.freeze({ id: "home", label: "홈", href: "/main.html" }), // 홈 메뉴
     Object.freeze({ id: "games", label: "게임", href: "/main.html#games" }), // 게임 메뉴
+    Object.freeze({ id: "roadmap", label: "로드맵", href: "/roadmap.html" }), // 로드맵 메뉴
     Object.freeze({ id: "goods", label: "굿즈", href: "/goods.html" }), // 굿즈 메뉴
     Object.freeze({ id: "news", label: "개발 뉴스", href: "/devlog.html" }), // 뉴스 메뉴
     Object.freeze({ id: "community", label: "커뮤니티", href: "/community.html" }), // 커뮤니티 메뉴

@@ -49,6 +49,27 @@ export const SPECIAL_PROJECT_IDS = Object.freeze( // 특화 프로젝트 목록
     "project-eta", // 프로젝트 에타
 ]); // 배열 끝
 
+export const GENRE_LABELS = Object.freeze( // 장르 표시 이름
+{ // 이름표 시작
+    strategy: "전략", srpg: "SRPG", rpg: "RPG", puzzle: "퍼즐", roguelike: "로그라이크", card: "카드", // 전략·역할·퍼즐 계열
+    "tower-defense": "타워 디펜스", ccg: "CCG", action: "액션", fps: "FPS", story: "스토리", rhythm: "리듬", // 액션·이야기 계열
+    exploration: "탐사", "battle-royale": "배틀로얄", survivor: "생존", "open-world": "오픈월드", "match-three": "3매치", shooting: "슈팅", // 탐험·경쟁 계열
+    racing: "레이싱", survival: "생존", "mini-game": "미니게임", sandbox: "샌드박스", management: "경영", horror: "공포", // 생활·분위기 계열
+    metroidvania: "메트로배니아", mobile: "모바일", simulation: "시뮬레이션", dungeon: "던전", digging: "지형 변화", chess: "체스", gaze: "관찰", risk: "위험 판단", other: "기타", // 기타 계열
+}); // 이름표 끝
+
+export const PRIMARY_GENRE_FILTERS = Object.freeze(["rpg", "strategy", "action", "puzzle", "roguelike"]); // 목록 필터에 쓰는 대표 장르
+
+export function getGenreLabel(genre) // 장르 표시 이름 조회
+{ // 함수 시작
+    return GENRE_LABELS[genre] ?? genre; // 이름 또는 원래 값 반환
+} // 함수 끝
+
+export function getFilterGenre(project) // 목록 필터용 대표 장르
+{ // 함수 시작
+    return project?.genres?.find((genre) => PRIMARY_GENRE_FILTERS.includes(genre)) ?? "other"; // 첫 대표 장르 또는 기타 반환
+} // 함수 끝
+
 export const GAME_PROJECTS = Object.freeze( // 프로젝트 공개 정보 목록
 [ // 배열 시작
     createProject({ slug: "a", symbol: "A", title: "프로젝트 A — 아스트로이아", tagline: "별자리가 전선이 되는 세계에서 펼쳐지는 전략 전쟁", genres: ["strategy", "srpg"], publicationStatus: "featured", features: ["별자리 에너지 전략", "세력별 영토 전쟁", "영웅 중심 전술"] }), // 프로젝트 A

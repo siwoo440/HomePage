@@ -136,6 +136,8 @@ Next.js 서버
 | `/goods.html` | `public/goods.html` | 공개 상품과 재고 상태 |
 | `/devlog.html` | `public/devlog.html` | 공개 개발 뉴스와 태그 필터 |
 | `/community.html` | `public/community.html` | 게임별 플랫폼 콘텐츠와 해시태그 |
+| `/contact.html` | `public/contact.html` | 자주 묻는 질문과 문의 양식 |
+| `/roadmap.html` | `public/roadmap.html` | 단계별 개발 로드맵과 장르 필터 |
 | `/terms.html` | `public/terms.html` | 이용약관 초안 |
 | `/privacy.html` | `public/privacy.html` | 개인정보처리방침 초안 |
 | `/device-preview.html` | `public/device-preview.html` | 개발 전용 화면 크기 미리보기 |
@@ -210,6 +212,10 @@ Next.js 서버
 - 대표 이미지
 - 성인 콘텐츠 여부
 - 커뮤니티 해시태그
+
+장르 표시 이름은 `GENRE_LABELS`(`getGenreLabel`) 한 곳에서 관리하며 생성 스크립트와 로드맵이 함께 씁니다. 목록의 장르 버튼(RPG·전략·액션·퍼즐·로그라이크·기타)은 `getFilterGenre`가 정한 필터용 대표 장르로 걸러 냅니다. 프로젝트 장르 가운데 처음 나오는 대표 장르를 쓰고, 대표 장르가 없으면 '기타'입니다. 그래서 모든 프로젝트가 정확히 한 버튼에 걸립니다.
+
+개발 로드맵(`public/roadmap.html`, `public/roadmap.mjs`)은 같은 데이터로 단계를 나눕니다. 개발 상태가 보류·기획이면 그 단계로, 그 밖에는 `FEATURED_PROJECT_IDS`에 있으면 대표, 아니면 개발 중입니다. 단계 제목과 설명은 문서에 정적으로 두고 스크립트는 카드만 채우므로 단계 앵커가 스크립트 없이도 유효합니다. 확정되지 않은 출시 일정과 게임 이미지는 넣지 않습니다.
 
 공통 형식의 프로젝트 페이지는 `node scripts/generate-project-pages.mjs`로 다시 생성할 수 있습니다. 개별 디자인을 가진 특화 프로젝트는 생성 대상과 구분합니다.
 

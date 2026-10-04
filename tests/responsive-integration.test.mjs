@@ -239,7 +239,7 @@ function collectPublicHtmlFiles(directory = "public") // 공개 HTML 수집
 test("모든 공개 HTML이 공통 모바일 메뉴를 제공한다", () => // 전체 페이지 연결 테스트
 { // 테스트 시작
     const files = collectPublicHtmlFiles().filter((file) => !file.endsWith("device-preview.html")); // 공개 페이지 수집
-    assert.equal(files.length, 45); // 법적 문서 포함 페이지 수 확인
+    assert.equal(files.length, 46); // 법적 문서·로드맵 포함 페이지 수 확인
 
     for (const file of files) // 페이지 반복
     { // 반복 시작

@@ -246,7 +246,8 @@ css-styling/
 
 | 파일 | 역할 |
 | --- | --- |
-| `public/game-projects.mjs` | 35개 게임 프로젝트 통합 데이터 |
+| `public/game-projects.mjs` | 35개 게임 프로젝트 통합 데이터, 장르 이름표와 필터용 대표 장르 규칙 |
+| `public/roadmap.mjs` | 개발 로드맵 단계 분류, 장르 필터, 주소 저장과 카드 표시 |
 | `public/game-catalog.mjs` | 프로젝트 검색, 필터와 더 보기 |
 | `public/hero-carousel.mjs` | 방향 이동, 자동 전환과 진행 게이지 |
 | `public/site-experience.mjs` | 관심·최근 목록, 통계와 FAQ 상호작용 |
@@ -302,6 +303,7 @@ css-styling/
 | --- | --- |
 | `public/game-catalog.css` | 검색창, 장르와 상태 필터 |
 | `public/goods.css` | 상품 목록과 상태 버튼 |
+| `public/roadmap.css` | 개발 로드맵 요약·필터·단계 카드 |
 | `public/devlog.css` | 개발 뉴스 카드와 필터 |
 | `public/community.css` | 커뮤니티 카드와 플랫폼 화면 |
 | `public/device-preview.css` | 기기 프레임과 미리보기 배치 |
@@ -400,6 +402,7 @@ css-styling/
 - `member-signup-moderation-migration.test.mjs`: 동의 기록과 관리자 전용 처리 SQL
 - `account.test.mjs`: 내 댓글·탈퇴 처리, 탈퇴 SQL, 검색엔진 파일과 오류 화면
 - `contact.test.mjs`: 문의 검증, 화면·서버 문구 일치, 접수 순서, 문의함 처리와 문의 테이블 권한
+- `roadmap.test.mjs`: 로드맵 단계 분류, 장르 필터·주소 저장, 문서 구조와 메뉴·사이트맵 연결
 
 ---
 ### 개인정보와 분석
@@ -510,6 +513,7 @@ ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `publi
 | 로그인 권한 | `lib/auth/admin-policy.ts` | `proxy.ts`, Supabase 클라이언트 |
 | 댓글 | `app/news/[id]/comments-panel.tsx` | `lib/comments/domain.ts`, `lib/comments/service.ts`, `lib/comments/local-service.ts`, `lib/comments/supabase-service.ts`, 댓글 마이그레이션 |
 | 회원가입·간편 로그인 | `lib/member/auth-providers.ts` | `app/signup/`, `app/login/social-login-buttons.tsx`, `lib/member/signup.ts`, `app/auth/` |
+| 개발 로드맵 | `public/roadmap.mjs` | `public/roadmap.html`, `public/roadmap.css`, `public/game-projects.mjs` |
 | 문의 양식·문의함 | `lib/contact/domain.ts` | `public/contact-form.mjs`, `app/api/contact/route.ts`, `lib/contact/inbox.ts`, `app/admin/contact/`, `202610040001_contact_messages.sql` |
 | 댓글·신고 관리 | `app/admin/comments/` | `lib/comments/moderation.ts`, `202610010001_member_signup_moderation.sql` |
 | 회원 닉네임 | `lib/member/profile.ts` | `app/login/member-access.tsx`, `app/login/member-nickname-form.tsx`, `app/api/member/status/route.ts`, `public/member-session.mjs` |
