@@ -138,6 +138,29 @@ pnpm i18n:check
 
 ---
 
+## 무료 서비스부터 연결하는 순서
+
+가입만으로는 비용이 들지 않는 서비스부터 연결합니다. 값을 넣을 때마다 아래 명령으로 서비스별 상태(연결됨·아직 연결 전·고칠 곳 있음)와 다음에 할 일을 확인합니다. 값 자체는 화면에 표시하지 않습니다.
+
+```powershell
+# 외부 서비스 연결 점검
+pnpm services:check
+```
+
+| 순서 | 서비스 | 넣는 곳 | 안내 |
+| --- | --- | --- | --- |
+| 1 | Supabase(무료) | `.env.local`의 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `ADMIN_EMAIL` | 아래 1~4단계 |
+| 2 | Resend(무료, 메일 발송) | `.env.local`의 `RESEND_API_KEY`, `MAIL_FROM`, `CONTACT_NOTIFY_EMAIL` | 아래 "메일 발송 연결" |
+| 3 | 간편 로그인(Google·카카오·Discord) | Supabase의 Authentication → Providers | 아래 "간편 로그인 켜기" |
+| 4 | YouTube Data API | `.env.local`의 `YOUTUBE_API_KEY` | Google Cloud에서 YouTube Data API v3를 켜고 API 키 발급 |
+| 5 | Google Analytics 4 | `public/analytics-config.mjs`의 `GA_MEASUREMENT_ID` | 위 "개인정보 동의와 GA4 설정" |
+
+- 값은 `.env.local`에만 넣습니다. 이 파일은 저장소에 올라가지 않습니다. 채팅·문서·커밋에 키를 적지 않습니다.
+- `.env.local`을 바꾼 뒤에는 개발 서버를 다시 시작합니다.
+- 가입 자체에 비용이 드는 것(도메인, Apple 로그인, 본인인증, 자체 결제)과 유료 요금제(Supabase Pro, Vercel Pro)는 이 순서에 넣지 않았습니다. 비용과 제약은 `docs/EXTERNAL-SERVICES.md`를 봅니다.
+
+---
+
 ## 1. Supabase 프로젝트 생성
 
 1. Supabase 대시보드에서 새 프로젝트 생성
@@ -235,6 +258,29 @@ Supabase의 **Authentication → URL Configuration**에서 개발 단계 주소�
 
 이메일 인증을 끄면(`Confirm email` 해제) 가입 즉시 로그인되고 입력한 닉네임으로 바로 댓글을 쓸 수 있습니다.
 
+### 메일 발송 연결
+
+문의가 저장되면 운영자 메일로 접수 알림을 보냅니다. 세 값이 모두 올바를 때만 보내며, 하나라도 비어 있으면 메일 없이 문의함에만 저장합니다.
+
+```dotenv
+# Resend 메일 발송 키(서버 전용)
+RESEND_API_KEY=Resend-API-키
+# 보내는 주소
+MAIL_FROM=DEVFORGE <noreply@내-도메인>
+# 문의 접수 알림을 받을 운영자 이메일
+CONTACT_NOTIFY_EMAIL=운영자-이메일
+```
+
+1. Resend에 가입하고 **API Keys**에서 키를 만들어 `RESEND_API_KEY`에 넣습니다. 이 키는 서버 전용이므로 `NEXT_PUBLIC_`으로 시작하는 항목에 넣지 않습니다.
+2. 도메인이 아직 없으면 `MAIL_FROM=onboarding@resend.dev`로 시험합니다. 이때는 Resend에 가입한 본인 이메일로만 보낼 수 있으므로 `CONTACT_NOTIFY_EMAIL`도 그 이메일로 넣습니다(가입 화면의 안내를 다시 확인).
+3. 도메인을 마련한 뒤에는 Resend의 **Domains**에서 도메인을 인증하고 `MAIL_FROM`을 그 도메인 주소로 바꿉니다.
+4. `pnpm services:check`로 형식을 확인하고 개발 서버를 다시 시작합니다.
+
+- 알림 메일의 답장 주소는 문의한 사람의 이메일이므로, 받은 메일에 답장하면 바로 답변이 됩니다.
+- 알림 발송이 실패해도 문의는 이미 저장되어 있으며 접수 안내는 그대로 나갑니다. 서버 기록에는 실패 종류만 남기고 문의 내용은 남기지 않습니다.
+- 가입 인증·비밀번호 재설정 메일은 Supabase가 보냅니다. Supabase 기본 메일은 시간당 2통이라 운영에는 Supabase의 **Authentication → SMTP Settings**에 Resend를 연결해야 하고, 이때는 인증한 도메인이 필요합니다.
+- 출시 알림 메일(확인 메일 포함)은 아직 보내지 않습니다. 도메인을 마련한 뒤 연결합니다.
+
 ---
 
 ## 5. Vercel 환경 변수 설정
@@ -281,7 +327,7 @@ Production, Preview, Development 환경 가운데 실제로 사용할 환경을 
 3. `/admin/contact`에서 **답변 대기·답변 완료·전체** 목록을 보고, 이메일로 답변한 뒤 처리 메모를 남기고 **답변 완료로 표시**
 4. 잘못 처리했으면 **답변 대기로 되돌리기**
 
-같은 요청자는 10분에 5번까지만 보낼 수 있습니다(서버 인스턴스별 대략적인 제한). 접수 알림과 답변 메일 발송은 아직 없으며 메일 서비스 연결 뒤 추가합니다. Supabase 없이 문의함 화면을 보려면 `/admin/demo?form=contact`를 엽니다.
+같은 요청자는 10분에 5번까지만 보낼 수 있습니다(서버 인스턴스별 대략적인 제한). 메일 발송을 연결하면(위 "메일 발송 연결") 문의가 저장될 때 운영자 메일로 접수 알림이 가고, 그 메일에 답장하면 문의한 사람에게 답변됩니다. Supabase 없이 문의함 화면을 보려면 `/admin/demo?form=contact`를 엽니다.
 
 ---
 ### 댓글·신고 관리

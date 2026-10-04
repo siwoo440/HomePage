@@ -2,6 +2,10 @@ import { validateContact } from "@/lib/contact/domain"; // 문의 입력 검증
 import { saveContactMessage } from "@/lib/contact/inbox"; // 문의 저장
 import { jsonNoStore, rateLimitedResponse, readJsonBody } from "@/lib/http/json"; // JSON 요청·응답 도구
 import { createRateLimiter, getClientKey } from "@/lib/http/rate-limit"; // 요청 횟수 제한
+import { getMailConfig } from "@/lib/mail/config"; // 메일 발송 설정
+import { sendMail } from "@/lib/mail/sender"; // 메일 발송
+import { buildContactNotice } from "@/lib/mail/templates"; // 문의 접수 알림 양식
+import { getSiteUrl } from "@/lib/site-url"; // 공개 사이트 주소
 import { isSupabaseConfigured } from "@/lib/supabase/config"; // 저장소 연결 여부
 import { createServerSupabaseClient } from "@/lib/supabase/server"; // 서버 데이터 도구
 
@@ -38,6 +42,12 @@ export async function POST(request: Request): Promise<Response> // 문의 접수
     try // 저장 시도
     { // 시도 시작
         await saveContactMessage(await createServerSupabaseClient(), checked.value); // 문의 저장
+        const mail = getMailConfig(); // 메일 발송 설정(없으면 알림 생략)
+        const notice = mail ? await sendMail(mail, buildContactNotice(checked.value, mail.notifyTo, getSiteUrl())) : null; // 운영자 접수 알림
+        if (notice && !notice.ok) // 알림 실패 확인(문의는 이미 저장됨)
+        { // 조건 시작
+            console.error("CONTACT_NOTICE_FAILED", notice.reason, notice.status); // 문의 내용 없이 실패 종류만 기록
+        } // 조건 끝
         return jsonNoStore({ ok: true, message: "문의를 접수했습니다. 확인 후 입력하신 이메일로 답변드리겠습니다." }, 201); // 접수 안내 반환
     } // 시도 끝
     catch // 저장 실패 처리

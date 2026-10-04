@@ -709,7 +709,6 @@
     "개인정보처리방침 보기": "View Privacy Policy",
     "문의 보내기": "Send message",
     "위 문의 양식 외의 공식 채널은 운영 준비 단계에서 연결됩니다. 아래 채널은 주소가 확정되면 활성화됩니다.": "Official channels other than the form above will be connected as we prepare for launch. The channels below will be activated once their addresses are confirmed.",
-    "문의하기 페이지의 문의 양식을 보내면 문의 분류, 답변 받을 이메일, 제목과 내용을 문의 답변 목적으로 처리합니다. 현재 시연 모드에서는 입력 내용을 확인만 하고 저장하지 않으며, 서버를 연결한 뒤에는 관리자만 볼 수 있는 문의함에 저장합니다. 보관 기간은 운영 전에 확정합니다.": "When you send the form on the Contact page, we process the category, your reply email, the subject and the message in order to answer your inquiry. In the current demo mode the input is only checked and not stored; once a server is connected it will be stored in an inbox that only administrators can see. The retention period will be decided before launch.",
     "문의를 접수했습니다. 확인 후 입력하신 이메일로 답변드리겠습니다.": "Your message has been received. We'll review it and reply to the email address you entered.",
     "시연 모드: 입력 검증을 통과했습니다. 서버가 연결되지 않아 문의는 저장되지 않습니다.": "Demo mode: your input passed validation. No server is connected, so the message was not stored.",
     "문의를 접수하지 못했습니다. 잠시 후 다시 시도해 주세요.": "We couldn't receive your message. Please try again in a moment.",
@@ -773,7 +772,8 @@
     "시연 뉴스": "Demo news",
     "에코 보이드의 핵심 음향 공간화 엔진을 2D 기반 처리에서 실시간 3D HRTF 방식으로 다시 구성한 과정을 소개하는 임시 개발 뉴스입니다. 실제 소식이 등록되면 이 자리에 표시됩니다.": "Placeholder dev news describing how Echo Void's core spatial audio engine was rebuilt from 2D-based processing to real-time 3D HRTF. Real news will appear here once it is posted.",
     "씨앗 기반 생성 시스템에서 노이즈 함수와 Voronoi 다이어그램을 조합하는 방식을 소개하는 임시 개발 뉴스입니다.": "Placeholder dev news describing how the seed-based generation system combines noise functions with Voronoi diagrams.",
-    "스킬 겹침과 보스 패턴 누락 현상 수정, GPU 최적화 내용을 정리한 임시 개발 뉴스입니다.": "Placeholder dev news summarizing fixes for overlapping skills and missing boss patterns, plus GPU optimization."
+    "스킬 겹침과 보스 패턴 누락 현상 수정, GPU 최적화 내용을 정리한 임시 개발 뉴스입니다.": "Placeholder dev news summarizing fixes for overlapping skills and missing boss patterns, plus GPU optimization.",
+    "문의하기 페이지의 문의 양식을 보내면 문의 분류, 답변 받을 이메일, 제목과 내용을 문의 답변 목적으로 처리합니다. 현재 시연 모드에서는 입력 내용을 확인만 하고 저장하지 않으며, 서버를 연결한 뒤에는 관리자만 볼 수 있는 문의함에 저장합니다. 메일 서비스를 연결하면 접수 내용을 운영자 메일로도 전달합니다. 보관 기간은 운영 전에 확정합니다.": "When you send the form on the Contact page, we process the category, your reply email, the subject and the message in order to answer your inquiry. In the current demo mode the input is only checked and not stored; once a server is connected it will be stored in an inbox that only administrators can see. Once a mail service is connected, the inquiry is also forwarded to the operator's mailbox. The retention period will be decided before launch."
   },
   "patterns": [
     {

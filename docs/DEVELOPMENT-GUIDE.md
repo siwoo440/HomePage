@@ -369,7 +369,9 @@ devforge_privacy_consent_v1
 - 저장: `contact_messages` 테이블. 방문자는 분류·이메일·제목·내용 네 열만 추가할 수 있고 조회·처리는 관리자만 합니다.
 - 관리자 문의함(`/admin/contact`): 처리 규칙과 데모·Supabase 서비스는 `lib/contact/inbox.ts`, 서버 작업은 `app/admin/contact/actions.ts`. 답변 완료로 바꾸면 처리 시각과 처리한 관리자를 기록합니다.
 
-접수 알림·답변 메일 발송은 없습니다. 메일 서비스 연결(로드맵 7단계) 뒤 추가합니다.
+접수 알림은 메일 설정(`lib/mail/config.ts`의 `getMailConfig`)이 있을 때만 보냅니다. 문의를 저장한 뒤 `buildContactNotice`로 만든 글자 본문 메일을 `sendMail`(Resend, 4초 제한)로 운영자에게 보내며, 답장 주소는 문의한 사람입니다. 발송이 실패해도 접수 응답은 바뀌지 않고 서버 기록에는 실패 종류만 남깁니다. 메일 본문은 HTML을 쓰지 않고 제목의 줄바꿈을 지워 머리말 끼워 넣기를 막습니다. 답변 메일을 홈페이지에서 직접 보내는 기능은 없습니다(받은 알림 메일에 답장).
+
+외부 서비스 연결 상태는 `pnpm services:check`(`scripts/check-services.mjs`)로 확인합니다. Supabase·메일·YouTube·GA4를 연결 권장 순서대로 보여 주고, 서버 전용 키가 `NEXT_PUBLIC_` 항목에 들어 있으면 오류로 알립니다.
 
 출시 알림 신청도 같은 구조를 씁니다.
 

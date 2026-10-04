@@ -170,6 +170,9 @@ css-styling/
 | `lib/forms/validation.ts` | 입력 오류 순서, 첫 오류 초점 이동과 잘못된 제출 차단 |
 | `lib/http/rate-limit.ts` | 서버 요청 횟수 제한(요청자별 기준 시간, 기억 한도)과 요청자 주소 읽기 |
 | `lib/http/json.ts` | JSON 요청 본문 크기·형식 확인, 캐시하지 않는 응답과 요청 제한 응답 |
+| `lib/mail/config.ts` | 메일 설정 읽기(세 값이 모두 올바를 때만 켜짐), 이메일·보내는 주소 형식 확인 |
+| `lib/mail/sender.ts` | Resend로 글자 본문 메일 발송, 제목 정리, 실패 종류 구분(내용 오류·거부·시간 초과·연결 실패) |
+| `lib/mail/templates.ts` | 문의 접수 알림 메일 양식(답장 주소는 문의한 사람) |
 
 ---
 ### 회원과 댓글
@@ -362,6 +365,7 @@ css-styling/
 | `scripts/archive-project-pages.mjs` | `node scripts/archive-project-pages.mjs` | 변경 전 프로젝트 HTML을 내부 보관소로 복사 |
 | `scripts/optimize_goods_images.py` | Python 환경에서 직접 실행 | 상품 원본 이미지 최적화 |
 | `scripts/check-supabase-env.mjs` | `pnpm supabase:check` | `.env.local`의 Supabase 주소·공개 키·관리자 이메일 형식과 비밀 키 노출 점검 |
+| `scripts/check-services.mjs` | `pnpm services:check` | Supabase·메일·YouTube·GA4의 연결 상태, 형식 오류, 서버 전용 키 노출과 다음에 할 일 안내 |
 | `scripts/i18n-extract.mjs` | `pnpm i18n:check` | 정적 페이지 한국어 문구 추출과 영어 사전 누락·잔여 점검 |
 
 페이지 생성과 보관 스크립트를 실행한 뒤 변경 파일을 반드시 검토합니다. 개별 디자인 프로젝트를 공통 템플릿으로 덮어쓰지 않도록 대상 목록을 확인합니다.
@@ -454,6 +458,8 @@ css-styling/
 - `project-h-page.test.mjs`: 프로젝트 H 화면과 스크립트 연결
 - `development-tooling.test.mjs`: 린트·설치 설정과 제외 범위
 - `supabase-env-check.test.mjs`: Supabase 연결 설정 점검 도구
+- `services-check.test.mjs`: 외부 서비스 연결 점검(서비스별 상태, 값 미출력, 서버 전용 키 노출 감지, 명령 종료 코드)
+- `mail.test.mjs`: 메일 설정 판정, 발송 요청과 실패 종류, 문의 알림 양식, 저장 뒤 알림 순서
 
 ---
 ### 게임과 프로젝트
@@ -538,6 +544,8 @@ ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `publi
 | 댓글·신고 관리 | `app/admin/comments/` | `lib/comments/moderation.ts`, `202610010001_member_signup_moderation.sql` |
 | 회원 닉네임 | `lib/member/profile.ts` | `app/login/member-access.tsx`, `app/login/member-nickname-form.tsx`, `app/api/member/status/route.ts`, `public/member-session.mjs` |
 | Supabase 연결 준비 | `scripts/check-supabase-env.mjs` | `.env.example`, `README.md`의 Supabase 단계, `supabase/migrations/` |
+| 외부 서비스 연결 점검 | `scripts/check-services.mjs` | `.env.example`, `README.md`의 "무료 서비스부터 연결하는 순서" |
+| 메일 발송·문의 알림 | `lib/mail/sender.ts` | `lib/mail/config.ts`, `lib/mail/templates.ts`, `app/api/contact/route.ts` |
 | 연령 제한 | `lib/age-gate/` | `proxy.ts`, 연령 API와 화면 |
 | 분석 동의 | `public/privacy-consent.mjs` | `public/site-analytics.mjs` |
 | 전체 품질 확인 | `package.json` | `tests/`, `tsconfig.json` |
