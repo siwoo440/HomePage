@@ -5,6 +5,8 @@ export type NotifyField = typeof NOTIFY_FIELD_ORDER[number]; // 출시 알림 �
 export const NOTIFY_EMAIL_MAX_LENGTH = 254; // 이메일 최대 길이
 export const NOTIFY_HONEYPOT_FIELD = "website"; // 자동 입력 방지용 숨김 칸
 export const NOTIFY_CLOSED_MESSAGE = "출시 알림을 받지 않는 프로젝트입니다."; // 신청 불가 안내
+export const NOTIFY_CONFIRM_DAILY_LIMIT = 3; // 같은 이메일로 하루에 보내는 확인 메일 수(데이터베이스 함수와 같은 값)
+export const NOTIFY_CONFIRM_RESEND_HOURS = 24; // 같은 신청에 확인 메일을 다시 보내기까지의 시간(데이터베이스 함수와 같은 값)
 
 export interface NotifyInput // 검증된 출시 알림 신청
 { // 형식 시작

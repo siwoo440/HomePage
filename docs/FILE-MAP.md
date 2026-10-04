@@ -97,7 +97,8 @@ css-styling/
 | `app/admin/notify/page.tsx` | 관리자 출시 알림 화면(게임별 신청 수) |
 | `app/admin/notify/summary-table.tsx` | 게임별 수신 중·수신 거부 수 표(이메일 주소 미표시) |
 | `app/notify/unsubscribe/page.tsx` | 출시 알림 수신 거부 화면(주소 값 형식 확인) |
-| `app/notify/unsubscribe/unsubscribe-panel.tsx` | 수신 거부 버튼과 결과 안내 |
+| `app/notify/confirm/page.tsx` | 출시 알림 신청 확인 화면(주소 값 형식 확인) |
+| `app/notify/token-action-panel.tsx` | 확인·수신 거부 공용 버튼과 결과 안내(버튼을 눌러야 처리) |
 
 ---
 ### 회원·뉴스·연령 확인
@@ -143,6 +144,7 @@ css-styling/
 | `app/api/contact/route.ts` | 문의 접수(요청 횟수 제한, 검증, 시연 모드·저장 분기) |
 | `app/api/notify/route.ts` | 출시 알림 신청 접수(요청 횟수 제한, 검증, 시연 모드·저장 분기) |
 | `app/api/notify/unsubscribe/route.ts` | 출시 알림 수신 거부 처리 |
+| `app/api/notify/confirm/route.ts` | 출시 알림 본인 확인 처리 |
 
 ---
 ## 4. `lib/` 업무 규칙
@@ -197,7 +199,8 @@ css-styling/
 | `lib/contact/domain.ts` | 문의 분류와 입력 검증(이메일·제목·내용·동의, 자동 입력 방지 칸) |
 | `lib/contact/inbox.ts` | 문의 저장, 관리자 문의함 목록·처리와 데모·Supabase 서비스 |
 | `lib/notify/domain.ts` | 출시 알림 대상 게임 판정, 신청 입력 검증, 수신 거부 값 형식 |
-| `lib/notify/store.ts` | 출시 알림 신청·수신 거부 함수 호출, 게임별 집계 정리와 시연 집계 |
+| `lib/notify/store.ts` | 출시 알림 신청·확인 값 발급·본인 확인·수신 거부 함수 호출, 게임별 집계 정리와 시연 집계 |
+| `lib/notify/confirmation.ts` | 확인 메일을 보낼 수 있는지 판정하고 확인 값 발급·메일 발송·실패 시 발송 표시 지우기 |
 
 ---
 ### 뉴스
@@ -236,6 +239,7 @@ css-styling/
 | `lib/supabase/config.ts` | 환경 변수 존재와 설정 상태 판정 |
 | `lib/supabase/client.ts` | 브라우저용 Supabase 클라이언트 |
 | `lib/supabase/server.ts` | 서버 컴포넌트와 작업용 클라이언트 |
+| `lib/supabase/secret.ts` | 서버 전용 비밀 키(`SUPABASE_SECRET_KEY`) 읽기와 서버 전용 연결(출시 알림 확인 메일에만 사용, 브라우저 코드에서 불러오지 않음) |
 | `lib/supabase/proxy.ts` | 요청 중 인증 세션 갱신 |
 
 ---

@@ -14,16 +14,22 @@ test("아무 값도 없으면 모든 서비스가 연결 전이며 오류가 아
 { // 테스트 시작
     const report = checkServices({}); // 빈 설정 점검
     assert.equal(report.ok, true); // 연결 전은 오류 아님
-    assert.deepEqual(report.services.map((service) => [service.id, service.status]), [["supabase", "off"], ["mail", "off"], ["youtube", "off"], ["analytics", "off"]]); // 연결 권장 순서와 상태
+    assert.deepEqual(report.services.map((service) => [service.id, service.status]), [["supabase", "off"], ["mail", "off"], ["notify-confirm", "off"], ["youtube", "off"], ["analytics", "off"]]); // 연결 권장 순서와 상태
     assert.equal(report.next.id, "supabase"); // 가장 먼저 연결할 서비스
-    assert.match(formatServicesReport(report), /연결됨 0개 · 전체 4개\n다음에 연결할 것: Supabase/); // 요약 안내
+    assert.match(formatServicesReport(report), /연결됨 0개 · 전체 5개\n다음에 연결할 것: Supabase/); // 요약 안내
 }); // 테스트 끝
 
 test("값을 넣으면 서비스별로 연결됨과 고칠 곳을 구분한다", () => // 서비스별 점검 검사
 { // 테스트 시작
-    const all = checkServices({ ...SUPABASE, ...MAIL, YOUTUBE_API_KEY: YOUTUBE_KEY }, 'export const GA_MEASUREMENT_ID = "G-ABC1234567"; // 측정 ID'); // 모두 연결
-    assert.deepEqual([all.ok, all.next, all.services.map((service) => service.status)], [true, null, ["connected", "connected", "connected", "connected"]]); // 모두 연결됨
-    assert.match(formatServicesReport(all), /무료로 연결할 수 있는 서비스를 모두 연결했습니다\./); // 완료 안내
+    const free = checkServices({ ...SUPABASE, ...MAIL, YOUTUBE_API_KEY: YOUTUBE_KEY }, 'export const GA_MEASUREMENT_ID = "G-ABC1234567"; // 측정 ID'); // 무료 서비스만 연결
+    assert.deepEqual([free.ok, free.next.id, free.services.map((service) => service.status)], [true, "notify-confirm", ["connected", "connected", "off", "connected", "connected"]]); // 도메인이 필요한 확인 메일만 남음
+    const all = checkServices({ ...SUPABASE, ...MAIL, YOUTUBE_API_KEY: YOUTUBE_KEY, SUPABASE_SECRET_KEY: "sb_secret_test_value" }, 'export const GA_MEASUREMENT_ID = "G-ABC1234567"; // 측정 ID'); // 모두 연결
+    assert.deepEqual([all.ok, all.next, all.services.map((service) => service.status)], [true, null, ["connected", "connected", "connected", "connected", "connected"]]); // 모두 연결됨
+    assert.match(formatServicesReport(all), /점검하는 서비스를 모두 연결했습니다\./); // 완료 안내
+    assert.equal(statusOf(checkServices({ SUPABASE_SECRET_KEY: "sb_publishable_wrong" }), "notify-confirm"), "error"); // 비밀 키 자리의 공개 키 오류
+    assert.match(checkServices({ ...SUPABASE, ...MAIL, MAIL_FROM: "onboarding@resend.dev", SUPABASE_SECRET_KEY: "sb_secret_test_value" }).services[2].notes[0], /아직 필요한 것: 인증한 도메인의 보내는 주소/); // 시험 주소로는 방문자에게 보낼 수 없음
+    assert.match(checkServices({ SUPABASE_SECRET_KEY: "sb_secret_test_value" }).services[2].notes[0], /아직 필요한 것: Supabase 연결, 메일 발송 연결/); // 필요한 연결 안내
+    assert.equal(checkServices({ ...MAIL }).next.id, "supabase"); // 확인 메일보다 다른 연결을 먼저 안내
     const partialMail = checkServices({ ...SUPABASE, RESEND_API_KEY: "re_test_value" }); // 메일 일부만 입력
     assert.deepEqual([partialMail.ok, statusOf(partialMail, "mail"), partialMail.next.id], [false, "error", "mail"]); // 고칠 곳 표시
     assert.equal(partialMail.services[1].notes.length, 2); // 빠진 두 항목 안내
@@ -41,6 +47,7 @@ test("서버 전용 키가 브라우저 공개 항목에 있으면 오류로 알
     assert.equal(report.ok, false); // 오류 판정
     assert.deepEqual(report.exposed.map((note) => note.split(":")[0]), ["NEXT_PUBLIC_MAIL_KEY", "NEXT_PUBLIC_YT"]); // 노출 항목 이름
     const text = formatServicesReport(checkServices({ ...SUPABASE, ...MAIL, YOUTUBE_API_KEY: YOUTUBE_KEY, NEXT_PUBLIC_MAIL_KEY: "re_secret_value_123" })); // 결과 문구
+    assert.equal(formatServicesReport(checkServices({ ...SUPABASE, SUPABASE_SECRET_KEY: "sb_secret_hidden_value" })).includes("sb_secret_hidden_value"), false); // 서버 전용 비밀 키 미출력 확인
     for (const secret of ["re_test_value", "re_secret_value_123", YOUTUBE_KEY, "sb_publishable_test_value", "owner@example.com", "admin@example.com"]) // 값 반복
     { // 반복 시작
         assert.equal(text.includes(secret), false, secret); // 값 미출력 확인

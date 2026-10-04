@@ -1,8 +1,10 @@
 import assert from "node:assert/strict"; // 엄격 비교 도구
 import fs from "node:fs"; // 파일 읽기 도구
 import test from "node:test"; // 테스트 실행 도구
-import { isNotifyOpen, isNotifyToken, listNotifyProjects, NOTIFY_CLOSED_MESSAGE, NOTIFY_FIELD_ORDER, validateNotify } from "../lib/notify/domain.ts"; // 출시 알림 규칙
-import { buildNotifySummary, cancelNotifyRequest, createDemoNotifyCounts, loadNotifySummary, NotifyStoreError, saveNotifyRequest } from "../lib/notify/store.ts"; // 출시 알림 저장 도구
+import { isNotifyOpen, isNotifyToken, listNotifyProjects, NOTIFY_CLOSED_MESSAGE, NOTIFY_CONFIRM_DAILY_LIMIT, NOTIFY_CONFIRM_RESEND_HOURS, NOTIFY_FIELD_ORDER, validateNotify } from "../lib/notify/domain.ts"; // 출시 알림 규칙
+import { isConfirmationEnabled, sendNotifyConfirmation } from "../lib/notify/confirmation.ts"; // 확인 메일 처리
+import { buildNotifySummary, cancelNotifyRequest, confirmNotifyRequest, createDemoNotifyCounts, issueNotifyConfirmation, loadNotifySummary, NotifyStoreError, saveNotifyRequest } from "../lib/notify/store.ts"; // 출시 알림 저장 도구
+import { createSecretSupabaseClient, getSupabaseSecretKey } from "../lib/supabase/secret.ts"; // 서버 전용 연결
 import { CRAWL_BLOCKED_PATHS } from "../lib/site-url.ts"; // 검색 제외 경로
 import { GAME_PROJECTS, getGameProject, getReleaseNotifyState } from "../public/game-projects.mjs"; // 공개 프로젝트 데이터
 import { collectNotifyForm, createNotifySection, NOTIFY_FORM_FIELDS, validateNotifyForm } from "../public/release-notify.mjs"; // 출시 알림 화면 도구
@@ -86,13 +88,20 @@ test("화면 양식은 서버와 같은 문구로 검증하고 신청 가능한 
     assert.doesNotMatch(script, /innerHTML/); // HTML 문자열 삽입 없음 확인
 }); // 테스트 끝
 
-test("신청 접수는 요청 제한·본문·검증·자동 입력·시연 모드 순서로 처리한다", () => // 서버 처리 순서 검사
+test("신청 접수는 요청 제한·본문·검증·시연 모드·자동 입력·저장·확인 메일 순서로 처리한다", () => // 서버 처리 순서 검사
 { // 테스트 시작
     const route = read("app/api/notify/route.ts"); // 신청 접수 처리
-    const order = ["limiter.check(getClientKey(request))", "readJsonBody(request, NOTIFY_BODY_MAX_BYTES)", "validateNotify(body.value)", "if (checked.spam)", "if (!isSupabaseConfigured())", "saveNotifyRequest("].map((step) => route.indexOf(step)); // 단계별 위치
+    const order = ["limiter.check(getClientKey(request))", "readJsonBody(request, NOTIFY_BODY_MAX_BYTES)", "validateNotify(body.value)", "if (!isSupabaseConfigured())", "if (checked.spam)", "await saveNotifyRequest(", "await sendNotifyConfirmation(checked.value, confirmation);"].map((step) => route.indexOf(step)); // 단계별 위치
     assert.ok(order.every((position, index) => position > 0 && (index === 0 || position > order[index - 1])), JSON.stringify(order)); // 처리 순서 확인
     assert.match(route, /createRateLimiter\(\{ limit: 5, windowMs: 10 \* 60_000 \}\)/); // 요청 제한 수치 확인
-    assert.match(route, /if \(checked\.spam\)[\s\S]*?return jsonNoStore\(\{ ok: true, message: NOTIFY_DONE_MESSAGE \}\);/); // 자동 입력은 저장 없이 같은 안내 확인
+    assert.match(route, /const doneMessage = isConfirmationEnabled\(confirmation\) \? NOTIFY_CONFIRM_MESSAGE : NOTIFY_DONE_MESSAGE;/); // 이미 신청했는지와 상관없는 같은 안내 확인
+    assert.match(route, /if \(checked\.spam\)[^\n]*\n\s*\{[^\n]*\n\s*return jsonNoStore\(\{ ok: true, message: doneMessage \}\);/); // 자동 입력은 저장 없이 같은 안내 확인
+    assert.equal(route.split("doneMessage").length - 1, 3); // 저장 결과와 상관없이 같은 안내만 사용
+    const confirm = read("app/api/notify/confirm/route.ts"); // 본인 확인 처리
+    const confirmSteps = ["limiter.check(getClientKey(request))", "readJsonBody(request, CONFIRM_BODY_MAX_BYTES)", "isNotifyToken(token)", "if (!isSupabaseConfigured())", "confirmNotifyRequest("].map((step) => confirm.indexOf(step)); // 단계별 위치
+    assert.ok(confirmSteps.every((position, index) => position > 0 && (index === 0 || position > confirmSteps[index - 1])), JSON.stringify(confirmSteps)); // 처리 순서 확인
+    assert.match(read("app/notify/confirm/page.tsx"), /robots: \{ index: false \}/); // 확인 화면 검색 제외
+    assert.match(read("app/notify/confirm/page.tsx"), /<TokenActionPanel token=\{token\} endpoint="\/api\/notify\/confirm"/); // 확인 버튼 연결
     assert.match(route, /demo: true, message: "시연 모드: 입력 검증을 통과했습니다\. 서버가 연결되지 않아 신청은 저장되지 않습니다\."/); // 시연 안내 확인
     const unsubscribe = read("app/api/notify/unsubscribe/route.ts"); // 수신 거부 처리
     const steps = ["limiter.check(getClientKey(request))", "readJsonBody(request, UNSUBSCRIBE_BODY_MAX_BYTES)", "isNotifyToken(token)", "if (!isSupabaseConfigured())", "cancelNotifyRequest("].map((step) => unsubscribe.indexOf(step)); // 단계별 위치
@@ -101,8 +110,10 @@ test("신청 접수는 요청 제한·본문·검증·자동 입력·시연 모�
     const page = read("app/notify/unsubscribe/page.tsx"); // 수신 거부 화면
     assert.match(page, /robots: \{ index: false \}/); // 검색 제외 확인
     assert.match(page, /isNotifyToken\(parameters\.token\) \? parameters\.token : ""/); // 주소 값 형식 확인
-    const panel = read("app/notify/unsubscribe/unsubscribe-panel.tsx"); // 수신 거부 버튼 영역
-    assert.match(panel, /fetch\("\/api\/notify\/unsubscribe", \{ method: "POST"/); // 버튼을 눌러야 처리(주소를 여는 것만으로 처리하지 않음)
+    assert.match(page, /<TokenActionPanel token=\{token\} endpoint="\/api\/notify\/unsubscribe"/); // 수신 거부 버튼 연결
+    const panel = read("app/notify/token-action-panel.tsx"); // 확인·수신 거부 공용 버튼 영역
+    assert.match(panel, /onClick=\{\(\) => void handleAction\(\)\}/); // 버튼을 눌러야 처리(주소를 여는 것만으로 처리하지 않음)
+    assert.match(panel, /fetch\(endpoint, \{ method: "POST"/); // 처리 요청 방식
     assert.doesNotMatch(panel, /useEffect/); // 화면이 열릴 때 자동 처리하지 않음 확인
     assert.ok(CRAWL_BLOCKED_PATHS.includes("/notify/")); // 검색 수집 제외 확인
 }); // 테스트 끝
@@ -119,7 +130,17 @@ test("저장 도구는 함수 호출로만 신청·수신 거부하고 게임별
     assert.deepEqual(calls.at(-1), ["unsubscribe_release_notification", { p_token: TOKEN }]); // 수신 거부 함수 호출 확인
     await assert.rejects(cancelNotifyRequest(createClient({ data: null, error: { message: "x" } }), TOKEN), NotifyStoreError); // 처리 실패 확인
     const summary = buildNotifySummary([{ project_id: "project-c", active_count: "7", unsubscribed_count: 1 }, { project_id: "project-eta", active_count: 20, unsubscribed_count: null }, { project_id: "project-h", active_count: 3, unsubscribed_count: 0 }, { project_id: "project-a", active_count: -5, unsubscribed_count: "x" }]); // 집계 정리
-    assert.deepEqual(summary.items.slice(0, 3).map((item) => [item.projectId, item.active, item.unsubscribed, item.open]), [["project-eta", 20, 0, true], ["project-c", 7, 1, true], ["project-h", 3, 0, false]]); // 신청 많은 순서와 받지 않는 게임 표시
+    assert.deepEqual(summary.items.slice(0, 3).map((item) => [item.projectId, item.active, item.confirmed, item.unsubscribed, item.open]), [["project-eta", 20, 0, 0, true], ["project-c", 7, 0, 1, true], ["project-h", 3, 0, 0, false]]); // 신청 많은 순서와 받지 않는 게임 표시
+    const demo = buildNotifySummary(createDemoNotifyCounts()); // 시연 집계
+    assert.deepEqual([demo.totalActive, demo.totalConfirmed, demo.totalUnsubscribed], [272, 197, 7]); // 확인 완료 합계
+    assert.equal(await confirmNotifyRequest(createClient({ data: true, error: null }), TOKEN), true); // 본인 확인 성공
+    assert.deepEqual(calls.at(-1), ["confirm_release_notification", { p_token: TOKEN }]); // 확인 함수 호출 확인
+    assert.equal(await confirmNotifyRequest(createClient({ data: false, error: null }), TOKEN), false); // 없는 신청
+    await assert.rejects(confirmNotifyRequest(createClient({ data: null, error: { message: "x" } }), TOKEN), NotifyStoreError); // 확인 실패
+    assert.equal(await issueNotifyConfirmation(createClient({ data: TOKEN, error: null }), { projectId: "project-eta", email: "a@b.co" }), TOKEN); // 확인 값 발급
+    assert.deepEqual(calls.at(-1), ["issue_release_confirmation", { p_project_id: "project-eta", p_email: "a@b.co" }]); // 발급 함수 호출 확인
+    assert.equal(await issueNotifyConfirmation(createClient({ data: null, error: null }), { projectId: "project-eta", email: "a@b.co" }), null); // 보낼 필요 없음
+    await assert.rejects(issueNotifyConfirmation(createClient({ data: null, error: { message: "x" } }), { projectId: "project-eta", email: "a@b.co" }), NotifyStoreError); // 발급 실패
     assert.equal(summary.items.length, 31); // 신청 가능 30개와 기존 신청 1개
     assert.deepEqual([summary.totalActive, summary.totalUnsubscribed], [30, 1]); // 전체 합계와 잘못된 값 0 처리
     assert.equal(summary.items.find((item) => item.projectId === "project-a").active, 0); // 음수는 0 처리
@@ -142,7 +163,16 @@ test("신청 표는 함수로만 추가·수신 거부하고 관리자만 읽으
     assert.match(sql, /unique \(project_id, email\)/); // 같은 신청 한 번만 저장 확인
     assert.match(sql, /token uuid not null unique default gen_random_uuid\(\)/); // 수신 거부 값 확인
     assert.match(sql, /confirmed_at timestamptz,/); // 본인 확인 시각 열 확인
-    assert.equal((sql.match(/security definer[^\n]*\nset search_path = ''/g) ?? []).length, 2); // 신청·수신 거부 함수 고정 검색 경로 확인
+    assert.equal((sql.match(/security definer[^\n]*\nset search_path = ''/g) ?? []).length, 4); // 신청·발급·확인·수신 거부 함수 고정 검색 경로 확인
+    assert.match(sql, /confirmation_sent_at timestamptz,/); // 확인 메일 발송 시각 열 확인
+    assert.match(sql, /grant execute on function public\.issue_release_confirmation\(text, text\) to service_role;/); // 확인 값 발급은 서버 전용 키만
+    assert.doesNotMatch(sql, /grant execute on function public\.issue_release_confirmation\(text, text\) to [^;]*(anon|authenticated)/); // 방문자 발급 금지 확인
+    assert.match(sql, /grant execute on function public\.confirm_release_notification\(uuid\) to anon, authenticated;/); // 확인 값을 가진 누구나 확인
+    assert.ok(sql.includes(`interval '${NOTIFY_CONFIRM_RESEND_HOURS} hours') >= ${NOTIFY_CONFIRM_DAILY_LIMIT} then return null`)); // 이메일별 하루 발송 한도 일치
+    assert.ok(sql.includes(`confirmation_sent_at < now() - interval '${NOTIFY_CONFIRM_RESEND_HOURS} hours'`)); // 재발송 간격 일치
+    assert.match(sql, /where token = p_token and status = 'active'; -- 수신 중인 신청만 확인 표시/); // 수신 거부한 신청은 확인 불가
+    assert.match(sql, /confirmation_sent_at = case when existing\.status = 'unsubscribed' then null else existing\.confirmation_sent_at end/); // 다시 신청하면 확인 메일도 다시
+    assert.match(sql, /returns table \(project_id text, active_count bigint, confirmed_count bigint, unsubscribed_count bigint\)/); // 집계의 확인 완료 수 확인
     assert.match(sql, /security invoker[^\n]*\nset search_path = ''/); // 집계 함수는 호출자 권한 확인
     assert.ok(sql.includes("'^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$'")); // 화면과 같은 이메일 규칙 확인
     assert.ok(GAME_PROJECTS.every((project) => /^project-[a-z]{1,12}$/.test(project.id))); // 게임 식별자 규칙 일치 확인
@@ -150,7 +180,7 @@ test("신청 표는 함수로만 추가·수신 거부하고 관리자만 읽으
     assert.match(sql, /grant execute on function public\.subscribe_release_notification\(text, text\) to anon, authenticated;/); // 누구나 신청 확인
     assert.match(sql, /grant execute on function public\.unsubscribe_release_notification\(uuid\) to anon, authenticated;/); // 누구나 수신 거부 확인
     assert.match(sql, /grant execute on function public\.release_notification_counts\(\) to authenticated;/); // 집계는 로그인 계정만 확인
-    assert.equal((sql.match(/revoke all on function public\.[a-z_]+\([a-z, ]*\) from public, anon, authenticated;/g) ?? []).length, 3); // 기본 실행 권한 회수 확인
+    assert.equal((sql.match(/revoke all on function public\.[a-z_]+\([a-z, ]*\) from public, anon, authenticated;/g) ?? []).length, 5); // 기본 실행 권한 회수 확인
 }); // 테스트 끝
 
 test("게임 소개 35개 첫 화면은 출시 알림 스크립트를 한 번씩 불러온다", () => // 페이지 적용 검사
@@ -197,4 +227,57 @@ test("관리자 화면은 게임별 신청 수만 보여 주고 개인정보처�
     const site = JSON.parse(read("public/i18n/en/site.json")).entries; // 공통 영어 사전
     assert.equal(site["출시 알림 받기"], "Get release notices"); // 화면 번역 확인
     assert.ok(site["출시 알림 신청을 받았습니다. 소식이 준비되면 입력하신 이메일로 알려 드립니다."]); // 서버 안내 번역 확인
+}); // 테스트 끝
+
+test("확인 메일은 인증한 도메인과 서버 전용 키가 있을 때만 보내고 실패하면 발송 표시를 지운다", async () => // 확인 메일 처리 검사
+{ // 테스트 시작
+    const value = { projectId: "project-eta", email: "player@example.com" }; // 시험 신청
+    const sender = { apiKey: "re_test_value", from: "DEVFORGE <noreply@devforge.example>" }; // 인증한 도메인 보내는 쪽
+    const calls = []; // 호출 기록
+    const createSecretClient = (token) => ({ rpc: async (name, parameters) => { calls.push(["rpc", name, parameters]); return { data: token, error: null }; }, from: (table) => ({ update: (changes) => ({ eq: (c1, v1) => ({ eq: (c2, v2) => ({ is: async (c3, v3) => { calls.push(["update", table, changes, [c1, v1, c2, v2, c3, v3]]); return { error: null }; } }) }) }) }) }); // 가짜 서버 전용 연결
+    const mails = []; // 보낸 메일 기록
+    const send = async (config, message) => { mails.push([config, message]); return { ok: true, id: "mail-1" }; }; // 가짜 발송 도구
+    assert.equal(isConfirmationEnabled({ sender, secretClient: createSecretClient(TOKEN), siteUrl: "https://devforge.example" }), true); // 준비 완료
+    assert.equal(isConfirmationEnabled({ sender: null, secretClient: createSecretClient(TOKEN), siteUrl: "" }), false); // 메일 미연결
+    assert.equal(isConfirmationEnabled({ sender, secretClient: null, siteUrl: "" }), false); // 서버 전용 키 없음
+    assert.equal(isConfirmationEnabled({ sender: { ...sender, from: "onboarding@resend.dev" }, secretClient: createSecretClient(TOKEN), siteUrl: "" }), false); // 시험 주소는 방문자 발송 불가
+    assert.equal(await sendNotifyConfirmation(value, { sender, secretClient: null, siteUrl: "", send }), "disabled"); // 꺼짐
+    assert.equal(calls.length + mails.length, 0); // 꺼져 있으면 아무 요청도 없음
+    assert.equal(await sendNotifyConfirmation(value, { sender, secretClient: createSecretClient(TOKEN), siteUrl: "https://devforge.example", send }), "sent"); // 발송
+    assert.deepEqual(calls[0], ["rpc", "issue_release_confirmation", { p_project_id: "project-eta", p_email: "player@example.com" }]); // 확인 값 발급
+    assert.deepEqual([mails[0][0], mails[0][1].to], [sender, "player@example.com"]); // 신청한 주소로 발송
+    assert.match(mails[0][1].subject, /프로젝트 η 출시 알림 신청을 확인해 주세요/); // 게임 이름이 들어간 제목
+    assert.ok(mails[0][1].text.includes(`https://devforge.example/notify/confirm?token=${TOKEN}`)); // 확인 주소
+    assert.equal(await sendNotifyConfirmation(value, { sender, secretClient: createSecretClient(null), siteUrl: "https://devforge.example", send }), "skipped"); // 이미 확인·최근 발송·하루 한도
+    assert.equal(mails.length, 1); // 생략하면 보내지 않음
+    const originalError = console.error; // 원래 기록 도구
+    const logged = []; // 기록 내용
+    console.error = (...parts) => logged.push(parts.join(" ")); // 기록 가로채기
+    try // 실패 경우 실행
+    { // 시도 시작
+        assert.equal(await sendNotifyConfirmation(value, { sender, secretClient: createSecretClient(TOKEN), siteUrl: "https://devforge.example", send: async () => ({ ok: false, reason: "rejected", status: 422 }) }), "failed"); // 발송 실패
+        assert.deepEqual(calls.at(-1), ["update", "release_notifications", { confirmation_sent_at: null }, ["project_id", "project-eta", "email", "player@example.com", "confirmed_at", null]]); // 재발송되도록 발송 표시 지움
+        assert.equal(await sendNotifyConfirmation(value, { sender, secretClient: { rpc: async () => ({ data: null, error: { message: "x" } }) }, siteUrl: "", send }), "failed"); // 발급 실패
+    } // 시도 끝
+    finally // 기록 도구 복구
+    { // 정리 시작
+        console.error = originalError; // 원래 기록 도구로 되돌림
+    } // 정리 끝
+    assert.deepEqual(logged, ["NOTIFY_CONFIRMATION_FAILED rejected 422", "NOTIFY_CONFIRMATION_FAILED issue 0"]); // 이메일 주소 없이 실패 종류만 기록
+}); // 테스트 끝
+
+test("서버 전용 비밀 키는 정해진 항목에서만 읽고 브라우저 코드가 불러오지 않는다", () => // 비밀 키 보호 검사
+{ // 테스트 시작
+    assert.equal(getSupabaseSecretKey({ SUPABASE_SECRET_KEY: " sb_secret_value " }), "sb_secret_value"); // 새 비밀 키
+    assert.equal(getSupabaseSecretKey({ SUPABASE_SECRET_KEY: "aaa.bbb.ccc" }), "aaa.bbb.ccc"); // 이전 방식 토큰
+    assert.deepEqual([getSupabaseSecretKey({}), getSupabaseSecretKey({ SUPABASE_SECRET_KEY: "sb_publishable_value" }), getSupabaseSecretKey({ SUPABASE_SECRET_KEY: "plain" }), getSupabaseSecretKey({ NEXT_PUBLIC_SUPABASE_SECRET_KEY: "sb_secret_value" })], [null, null, null, null]); // 빈 값·공개 키·다른 항목 거부
+    assert.equal(createSecretSupabaseClient({ SUPABASE_SECRET_KEY: "sb_secret_value" }), null); // 프로젝트 주소 없으면 연결 없음
+    assert.equal(typeof createSecretSupabaseClient({ SUPABASE_SECRET_KEY: "sb_secret_value", NEXT_PUBLIC_SUPABASE_URL: "https://abcdefgh.supabase.co", NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_value" })?.rpc, "function"); // 설정이 있으면 연결 생성
+    const sources = fs.readdirSync(".", { recursive: true }).map((file) => String(file).replaceAll("\\", "/")).filter((file) => /^(app|lib)\/.*\.(ts|tsx)$/.test(file)); // 앱·라이브러리 소스
+    const importers = sources.filter((file) => /supabase\/secret/.test(read(file))); // 서버 전용 연결을 불러오는 파일
+    assert.deepEqual(importers, ["lib/notify/confirmation.ts"]); // 확인 메일 처리에서만 사용
+    const clientFiles = sources.filter((file) => /^"use client";/.test(read(file))); // 브라우저 코드
+    assert.deepEqual(clientFiles.filter((file) => /notify\/confirmation|supabase\/secret|SUPABASE_SECRET_KEY/.test(read(file))), []); // 브라우저 코드에서 불러오지 않음
+    assert.doesNotMatch(read("lib/supabase/secret.ts"), /NEXT_PUBLIC_SUPABASE_SECRET|console\./); // 공개 항목·기록에 쓰지 않음
+    assert.match(read(".env.example"), /SUPABASE_SECRET_KEY=/); // 환경 예시 확인
 }); // 테스트 끝

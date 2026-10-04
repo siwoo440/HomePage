@@ -1,9 +1,9 @@
 import assert from "node:assert/strict"; // 엄격 비교 도구
 import fs from "node:fs"; // 파일 읽기 도구
 import test from "node:test"; // 테스트 실행 도구
-import { getMailConfig, isEmailAddress, parseMailFrom } from "../lib/mail/config.ts"; // 메일 설정 규칙
+import { canMailVisitors, getMailConfig, getMailSender, isEmailAddress, parseMailFrom } from "../lib/mail/config.ts"; // 메일 설정 규칙
 import { cleanMailSubject, MAIL_SUBJECT_MAX_LENGTH, RESEND_API_URL, sendMail } from "../lib/mail/sender.ts"; // 메일 발송 도구
-import { buildContactNotice } from "../lib/mail/templates.ts"; // 문의 알림 양식
+import { buildContactNotice, buildNotifyConfirmation } from "../lib/mail/templates.ts"; // 메일 양식
 
 const read = (file) => fs.readFileSync(file, "utf8"); // 원본 읽기 도구
 const CONFIG = { apiKey: "re_test_value", from: "DEVFORGE <onboarding@resend.dev>", notifyTo: "owner@example.com" }; // 시험 설정
@@ -16,6 +16,9 @@ test("메일 설정은 세 값이 모두 올바를 때만 켜진다", () => // �
     assert.equal(getMailConfig({ RESEND_API_KEY: "re_abc", MAIL_FROM: "noreply@example.com" }), null); // 알림 주소 누락
     assert.equal(getMailConfig({ RESEND_API_KEY: "re_abc", MAIL_FROM: "잘못된 주소", CONTACT_NOTIFY_EMAIL: "owner@example.com" }), null); // 보내는 주소 오류
     assert.equal(getMailConfig({ MAIL_FROM: "noreply@example.com", CONTACT_NOTIFY_EMAIL: "owner@example.com" }), null); // 키 누락
+    assert.deepEqual(getMailSender({ RESEND_API_KEY: "re_abc", MAIL_FROM: "noreply@example.com" }), { apiKey: "re_abc", from: "noreply@example.com" }); // 운영자 주소 없이도 보내는 쪽 설정은 가능
+    assert.equal(getMailSender({ RESEND_API_KEY: "re_abc" }), null); // 보내는 주소 누락
+    assert.deepEqual([canMailVisitors({ apiKey: "re_abc", from: "DEVFORGE <noreply@devforge.example>" }), canMailVisitors({ apiKey: "re_abc", from: "Test <onboarding@Resend.dev>" })], [true, false]); // 시험 주소는 방문자에게 보낼 수 없음
     assert.deepEqual(parseMailFrom("DEVFORGE <noreply@example.com>"), { name: "DEVFORGE", address: "noreply@example.com" }); // 이름 있는 주소
     assert.deepEqual(parseMailFrom("noreply@example.com"), { name: "", address: "noreply@example.com" }); // 주소만
     assert.equal(parseMailFrom("이름 <a@b.co>\r\nBcc: x@y.co"), null); // 줄바꿈으로 머리말 끼워 넣기 거부
@@ -53,6 +56,17 @@ test("문의 접수 알림은 운영자에게 보내고 답장은 문의한 사�
     assert.equal(notice.subject, "[DEVFORGE 문의] 게임·출시 · 출시 일정 문의"); // 분류와 제목
     assert.match(notice.text, /분류: 게임·출시\n이메일: player@example\.com\n제목: 출시 일정 문의\n\n첫 줄\n둘째 줄\n/); // 문의 내용
     assert.match(notice.text, /문의함에서 처리하기: https:\/\/devforge\.example\/admin\/contact/); // 문의함 주소
+}); // 테스트 끝
+
+test("출시 알림 확인 메일은 확인 주소와 수신 거부 주소를 담고 신청한 사람에게만 간다", () => // 확인 메일 양식 검사
+{ // 테스트 시작
+    const token = "123e4567-e89b-42d3-a456-426614174000"; // 시험 확인 값
+    const mail = buildNotifyConfirmation({ email: "player@example.com", projectTitle: "프로젝트 η", token }, "https://devforge.example"); // 확인 메일
+    assert.deepEqual([mail.to, mail.replyTo, mail.subject], ["player@example.com", undefined, "[DEVFORGE] 프로젝트 η 출시 알림 신청을 확인해 주세요"]); // 받는 사람과 제목
+    assert.ok(mail.text.includes(`https://devforge.example/notify/confirm?token=${token}`)); // 확인 주소
+    assert.ok(mail.text.includes(`https://devforge.example/notify/unsubscribe?token=${token}`)); // 수신 거부 주소
+    assert.match(mail.text, /신청하신 적이 없다면 이 메일을 무시하셔도 됩니다/); // 잘못 온 메일 안내
+    assert.equal(mail.text.includes("\n"), true); // 줄바꿈 본문 확인
 }); // 테스트 끝
 
 test("문의 접수는 저장한 뒤에만 알림을 보내고 알림 실패가 접수를 막지 않는다", () => // 접수 연결 검사

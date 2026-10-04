@@ -279,7 +279,26 @@ CONTACT_NOTIFY_EMAIL=운영자-이메일
 - 알림 메일의 답장 주소는 문의한 사람의 이메일이므로, 받은 메일에 답장하면 바로 답변이 됩니다.
 - 알림 발송이 실패해도 문의는 이미 저장되어 있으며 접수 안내는 그대로 나갑니다. 서버 기록에는 실패 종류만 남기고 문의 내용은 남기지 않습니다.
 - 가입 인증·비밀번호 재설정 메일은 Supabase가 보냅니다. Supabase 기본 메일은 시간당 2통이라 운영에는 Supabase의 **Authentication → SMTP Settings**에 Resend를 연결해야 하고, 이때는 인증한 도메인이 필요합니다.
-- 출시 알림 메일(확인 메일 포함)은 아직 보내지 않습니다. 도메인을 마련한 뒤 연결합니다.
+- 출시 알림 확인 메일은 아래 "출시 알림 확인 메일 연결"을 마쳐야 나갑니다. 출시 소식 자체를 보내는 기능은 아직 없습니다.
+
+### 출시 알림 확인 메일 연결
+
+출시 알림을 신청한 사람에게 "본인이 신청한 것이 맞는지" 확인하는 메일을 보냅니다. 남의 이메일로 신청하는 장난을 막기 위한 것으로, 확인을 마친 주소(관리자 화면의 "확인 완료")에만 출시 소식을 보냅니다. 아래 두 가지가 모두 있어야 켜지며, 없으면 지금처럼 신청만 받아 둡니다.
+
+1. **인증한 도메인의 보내는 주소**: `MAIL_FROM`이 `onboarding@resend.dev`이면 본인에게만 보낼 수 있어 방문자에게는 보내지 않습니다. 도메인을 마련해 Resend에서 인증한 뒤 `MAIL_FROM`을 바꿉니다.
+2. **Supabase 서버 전용 비밀 키**: **Project Settings → API Keys**의 Secret key(`sb_secret_…`)를 `.env.local`의 `SUPABASE_SECRET_KEY`에 넣습니다.
+
+```dotenv
+# Supabase 서버 전용 비밀 키(확인 메일에만 사용)
+SUPABASE_SECRET_KEY=Supabase-비밀-키
+```
+
+- 이 키는 데이터베이스의 모든 권한을 가집니다. `NEXT_PUBLIC_`으로 시작하는 항목, 채팅, 문서, 커밋에 절대 넣지 않습니다. 노출되면 Supabase에서 즉시 새로 발급합니다.
+- 홈페이지는 이 키를 확인 메일 처리(`lib/notify/confirmation.ts`) 한 곳에서만 쓰며, 브라우저로 보내는 코드에서는 불러오지 않습니다(자동 검사로 확인).
+- 같은 신청에는 24시간에 한 번, 같은 이메일로는 하루 3통까지만 확인 메일을 보냅니다. 발송이 실패하면 다시 신청할 때 재발송합니다.
+- 확인 주소는 `/notify/confirm?token=…`, 수신 거부 주소는 `/notify/unsubscribe?token=…`이며 둘 다 화면의 버튼을 눌러야 처리됩니다.
+- 신청 완료 안내는 이미 신청한 주소인지와 상관없이 같은 문구로 나갑니다(다른 사람의 신청 여부를 알 수 없게 함).
+- `pnpm services:check`의 "출시 알림 확인 메일" 줄에서 무엇이 아직 필요한지 볼 수 있습니다.
 
 ---
 
@@ -290,6 +309,8 @@ Vercel 프로젝트의 **Settings → Environment Variables**에 다음 항목�
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - `ADMIN_EMAIL`
+- `RESEND_API_KEY`, `MAIL_FROM`, `CONTACT_NOTIFY_EMAIL`(선택): 문의 접수 알림 메일
+- `SUPABASE_SECRET_KEY`(선택, 서버 전용): 출시 알림 확인 메일. `NEXT_PUBLIC_` 접두어를 붙이지 않습니다.
 - `SITE_URL`(선택): 공식 도메인을 쓰면 `https://도메인`을 넣습니다. 비우면 Vercel 운영 주소로 `robots.txt`와 사이트맵을 만듭니다.
 
 Production, Preview, Development 환경 가운데 실제로 사용할 환경을 선택합니다. 관리자 비밀번호는 Vercel 환경 변수에 저장하지 않고 Supabase Auth에서만 관리합니다.
@@ -373,7 +394,7 @@ Production, Preview, Development 환경 가운데 실제로 사용할 환경을 
 ## 보안 수칙
 
 - 관리자 비밀번호를 코드, 문서, Git에 기록하지 않기
-- `service_role` 키를 `NEXT_PUBLIC_` 환경 변수로 등록하지 않기
+- `service_role`·Secret 키를 `NEXT_PUBLIC_` 환경 변수로 등록하지 않기. 서버 전용 항목 `SUPABASE_SECRET_KEY`에만 넣고 `pnpm services:check`로 확인
 - 관리자 계정에 길고 고유한 비밀번호 사용
 - 관리자 권한을 `raw_user_meta_data`에 저장하지 않기
 - Supabase RLS 정책을 끄지 않기

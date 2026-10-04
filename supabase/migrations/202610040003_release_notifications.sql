@@ -2,20 +2,23 @@ create table public.release_notifications ( -- 출시 알림 신청 테이블
     id uuid primary key default gen_random_uuid(), -- 신청 식별자
     project_id text not null check (project_id ~ '^project-[a-z]{1,12}$'), -- 게임 식별자
     email text not null check (char_length(email) between 3 and 254 and email = lower(email)), -- 알림 받을 이메일(소문자)
-    token uuid not null unique default gen_random_uuid(), -- 수신 거부 주소에 쓰는 값
+    token uuid not null unique default gen_random_uuid(), -- 확인·수신 거부 주소에 쓰는 값(메일로만 전달)
     status text not null default 'active' check (status in ('active', 'unsubscribed')), -- 수신 상태
-    confirmed_at timestamptz, -- 확인 메일로 본인 신청임을 확인한 시각(메일 서비스 연결 뒤 사용)
+    confirmed_at timestamptz, -- 확인 메일로 본인 신청임을 확인한 시각
+    confirmation_sent_at timestamptz, -- 확인 메일을 마지막으로 보낸 시각
     created_at timestamptz not null default now(), -- 신청 시각
     unsubscribed_at timestamptz, -- 수신 거부 시각
     unique (project_id, email) -- 같은 게임·같은 이메일은 한 번만 저장
 ); -- 신청 테이블 끝
 
 create index release_notifications_project_status_idx on public.release_notifications (project_id, status); -- 게임별 집계 색인
+create index release_notifications_email_sent_idx on public.release_notifications (email, confirmation_sent_at); -- 이메일별 확인 메일 발송 수 조회 색인
 
 alter table public.release_notifications enable row level security; -- 행 단위 보안 사용
 
 revoke all on public.release_notifications from anon, authenticated; -- 기본 권한 회수(방문자는 아래 함수로만 신청)
 grant select on public.release_notifications to authenticated; -- 조회는 로그인 계정(아래 정책으로 관리자만)
+grant select, update on public.release_notifications to service_role; -- 서버 전용 키는 확인 메일 발송 표시만 고침
 create policy "admins read release notifications" on public.release_notifications for select to authenticated using ((select public.is_admin())); -- 관리자만 신청 조회
 
 create function public.subscribe_release_notification(p_project_id text, p_email text) -- 출시 알림 신청 함수
@@ -32,9 +35,41 @@ begin -- 처리 블록 시작
     insert into public.release_notifications as existing (project_id, email) values (p_project_id, clean_email) -- 신청 추가
     on conflict (project_id, email) do update set -- 이미 있는 신청 처리
         confirmed_at = case when existing.status = 'unsubscribed' then null else existing.confirmed_at end, -- 다시 신청하면 본인 확인도 다시
-        token = case when existing.status = 'unsubscribed' then gen_random_uuid() else existing.token end, -- 다시 신청하면 수신 거부 값 교체
+        confirmation_sent_at = case when existing.status = 'unsubscribed' then null else existing.confirmation_sent_at end, -- 다시 신청하면 확인 메일도 다시
+        token = case when existing.status = 'unsubscribed' then gen_random_uuid() else existing.token end, -- 다시 신청하면 확인·수신 거부 값 교체
         unsubscribed_at = null, -- 수신 거부 시각 지움
         status = 'active'; -- 수신 상태로 되돌림
+end; -- 처리 블록 끝
+$$; -- 함수 본문 끝
+
+create function public.issue_release_confirmation(p_project_id text, p_email text) -- 확인 메일에 넣을 값 발급 함수(서버 전용)
+returns uuid -- 확인 값(보낼 필요가 없으면 null)
+language plpgsql -- 절차형 함수 형식
+security definer -- 표를 직접 열지 않고 이 함수로만 발급
+set search_path = '' -- 고정 검색 경로
+as $$ -- 함수 본문 시작
+declare -- 변수 선언 시작
+    clean_email text := lower(btrim(coalesce(p_email, ''))); -- 정리한 이메일
+    issued uuid; -- 발급한 확인 값
+begin -- 처리 블록 시작
+    perform pg_advisory_xact_lock(hashtextextended(clean_email, 0)); -- 같은 이메일의 동시 발급을 차례로 처리
+    if (select count(*) from public.release_notifications where email = clean_email and confirmation_sent_at > now() - interval '24 hours') >= 3 then return null; end if; -- 같은 이메일로 하루 3통까지만 발송
+    update public.release_notifications set confirmation_sent_at = now() -- 발송 시각 기록
+    where project_id = p_project_id and email = clean_email and status = 'active' and confirmed_at is null and (confirmation_sent_at is null or confirmation_sent_at < now() - interval '24 hours') -- 확인 전이고 최근에 보내지 않은 신청만
+    returning token into issued; -- 확인 값 꺼내기
+    return issued; -- 대상이 없으면 null 반환
+end; -- 처리 블록 끝
+$$; -- 함수 본문 끝
+
+create function public.confirm_release_notification(p_token uuid) -- 출시 알림 본인 확인 함수
+returns boolean -- 대상 신청 존재 여부
+language plpgsql -- 절차형 함수 형식
+security definer -- 메일로 받은 확인 값을 아는 사람만 해당 신청 확인
+set search_path = '' -- 고정 검색 경로
+as $$ -- 함수 본문 시작
+begin -- 처리 블록 시작
+    update public.release_notifications set confirmed_at = coalesce(confirmed_at, now()) where token = p_token and status = 'active'; -- 수신 중인 신청만 확인 표시
+    return found; -- 대상 존재 여부 반환
 end; -- 처리 블록 끝
 $$; -- 함수 본문 끝
 
@@ -51,18 +86,22 @@ end; -- 처리 블록 끝
 $$; -- 함수 본문 끝
 
 create function public.release_notification_counts() -- 게임별 신청 수 집계 함수
-returns table (project_id text, active_count bigint, unsubscribed_count bigint) -- 게임별 수신 중·수신 거부 수
+returns table (project_id text, active_count bigint, confirmed_count bigint, unsubscribed_count bigint) -- 게임별 수신 중·확인 완료·수신 거부 수
 language sql -- SQL 함수 형식
 stable -- 조회 전용
 security invoker -- 호출자 권한 사용(관리자만 행이 보임)
 set search_path = '' -- 고정 검색 경로
 as $$ -- 함수 본문 시작
-    select n.project_id, count(*) filter (where n.status = 'active'), count(*) filter (where n.status = 'unsubscribed') from public.release_notifications as n group by n.project_id; -- 게임별 집계
+    select n.project_id, count(*) filter (where n.status = 'active'), count(*) filter (where n.status = 'active' and n.confirmed_at is not null), count(*) filter (where n.status = 'unsubscribed') from public.release_notifications as n group by n.project_id; -- 게임별 집계
 $$; -- 함수 본문 끝
 
 revoke all on function public.subscribe_release_notification(text, text) from public, anon, authenticated; -- 기본 실행 권한 회수
+revoke all on function public.issue_release_confirmation(text, text) from public, anon, authenticated; -- 기본 실행 권한 회수
+revoke all on function public.confirm_release_notification(uuid) from public, anon, authenticated; -- 기본 실행 권한 회수
 revoke all on function public.unsubscribe_release_notification(uuid) from public, anon, authenticated; -- 기본 실행 권한 회수
 revoke all on function public.release_notification_counts() from public, anon, authenticated; -- 기본 실행 권한 회수
 grant execute on function public.subscribe_release_notification(text, text) to anon, authenticated; -- 누구나 신청
+grant execute on function public.issue_release_confirmation(text, text) to service_role; -- 확인 값 발급은 서버 전용 키만
+grant execute on function public.confirm_release_notification(uuid) to anon, authenticated; -- 메일의 확인 값을 가진 누구나 확인
 grant execute on function public.unsubscribe_release_notification(uuid) to anon, authenticated; -- 누구나 수신 거부
 grant execute on function public.release_notification_counts() to authenticated; -- 집계는 로그인 계정(행 보안으로 관리자만 결과)

@@ -381,7 +381,14 @@ devforge_privacy_consent_v1
 - 저장: `release_notifications` 표는 방문자에게 열려 있지 않습니다. `subscribe_release_notification` 함수로만 추가하며, 같은 게임·같은 이메일은 한 번만 저장하고 이미 신청했는지는 알려 주지 않습니다. 수신 거부 뒤 다시 신청하면 수신 거부 값과 본인 확인을 새로 시작합니다.
 - 수신 거부: 메일에 넣을 주소는 `/notify/unsubscribe?token=수신거부값`입니다. 메일 프로그램이 주소를 미리 여는 것만으로 처리되지 않도록 화면의 버튼을 눌러야 `POST /api/notify/unsubscribe`가 처리합니다.
 - 관리자(`/admin/notify`): `release_notification_counts` 함수로 게임별 수신 중·수신 거부 수만 봅니다. 이메일 주소는 화면에 내지 않습니다.
-- 메일 발송 전 필수: 표를 우회해 남의 이메일을 넣는 장난을 막을 수 없으므로, 발송을 시작할 때 확인 메일을 먼저 보내고 `confirmed_at`이 채워진 신청에만 보냅니다. 발송 대상을 고를 때 `getReleaseNotifyState`가 `open`인 게임인지도 다시 확인합니다.
+- 본인 확인(이중 확인): 표를 우회해 남의 이메일을 넣는 장난을 막을 수 없으므로, 확인 메일로 본인 신청임을 확인한 주소(`confirmed_at`)에만 출시 소식을 보냅니다. `lib/notify/confirmation.ts`의 `sendNotifyConfirmation`이 신청 저장 뒤에 실행됩니다.
+  - 켜지는 조건(`isConfirmationEnabled`): 보내는 쪽 설정(`getMailSender`)이 있고 방문자에게 보낼 수 있는 주소(`canMailVisitors`, `resend.dev` 시험 주소가 아님)이며 서버 전용 연결(`lib/supabase/secret.ts`, `SUPABASE_SECRET_KEY`)이 있을 때
+  - 흐름: 서버 전용 연결로 `issue_release_confirmation` 호출 → 확인 값을 받으면 `buildNotifyConfirmation` 메일 발송 → 실패하면 `clearNotifyConfirmationMark`로 발송 표시를 지워 다음 신청 때 재발송
+  - 확인 값은 메일로만 전달합니다. 발급 함수는 `service_role`만 실행할 수 있어 공개 키로는 확인 값을 얻을 수 없습니다. 본인 확인(`confirm_release_notification`)과 수신 거부는 확인 값을 가진 누구나 할 수 있습니다.
+  - 한도는 데이터베이스 함수가 지킵니다: 같은 신청 24시간에 한 번(`NOTIFY_CONFIRM_RESEND_HOURS`), 같은 이메일 하루 3통(`NOTIFY_CONFIRM_DAILY_LIMIT`). 화면 상수와 다르면 `tests/release-notify.test.mjs`가 실패합니다.
+  - 신청 응답은 발송 결과(보냄·생략·실패)와 상관없이 같은 문구입니다. 이미 신청·확인한 주소인지 알 수 없게 하기 위해서입니다.
+  - 서버 전용 비밀 키는 이 처리 한 곳에서만 불러옵니다. `"use client"` 파일이 불러오면 검사가 실패합니다.
+- 출시 소식을 실제로 보낼 때는 `confirmed_at`이 채워져 있고 `status`가 `active`이며 `getReleaseNotifyState`가 `open`인 게임의 신청만 대상으로 합니다(발송 기능은 아직 없음).
 
 ---
 ### 6.13 영어 화면(AI 번역)

@@ -1,8 +1,8 @@
 import fs from "node:fs"; // 파일 시스템 도구
 import path from "node:path"; // 경로 처리 도구
 import { fileURLToPath } from "node:url"; // 모듈 주소 변환 도구
-import { isEmailAddress, parseMailFrom, RESEND_TEST_DOMAIN } from "../lib/mail/config.ts"; // 메일 설정 규칙
-import { checkSupabaseEnvironment, parseEnvText } from "./check-supabase-env.mjs"; // Supabase 점검과 환경 파일 해석
+import { canMailVisitors, getMailSender, isEmailAddress, parseMailFrom, RESEND_TEST_DOMAIN } from "../lib/mail/config.ts"; // 메일 설정 규칙
+import { checkSupabaseEnvironment, classifySupabaseKey, parseEnvText } from "./check-supabase-env.mjs"; // Supabase 점검과 환경 파일 해석
 
 const ICONS = { connected: "✓", off: "–", error: "✗" }; // 상태 표시 기호
 const STATUS_LABELS = { connected: "연결됨", off: "아직 연결 전", error: "고칠 곳 있음" }; // 상태 이름
@@ -61,6 +61,35 @@ function checkMail(env) // 메일 발송 점검
     return { ...base, status: "connected", notes: [testing ? "도메인 없이 시험하는 보내는 주소입니다. Resend에 가입한 본인 이메일로만 보낼 수 있으므로 CONTACT_NOTIFY_EMAIL도 그 이메일이어야 합니다." : "문의가 저장되면 운영자 메일로 접수 알림을 보냅니다."] }; // 연결 결과
 } // 함수 끝
 
+function checkNotifyConfirmation(env) // 출시 알림 확인 메일 점검
+{ // 함수 시작
+    const base = { id: "notify-confirm", title: "출시 알림 확인 메일 (본인 신청 확인)", guide: "README \"출시 알림 확인 메일 연결\"" }; // 공통 정보
+    const secret = read(env, "SUPABASE_SECRET_KEY"); // 서버 전용 비밀 키
+    if (!secret) // 비밀 키 누락 확인
+    { // 조건 시작
+        return { ...base, status: "off", notes: ["신청만 받아 두고 확인 메일은 보내지 않습니다. 인증한 도메인의 보내는 주소와 SUPABASE_SECRET_KEY가 있어야 보냅니다."] }; // 연결 전 결과
+    } // 조건 끝
+    if (!["secret", "service-role-jwt"].includes(classifySupabaseKey(secret))) // 비밀 키 종류 확인
+    { // 조건 시작
+        return { ...base, status: "error", notes: ["SUPABASE_SECRET_KEY: Supabase 비밀 키(sb_secret_…)가 아닙니다. 공개 키를 넣지 않았는지 확인해 주세요."] }; // 종류 오류 결과
+    } // 조건 끝
+    const sender = getMailSender(env); // 메일 보내는 쪽 설정
+    const waiting = []; // 아직 필요한 것
+    if (!read(env, "NEXT_PUBLIC_SUPABASE_URL") || !read(env, "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY")) // Supabase 연결 확인
+    { // 조건 시작
+        waiting.push("Supabase 연결"); // Supabase 필요
+    } // 조건 끝
+    if (!sender) // 메일 연결 확인
+    { // 조건 시작
+        waiting.push("메일 발송 연결(RESEND_API_KEY·MAIL_FROM)"); // 메일 필요
+    } // 조건 끝
+    else if (!canMailVisitors(sender)) // 방문자 발송 가능 확인
+    { // 조건 시작
+        waiting.push("인증한 도메인의 보내는 주소(지금은 본인에게만 보낼 수 있는 시험 주소)"); // 도메인 필요
+    } // 조건 끝
+    return waiting.length > 0 ? { ...base, status: "off", notes: [`비밀 키는 준비되었습니다. 아직 필요한 것: ${waiting.join(", ")}`] } : { ...base, status: "connected", notes: ["신청이 저장되면 확인 메일을 보냅니다(같은 이메일로 하루 3통까지)."] }; // 점검 결과
+} // 함수 끝
+
 function checkYouTube(env) // YouTube 연결 점검
 { // 함수 시작
     const base = { id: "youtube", title: "YouTube Data API (커뮤니티 영상 목록)", guide: "README \"무료 서비스부터 연결하는 순서\" 4번" }; // 공통 정보
@@ -94,9 +123,9 @@ function findExposedSecrets(env) // 브라우저 공개 항목에 들어간 비�
 
 export function checkServices(env, analyticsSource = "") // 외부 서비스 연결 점검
 { // 함수 시작
-    const services = [checkSupabase(env), checkMail(env), checkYouTube(env), checkAnalytics(readMeasurementId(analyticsSource))]; // 연결 권장 순서대로 점검
+    const services = [checkSupabase(env), checkMail(env), checkNotifyConfirmation(env), checkYouTube(env), checkAnalytics(readMeasurementId(analyticsSource))]; // 연결 권장 순서대로 점검
     const exposed = findExposedSecrets(env); // 공개 항목의 비밀 값
-    const next = services.find((service) => service.status === "error") ?? services.find((service) => service.status === "off") ?? null; // 다음에 할 일
+    const next = services.find((service) => service.status === "error") ?? services.find((service) => service.status === "off" && service.id !== "notify-confirm") ?? services.find((service) => service.status === "off") ?? null; // 다음에 할 일(도메인이 필요한 확인 메일은 맨 뒤)
     return { ok: exposed.length === 0 && services.every((service) => service.status !== "error"), services, exposed, next }; // 점검 결과 반환
 } // 함수 끝
 
@@ -113,7 +142,7 @@ export function formatServicesReport(report) // 점검 결과 문구 생성
     lines.push(""); // 구분 줄
     const connected = report.services.filter((service) => service.status === "connected").length; // 연결된 서비스 수
     lines.push(`연결됨 ${connected}개 · 전체 ${report.services.length}개`); // 요약 줄
-    lines.push(!report.ok ? "✗ 표시 항목을 고친 뒤 다시 실행해 주세요: pnpm services:check" : report.next ? `다음에 연결할 것: ${report.next.title} (${report.next.guide})` : "무료로 연결할 수 있는 서비스를 모두 연결했습니다."); // 다음 안내 줄
+    lines.push(!report.ok ? "✗ 표시 항목을 고친 뒤 다시 실행해 주세요: pnpm services:check" : report.next ? `다음에 연결할 것: ${report.next.title} (${report.next.guide})` : "점검하는 서비스를 모두 연결했습니다."); // 다음 안내 줄
     lines.push("간편 로그인은 Supabase의 Authentication → Providers에서 켜며, 이 명령으로는 확인할 수 없습니다."); // 간편 로그인 안내 줄
     return lines.join("\n"); // 결과 문구 반환
 } // 함수 끝

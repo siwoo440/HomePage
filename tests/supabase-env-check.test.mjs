@@ -57,6 +57,9 @@ test("공개 키 자리나 NEXT_PUBLIC 항목의 비밀 키를 오류로 막는�
     const server = checkSupabaseEnvironment({ ...VALID_ENV, SUPABASE_SERVICE_ROLE_KEY: "sb_secret_unused" }); // 서버 항목 점검
     assert.equal(server.ok, true); // 서버 항목 통과 확인
     assert.equal(levelOf(server, "SUPABASE_SERVICE_ROLE_KEY"), "warn"); // 불필요 비밀 키 주의 확인
+    const allowed = checkSupabaseEnvironment({ ...VALID_ENV, SUPABASE_SECRET_KEY: "sb_secret_server_only" }); // 허용한 서버 전용 항목 점검
+    assert.deepEqual([allowed.ok, levelOf(allowed, "SUPABASE_SECRET_KEY")], [true, "ok"]); // 서버 전용 비밀 키 허용 확인
+    assert.equal(formatSupabaseReport(allowed).includes("sb_secret_server_only"), false); // 비밀 키 값 미출력 확인
     assert.equal(levelOf(checkSupabaseEnvironment({ ...VALID_ENV, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: createJwt({ role: "anon" }) }), "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"), "ok"); // 이전 공개 키 허용 확인
 }); // 테스트 끝
 

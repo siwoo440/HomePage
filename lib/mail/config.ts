@@ -1,10 +1,14 @@
 export const MAIL_ENV_NAMES = ["RESEND_API_KEY", "MAIL_FROM", "CONTACT_NOTIFY_EMAIL"] as const; // 메일 설정 항목 이름
 export const RESEND_TEST_DOMAIN = "resend.dev"; // 도메인 없이 시험할 때 쓰는 Resend 보내는 주소 도메인
 
-export interface MailConfig // 메일 발송 설정
+export interface MailSender // 메일 보내는 쪽 설정
 { // 형식 시작
     apiKey: string; // Resend API 키(서버 전용)
     from: string; // 보내는 주소
+} // 형식 끝
+
+export interface MailConfig extends MailSender // 운영자 알림까지 포함한 메일 설정
+{ // 형식 시작
     notifyTo: string; // 운영자 알림 받을 주소
 } // 형식 끝
 
@@ -31,16 +35,28 @@ export function parseMailFrom(value: unknown): { name: string; address: string }
     return isEmailAddress(address) ? { name: named ? named[1].trim() : "", address } : null; // 해석 결과 반환
 } // 함수 끝
 
-export function getMailConfig(environment: MailEnvironment = process.env): MailConfig | null // 메일 설정 읽기
+export function getMailSender(environment: MailEnvironment = process.env): MailSender | null // 보내는 쪽 설정 읽기
 { // 함수 시작
     const apiKey = environment.RESEND_API_KEY?.trim() ?? ""; // API 키
     const from = environment.MAIL_FROM?.trim() ?? ""; // 보내는 주소
+    return apiKey && parseMailFrom(from) ? { apiKey, from } : null; // 두 값이 올바를 때만 반환
+} // 함수 끝
+
+export function canMailVisitors(sender: MailSender): boolean // 방문자에게 보낼 수 있는 보내는 주소인지 확인
+{ // 함수 시작
+    const address = parseMailFrom(sender.from)?.address.toLowerCase() ?? ""; // 보내는 주소
+    return address !== "" && !address.endsWith(`@${RESEND_TEST_DOMAIN}`); // 도메인 없는 시험 주소는 본인에게만 보낼 수 있음
+} // 함수 끝
+
+export function getMailConfig(environment: MailEnvironment = process.env): MailConfig | null // 운영자 알림 메일 설정 읽기
+{ // 함수 시작
+    const sender = getMailSender(environment); // 보내는 쪽 설정
     const notifyTo = environment.CONTACT_NOTIFY_EMAIL?.trim() ?? ""; // 알림 받을 주소
 
-    if (!apiKey || !parseMailFrom(from) || !isEmailAddress(notifyTo)) // 세 값이 모두 올바른지 확인
+    if (!sender || !isEmailAddress(notifyTo)) // 세 값이 모두 올바른지 확인
     { // 조건 시작
         return null; // 메일 미설정(발송하지 않음)
     } // 조건 끝
 
-    return { apiKey, from, notifyTo }; // 메일 설정 반환
+    return { ...sender, notifyTo }; // 메일 설정 반환
 } // 함수 끝

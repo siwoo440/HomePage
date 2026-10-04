@@ -190,7 +190,7 @@ export function checkSupabaseEnvironment(env) // Supabase 연결 설정 점검
         } // 조건 끝
         else // 서버 전용 항목
         { // 대안 시작
-            add("warn", name, "이 홈페이지는 Supabase 비밀 키를 사용하지 않습니다. 필요하지 않다면 지워 주세요."); // 불필요 비밀 키 주의
+            add(name === "SUPABASE_SECRET_KEY" ? "ok" : "warn", name, name === "SUPABASE_SECRET_KEY" ? "서버 전용 비밀 키입니다. 출시 알림 확인 메일에만 쓰며 브라우저에는 공개되지 않습니다." : "이 홈페이지는 SUPABASE_SECRET_KEY 항목의 비밀 키만 사용합니다. 필요하지 않다면 지워 주세요."); // 허용 항목 또는 불필요 비밀 키 주의
         } // 대안 끝
     } // 반복 끝
 

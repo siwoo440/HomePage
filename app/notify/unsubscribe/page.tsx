@@ -3,7 +3,7 @@ import Link from "next/link"; // 내부 이동 링크
 import { isNotifyToken } from "@/lib/notify/domain"; // 수신 거부 값 형식 확인
 import SiteHeader from "../../site-header"; // 공통 상단 헤더
 import styles from "../../login/member-login.module.css"; // 로그인 화면과 같은 스타일
-import UnsubscribePanel from "./unsubscribe-panel"; // 수신 거부 버튼 영역
+import TokenActionPanel from "../token-action-panel"; // 수신 거부 버튼 영역
 
 interface UnsubscribePageProps // 수신 거부 화면 속성
 { // 형식 시작
@@ -32,7 +32,7 @@ export default async function UnsubscribePage({ searchParams }: UnsubscribePageP
                         <p className={styles.description}>아래 버튼을 누르면 해당 게임의 출시 소식 메일을 더 보내지 않습니다. 다시 받고 싶으면 게임 소개 페이지에서 새로 신청할 수 있습니다.</p> {/* 화면 설명 */}
                     </section> {/* 안내 영역 끝 */}
                     <section className={styles.formArea} aria-label="수신 거부 확인"> {/* 입력 영역 */}
-                        {token ? <UnsubscribePanel token={token} /> : <p className={styles.error} role="alert">수신 거부 주소가 올바르지 않습니다. 메일에 있는 주소를 다시 열어 주세요.</p>} {/* 수신 거부 버튼 또는 주소 오류 */}
+                        {token ? <TokenActionPanel token={token} endpoint="/api/notify/unsubscribe" buttonLabel="출시 알림 그만 받기" doneMessage="수신 거부를 처리했습니다." failMessage="수신 거부를 처리하지 못했습니다. 잠시 후 다시 시도해 주세요." /> : <p className={styles.error} role="alert">수신 거부 주소가 올바르지 않습니다. 메일에 있는 주소를 다시 열어 주세요.</p>} {/* 수신 거부 버튼 또는 주소 오류 */}
                         <Link className={styles.backLink} href="/main.html">← 메인으로 돌아가기</Link> {/* 메인 이동 */}
                     </section> {/* 입력 영역 끝 */}
                 </div> {/* 두 열 배치 끝 */}

@@ -1,5 +1,6 @@
 import { jsonNoStore, rateLimitedResponse, readJsonBody } from "@/lib/http/json"; // JSON 요청·응답 도구
 import { createRateLimiter, getClientKey } from "@/lib/http/rate-limit"; // 요청 횟수 제한
+import { getConfirmationDependencies, isConfirmationEnabled, sendNotifyConfirmation } from "@/lib/notify/confirmation"; // 확인 메일 처리
 import { validateNotify } from "@/lib/notify/domain"; // 출시 알림 입력 검증
 import { saveNotifyRequest } from "@/lib/notify/store"; // 출시 알림 저장
 import { isSupabaseConfigured } from "@/lib/supabase/config"; // 저장소 연결 여부
@@ -8,7 +9,8 @@ import { createServerSupabaseClient } from "@/lib/supabase/server"; // 서버 �
 export const dynamic = "force-dynamic"; // 요청별 실행 설정
 
 const NOTIFY_BODY_MAX_BYTES = 2_000; // 신청 본문 한도
-const NOTIFY_DONE_MESSAGE = "출시 알림 신청을 받았습니다. 소식이 준비되면 입력하신 이메일로 알려 드립니다."; // 신청 완료 안내
+const NOTIFY_DONE_MESSAGE = "출시 알림 신청을 받았습니다. 소식이 준비되면 입력하신 이메일로 알려 드립니다."; // 신청 완료 안내(확인 메일 꺼짐)
+const NOTIFY_CONFIRM_MESSAGE = "신청을 받았습니다. 확인 메일의 주소를 눌러야 신청이 완료됩니다. 메일이 보이지 않으면 스팸함을 확인해 주세요. 이미 확인한 주소에는 다시 보내지 않습니다."; // 신청 완료 안내(확인 메일 켜짐)
 const limiter = createRateLimiter({ limit: 5, windowMs: 10 * 60_000 }); // 요청자별 10분에 5회
 
 export async function POST(request: Request): Promise<Response> // 출시 알림 신청
@@ -28,18 +30,21 @@ export async function POST(request: Request): Promise<Response> // 출시 알림
     { // 조건 시작
         return jsonNoStore({ ok: false, message: checked.message, errors: checked.errors }, 400); // 입력 오류 반환
     } // 조건 끝
-    if (checked.spam) // 자동 입력 의심 확인
-    { // 조건 시작
-        return jsonNoStore({ ok: true, message: NOTIFY_DONE_MESSAGE }); // 저장하지 않고 같은 안내 반환
-    } // 조건 끝
     if (!isSupabaseConfigured()) // 시연 모드 확인
     { // 조건 시작
-        return jsonNoStore({ ok: true, demo: true, message: "시연 모드: 입력 검증을 통과했습니다. 서버가 연결되지 않아 신청은 저장되지 않습니다." }); // 시연 안내 반환
+        return jsonNoStore(checked.spam ? { ok: true, message: NOTIFY_DONE_MESSAGE } : { ok: true, demo: true, message: "시연 모드: 입력 검증을 통과했습니다. 서버가 연결되지 않아 신청은 저장되지 않습니다." }); // 자동 입력은 일반 안내, 그 밖에는 시연 안내
+    } // 조건 끝
+    const confirmation = getConfirmationDependencies(); // 확인 메일 준비물
+    const doneMessage = isConfirmationEnabled(confirmation) ? NOTIFY_CONFIRM_MESSAGE : NOTIFY_DONE_MESSAGE; // 이미 신청했는지와 상관없이 같은 안내
+    if (checked.spam) // 자동 입력 의심 확인
+    { // 조건 시작
+        return jsonNoStore({ ok: true, message: doneMessage }); // 저장하지 않고 같은 안내 반환
     } // 조건 끝
     try // 저장 시도
     { // 시도 시작
         await saveNotifyRequest(await createServerSupabaseClient(), checked.value); // 신청 저장(이미 신청한 주소도 같은 안내)
-        return jsonNoStore({ ok: true, message: NOTIFY_DONE_MESSAGE }, 201); // 신청 완료 반환
+        await sendNotifyConfirmation(checked.value, confirmation); // 확인 메일 발송(꺼져 있거나 실패해도 신청은 저장됨)
+        return jsonNoStore({ ok: true, message: doneMessage }, 201); // 신청 완료 반환
     } // 시도 끝
     catch // 저장 실패 처리
     { // 오류 처리 시작

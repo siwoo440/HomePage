@@ -1,4 +1,4 @@
-import { isEmailAddress, type MailConfig } from "./config.ts"; // 메일 설정 형식
+import { isEmailAddress, type MailSender } from "./config.ts"; // 메일 설정 형식
 
 export const RESEND_API_URL = "https://api.resend.com/emails"; // Resend 발송 주소
 export const MAIL_TIMEOUT_MS = 4000; // 발송 제한 시간
@@ -29,7 +29,7 @@ export function cleanMailSubject(value: string): string // 제목 정리
     return [...value.replace(/[\r\n\t]+/g, " ").replace(/\s+/g, " ").trim()].slice(0, MAIL_SUBJECT_MAX_LENGTH).join(""); // 줄바꿈 제거·길이 제한
 } // 함수 끝
 
-export async function sendMail(config: MailConfig, message: MailMessage, options: SendMailOptions = {}): Promise<MailResult> // 메일 발송
+export async function sendMail(config: MailSender, message: MailMessage, options: SendMailOptions = {}): Promise<MailResult> // 메일 발송
 { // 함수 시작
     const subject = cleanMailSubject(message.subject); // 정리한 제목
 
