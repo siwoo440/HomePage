@@ -485,8 +485,9 @@ devforge_privacy_consent_v1
 6. `supabase/migrations/202610040001_contact_messages.sql`
 7. `supabase/migrations/202610040002_comment_limits.sql`
 8. `supabase/migrations/202610040003_release_notifications.sql`
+9. `supabase/migrations/202610040004_hide_demo_products.sql`
 
-첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다. 다섯 번째 파일은 로그인 회원이 본인 계정만 지우는 `delete_own_account` 함수를 만듭니다(관리자 계정과 남은 댓글 이미지가 있으면 거부). 여섯 번째 파일은 문의 양식 접수 테이블 `contact_messages`를 만듭니다. 누구나 대기 상태 문의만 추가할 수 있고, 조회와 처리는 관리자만 할 수 있습니다. 일곱 번째 파일은 댓글 작성 제한 트리거(`enforce_comment_limits`)와 관리자만 고칠 수 있는 금칙어 표(`comment_banned_words`)를 만듭니다. 여덟 번째 파일은 출시 알림 신청 표(`release_notifications`)와 신청·수신 거부·집계 함수를 만듭니다.
+첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다. 다섯 번째 파일은 로그인 회원이 본인 계정만 지우는 `delete_own_account` 함수를 만듭니다(관리자 계정과 남은 댓글 이미지가 있으면 거부). 여섯 번째 파일은 문의 양식 접수 테이블 `contact_messages`를 만듭니다. 누구나 대기 상태 문의만 추가할 수 있고, 조회와 처리는 관리자만 할 수 있습니다. 일곱 번째 파일은 댓글 작성 제한 트리거(`enforce_comment_limits`)와 관리자만 고칠 수 있는 금칙어 표(`comment_banned_words`)를 만듭니다. 여덟 번째 파일은 출시 알림 신청 표(`release_notifications`)와 신청·수신 거부·집계 함수를 만듭니다. 아홉 번째 파일은 두 번째 파일이 넣은 임시 상품 여덟 개를 숨김 상태로 바꿉니다. 임의 가격·할인·배지가 공개 화면에 나오지 않게 하기 위한 것으로, 상품은 관리자 화면에 남아 실제 내용으로 고친 뒤 다시 공개할 수 있습니다. 공개 상품이 없으면 공개 화면은 "시연" 표시가 붙은 목업 카드를 보여 줍니다.
 
 마이그레이션을 고치거나 추가하면 `tests/supabase-migrations.test.mjs`가 시험용 PostgreSQL(개발 전용 의존성 `@electric-sql/pglite`)에 여덟 개를 순서대로 실행하고, 역할(`anon`·`authenticated`·`service_role`)을 바꿔 가며 권한과 제한 동작을 확인합니다. Supabase가 기본으로 주는 역할, `auth.users`·`auth.uid()`·`auth.jwt()`, `storage.buckets`·`storage.objects`·`storage.foldername()`, 기본 권한은 검사 파일 안에서 흉내 냅니다. 새 마이그레이션이 Supabase의 다른 기능을 쓰면 그 부분도 함께 흉내 내야 합니다.
 

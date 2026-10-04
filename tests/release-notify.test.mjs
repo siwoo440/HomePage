@@ -154,7 +154,7 @@ test("신청 표는 함수로만 추가·수신 거부하고 관리자만 읽으
 { // 테스트 시작
     const file = "202610040003_release_notifications.sql"; // 출시 알림 마이그레이션
     const sql = read(`supabase/migrations/${file}`); // 마이그레이션 내용
-    assert.equal(SUPABASE_MIGRATIONS.at(-1), file); // 마지막 적용 순서 확인
+    assert.ok(SUPABASE_MIGRATIONS.includes(file)); // 적용 순서 포함 확인
     assert.match(read("README.md"), new RegExp(`supabase/migrations/${file.replace(".", "\\.")}`)); // README 안내 확인
     assert.match(sql, /alter table public\.release_notifications enable row level security/); // 행 단위 보안 확인
     assert.match(sql, /revoke all on public\.release_notifications from anon, authenticated/); // 기본 권한 회수 확인

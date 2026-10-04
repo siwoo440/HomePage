@@ -59,7 +59,7 @@ const blocked = (run, pattern) => assert.rejects(run, (error) => pattern.test(er
 const addComment = (id, content, parent = null) => asMember(id, () => db.query("insert into public.news_comments (news_id, parent_id, author_id, content) values ($1, $2, $3, $4) returning id", [newsId, parent, id, content])); // 댓글 작성
 const agePast = () => db.exec("update public.news_comments set created_at = now() - interval '40 seconds' where created_at > now() - interval '35 seconds'"); // 방금 쓴 댓글을 40초 전으로 옮김
 
-test("마이그레이션 여덟 개가 안내한 순서대로 오류 없이 실행된다", async () => // 실행 검사
+test("마이그레이션이 안내한 순서대로 오류 없이 실행된다", async () => // 실행 검사
 { // 테스트 시작
     await db.exec(SUPABASE_STUB); // Supabase 기본 구조 준비
     for (const file of SUPABASE_MIGRATIONS) // 적용 순서 반복
@@ -120,6 +120,17 @@ test("댓글은 본인 이름으로만 쓰고 데이터베이스가 작성 제�
     await blocked(() => asMember(MEMBER, () => db.query("select public.enforce_comment_limits()")), /permission denied/); // 제한 함수 직접 실행 차단
 }); // 테스트 끝
 
+test("임시 상품은 공개 목록에 나오지 않고 관리자 화면에만 남는다", async () => // 임시 상품 숨김 검사
+{ // 테스트 시작
+    assert.equal(SUPABASE_MIGRATIONS.at(-1), "202610040004_hide_demo_products.sql"); // 임시 상품 숨김이 마지막 순서
+    assert.equal((await asAnon(() => db.query("select id from public.products"))).rows.length, 0); // 방문자에게 임시 상품이 안 보임
+    const hidden = (await asAdmin(() => db.query("select publication_status, price, badge from public.products"))).rows; // 관리자가 보는 상품
+    assert.equal(hidden.length, 8); // 임시 상품 여덟 개는 지우지 않고 보관
+    assert.ok(hidden.every((row) => row.publication_status === "hidden")); // 모두 숨김 상태
+    await asAdmin(() => db.query("insert into public.products (name, category, game_name, description, price, badge, image_path, stock_quantity, publication_status, display_order) values ('실제 상품', '키링', '프로젝트 A', '관리자가 등록한 상품', 5000, 'none', '/images/goods/abyss-keyring.webp', 3, 'published', 9)")); // 관리자가 새 상품 공개
+    assert.deepEqual((await asAnon(() => db.query("select name from public.products"))).rows, [{ name: "실제 상품" }]); // 관리자가 공개한 상품만 방문자에게 보임
+}); // 테스트 끝
+
 test("문의는 누구나 넣고 관리자만 읽고 처리한다", async () => // 문의 권한 검사
 { // 테스트 시작
     await asAnon(() => db.query("insert into public.contact_messages (category, email, subject, message) values ('game', 'player@example.com', '문의 제목', '문의 내용을 열 글자 이상 씁니다')")); // 방문자 문의 접수
@@ -177,7 +188,7 @@ test("회원 탈퇴는 본인 계정만 지우고 연결된 기록도 함께 지
     assert.equal(Number((await db.query("select count(*) as members from auth.users")).rows[0].members), 2); // 다른 계정은 그대로
 }); // 테스트 끝
 
-test("한 번에 붙여 넣는 설정 파일은 여덟 개를 순서대로 담고 오류가 나면 아무것도 적용하지 않는다", async () => // 묶음 파일 검사
+test("한 번에 붙여 넣는 설정 파일은 모든 마이그레이션을 순서대로 담고 오류가 나면 아무것도 적용하지 않는다", async () => // 묶음 파일 검사
 { // 테스트 시작
     const sql = buildSupabaseSetupSql(); // 묶은 설정 SQL
     const positions = SUPABASE_MIGRATIONS.map((file) => sql.indexOf(`-- ===== ${file} =====`)); // 파일별 위치

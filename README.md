@@ -173,16 +173,17 @@ pnpm services:check
 8. `supabase/migrations/202610040001_contact_messages.sql` 전체 실행(문의 양식 접수와 관리자 문의함)
 9. `supabase/migrations/202610040002_comment_limits.sql` 전체 실행(댓글 작성 제한과 금칙어 표)
 10. `supabase/migrations/202610040003_release_notifications.sql` 전체 실행(출시 알림 신청과 수신 거부)
-11. **Authentication → Users**에서 관리자 계정 생성
+11. `supabase/migrations/202610040004_hide_demo_products.sql` 전체 실행(두 번째 파일이 넣은 임시 상품을 공개 목록에서 숨김)
+12. **Authentication → Users**에서 관리자 계정 생성
 
-새 프로젝트라면 여덟 파일을 하나로 묶은 파일을 만들어 한 번에 실행할 수 있습니다. 아래 명령이 `supabase/.temp/setup-all.sql`(저장소에 올라가지 않음)을 만들며, SQL Editor에 전체를 붙여 넣고 한 번 실행하면 됩니다. 중간에 오류가 나면 아무것도 적용되지 않습니다. 이미 일부를 적용한 프로젝트에는 쓰지 않습니다.
+새 프로젝트라면 아홉 파일을 하나로 묶은 파일을 만들어 한 번에 실행할 수 있습니다. 아래 명령이 `supabase/.temp/setup-all.sql`(저장소에 올라가지 않음)을 만들며, SQL Editor에 전체를 붙여 넣고 한 번 실행하면 됩니다. 중간에 오류가 나면 아무것도 적용되지 않습니다. 이미 일부를 적용한 프로젝트에는 쓰지 않습니다.
 
 ```powershell
 # 한 번에 붙여 넣을 데이터베이스 설정 파일 만들기
 pnpm supabase:sql
 ```
 
-여덟 파일은 반드시 위 순서대로 실행합니다. 뒤 파일이 앞 파일의 뉴스·댓글 테이블과 관리자 판정 함수를 사용합니다.
+아홉 파일은 반드시 위 순서대로 실행합니다. 뒤 파일이 앞 파일의 뉴스·댓글 테이블과 관리자 판정 함수를 사용합니다.
 
 관리자 이메일과 비밀번호는 저장소 파일에 기록하지 않습니다.
 
