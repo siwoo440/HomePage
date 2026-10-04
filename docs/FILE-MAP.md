@@ -370,6 +370,7 @@ css-styling/
 | `scripts/optimize_goods_images.py` | Python 환경에서 직접 실행 | 상품 원본 이미지 최적화 |
 | `scripts/check-supabase-env.mjs` | `pnpm supabase:check` | `.env.local`의 Supabase 주소·공개 키·관리자 이메일 형식과 비밀 키 노출 점검 |
 | `scripts/check-services.mjs` | `pnpm services:check` | Supabase·메일·YouTube·GA4의 연결 상태, 형식 오류, 서버 전용 키 노출과 다음에 할 일 안내 |
+| `scripts/build-supabase-setup.mjs` | `pnpm supabase:sql` | 마이그레이션을 적용 순서대로 묶어 새 프로젝트에 한 번에 붙여 넣을 `supabase/.temp/setup-all.sql` 생성(전부 성공할 때만 적용) |
 | `scripts/i18n-extract.mjs` | `pnpm i18n:check` | 정적 페이지 한국어 문구 추출과 영어 사전 누락·잔여 점검 |
 
 페이지 생성과 보관 스크립트를 실행한 뒤 변경 파일을 반드시 검토합니다. 개별 디자인 프로젝트를 공통 템플릿으로 덮어쓰지 않도록 대상 목록을 확인합니다.

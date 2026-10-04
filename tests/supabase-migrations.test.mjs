@@ -3,6 +3,7 @@ import fs from "node:fs"; // 파일 읽기 도구
 import test from "node:test"; // 테스트 실행 도구
 import { PGlite } from "@electric-sql/pglite"; // 내 컴퓨터에서 도는 시험용 PostgreSQL
 import { COMMENT_BANNED_WORDS } from "../lib/comments/banned-words.ts"; // 금칙어 목록
+import { buildSupabaseSetupSql, SETUP_SQL_PATH } from "../scripts/build-supabase-setup.mjs"; // 한 번에 붙여 넣는 설정 파일 도구
 import { SUPABASE_MIGRATIONS } from "../scripts/check-supabase-env.mjs"; // 마이그레이션 적용 순서
 
 // Supabase가 기본으로 주는 것 가운데 마이그레이션이 쓰는 부분(역할, 인증·저장소 구조, 기본 권한)만 흉내 냅니다.
@@ -174,6 +175,43 @@ test("회원 탈퇴는 본인 계정만 지우고 연결된 기록도 함께 지
     const left = (await db.query("select (select count(*) from auth.users where id = $1) as users, (select count(*) from public.member_profiles where id = $1) as profiles, (select count(*) from public.news_comments where author_id = $1) as comments", [OTHER])).rows[0]; // 남은 기록 수
     assert.deepEqual([Number(left.users), Number(left.profiles), Number(left.comments)], [0, 0, 0]); // 계정·프로필·댓글 삭제 확인
     assert.equal(Number((await db.query("select count(*) as members from auth.users")).rows[0].members), 2); // 다른 계정은 그대로
+}); // 테스트 끝
+
+test("한 번에 붙여 넣는 설정 파일은 여덟 개를 순서대로 담고 오류가 나면 아무것도 적용하지 않는다", async () => // 묶음 파일 검사
+{ // 테스트 시작
+    const sql = buildSupabaseSetupSql(); // 묶은 설정 SQL
+    const positions = SUPABASE_MIGRATIONS.map((file) => sql.indexOf(`-- ===== ${file} =====`)); // 파일별 위치
+    assert.ok(positions.every((position, index) => position > 0 && (index === 0 || position > positions[index - 1])), JSON.stringify(positions)); // 적용 순서 확인
+    assert.match(sql, /^-- [^\n]*\n-- [^\n]*\nbegin;\n/); // 전부 성공할 때만 적용하도록 시작
+    assert.match(sql, /\ncommit;\n$/); // 마지막에 적용 확정
+    assert.equal(sql.includes("\r"), false); // 줄바꿈 통일 확인
+    assert.match(fs.readFileSync(".gitignore", "utf8"), /^supabase\/\.temp\/$/m); // 만든 파일은 저장소에 올리지 않음
+    assert.equal(SETUP_SQL_PATH.startsWith("supabase/.temp/"), true); // 저장 위치 확인
+    const tables = "select count(*) as tables from information_schema.tables where table_schema = 'public'"; // 만든 표 수 조회
+    const fresh = new PGlite(); // 새 시험용 데이터베이스
+    try // 정상 실행 확인
+    { // 시도 시작
+        await fresh.exec(SUPABASE_STUB); // Supabase 기본 구조 준비
+        await fresh.exec(sql); // 묶음 파일 한 번 실행
+        assert.equal(Number((await fresh.query(tables)).rows[0].tables), 10); // 표 열 개 생성 확인
+    } // 시도 끝
+    finally // 정리
+    { // 정리 시작
+        await fresh.close(); // 데이터베이스 닫기
+    } // 정리 끝
+    const broken = new PGlite(); // 오류 시험용 데이터베이스
+    try // 오류 때 되돌림 확인
+    { // 시도 시작
+        await broken.exec(SUPABASE_STUB); // Supabase 기본 구조 준비
+        await assert.rejects(broken.exec(sql.replace("\ncommit;\n", "\nselect 1 / 0;\ncommit;\n"))); // 마지막에 일부러 오류
+        await broken.exec("rollback"); // 끊긴 작업 정리
+        assert.equal(Number((await broken.query(tables)).rows[0].tables), 0); // 아무 표도 남지 않음 확인
+    } // 시도 끝
+    finally // 정리
+    { // 정리 시작
+        await broken.close(); // 데이터베이스 닫기
+    } // 정리 끝
+    assert.match(fs.readFileSync("package.json", "utf8"), /"supabase:sql": "node scripts\/build-supabase-setup\.mjs"/); // 명령 등록 확인
 }); // 테스트 끝
 
 test.after(() => db.close()); // 시험용 데이터베이스 닫기
