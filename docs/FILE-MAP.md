@@ -462,6 +462,7 @@ css-styling/
 - `project-h-page.test.mjs`: 프로젝트 H 화면과 스크립트 연결
 - `development-tooling.test.mjs`: 린트·설치 설정과 제외 범위
 - `supabase-env-check.test.mjs`: Supabase 연결 설정 점검 도구
+- `supabase-migrations.test.mjs`: 마이그레이션 여덟 개를 시험용 PostgreSQL(PGlite)에서 실제로 실행하고 역할별 권한, 댓글 작성 제한, 문의·출시 알림·탈퇴 동작을 확인
 - `services-check.test.mjs`: 외부 서비스 연결 점검(서비스별 상태, 값 미출력, 서버 전용 키 노출 감지, 명령 종료 코드)
 - `mail.test.mjs`: 메일 설정 판정, 발송 요청과 실패 종류, 문의 알림 양식, 저장 뒤 알림 순서
 
