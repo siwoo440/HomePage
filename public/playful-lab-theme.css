@@ -421,10 +421,13 @@
     color: var(--pl-ink) !important; /* 표시 글자색 */
 } /* 표시 끝 */
 
-[data-theme="playful-lab"][data-responsive-page="main"] .goods-discount /* 굿즈 할인율 */
-{ /* 할인율 시작 */
-    color: var(--pl-on-accent); /* 할인율 글자색 */
-} /* 할인율 끝 */
+[data-theme="playful-lab"][data-responsive-page="main"] .goods-payment-notice /* 메인 결제 전 안내 */
+{ /* 안내 시작 */
+    border-color: var(--pl-border); /* 안내 경계선 */
+    border-radius: var(--pl-radius-small); /* 안내 모서리 */
+    background: var(--pl-panel); /* 안내 배경 */
+    color: var(--pl-muted); /* 안내 글자색 */
+} /* 안내 끝 */
 
 [data-theme="playful-lab"] .section-tag /* 구역 영문 태그 */
 { /* 태그 시작 */

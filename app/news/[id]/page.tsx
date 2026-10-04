@@ -57,6 +57,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) //
             </nav> {/* 뉴스 목록 복귀 메뉴 끝 */}
             <article className={styles.article}> {/* 뉴스 본문 */}
                 <div className={styles.tags}> {/* 태그 목록 */}
+                    {post === demoPost ? <span data-demo-tag>시연</span> : null} {/* 시연 콘텐츠 표시 */}
                     {post.tags.map((tag: string) => <span key={tag}>{TAG_LABELS[tag] ?? tag}</span>)} {/* 태그 표시 */}
                 </div> {/* 태그 목록 끝 */}
                 <h1>{post.title}</h1> {/* 뉴스 제목 */}

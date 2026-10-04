@@ -417,6 +417,7 @@ css-styling/
 - `member-signup-moderation-migration.test.mjs`: 동의 기록과 관리자 전용 처리 SQL
 - `account.test.mjs`: 내 댓글·탈퇴 처리, 탈퇴 SQL, 검색엔진 파일과 오류 화면
 - `contact.test.mjs`: 문의 검증, 화면·서버 문구 일치, 접수 순서, 문의함 처리와 문의 테이블 권한
+- `demo-content.test.mjs`: 시연 굿즈·시연 뉴스에 임의 가격, 가짜 할인, 판매 유도 배지, 지어낸 수치가 없는지와 시연 표시
 - `release-notify.test.mjs`: 출시 알림 대상 판정, 화면·서버 문구 일치, 접수 순서, 저장 함수와 집계, 표 권한, 35개 페이지 적용
 - `roadmap.test.mjs`: 로드맵 단계 분류, 장르 필터·주소 저장, 문서 구조와 메뉴·사이트맵 연결
 

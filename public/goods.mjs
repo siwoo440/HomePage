@@ -12,22 +12,6 @@ function initializeGoods() // 공개 상품 초기화
         return; // 초기화 종료
     } // 조건 끝
 
-    for (const placeholderLink of container.querySelectorAll('a.goods-card[href="https://smartstore.naver.com/"]')) // 임시 판매 링크 반복
-    { // 반복 시작
-        placeholderLink.removeAttribute("href"); // 임시 판매 이동 제거
-        placeholderLink.removeAttribute("target"); // 새 창 설정 제거
-        placeholderLink.removeAttribute("rel"); // 링크 보안 설정 제거
-        placeholderLink.setAttribute("aria-disabled", "true"); // 비활성 상태 안내
-        placeholderLink.classList.add("state-preparing"); // 준비 상태 클래스 추가
-        const button = placeholderLink.querySelector(".goods-buy-btn"); // 구매 버튼 찾기
-
-        if (button) // 구매 버튼 존재 확인
-        { // 조건 시작
-            button.textContent = "준비 중"; // 준비 문구 표시
-            button.classList.add("is-disabled"); // 비활성 버튼 표시
-        } // 조건 끝
-    } // 반복 끝
-
     const limitValue = Number(container.dataset.productLimit); // 미리보기 개수 읽기
     const limit = Number.isInteger(limitValue) && limitValue > 0 ? limitValue : Number.POSITIVE_INFINITY; // 안전한 개수 결정
     applyProductLimit(container, limit); // 임시 상품 미리보기 제한

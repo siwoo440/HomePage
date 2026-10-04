@@ -269,11 +269,9 @@
     "이메일 인증을 먼저 완료해 주세요. 받은 편지함의 인증 메일을 확인해 주세요.": "Please verify your email first. Check your inbox for the verification email.",
     "링크가 만료되었습니다. 처음부터 다시 진행해 주세요.": "This link has expired. Please start over.",
     "실시간 3D HRTF 처리 방식과 신규 레벨을 소개합니다.": "Introducing real-time 3D HRTF processing and new levels.",
-    "3개월간의 작업 끝에 에코 보이드의 핵심 음향 공간화 엔진을 재구성했습니다. 기존 2D 기반 사운드 처리에서 실시간 3D HRTF 처리 방식으로 전환했으며, 새로운 음향 경험을 점검할 신규 레벨 12개도 함께 준비했습니다. 이 글은 실제 뉴스 등록 서버를 연결하기 전 상세 화면과 댓글 기능을 확인하기 위한 시연 콘텐츠입니다.": "After three months of work, we've rebuilt Echo Void's core spatial audio engine. We've moved from 2D-based sound processing to real-time 3D HRTF processing and prepared 12 new levels to test the new audio experience. This post is demo content for checking the detail page and comments before the real news server is connected.",
     "씨앗 기반 우주 생성 구조를 소개합니다.": "Introducing our seed-based universe generation.",
     "스타 베이그런트는 같은 규칙을 사용하더라도 매번 다른 은하계를 만들도록 설계하고 있습니다. 씨앗 값, 노이즈 함수와 Voronoi 다이어그램을 조합해 성계의 위치와 특성을 정합니다. 플레이 흐름이 반복되지 않도록 탐험 밀도도 함께 조정하고 있습니다. 현재 내용은 알고리즘 소개 화면을 위한 시연 개발 기록입니다.": "Star Vagrant is designed to create a different galaxy every time, even with the same rules. We combine seed values, noise functions, and Voronoi diagrams to determine where star systems are and what they're like. We're also tuning exploration density so playthroughs don't feel repetitive. This is a demo dev log for the algorithm overview page.",
     "전투 오류 수정과 GPU 최적화 내용을 정리했습니다.": "A summary of combat bug fixes and GPU optimizations.",
-    "플레이어가 제보한 스킬 겹침 현상과 일부 보스 패턴이 나타나지 않던 문제를 수정했습니다. 이펙트 표시 단계를 줄여 낮은 사양의 GPU에서도 더 안정적인 프레임을 유지하도록 조정했습니다. 실제 패치 노트가 등록되기 전 화면 구성을 확인하기 위한 시연 뉴스입니다.": "We fixed the skill overlap issue reported by players and a bug where some boss patterns didn't appear. We also reduced effect rendering stages to keep frame rates steadier on lower-end GPUs. This is demo news for checking the page layout before real patch notes are posted.",
     "시각·진동·음향 피드백 선택 구조를 검토합니다.": "Reviewing a selectable visual, haptic, and audio feedback system.",
     "패링 타이밍을 더 분명하게 전달하기 위해 시각, 진동과 음향 피드백을 각각 조절할 수 있는 구조를 설계했습니다. 접근성 설정에서는 효과 강도를 낮추거나 특정 종류의 안내만 사용할 수 있도록 구성할 예정입니다. 이 글은 기능 소개 형식을 검증하기 위한 시연 콘텐츠입니다.": "To make parry timing clearer, we've designed a system where visual, haptic, and audio feedback can each be adjusted. In the accessibility settings, you'll be able to lower effect intensity or use only certain types of cues. This post is demo content for testing the feature introduction format.",
     "확인 칸에 \"탈퇴\"를 정확히 입력해 주세요.": "Type \"DELETE\" (or \"탈퇴\") exactly in the confirmation box.",
@@ -308,7 +306,9 @@
     "수신 거부 확인": "Confirm unsubscribe",
     "수신 거부를 처리했습니다.": "You have been unsubscribed.",
     "처리 중…": "Working…",
-    "출시 알림 그만 받기": "Stop release notices"
+    "출시 알림 그만 받기": "Stop release notices",
+    "3개월간의 작업 끝에 에코 보이드의 핵심 음향 공간화 엔진을 재구성했습니다. 기존 2D 기반 사운드 처리에서 실시간 3D HRTF 처리 방식으로 전환했으며, 새로운 음향 경험을 점검할 신규 레벨도 함께 준비했습니다. 이 글은 실제 뉴스 등록 서버를 연결하기 전 상세 화면과 댓글 기능을 확인하기 위한 시연 콘텐츠입니다.": "After three months of work, we rebuilt Echo Void's core spatial audio engine. We moved from 2D-based sound processing to real-time 3D HRTF processing and prepared new levels to test the new audio experience. This post is demo content for checking the detail page and comments before the real news server is connected.",
+    "내부 점검에서 확인한 스킬 겹침 현상과 일부 보스 패턴이 나타나지 않던 문제를 수정했습니다. 이펙트 표시 단계를 줄여 낮은 사양의 GPU에서도 더 안정적인 프레임을 유지하도록 조정했습니다. 실제 패치 노트가 등록되기 전 화면 구성을 확인하기 위한 시연 뉴스입니다.": "We fixed the overlapping skill issue and the missing boss patterns found in internal checks. We reduced effect rendering stages so that lower-end GPUs keep a steadier frame rate. This is demo news for checking the layout before real patch notes are posted."
   },
   "patterns": [
     {

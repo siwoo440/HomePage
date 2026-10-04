@@ -99,6 +99,13 @@ a.goods-card:hover .goods-image /* 구매 카드 이미지 선택 */
     background: var(--orange); /* 인기 배경 */
 } /* 인기 배지 끝 */
 
+.badge-demo /* 시연 목업 배지 */
+{ /* 시연 배지 시작 */
+    border: 1px solid #8fa2c4; /* 배지 경계선 */
+    background: #1f2a44; /* 어두운 배지 배경 */
+    color: #ffffff; /* 배지 글자색 */
+} /* 시연 배지 끝 */
+
 .badge-limited /* 한정 배지 */
 { /* 한정 배지 시작 */
     background: var(--purple); /* 한정 배경 */

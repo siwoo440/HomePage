@@ -284,7 +284,7 @@ export function initializeSiteExperience(root = document, view = window) // 사�
     setText(root, "[data-current-year]", new Date().getFullYear()); // 현재 연도 표시
     setText(root, '[data-hero-stat="total"]', counts.total); // 전체 현황 표시
     setText(root, '[data-hero-stat="featured"]', counts.featured); // 대표 현황 표시
-    setText(root, '[data-hero-stat="news"]', 4); // 공개 뉴스 개수 표시
+    setText(root, '[data-hero-stat="news"]', 4); // 시연 뉴스 개수 표시(실제 뉴스가 등록되면 서버 값과 '개발 뉴스' 문구로 교체)
     setText(root, '[data-project-status="developing"]', counts.developing); // 개발 중 현황 표시
     setText(root, '[data-project-status="planning"]', counts.planning); // 기획 현황 표시
     setText(root, '[data-project-status="paused"]', counts.paused); // 보류 현황 표시
