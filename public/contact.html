@@ -45,6 +45,7 @@
                 <a href="#faq-goods">굿즈</a> <!-- 굿즈 분류 이동 -->
                 <a href="#faq-privacy">개인정보</a> <!-- 개인정보 분류 이동 -->
                 <a href="#faq-contact">문의 채널</a> <!-- 문의 채널 이동 -->
+                <a href="#contact-form">문의 남기기</a> <!-- 문의 양식 이동 -->
             </nav> <!-- 분류 이동 끝 -->
             <div class="faq-bulk-actions"> <!-- 전체 열기 묶음 -->
                 <button type="button" data-faq-expand="open">모두 펼치기</button> <!-- 전체 펼치기 -->
@@ -119,12 +120,57 @@
             </details> <!-- 질문 항목 끝 -->
             <details class="faq-item"> <!-- 질문 항목 -->
                 <summary><span class="faq-mark faq-mark-q" aria-hidden="true">Q.</span><span class="faq-question">버그 제보나 제휴 문의는 어떻게 하나요?</span></summary> <!-- 질문 -->
-                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>문의 이메일과 Discord는 운영 준비 단계에서 연결합니다. 연결 전까지는 아래 문의 채널 안내에서 준비 상태를 확인해 주세요.</p></div> <!-- 답변 -->
+                <div class="faq-answer"><span class="faq-mark faq-mark-a" aria-hidden="true">A.</span><p>문의는 <a href="#contact-form">문의 남기기</a> 양식으로 보내 주세요. 문의 이메일과 Discord는 운영 준비 단계에서 연결합니다.</p></div> <!-- 답변 -->
             </details> <!-- 질문 항목 끝 -->
         </section> <!-- 문의 채널 묶음 끝 -->
+        <section class="contact-form-section" id="contact-form" aria-labelledby="contact-form-title"> <!-- 문의 양식 영역 -->
+            <h2 id="contact-form-title">문의 남기기</h2> <!-- 문의 양식 제목 -->
+            <p class="contact-form-lead">질문 목록에서 답을 찾지 못했다면 아래 양식으로 문의를 남겨 주세요. 확인 후 입력하신 이메일로 답변드립니다.</p> <!-- 문의 양식 안내 -->
+            <form class="contact-form" id="contact-form-fields" data-contact-form novalidate> <!-- 문의 양식 -->
+                <div class="contact-field"> <!-- 분류 입력 -->
+                    <label for="contact-category">문의 분류</label> <!-- 분류 이름 -->
+                    <select id="contact-category" name="category" aria-describedby="contact-category-error"> <!-- 분류 선택 -->
+                        <option value="">분류를 선택해 주세요</option> <!-- 선택 안내 -->
+                        <option value="game">게임·출시</option> <!-- 게임 문의 -->
+                        <option value="account">회원·이용</option> <!-- 회원 문의 -->
+                        <option value="goods">굿즈</option> <!-- 굿즈 문의 -->
+                        <option value="privacy">개인정보</option> <!-- 개인정보 문의 -->
+                        <option value="other">기타</option> <!-- 기타 문의 -->
+                    </select> <!-- 분류 선택 끝 -->
+                    <p class="contact-field-error" id="contact-category-error" data-field-error="category" role="alert" hidden></p> <!-- 분류 오류 -->
+                </div> <!-- 분류 입력 끝 -->
+                <div class="contact-field"> <!-- 이메일 입력 -->
+                    <label for="contact-email">답변 받을 이메일</label> <!-- 이메일 이름 -->
+                    <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" aria-describedby="contact-email-error"> <!-- 이메일 입력칸 -->
+                    <p class="contact-field-error" id="contact-email-error" data-field-error="email" role="alert" hidden></p> <!-- 이메일 오류 -->
+                </div> <!-- 이메일 입력 끝 -->
+                <div class="contact-field"> <!-- 제목 입력 -->
+                    <label for="contact-subject">제목</label> <!-- 제목 이름 -->
+                    <input id="contact-subject" name="subject" type="text" maxlength="100" aria-describedby="contact-subject-error"> <!-- 제목 입력칸 -->
+                    <p class="contact-field-error" id="contact-subject-error" data-field-error="subject" role="alert" hidden></p> <!-- 제목 오류 -->
+                </div> <!-- 제목 입력 끝 -->
+                <div class="contact-field"> <!-- 내용 입력 -->
+                    <label for="contact-message">문의 내용</label> <!-- 내용 이름 -->
+                    <textarea id="contact-message" name="message" rows="7" maxlength="2000" aria-describedby="contact-message-count contact-message-error"></textarea> <!-- 내용 입력칸 -->
+                    <p class="contact-field-count" id="contact-message-count" data-contact-count>0 / 2,000</p> <!-- 글자 수 -->
+                    <p class="contact-field-error" id="contact-message-error" data-field-error="message" role="alert" hidden></p> <!-- 내용 오류 -->
+                </div> <!-- 내용 입력 끝 -->
+                <div class="contact-trap" aria-hidden="true"> <!-- 자동 입력 방지 칸(사람에게 보이지 않음) -->
+                    <label for="contact-website">이 칸은 비워 두세요</label> <!-- 숨김 칸 이름 -->
+                    <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off"> <!-- 숨김 입력칸 -->
+                </div> <!-- 자동 입력 방지 칸 끝 -->
+                <div class="contact-field contact-consent"> <!-- 수집 동의 -->
+                    <label for="contact-consent"><input id="contact-consent" name="consent" type="checkbox" aria-describedby="contact-consent-error"> <span>[필수] 문의 답변을 위한 이메일과 문의 내용 수집·이용에 동의합니다.</span></label> <!-- 동의 선택 -->
+                    <a href="/privacy.html" target="_blank" rel="noopener noreferrer">개인정보처리방침 보기<span class="contact-visually-hidden"> (새 창)</span></a> <!-- 처리방침 이동 -->
+                    <p class="contact-field-error" id="contact-consent-error" data-field-error="consent" role="alert" hidden></p> <!-- 동의 오류 -->
+                </div> <!-- 수집 동의 끝 -->
+                <button class="contact-submit" type="submit">문의 보내기</button> <!-- 제출 버튼 -->
+                <p class="contact-form-status" data-form-status tabindex="-1" hidden></p> <!-- 결과 안내 -->
+            </form> <!-- 문의 양식 끝 -->
+        </section> <!-- 문의 양식 영역 끝 -->
         <section class="contact-channels" aria-labelledby="contact-channels-title"> <!-- 직접 문의 안내 -->
             <h2 id="contact-channels-title">찾는 답이 없나요?</h2> <!-- 직접 문의 제목 -->
-            <p>공식 문의 채널은 운영 준비 단계에서 연결됩니다. 아래 채널은 주소가 확정되면 활성화됩니다.</p> <!-- 직접 문의 설명 -->
+            <p>위 문의 양식 외의 공식 채널은 운영 준비 단계에서 연결됩니다. 아래 채널은 주소가 확정되면 활성화됩니다.</p> <!-- 직접 문의 설명 -->
             <ul class="contact-channel-list"> <!-- 채널 목록 -->
                 <li> <!-- 이메일 채널 -->
                     <span class="contact-channel-icon contact-channel-icon-mail" aria-hidden="true"> <!-- 메일 아이콘 -->
@@ -149,6 +195,7 @@
         <span>© DEVFORGE Studio</span> <!-- 저작권 표시 -->
     </footer> <!-- 하단 정보 끝 -->
     <script type="module" src="/contact-faq.mjs"></script> <!-- 질문 펼치기 기능 -->
+    <script type="module" src="/contact-form.mjs"></script> <!-- 문의 양식 기능 -->
     <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
     <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
     <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->

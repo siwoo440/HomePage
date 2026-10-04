@@ -304,6 +304,171 @@ body[data-responsive-page="contact"] /* 문의하기 본문 */
     font-weight: 700; /* 배지 굵기 */
 } /* 규칙 끝 */
 
+.contact-form-section /* 문의 양식 영역 */
+{ /* 규칙 시작 */
+    margin-top: 48px; /* 위쪽 여백 */
+    padding: clamp(20px, 4vw, 32px); /* 안쪽 여백 */
+    border: 1px solid var(--pl-border-strong, #7a8ea6); /* 영역 경계선 */
+    border-radius: var(--pl-radius-large, 2rem); /* 영역 모서리 */
+    background: var(--pl-canvas, #ffffff); /* 영역 배경 */
+    box-shadow: var(--pl-shadow-small, 0 0.5rem 1.5rem rgba(23, 42, 73, 0.1)); /* 영역 그림자 */
+    scroll-margin-top: 96px; /* 고정 헤더 가림 방지 */
+} /* 규칙 끝 */
+
+.contact-form-section h2 /* 문의 양식 제목 */
+{ /* 규칙 시작 */
+    margin: 0 0 8px; /* 아래쪽 여백 */
+    color: var(--pl-ink, #172a49); /* 제목 글자색 */
+    font-size: 1.25rem; /* 제목 크기 */
+} /* 규칙 끝 */
+
+.contact-form-lead /* 문의 양식 안내 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+} /* 규칙 끝 */
+
+.contact-form /* 문의 양식 */
+{ /* 규칙 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 18px; /* 입력 간격 */
+    margin-top: 20px; /* 위쪽 여백 */
+    min-width: 0; /* 축소 허용 */
+} /* 규칙 끝 */
+
+.contact-field /* 입력 묶음 */
+{ /* 규칙 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 6px; /* 이름과 입력 간격 */
+    min-width: 0; /* 축소 허용 */
+} /* 규칙 끝 */
+
+.contact-field > label /* 입력 이름 */
+{ /* 규칙 시작 */
+    color: var(--pl-ink, #172a49); /* 이름 글자색 */
+    font-weight: 700; /* 이름 굵기 */
+} /* 규칙 끝 */
+
+.contact-field :is(input[type="email"], input[type="text"], select, textarea) /* 글자 입력 */
+{ /* 규칙 시작 */
+    box-sizing: border-box; /* 크기 계산 통일 */
+    width: 100%; /* 전체 너비 */
+    min-height: 48px; /* 터치 높이 */
+    padding: 10px 14px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border-strong, #7a8ea6); /* 입력 경계선 */
+    border-radius: var(--pl-radius-small, 0.75rem); /* 입력 모서리 */
+    background: var(--pl-surface, #f7fbff); /* 입력 배경 */
+    color: var(--pl-ink, #172a49); /* 입력 글자색 */
+    font: inherit; /* 본문 글꼴 */
+} /* 규칙 끝 */
+
+.contact-field textarea /* 내용 입력 */
+{ /* 규칙 시작 */
+    resize: vertical; /* 세로 크기 조절 */
+    line-height: 1.6; /* 줄 간격 */
+} /* 규칙 끝 */
+
+.contact-field :is(input, select, textarea):focus-visible, .contact-submit:focus-visible /* 입력 초점 */
+{ /* 규칙 시작 */
+    outline: var(--pl-focus-ring, 0.18rem solid #7768f8); /* 공통 초점 외곽선 */
+    outline-offset: 2px; /* 외곽선 간격 */
+} /* 규칙 끝 */
+
+.contact-field [aria-invalid="true"] /* 오류 입력 */
+{ /* 규칙 시작 */
+    border-color: var(--pl-danger, #d94b64); /* 오류 경계선 */
+} /* 규칙 끝 */
+
+.contact-field-error /* 입력 오류 문구 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-danger, #d94b64); /* 오류 글자색 */
+    font-size: 0.9rem; /* 오류 글자 크기 */
+    font-weight: 700; /* 오류 굵기 */
+} /* 규칙 끝 */
+
+.contact-field-count /* 글자 수 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted, #53677e); /* 보조 글자색 */
+    font-size: 0.85rem; /* 글자 수 크기 */
+    text-align: right; /* 오른쪽 정렬 */
+} /* 규칙 끝 */
+
+.contact-trap, .contact-visually-hidden /* 화면에 보이지 않는 요소 */
+{ /* 규칙 시작 */
+    position: absolute; /* 흐름 제외 */
+    width: 1px; /* 최소 너비 */
+    height: 1px; /* 최소 높이 */
+    overflow: hidden; /* 넘침 숨김 */
+    clip-path: inset(50%); /* 화면 표시 제거 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+} /* 규칙 끝 */
+
+.contact-consent > label /* 동의 선택 줄 */
+{ /* 규칙 시작 */
+    display: flex; /* 가로 배치 */
+    align-items: flex-start; /* 위쪽 정렬 */
+    gap: 10px; /* 요소 간격 */
+    font-weight: 500; /* 본문 굵기 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+} /* 규칙 끝 */
+
+.contact-consent input[type="checkbox"] /* 동의 체크 상자 */
+{ /* 규칙 시작 */
+    flex: 0 0 auto; /* 크기 유지 */
+    width: 20px; /* 상자 너비 */
+    height: 20px; /* 상자 높이 */
+    margin: 2px 0 0; /* 글자 높이 맞춤 */
+    accent-color: var(--pl-violet, #7768f8); /* 선택 색상 */
+} /* 규칙 끝 */
+
+.contact-consent > a /* 처리방침 링크 */
+{ /* 규칙 시작 */
+    justify-self: start; /* 왼쪽 정렬 */
+    color: var(--pl-link, #5746d9); /* 링크 글자색 */
+    font-size: 0.9rem; /* 링크 크기 */
+    font-weight: 700; /* 링크 굵기 */
+} /* 규칙 끝 */
+
+.contact-submit /* 제출 버튼 */
+{ /* 규칙 시작 */
+    justify-self: start; /* 왼쪽 정렬 */
+    min-height: 48px; /* 터치 높이 */
+    padding: 0 28px; /* 좌우 여백 */
+    border: 1px solid var(--pl-violet, #7768f8); /* 버튼 경계선 */
+    border-radius: 999px; /* 둥근 버튼 */
+    background: var(--pl-violet, #7768f8); /* 버튼 배경 */
+    color: #ffffff; /* 버튼 글자색 */
+    font: inherit; /* 본문 글꼴 */
+    font-weight: 800; /* 버튼 굵기 */
+    cursor: pointer; /* 선택 커서 */
+} /* 규칙 끝 */
+
+.contact-submit:disabled /* 전송 중 버튼 */
+{ /* 규칙 시작 */
+    cursor: progress; /* 진행 커서 */
+    opacity: 0.6; /* 비활성 표시 */
+} /* 규칙 끝 */
+
+.contact-form-status /* 결과 안내 */
+{ /* 규칙 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 12px 16px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-success, #218a76); /* 성공 경계선 */
+    border-radius: var(--pl-radius-small, 0.75rem); /* 안내 모서리 */
+    color: var(--pl-ink, #172a49); /* 안내 글자색 */
+    font-weight: 700; /* 안내 굵기 */
+    word-break: keep-all; /* 낱말 단위 줄바꿈 */
+} /* 규칙 끝 */
+
+.contact-form-status[data-state="error"] /* 실패 안내 */
+{ /* 규칙 시작 */
+    border-color: var(--pl-danger, #d94b64); /* 오류 경계선 */
+    color: var(--pl-danger, #d94b64); /* 오류 글자색 */
+} /* 규칙 끝 */
+
 .contact-footer /* 하단 정보 */
 { /* 규칙 시작 */
     display: flex; /* 가로 배치 */

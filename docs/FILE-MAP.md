@@ -90,6 +90,10 @@ css-styling/
 | `app/admin/demo/page.tsx` | Supabase 없는 개발 환경 전용 관리자 데모 화면 |
 | `app/admin/demo/admin-demo.tsx` | 저장하지 않는 뉴스·상품 편집 데모 |
 | `app/admin/demo/demo-moderation.tsx` | 저장하지 않는 댓글 관리 데모 |
+| `app/admin/demo/demo-contact.tsx` | 저장하지 않는 문의함 데모 |
+| `app/admin/contact/page.tsx` | 관리자 문의함 목록(답변 대기·완료·전체) |
+| `app/admin/contact/inbox-board.tsx` | 문의 카드, 처리 메모와 답변 완료·되돌리기 버튼 |
+| `app/admin/contact/actions.ts` | 관리자 확인 뒤 문의 처리 상태 저장 서버 작업 |
 
 ---
 ### 회원·뉴스·연령 확인
@@ -132,6 +136,7 @@ css-styling/
 | `app/api/age/status/route.ts` | 연령 확인 쿠키 상태 반환 |
 | `app/api/age/verify/route.ts` | 연령 검증과 서명 쿠키 발급 |
 | `app/api/member/status/route.ts` | 정적 페이지 상단 회원 버튼용 로그인 여부·공개 닉네임 반환(이메일 미포함) |
+| `app/api/contact/route.ts` | 문의 접수(요청 횟수 제한, 검증, 시연 모드·저장 분기) |
 
 ---
 ## 4. `lib/` 업무 규칙
@@ -178,6 +183,8 @@ css-styling/
 | `lib/comments/local-service.ts` | 새로고침 시 초기화되는 메모리 댓글 저장소 |
 | `lib/comments/supabase-service.ts` | 같은 계약의 Supabase 댓글 저장소(조회·작성·이미지·반응·신고) |
 | `lib/comments/moderation.ts` | 관리자 댓글 처리 규칙과 데모·Supabase 관리 서비스 |
+| `lib/contact/domain.ts` | 문의 분류와 입력 검증(이메일·제목·내용·동의, 자동 입력 방지 칸) |
+| `lib/contact/inbox.ts` | 문의 저장, 관리자 문의함 목록·처리와 데모·Supabase 서비스 |
 
 ---
 ### 뉴스
@@ -250,6 +257,7 @@ css-styling/
 | `public/form-submit.mjs` | 정적 페이지 공통 양식 전송(전송 중 표시, 입력 오류·요청 제한·연결 실패 안내) |
 | `public/browser-data.mjs` | 개인정보 페이지의 브라우저 저장 항목 확인·삭제 |
 | `public/contact-faq.mjs` | 문의하기 질문 전체 펼치기와 주소 해시 열기 |
+| `public/contact-form.mjs` | 문의 양식 값 모으기, 화면 검증, 글자 수 표시와 전송 연결 |
 | `public/color-mode-bootstrap.js` | Next 화면에서 저장된 라이트·다크 모드를 먼저 복원 |
 | `public/dialog-accessibility.mjs` | 대화상자 접근성 도구(현재 불러오는 페이지 없음, 재사용 보관) |
 | `public/privacy-consent.mjs` | 개인정보 선택 저장과 변경 이벤트 |
@@ -321,6 +329,7 @@ css-styling/
 | `202609120001_member_comments.sql` | 회원 프로필, 댓글, 반응, 신고, 관리 기록, 댓글 이미지 정책 |
 | `202610010001_member_signup_moderation.sql` | 가입 동의 시각 열, 공개 프로필 열 제한, 관리자 전용 댓글 상태·신고 처리 권한 |
 | `202610010002_member_account_deletion.sql` | 회원 본인 탈퇴 함수(`delete_own_account`, 관리자 계정·남은 이미지 거부) |
+| `202610040001_contact_messages.sql` | 문의 양식 접수 테이블(누구나 추가, 관리자만 조회·처리) |
 
 파일명 앞 숫자는 적용 순서입니다. 운영에 적용한 SQL 파일을 고치는 대신 새로운 번호의 마이그레이션을 추가합니다.
 
@@ -390,6 +399,7 @@ css-styling/
 - `member-auth-pages.test.mjs`: 가입·간편 로그인·비밀번호 재설정·댓글 관리 화면 연결
 - `member-signup-moderation-migration.test.mjs`: 동의 기록과 관리자 전용 처리 SQL
 - `account.test.mjs`: 내 댓글·탈퇴 처리, 탈퇴 SQL, 검색엔진 파일과 오류 화면
+- `contact.test.mjs`: 문의 검증, 화면·서버 문구 일치, 접수 순서, 문의함 처리와 문의 테이블 권한
 
 ---
 ### 개인정보와 분석
@@ -500,6 +510,7 @@ ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `publi
 | 로그인 권한 | `lib/auth/admin-policy.ts` | `proxy.ts`, Supabase 클라이언트 |
 | 댓글 | `app/news/[id]/comments-panel.tsx` | `lib/comments/domain.ts`, `lib/comments/service.ts`, `lib/comments/local-service.ts`, `lib/comments/supabase-service.ts`, 댓글 마이그레이션 |
 | 회원가입·간편 로그인 | `lib/member/auth-providers.ts` | `app/signup/`, `app/login/social-login-buttons.tsx`, `lib/member/signup.ts`, `app/auth/` |
+| 문의 양식·문의함 | `lib/contact/domain.ts` | `public/contact-form.mjs`, `app/api/contact/route.ts`, `lib/contact/inbox.ts`, `app/admin/contact/`, `202610040001_contact_messages.sql` |
 | 댓글·신고 관리 | `app/admin/comments/` | `lib/comments/moderation.ts`, `202610010001_member_signup_moderation.sql` |
 | 회원 닉네임 | `lib/member/profile.ts` | `app/login/member-access.tsx`, `app/login/member-nickname-form.tsx`, `app/api/member/status/route.ts`, `public/member-session.mjs` |
 | Supabase 연결 준비 | `scripts/check-supabase-env.mjs` | `.env.example`, `README.md`의 Supabase 단계, `supabase/migrations/` |

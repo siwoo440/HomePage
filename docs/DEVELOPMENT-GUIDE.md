@@ -158,6 +158,7 @@ Next.js 서버
 | `/admin/news` | `app/admin/news/` | 뉴스 목록, 작성과 수정 |
 | `/admin/products` | `app/admin/products/` | 상품 목록, 작성과 수정 |
 | `/admin/comments` | `app/admin/comments/` | 댓글 숨김·다시 공개·삭제와 신고 처리 |
+| `/admin/contact` | `app/admin/contact/` | 문의함(답변 대기·완료 목록, 처리 메모, 상태 변경) |
 | `/admin/demo` | `app/admin/demo/` | Supabase 없는 개발 환경 전용 관리자 데모 |
 | `/auth/callback` | `app/auth/callback/route.ts` | Supabase 인증 결과 처리 |
 | `/auth/confirm` | `app/auth/confirm/route.ts` | 이메일 인증·비밀번호 재설정 링크 확인 |
@@ -173,6 +174,7 @@ Next.js 서버
 | `GET /api/products` | 공개 상태의 상품 조회 |
 | `GET /api/community/youtube` | 게임별 YouTube 콘텐츠 조회 |
 | `GET /api/age/status` | 연령 확인 상태 조회 |
+| `POST /api/contact` | 문의 접수(요청 횟수 제한 → 본문 확인 → 검증 → 저장, 시연 모드는 저장 안 함) |
 | `POST /api/age/verify` | 연령 확인 토큰 발급 |
 
 ---
@@ -329,7 +331,20 @@ devforge_privacy_consent_v1
 로그인과 성인 확인 폼은 제출 중 `aria-busy`를 표시합니다. 입력값 때문에 실패한 경우에만 해당 입력에 `aria-invalid`와 고유 오류 문구 ID를 `aria-describedby`로 연결하며, 통신·설정·OAuth 오류는 입력 오류로 표시하지 않습니다. 관리자 뉴스·상품 편집기도 서버 액션 진행 상태를 `aria-busy`로 전달합니다.
 
 ---
-### 6.12 영어 화면(AI 번역)
+### 6.12 문의 양식과 문의함
+
+문의하기 페이지(`public/contact.html`)의 양식은 `public/contact-form.mjs`가 화면에서 먼저 검증한 뒤 0단계의 `connectJsonForm`으로 `POST /api/contact`에 보냅니다. 화면 검증과 서버 검증(`lib/contact/domain.ts`)은 같은 분류·순서·오류 문구를 쓰며 `tests/contact.test.mjs`가 두 결과가 같은지 비교합니다.
+
+- 접수 순서: 요청자별 10분 5회 제한 → 본문 크기·형식 확인 → 입력 검증 → 저장
+- 자동 입력 방지: 사람에게 보이지 않는 `website` 칸이 채워져 있으면 저장하지 않고 정상 접수와 같은 안내를 돌려줍니다.
+- 시연 모드(Supabase 미설정): 검증만 하고 저장하지 않으며 응답에 `demo: true`를 넣습니다.
+- 저장: `contact_messages` 테이블. 방문자는 분류·이메일·제목·내용 네 열만 추가할 수 있고 조회·처리는 관리자만 합니다.
+- 관리자 문의함(`/admin/contact`): 처리 규칙과 데모·Supabase 서비스는 `lib/contact/inbox.ts`, 서버 작업은 `app/admin/contact/actions.ts`. 답변 완료로 바꾸면 처리 시각과 처리한 관리자를 기록합니다.
+
+접수 알림·답변 메일 발송은 없습니다. 메일 서비스 연결(로드맵 7단계) 뒤 추가합니다.
+
+---
+### 6.13 영어 화면(AI 번역)
 
 공개 정적 페이지는 같은 주소에서 한국어 원문을 영어 사전으로 바꿔 보여 줍니다. 페이지 머리의 `public/i18n-bootstrap.js`가 정적 페이지 표시(`data-i18n-page="static"`)를 남기고, 영어를 고른 경우 번역이 끝날 때까지 본문을 최대 3초 가립니다. `public/responsive-nav.mjs`가 헤더 `EN`/`KO` 버튼과 서랍 메뉴 `English`/`한국어` 버튼을 만들고 `public/i18n.mjs`의 번역을 시작합니다. Next.js 화면은 표시가 없으므로 버튼도 번역도 생기지 않습니다.
 
@@ -419,8 +434,9 @@ devforge_privacy_consent_v1
 3. `supabase/migrations/202609120001_member_comments.sql`
 4. `supabase/migrations/202610010001_member_signup_moderation.sql`
 5. `supabase/migrations/202610010002_member_account_deletion.sql`
+6. `supabase/migrations/202610040001_contact_messages.sql`
 
-첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다. 다섯 번째 파일은 로그인 회원이 본인 계정만 지우는 `delete_own_account` 함수를 만듭니다(관리자 계정과 남은 댓글 이미지가 있으면 거부).
+첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다. 다섯 번째 파일은 로그인 회원이 본인 계정만 지우는 `delete_own_account` 함수를 만듭니다(관리자 계정과 남은 댓글 이미지가 있으면 거부). 여섯 번째 파일은 문의 양식 접수 테이블 `contact_messages`를 만듭니다. 누구나 대기 상태 문의만 추가할 수 있고, 조회와 처리는 관리자만 할 수 있습니다.
 
 ---
 ### 관리자 권한
