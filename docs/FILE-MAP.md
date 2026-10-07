@@ -366,7 +366,8 @@ css-styling/
 | `scripts/site-header.mjs` | 다른 도구가 불러 씀 | 공통 헤더 원본(메뉴 목록과 마크업) |
 | `scripts/apply-site-header.mjs` | `node scripts/apply-site-header.mjs` | 등록된 정적 페이지에 공통 헤더 적용 |
 | `scripts/apply-page-meta.mjs` | `node scripts/apply-page-meta.mjs` | 검색 설명과 공유 미리보기 태그 적용 |
-| `scripts/apply-static-pages.mjs` | `pnpm pages:apply`, `pnpm pages:check` | 공통 헤더·검색 설명·번역 준비·게임 소개의 출시 알림 스크립트를 한 번에 적용하거나 빠진 페이지 확인 |
+| `scripts/apply-static-pages.mjs` | `pnpm pages:apply`, `pnpm pages:check` | 공통 헤더·검색 설명·번역 준비·게임 소개의 출시 알림 스크립트·메인 캐러셀의 서비스 홍보 화면을 한 번에 적용하거나 빠진 페이지 확인 |
+| `scripts/verse-services.mjs` | 다른 도구가 불러 씀 | Verse 계열 서비스(Mate | Verse, Atelier | Verse) 이름·주소·문구 목록과 캐러셀 홍보 화면 마크업 |
 | `scripts/archive-project-pages.mjs` | `node scripts/archive-project-pages.mjs` | 변경 전 프로젝트 HTML을 내부 보관소로 복사 |
 | `scripts/optimize_goods_images.py` | Python 환경에서 직접 실행 | 상품 원본 이미지 최적화 |
 | `scripts/check-supabase-env.mjs` | `pnpm supabase:check` | `.env.local`의 Supabase 주소·공개 키·관리자 이메일 형식과 비밀 키 노출 점검 |
@@ -452,6 +453,8 @@ css-styling/
 - `device-preview.test.mjs`: 개발용 기기 크기와 제어
 - `foundation.test.mjs`: 요청 제한·JSON 처리·양식 전송·페이지 적용 도구와 사이트맵 누락
 - `site-header.test.mjs`: 모든 페이지 공통 헤더 일치와 문의하기 질문 구조
+- `brand-name.test.mjs`: 회사 이름 표기(Palettra Games·PALETTRA·#PalettraGames)와 예전 이름 재발 방지
+- `verse-services.test.mjs`: 메인 캐러셀의 Mate | Verse·Atelier | Verse 홍보 화면, 준비 중 표시와 이름·주소 한 곳 관리
 - `site-polish.test.mjs`: 검색 설명·공유 정보, 라이트·다크 토큰과 화면 배치 세부
 - `page-integrity-fixes.test.mjs`: 내부 앵커·시연 뉴스 링크, 이미지 실패 대체, 404 화면과 움직임 줄이기
 - `unused-assets.test.mjs`: 연결되지 않은 스크립트·스타일과 예전 규칙 재발 방지
@@ -524,7 +527,7 @@ css-styling/
 - `docs/assets/text-play-ui/`를 포함한 Text-Play 전용 이미지
 - 세션 전달용 임시 문서와 외부 프로젝트 사본
 
-ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `public/main.html`의 홍보 영역과 이동 주소만 남깁니다.
+Mate | Verse 본체(ChatBot 저장소)는 별도 저장소를 유지하고, Atelier | Verse 본체도 구현 시 별도 프로젝트로 둡니다. 홈페이지에는 `public/main.html`의 홍보 영역과 이동 주소만 남깁니다.
 
 ---
 ## 12. 기능별 첫 확인 파일
@@ -532,7 +535,7 @@ ChatBot 본체는 별도 저장소를 유지합니다. 홈페이지에는 `publi
 | 작업 | 먼저 볼 파일 | 함께 확인할 파일 |
 | --- | --- | --- |
 | 메인 슬라이드 | `public/hero-carousel.mjs` | `public/main.html`, `public/site-experience.css`, `public/playful-lab-theme.css` |
-| ChatBot 링크 | `public/main.html` | ChatBot 별도 저장소의 실행 주소 |
+| Mate | Verse·Atelier | Verse 링크 | `scripts/verse-services.mjs` | `pnpm pages:apply`, `public/main.html`, `tests/verse-services.test.mjs` |
 | 게임 추가 | `public/game-projects.mjs` | `public/images/games/`, 생성 스크립트 |
 | 관심·최근 목록 | `public/site-experience.mjs` | `public/site-experience.css` |
 | 공통 색상·외곽선 | `public/playful-lab-theme.css` | 각 페이지 전용 CSS |

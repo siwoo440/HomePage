@@ -3,7 +3,7 @@
 
 Palettra Games 게임 개발 스튜디오 홈페이지 저장소입니다. 정적 공개 페이지와 Next.js 관리자·회원·API 화면을 함께 사용하며, Supabase 설정 없이도 데모 뉴스와 상품으로 로컬 화면을 확인할 수 있습니다.
 
-이 저장소에는 홈페이지 소스와 ChatBot 홍보·바로가기만 포함합니다. Text-Play와 ChatBot 본체는 별도 저장소에서 관리합니다. 현재 ChatBot 이동 주소는 `http://localhost:3001/`이며, 배포 주소가 확정되면 `public/main.html`의 링크를 변경합니다.
+이 저장소에는 홈페이지 소스와 Verse 계열 서비스(Mate | Verse, Atelier | Verse)의 홍보 화면·바로가기만 포함합니다. Text-Play, Mate | Verse 본체(ChatBot 저장소), Atelier | Verse 본체는 별도 프로젝트에서 관리합니다. 현재 Mate | Verse 이동 주소는 `http://localhost:3001/`입니다. Atelier | Verse는 기획 단계라 접속 주소가 없어 "준비 중"으로만 표시합니다. 서비스 이름과 주소는 `scripts/verse-services.mjs` 한 곳에서 고친 뒤 `pnpm pages:apply`로 `public/main.html`에 반영합니다.
 
 ---
 ## 처음 시작하는 순서

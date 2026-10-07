@@ -98,7 +98,7 @@ test("메인 테마가 히어로·캐러셀·게임·질문 영역을 밝게 표
     assert.match(css, /:is\(\.section, footer\)[\s\S]*?var\(--pl-surface\)/); // 메인 구역 배경 확인
     assert.match(css, /\.section-title[\s\S]*?var\(--pl-ink\)/); // 구역 제목 확인
     assert.match(css, /\.game-desc[\s\S]*?var\(--pl-muted\)/); // 게임 설명 확인
-    assert.match(mainHtml, /href="http:\/\/localhost:3001\/"[^>]*>ChatBot 시작하기/); // 캐챗 주소 보존 확인
+    assert.match(mainHtml, /href="http:\/\/localhost:3001\/"[^>]*><span translate="no">Mate \| Verse<\/span> 시작하기<\/a>/); // 캐릭터 대화 서비스 주소 보존 확인
 }); // 테스트 끝
 
 test("메인 게임 검색·필터 패널이 공통 카드 토큰과 선택 상태를 사용한다", async () => // 필터 패널 회귀 검사

@@ -266,7 +266,7 @@ select:focus-visible /* 키보드 선택 초점 */
     } /* 단계 끝 */
 } /* 움직임 끝 */
 
-.hero-promo-label /* 챗봇 분류 문구 */
+.hero-promo-label /* 서비스 분류 문구 */
 { /* 규칙 시작 */
     color: #72efd5; /* 분류 색상 */
     font-family: "Share Tech Mono", monospace; /* 분류 글꼴 */
@@ -275,13 +275,19 @@ select:focus-visible /* 키보드 선택 초점 */
     margin-bottom: 1rem; /* 제목 간격 */
 } /* 규칙 끝 */
 
-.hero-chatbot-description /* 챗봇 설명 */
+.hero-service-name /* 분류 문구 안 서비스 이름 */
+{ /* 규칙 시작 */
+    text-transform: uppercase; /* 분류 문구와 같은 대문자 표기 */
+} /* 규칙 끝 */
+
+.hero-service-description /* 서비스 설명 */
 { /* 규칙 시작 */
     font-size: 0.95rem; /* 설명 크기 */
     max-width: 540px; /* 읽기 너비 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
 } /* 규칙 끝 */
 
-.hero-promo-features /* 챗봇 특징 목록 */
+.hero-promo-features /* 서비스 특징 목록 */
 { /* 규칙 시작 */
     display: flex; /* 가로 배치 */
     flex-wrap: wrap; /* 줄바꿈 허용 */
@@ -290,7 +296,7 @@ select:focus-visible /* 키보드 선택 초점 */
     margin-top: 1rem; /* 위쪽 간격 */
 } /* 규칙 끝 */
 
-.hero-promo-features span /* 챗봇 특징 항목 */
+.hero-promo-features span /* 서비스 특징 항목 */
 { /* 규칙 시작 */
     background: rgba(117, 104, 255, 0.12); /* 특징 배경 */
     border: 1px solid rgba(117, 104, 255, 0.35); /* 특징 테두리 */
@@ -300,11 +306,21 @@ select:focus-visible /* 키보드 선택 초점 */
     padding: 0.45rem 0.75rem; /* 내부 여백 */
 } /* 규칙 끝 */
 
-.hero-local-notice /* 챗봇 임시 주소 안내 */
+.hero-promo-features-caption /* 계획 중인 특징 머리말 */
+{ /* 규칙 시작 */
+    color: #a9b7c9; /* 머리말 색상 */
+    flex-basis: 100%; /* 특징 위 한 줄 사용 */
+    font-size: 0.74rem; /* 머리말 크기 */
+    font-weight: 700; /* 머리말 굵기 */
+    letter-spacing: 0.04em; /* 머리말 간격 */
+} /* 규칙 끝 */
+
+.hero-local-notice /* 서비스 상태 안내 */
 { /* 규칙 시작 */
     color: #7f90a6; /* 안내 색상 */
     font-size: 0.72rem; /* 안내 크기 */
     margin-top: 0.85rem; /* 위쪽 간격 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
 } /* 규칙 끝 */
 
 .hero-actions /* 히어로 행동 영역 */
@@ -324,6 +340,7 @@ select:focus-visible /* 키보드 선택 초점 */
     color: #e8fffa; /* 글자 색상 */
     display: inline-flex; /* 내부 정렬 */
     font-weight: 700; /* 글자 굵기 */
+    gap: 0.35em; /* 서비스 이름과 문구 사이 간격 */
     justify-content: center; /* 가로 정렬 */
     min-height: 48px; /* 터치 높이 */
     padding: 0.75rem 1.4rem; /* 내부 여백 */
@@ -335,6 +352,14 @@ select:focus-visible /* 키보드 선택 초점 */
     background: linear-gradient(135deg, #37d9bd, #7568ff); /* 강조 배경 */
     border-color: transparent; /* 중복 테두리 제거 */
     color: #061018; /* 강조 글자 */
+} /* 규칙 끝 */
+
+.hero-action.is-disabled /* 주소 확정 전 비활성 버튼 */
+{ /* 규칙 시작 */
+    border-color: rgba(169, 183, 201, 0.7); /* 비활성 테두리 */
+    border-style: dashed; /* 준비 상태 점선 */
+    color: #a9b7c9; /* 비활성 글자 */
+    cursor: not-allowed; /* 비활성 커서 */
 } /* 규칙 끝 */
 
 .hero-stats /* 히어로 현황 목록 */

@@ -3,6 +3,7 @@ import path from "node:path"; // 경로 처리 도구
 import { fileURLToPath } from "node:url"; // 모듈 주소 변환 도구
 import { applyPageMeta, listMetaTargetPages } from "./apply-page-meta.mjs"; // 검색·공유 정보 적용 도구
 import { applySiteHeader, STATIC_HEADER_PAGES } from "./apply-site-header.mjs"; // 공통 헤더 적용 도구
+import { applyVerseServices } from "./verse-services.mjs"; // 서비스 홍보 화면 적용 도구
 import { GAME_PROJECTS } from "../public/game-projects.mjs"; // 공개 프로젝트 데이터
 
 export const I18N_BOOTSTRAP_TAG = '<script src="/i18n-bootstrap.js"></script> <!-- 언어 선택 준비 -->'; // 번역 준비 스크립트 줄
@@ -42,7 +43,7 @@ export function applyStaticPage(html, file) // 페이지 하나에 공통 요소
 { // 함수 시작
     const headerPage = STATIC_HEADER_PAGES.find((page) => page.file === file); // 공통 헤더 등록 정보
     const withHeader = headerPage ? applySiteHeader(html, headerPage) : html; // 공통 헤더 적용
-    return applyReleaseNotify(applyI18nBootstrap(applyPageMeta(withHeader, file)), file); // 검색 설명·번역 준비·출시 알림 적용
+    return applyVerseServices(applyReleaseNotify(applyI18nBootstrap(applyPageMeta(withHeader, file)), file), file); // 검색 설명·번역 준비·출시 알림·서비스 홍보 화면 적용
 } // 함수 끝
 
 export function findStaticPageChanges(root = "public") // 적용이 필요한 페이지 찾기

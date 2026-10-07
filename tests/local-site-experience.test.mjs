@@ -288,7 +288,7 @@ test("히어로 진행 게이지는 수동 이동 때 7초부터 다시 시작�
     assert.equal([...timers.values()].some((timer) => timer.delay === 7000), true); // 7초 재예약 확인
 }); // 테스트 끝
 
-test("히어로가 ChatBot 홍보 화면과 임시 로컬 주소를 제공한다", () => // 챗봇 홍보 화면 테스트
+test("히어로가 Mate | Verse 홍보 화면과 임시 로컬 주소를 제공한다", () => // 캐릭터 대화 서비스 홍보 화면 테스트
 { // 테스트 시작
     assert.match(mainHtml, /data-hero-carousel/); // 전환 영역 확인
     assert.match(mainHtml, /data-hero-carousel-track/); // 이동 트랙 확인
@@ -299,7 +299,7 @@ test("히어로가 ChatBot 홍보 화면과 임시 로컬 주소를 제공한다
     assert.doesNotMatch(mainHtml, />자동 전환 7초</); // 자동 전환 문구 제외 확인
     assert.match(siteExperienceCss, /\.hero-carousel-timer[^}]+bottom:\s*3\.5rem/s); // 게이지 상단 배치 확인
     assert.match(siteExperienceCss, /\.hero-carousel-control[^}]+bottom:\s*0/s); // 넘김 버튼 하단 배치 확인
-    assert.match(mainHtml, /href="http:\/\/localhost:3001\/"[^>]*>ChatBot 시작하기/); // 챗봇 이동 확인
+    assert.match(mainHtml, /href="http:\/\/localhost:3001\/"[^>]*><span translate="no">Mate \| Verse<\/span> 시작하기<\/a>/); // 캐릭터 대화 서비스 이동 확인
 }); // 테스트 끝
 
 test("히어로 넘김 버튼은 작은 원과 중앙 화살표를 사용하고 배경 이미지를 제공한다", async () => // 히어로 장식 테스트

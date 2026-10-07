@@ -200,12 +200,24 @@
     color: var(--pl-muted); /* 보조 문구 색상 */
 } /* 보조 문구 끝 */
 
-[data-theme="playful-lab"] .hero-promo-features span /* 챗봇 특징 */
+[data-theme="playful-lab"] .hero-promo-features span /* 서비스 특징 */
 { /* 특징 시작 */
     border-color: var(--pl-border); /* 특징 경계선 */
     background: var(--pl-panel); /* 특징 배경 */
     color: var(--pl-ink); /* 특징 글자색 */
 } /* 특징 끝 */
+
+[data-theme="playful-lab"] .hero-promo-features-caption /* 계획 중인 특징 머리말 */
+{ /* 머리말 시작 */
+    color: var(--pl-muted); /* 머리말 글자색 */
+} /* 머리말 끝 */
+
+[data-theme="playful-lab"] .hero-action.is-disabled /* 주소 확정 전 비활성 버튼 */
+{ /* 비활성 시작 */
+    border: 0.0625rem dashed var(--pl-border-strong); /* 비활성 점선 경계선 */
+    background: var(--pl-panel); /* 비활성 배경 */
+    color: var(--pl-muted); /* 비활성 글자색 */
+} /* 비활성 끝 */
 
 [data-theme="playful-lab"][data-responsive-page="main"] :is(.section, footer) /* 메인 콘텐츠 구역 */
 { /* 구역 시작 */

@@ -3,7 +3,7 @@
 
 이 문서는 Palettra Games 홈페이지 저장소를 처음 보는 개발자가 프로젝트의 목적, 실행 방법, 구조, 기능, 데이터 흐름, 보안 기준과 배포 전 확인 사항을 한 번에 이해할 수 있도록 정리한 문서입니다.
 
-현재 저장소는 **Palettra Games 홈페이지**만 관리합니다. Text-Play와 ChatBot 본체는 별도 저장소에서 관리하며, 이 저장소에는 ChatBot을 소개하고 `http://localhost:3001/`로 이동시키는 연결 요소만 포함합니다.
+현재 저장소는 **Palettra Games 홈페이지**만 관리합니다. Text-Play, Mate | Verse 본체(ChatBot 저장소)와 Atelier | Verse 본체는 별도 프로젝트에서 관리하며, 이 저장소에는 두 서비스를 소개하는 홍보 화면과 이동 연결 요소만 포함합니다. Mate | Verse는 `http://localhost:3001/`로 이동하고, 기획 단계인 Atelier | Verse는 접속 주소가 정해질 때까지 "준비 중"으로 표시합니다.
 
 ---
 ## 1. 프로젝트 한눈에 보기
@@ -28,7 +28,8 @@ Palettra Games는 게임 개발 스튜디오 홈페이지입니다. 방문자는
 ### 무료 로컬 환경에서 동작하는 기능
 
 - 메인 히어로 캐러셀의 이전·다음 이동, 자동 전환과 진행 게이지
-- ChatBot 홍보 슬라이드와 `http://localhost:3001/` 이동
+- Mate | Verse 홍보 슬라이드와 `http://localhost:3001/` 이동
+- Atelier | Verse 홍보 슬라이드(기획 단계, 준비 중 표시)
 - 35개 게임 프로젝트의 검색, 장르 필터와 개발 상태 필터
 - 관심 프로젝트와 최근 본 프로젝트의 브라우저 로컬 저장
 - 관심 별 버튼과 하단 완료 메시지
@@ -100,9 +101,9 @@ pnpm check
 | `http://localhost:3000/login` | 회원 로그인 |
 | `http://localhost:3000/signup` | 회원가입 |
 | `http://localhost:3000/admin/login` | 관리자 로그인 |
-| `http://localhost:3001/` | 별도 실행 중인 ChatBot 프로젝트 |
+| `http://localhost:3001/` | 별도 실행 중인 Mate | Verse(ChatBot) 프로젝트 |
 
-ChatBot 주소는 현재 로컬 임시 주소입니다. 배포 주소가 확정되면 `public/main.html`의 링크를 변경합니다.
+Mate | Verse 주소는 현재 로컬 임시 주소입니다. 배포 주소가 확정되면 `scripts/verse-services.mjs`의 `url`을 바꾸고 `pnpm pages:apply`를 실행합니다. Atelier | Verse는 기획 단계라 아직 접속 주소가 없습니다.
 
 ---
 ## 4. 전체 동작 구조
@@ -132,7 +133,7 @@ Next.js 서버
 
 | 경로 | 파일 | 기능 |
 | --- | --- | --- |
-| `/main.html` | `public/main.html` | 캐러셀, 프로젝트 목록, 관심·최근 목록, 소개, FAQ, ChatBot 연결 |
+| `/main.html` | `public/main.html` | 캐러셀, 프로젝트 목록, 관심·최근 목록, 소개, FAQ, Verse 계열 서비스 연결 |
 | `/goods.html` | `public/goods.html` | 공개 상품과 재고 상태 |
 | `/devlog.html` | `public/devlog.html` | 공개 개발 뉴스와 검색·종류 필터 |
 | `/community.html` | `public/community.html` | 게임별 플랫폼 콘텐츠와 해시태그 |
@@ -195,7 +196,12 @@ Next.js 서버
 - 수동 이동 뒤 자동 전환 시간 재시작
 - 자동 전환 안내 문구와 일시정지 버튼 없음
 
-캐러셀 안의 ChatBot 홍보 화면은 별도 프로젝트 소스가 아닙니다. 홈페이지에서 ChatBot 메인 페이지로 이동시키는 링크만 제공합니다.
+캐러셀 2·3번째의 서비스 홍보 화면은 별도 프로젝트 소스가 아닙니다. 홈페이지에서는 소개와 이동 링크만 제공합니다.
+
+- 화면 내용은 `scripts/verse-services.mjs`의 `VERSE_SERVICES` 목록에서 만들고, `pnpm pages:apply`가 `public/main.html`의 `<!-- verse-services:start -->`~`<!-- verse-services:end -->` 구간에 넣습니다. 이 구간은 직접 고치지 않습니다.
+- Mate | Verse(캐릭터 대화 서비스): 임시 로컬 주소 `http://localhost:3001/`로 이동하는 "Mate | Verse 시작하기" 버튼을 둡니다.
+- Atelier | Verse(VR 샌드박스 서비스, 가칭): 이용자가 3D 공간에서 맵을 만들고 꾸민 뒤 다른 사람을 초대해 함께 이용하는 서비스로, 기획 단계라 구현·저장소·접속 주소가 없습니다. `url`을 비워 두어 "준비 중" 비활성 버튼과 "계획 중인 기능" 머리말로 표시하며, 실제 제공 중인 기능처럼 안내하지 않습니다. 주소가 정해지면 `url`에 넣고 `pnpm pages:apply`를 실행하면 이동 버튼으로 바뀝니다.
+- 서비스 이름은 상표·도메인 확인 전 가칭일 수 있어 목록의 `name` 한 곳에서만 관리합니다. 이름은 번역하지 않는 요소에 따로 넣으므로 이름을 바꿔도 영어 사전을 고칠 필요가 없습니다.
 
 ---
 ### 6.2 게임 목록과 프로젝트 데이터
@@ -585,7 +591,7 @@ ESLint와 `eslint-config-next` 버전은 `package.json`에 고정되어 있으�
 
 1. `public/`에 HTML 추가(공통 메뉴 기준 요소 `data-responsive-nav-root`와 `/responsive-nav.mjs`, 반응형 셸, 개인정보 동의, 테마 파일 연결)
 2. `scripts/apply-site-header.mjs`의 `STATIC_HEADER_PAGES`에 페이지 등록, 필요하면 `scripts/apply-page-meta.mjs`의 `PAGE_DESCRIPTIONS`에 검색 설명 추가
-3. `pnpm pages:apply` 실행 — 공통 헤더, 검색 설명·공유 정보, 번역 준비 스크립트를 한 번에 적용합니다. `pnpm pages:check`는 빠진 페이지만 알려 줍니다.
+3. `pnpm pages:apply` 실행 — 공통 헤더, 검색 설명·공유 정보, 번역 준비 스크립트, 메인 캐러셀의 서비스 홍보 화면을 한 번에 적용합니다. `pnpm pages:check`는 빠진 페이지만 알려 줍니다.
 4. `lib/site-url.ts`의 `PUBLIC_STATIC_PATHS`(사이트맵) 또는 `CRAWL_BLOCKED_PATHS`(검색 제외)에 주소 추가
 5. 한국어 문구의 영어 번역을 `public/i18n/en/site.json`에 추가하고 `pnpm i18n:check` 확인
 6. 필요한 전용 CSS와 MJS 추가, 사이트 링크와 키보드 접근 확인
@@ -612,7 +618,8 @@ ESLint와 `eslint-config-next` 버전은 `package.json`에 고정되어 있으�
 - 동의 전 GA4 요청이 없는지 확인
 - 이용약관과 개인정보처리방침 법률 검토
 - 상품 이미지와 가격의 실제 정보 확인
-- ChatBot 배포 주소 확정 뒤 링크 교체
+- Mate | Verse 배포 주소 확정 뒤 링크 교체
+- Atelier | Verse 서비스명·접속 주소 확정 뒤 `scripts/verse-services.mjs` 갱신
 - 공식 도메인과 HTTPS 확인
 
 ---
@@ -651,7 +658,7 @@ ESLint와 `eslint-config-next` 버전은 `package.json`에 고정되어 있으�
 
 - Palettra Games 홈페이지 소스
 - 홈페이지에서 사용하는 이미지와 정적 자산
-- 홈페이지의 ChatBot 홍보 슬라이드와 외부 이동 링크
+- 홈페이지의 Mate | Verse·Atelier | Verse 홍보 슬라이드와 외부 이동 링크
 - 홈페이지 데이터베이스 마이그레이션
 - 홈페이지 테스트와 개발 문서
 
@@ -659,13 +666,14 @@ ESLint와 `eslint-config-next` 버전은 `package.json`에 고정되어 있으�
 ### 이 저장소에 포함하지 않는 항목
 
 - Text-Play 소스, 기획서, 디자인 이미지와 구현 기록
-- ChatBot 본체 소스와 ChatBot 전용 테스트
+- Mate | Verse(ChatBot) 본체 소스와 전용 테스트
+- Atelier | Verse 본체 소스(구현 시 별도 프로젝트)
 - 다른 세션의 전체 작업 사본
 - Google Docs 읽기 캐시와 임시 파일
 - 다운로드 압축 해제본과 중복 백업
 - 세션 전달용 임시 메모
 
-ChatBot 기능 개발은 별도 저장소에서 진행합니다. 두 프로젝트를 연결할 때는 홈페이지에 배포 URL과 필요한 공개 인터페이스만 기록하고, 소스 폴더를 복사하지 않습니다.
+Mate | Verse(ChatBot)와 Atelier | Verse 기능 개발은 별도 저장소에서 진행합니다. 프로젝트를 연결할 때는 홈페이지에 배포 URL과 필요한 공개 인터페이스만 기록하고, 소스 폴더를 복사하지 않습니다.
 
 ---
 ## 14. 알려진 제한과 후속 확인
@@ -677,7 +685,8 @@ ChatBot 기능 개발은 별도 저장소에서 진행합니다. 두 프로젝�
 - GA4 측정 ID가 비어 있어 실제 분석 전송을 사용하지 않음
 - 상품 판매처와 공식 재고 API가 확정되지 않음
 - 약관과 개인정보처리방침은 개발 초안이며 법률 전문가 검토가 필요함
-- ChatBot 링크가 현재 `http://localhost:3001/`인 로컬 임시 주소임
+- Mate | Verse 링크가 현재 `http://localhost:3001/`인 로컬 임시 주소임
+- Atelier | Verse는 기획 단계로 접속 주소가 없어 준비 중으로 표시함
 - 연령 확인은 전문 본인 인증 서비스가 아닌 사이트 내부 접근 확인 방식임. 청소년보호법상 생년월일 자기 입력만으로는 부족하므로 성인 콘텐츠 공개 전 휴대폰·카드 본인인증 연결 필요(`docs/EXTERNAL-SERVICES.md` 9절)
 
 확인되지 않은 외부 서비스 상태를 구현 완료로 판단하지 않습니다. 계정과 키가 필요한 항목은 연결 후 별도 통합 검사를 수행해야 합니다.

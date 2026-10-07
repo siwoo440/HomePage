@@ -3,8 +3,8 @@
 
 이 문서는 다른 컴퓨터에서 Claude가 Palettra Games 홈페이지 개발을 바로 이어가기 위한 전달 문서입니다. 작업 기준은 이 파일이 포함된 `origin/main` 최신 커밋입니다.
 
-- 마지막 갱신: 2026년 10월 4일
-- 마지막 검증: 테스트 480개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
+- 마지막 갱신: 2026년 10월 7일
+- 마지막 검증: 테스트 489개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
 - 검증 환경: Windows 11, Node.js `24.19.0`, pnpm `11.19.0`
 
 ---
@@ -36,12 +36,14 @@
 ## 저장소 범위
 
 - 포함: Palettra Games 홈페이지, 35개 프로젝트 소개, 뉴스, 상품, 커뮤니티, 문의하기, 로그인·관리자 화면, API와 Supabase 연결 구조
-- 포함: 홈페이지 안의 ChatBot 홍보 화면과 외부 이동 링크
-- 제외: ChatBot 본체 소스와 전용 테스트
+- 포함: 홈페이지 안의 Verse 계열 서비스 홍보 화면과 외부 이동 링크(메인 캐러셀 2·3번째 화면)
+  - Mate | Verse(캐릭터 대화 서비스, 저장소·폴더 이름은 ChatBot): 현재 임시 주소 `http://localhost:3001/`
+  - Atelier | Verse(VR 샌드박스 서비스, 상표·도메인 확인 전 가칭): 기획 단계라 구현·저장소·접속 주소가 없어 "준비 중" 비활성 버튼으로만 표시
+- 제외: Mate | Verse(ChatBot) 본체 소스와 전용 테스트
+- 제외: Atelier | Verse 본체 소스(구현 시 별도 프로젝트로 관리)
 - 제외: Text-Play 소스·기획·디자인 자료
-- 현재 ChatBot 임시 주소: `http://localhost:3001/`
 
-ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니다. 운영 주소가 확정되면 공개 링크만 교체합니다.
+ChatBot·Text-Play·Atelier | Verse 폴더를 홈페이지 저장소에 복사하지 않습니다. 서비스 이름이나 주소가 확정되면 `scripts/verse-services.mjs` 한 곳만 고치고 `pnpm pages:apply`를 실행합니다.
 
 ---
 ## 현재 로컬 완료 범위
@@ -50,6 +52,7 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
   - 검색어·장르·상태 조건 칩, 결과 개수, 초기화 버튼
   - 조건을 주소(`main.html?q=…&genre=…&status=…`)에 저장해 새로고침·공유 시 복원
   - 관심 목록은 최근 추가 순서로 표시
+- 메인 캐러셀의 Verse 계열 서비스 홍보 화면: Mate | Verse(임시 로컬 주소 이동), Atelier | Verse(기획 단계, "준비 중"과 "계획 중인 기능"으로 표시)
 - 프로젝트 상세 화면과 프로젝트 η 전용 콘텐츠, 프로젝트 H 동료 캐러셀
 - 개발 뉴스와 상품 데모 화면
 - 커뮤니티 플랫폼 영역과 YouTube 데모 대체
@@ -113,6 +116,8 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 
 | 커밋 | 내용 |
 | --- | --- |
+| `ac33aab` | 회사 이름을 DEVFORGE에서 Palettra Games로 변경 |
+| `9d304f3` | GA4 측정 ID 연결과 개인정보처리방침 분석 안내 변경 |
 | `393951d` | 깨진 글자로 보낸 요청을 서버가 받지 않도록 수정 |
 | `f8f19af` | 연결 점검에서 보내는 주소의 개인 메일 주소를 오류로 안내 |
 | `b8f83d2` | 인수인계 문서에 Supabase·Google 로그인 연결 상태와 미해결 항목 기록 |
@@ -159,6 +164,10 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
   - 저장 키·쿠키·전역 변수·이미지 파일 이름(`devforge-color-mode`, `devforge_favorite_projects_v1`, `devforge-world.jpg` 등)은 방문자 저장 데이터와 연결을 유지하려고 그대로 두었습니다.
   - `internal/project-archives/`, `docs/superpowers/`, 이미 적용한 Supabase 마이그레이션은 과거 기록이라 바꾸지 않았습니다. 마이그레이션이 데이터베이스에 넣은 임시 상품 이름(`DEVFORGE 로고 머그컵`, 뒤 마이그레이션에서 숨김)도 그대로입니다.
   - 사업 계획서 기준으로 상표·도메인·공식 계정은 아직 확보 전이며, 외부 공개 전에 KIPRIS 상표 검색과 도메인·계정 가용성 확인이 필요합니다. 로고 이미지 원본은 저장소에 없어 헤더는 글자 로고를 쓰고, 파비콘과 머그컵 목업 이미지는 예전 그림 그대로입니다.
+- 메인 캐러셀의 서비스 홍보 화면(2·3번째)은 `scripts/verse-services.mjs`의 `VERSE_SERVICES` 목록으로 만듭니다. 서비스 이름·분류·주소·문구는 이 목록에서만 고치고 `pnpm pages:apply`를 실행하면 `public/main.html`의 `<!-- verse-services:start -->`~`end` 구간이 다시 만들어집니다(이 구간은 직접 고치지 않음). 검사는 `tests/verse-services.test.mjs`입니다.
+  - `url`이 비어 있으면 "준비 중" 비활성 버튼과 "계획 중인 기능" 머리말을 그리고, 주소를 넣으면 "<이름> 시작하기" 이동 버튼으로 바뀝니다.
+  - 서비스 이름은 번역하지 않는 별도 요소(`translate="no"`)에 넣어 한글 문구와 섞지 않습니다. 그래서 이름이나 주소를 바꿔도 영어 사전(`public/i18n/en/site.json`)은 고칠 필요가 없고, 문구 자체를 바꿀 때만 영어 번역을 함께 고칩니다.
+  - 방문자에게 보이는 챗봇 서비스 이름은 `Mate | Verse`입니다. `ChatBot`은 저장소·폴더 이름으로만 씁니다.
 - 공개 화면은 대부분 `public/`의 정적 HTML이며, Next.js 앱 라우터(`app/`)는 로그인·회원가입·비밀번호 재설정·뉴스 상세·성인 확인·관리자·404를 담당합니다.
 - 간편 로그인 지원 목록은 `lib/member/auth-providers.ts`입니다. 화면은 Supabase `/auth/v1/settings`에서 켜진 서비스만 표시하므로 서비스를 켜고 끌 때 코드를 고치지 않습니다. 목록에 없는 서비스(GitHub·Twitch·네이버 등)는 Supabase에서 켜도 표시하지 않습니다.
 - 공통 헤더 원본은 `scripts/site-header.mjs`입니다. 메뉴나 헤더 마크업을 바꾸면 `node scripts/apply-site-header.mjs`로 정적 페이지 전체(`<!-- site-header:start -->`~`end` 구간)에 다시 적용합니다. Next 화면은 `app/site-header.tsx`가 같은 구조를 그립니다. 테스트가 두 결과의 일치를 확인합니다.
@@ -219,7 +228,8 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 - 뉴스·상품·댓글의 실제 데이터 저장과 이미지 업로드
 - YouTube Data API: 2026-10-04 API 키 연결(`/api/community/youtube`가 실제 검색을 하고 200 응답). 아직 게임 영상이 없어 검색 결과는 0건이며 화면은 "검색 결과 없음"과 시연 콘텐츠를 표시. 검색 1회에 100 units를 써서 하루 약 100회가 한도이므로(게임 35개, 게임별 15분 캐시) 방문이 늘면 한도를 넘을 수 있음. 넘으면 "YouTube 연결 확인 필요"와 시연 콘텐츠로 돌아가며 요금은 없음. 공식 채널이 생기면 채널 업로드 목록 조회(1 unit)로 바꾸는 것을 권장
 - 실제 판매처·재고·결제 연동
-- 공식 SNS·문의·ChatBot 배포 주소
+- 공식 SNS·문의·Mate | Verse(ChatBot) 배포 주소
+- Atelier | Verse: 서비스명 확정(상표·도메인 확인)과 접속 주소. 기획 문서는 사업 계획서 "12. Atelier | Verse (VR 샌드박스 서비스)" 탭
 - GA4: 2026-10-04 측정 ID 연결(`public/analytics-config.mjs`). 동의 전 Google 요청 없음, "분석 허용" 뒤 스크립트 1회 로드와 `page_view` 전송을 브라우저에서 확인. 개인정보처리방침 3번에 Google Analytics 전송 항목을 적음(보관 기간과 법률 검토는 미정). 공개 운영 뒤 GA4 "내부 트래픽 제외" 설정 필요
 - 메일 발송: 2026-10-04 Resend 연결(도메인 없이 `onboarding@resend.dev`, 문의 접수 알림이 운영자 메일로 도착). 방문자에게 보내는 메일(출시 알림 확인 등)은 도메인 인증 뒤 가능
 - 이용약관·개인정보처리방침·회원가입 필수 동의 문구 법률 검토

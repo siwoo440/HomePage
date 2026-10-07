@@ -3,7 +3,7 @@
 
 이 문서는 2026년 9월 26일 기준으로 Palettra Games 홈페이지의 후속 개발 항목을 실행 조건에 따라 분류한 기록입니다. 현재는 외부 서비스 계정, 비밀 키, 판매처, 공식 도메인과 예산이 확정되지 않았으므로 로컬에서 검증할 수 있는 작업을 먼저 진행합니다.
 
-ChatBot 본체와 Text-Play는 별도 저장소에서 관리합니다. 이 저장소에서는 Palettra Games 홈페이지와 ChatBot 홍보 링크만 다룹니다.
+Mate | Verse 본체(ChatBot 저장소)와 Text-Play는 별도 저장소에서 관리합니다. 이 저장소에서는 Palettra Games 홈페이지와 Verse 계열 서비스(Mate | Verse, 기획 단계인 Atelier | Verse)의 홍보 링크만 다룹니다.
 
 ---
 ## 1. 분류 기준
