@@ -12,7 +12,7 @@ interface ConfirmPageProps // 신청 확인 화면 속성
 
 export const metadata: Metadata = // 신청 확인 문서 정보
 { // 문서 정보 시작
-    title: "출시 알림 신청 확인 · DEVFORGE", // 브라우저 제목
+    title: "출시 알림 신청 확인 · Palettra Games", // 브라우저 제목
     robots: { index: false }, // 검색 색인 제외
 }; // 문서 정보 끝
 

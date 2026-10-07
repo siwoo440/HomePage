@@ -50,7 +50,7 @@ test("번역기는 문구·형식·가운뎃점 조합을 번역하고 해시태
     assert.equal(translator.translate("전체 프로젝트 · 개발 영상 썸네일"), "All projects · Dev videos thumbnail"); // 형식 안 조합 확인
     assert.equal(translator.translate("전체 프로젝트 · 모르는 문구"), null); // 일부 미번역 조합 제외 확인
     assert.equal(translator.translate("없는 문구"), null); // 미번역 확인
-    assert.equal(translator.translate("DEVFORGE"), null); // 한글 없는 문구 제외 확인
+    assert.equal(translator.translate("Palettra Games"), null); // 한글 없는 문구 제외 확인
 }); // 테스트 끝
 
 test("언어는 주소 요청·저장 값·한국어 순서로 정하고 정적 페이지에서만 영어 표기를 쓴다", () => // 언어 결정 검사

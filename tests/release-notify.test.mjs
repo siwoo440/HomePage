@@ -232,7 +232,7 @@ test("관리자 화면은 게임별 신청 수만 보여 주고 개인정보처�
 test("확인 메일은 인증한 도메인과 서버 전용 키가 있을 때만 보내고 실패하면 발송 표시를 지운다", async () => // 확인 메일 처리 검사
 { // 테스트 시작
     const value = { projectId: "project-eta", email: "player@example.com" }; // 시험 신청
-    const sender = { apiKey: "re_test_value", from: "DEVFORGE <noreply@devforge.example>" }; // 인증한 도메인 보내는 쪽
+    const sender = { apiKey: "re_test_value", from: "Palettra Games <noreply@devforge.example>" }; // 인증한 도메인 보내는 쪽
     const calls = []; // 호출 기록
     const createSecretClient = (token) => ({ rpc: async (name, parameters) => { calls.push(["rpc", name, parameters]); return { data: token, error: null }; }, from: (table) => ({ update: (changes) => ({ eq: (c1, v1) => ({ eq: (c2, v2) => ({ is: async (c3, v3) => { calls.push(["update", table, changes, [c1, v1, c2, v2, c3, v3]]); return { error: null }; } }) }) }) }) }); // 가짜 서버 전용 연결
     const mails = []; // 보낸 메일 기록

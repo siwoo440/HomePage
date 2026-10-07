@@ -48,7 +48,7 @@ function checkMail(env) // 메일 발송 점검
     } // 조건 끝
     if (!parsedFrom) // 보내는 주소 확인
     { // 조건 시작
-        problems.push("MAIL_FROM: 보내는 주소 형식이 올바르지 않습니다. 예: DEVFORGE <noreply@내도메인> (도메인이 없으면 onboarding@resend.dev)"); // 보내는 주소 안내
+        problems.push("MAIL_FROM: 보내는 주소 형식이 올바르지 않습니다. 예: Palettra Games <noreply@내도메인> (도메인이 없으면 onboarding@resend.dev)"); // 보내는 주소 안내
     } // 조건 끝
     else if (PERSONAL_MAIL_DOMAINS.includes(parsedFrom.address.toLowerCase().split("@").pop())) // 개인 메일 주소 확인
     { // 조건 시작

@@ -5,7 +5,7 @@ import SiteHeader from "./site-header"; // 공통 상단 헤더
 
 export const metadata: Metadata = // 없는 페이지 문서 정보
 { // 문서 정보 시작
-    title: "페이지를 찾을 수 없습니다 · DEVFORGE", // 브라우저 제목
+    title: "페이지를 찾을 수 없습니다 · Palettra Games", // 브라우저 제목
     robots: { index: false }, // 검색 색인 제외
 }; // 문서 정보 끝
 

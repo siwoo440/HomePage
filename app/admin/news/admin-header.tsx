@@ -5,7 +5,7 @@ export default function AdminHeader() // 관리자 상단 메뉴
 { // 함수 시작
     return ( // 상단 메뉴 반환
         <header className="admin-header"> {/* 관리자 상단 영역 */}
-            <Link className="admin-brand" href="/main.html">DEVFORGE</Link> {/* 메인 이동 브랜드 */}
+            <Link className="admin-brand" href="/main.html">PALETTRA</Link> {/* 메인 이동 브랜드 */}
             <nav className="admin-nav" aria-label="관리자 메뉴"> {/* 관리자 이동 메뉴 */}
                 <Link href="/admin/news">글 관리</Link> {/* 글 관리 이동 */}
                 <Link href="/admin/news/new">새 글</Link> {/* 새 글 이동 */}

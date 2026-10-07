@@ -45,7 +45,7 @@ export function extractSubnavLinks(block) // 기존 페이지 내부 링크 추�
 { // 함수 시작
     return [...block.matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)] // 링크 목록 조회
         .map(([, href, label]) => ({ href, label: label.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim() })) // 주소와 이름 정리
-        .filter((link) => !/main\.html$/.test(link.href) && link.label !== "DEVFORGE" && !link.label.startsWith("DEVFORGE")); // 로고 링크 제외
+        .filter((link) => !/main\.html$/.test(link.href) && link.label !== "PALETTRA" && !link.label.startsWith("PALETTRA")); // 로고 링크 제외
 } // 함수 끝
 
 export function applySiteHeader(html, page) // 문서에 공통 헤더 적용

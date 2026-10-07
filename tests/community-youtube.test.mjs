@@ -35,15 +35,15 @@ test("공식 API 응답을 공개 카드 데이터로 정규화한다", async ()
 
         if (url.includes("/search")) // 검색 요청 확인
         { // 조건 시작
-            return new Response(JSON.stringify({ items: [{ id: { videoId: "video-1" }, snippet: { title: "최신 개발 영상", channelTitle: "DEVFORGE 채널", publishedAt: "2026-09-12T00:00:00.000Z", liveBroadcastContent: "none", thumbnails: { medium: { url: "https://i.example/video.jpg" } } } }] }), { status: 200 }); // 검색 응답 반환
+            return new Response(JSON.stringify({ items: [{ id: { videoId: "video-1" }, snippet: { title: "최신 개발 영상", channelTitle: "Palettra Games 채널", publishedAt: "2026-09-12T00:00:00.000Z", liveBroadcastContent: "none", thumbnails: { medium: { url: "https://i.example/video.jpg" } } } }] }), { status: 200 }); // 검색 응답 반환
         } // 조건 끝
 
         return new Response(JSON.stringify({ items: [{ id: "video-1", contentDetails: { duration: "PT2M" }, statistics: { viewCount: "123", likeCount: "7", commentCount: "3" } }] }), { status: 200 }); // 상세 응답 반환
     }; // 함수 끝
     const result = await fetchYouTubeCommunityFeed("project-a", "secret-key", fakeFetch); // 피드 조회
     assert.equal(requestedUrls.length, 2); // 요청 횟수 확인
-    assert.match(requestedUrls[0], /q=%23DEVFORGEProjectA/); // 해시태그 검색 확인
+    assert.match(requestedUrls[0], /q=%23PalettraGamesProjectA/); // 해시태그 검색 확인
     assert.match(requestedUrls[0], /order=date/); // 최신순 검색 확인
     assert.match(requestedUrls[0], /key=secret-key/); // 서버 키 전달 확인
-    assert.deepEqual(result.items[0], { id: "youtube-video-1", platform: "youtube", contentType: "short_candidate", gameId: "project-a", title: "최신 개발 영상", author: "DEVFORGE 채널", publishedAt: "2026-09-12T00:00:00.000Z", url: "https://www.youtube.com/watch?v=video-1", thumbnailUrl: "https://i.example/video.jpg", metrics: { views: 123, likes: 7, comments: 3 }, isDemo: false }); // 공개 카드 확인
+    assert.deepEqual(result.items[0], { id: "youtube-video-1", platform: "youtube", contentType: "short_candidate", gameId: "project-a", title: "최신 개발 영상", author: "Palettra Games 채널", publishedAt: "2026-09-12T00:00:00.000Z", url: "https://www.youtube.com/watch?v=video-1", thumbnailUrl: "https://i.example/video.jpg", metrics: { views: 123, likes: 7, comments: 3 }, isDemo: false }); // 공개 카드 확인
 }); // 테스트 끝

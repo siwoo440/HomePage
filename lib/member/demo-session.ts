@@ -11,7 +11,7 @@ export interface DemoMemberProfile // 시연 회원 형식
 
 export function createDemoMemberProfile(nickname: string): DemoMemberProfile // 시연 회원 생성
 { // 함수 시작
-    const normalizedNickname = nickname.trim().slice(0, 20) || "DEVFORGE 팬"; // 닉네임 정리
+    const normalizedNickname = nickname.trim().slice(0, 20) || "Palettra Games 팬"; // 닉네임 정리
     return { id: "demo-member", nickname: normalizedNickname, avatarUrl: null, createdAt: new Date().toISOString(), demo: true }; // 공개 정보 반환
 } // 함수 끝
 

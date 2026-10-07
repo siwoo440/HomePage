@@ -78,7 +78,7 @@ ${siteHeader}
                     <div class="project-image-fallback" data-project-image-fallback hidden aria-label="${escapeHtml(project.title)} 이미지 준비 중"><strong>${escapeHtml(project.symbol)}</strong><span>IMAGE COMING SOON</span></div> <!-- 이미지 대체 영역 -->
                 </div> <!-- 대표 이미지 영역 끝 -->
                 <div class="project-hero-copy"> <!-- 대표 문구 영역 -->
-                    <p class="project-kicker">${escapeHtml(project.symbol)} · DEVFORGE PROJECT</p> <!-- 프로젝트 분류 -->
+                    <p class="project-kicker">${escapeHtml(project.symbol)} · PALETTRA GAMES PROJECT</p> <!-- 프로젝트 분류 -->
                     <h1 data-project-title>${escapeHtml(project.title)}</h1> <!-- 프로젝트 제목 -->
                     <p class="project-tagline">${escapeHtml(project.tagline)}</p> <!-- 한 문장 소개 -->
                     <div class="project-tags">${genres}</div> <!-- 장르 목록 -->
@@ -101,7 +101,7 @@ ${planningNotice}
                 <a class="project-link-card" href="/main.html#games"><span>다른 프로젝트</span><strong>게임 목록으로 →</strong></a> <!-- 게임 목록 연결 -->
             </section> <!-- 관련 페이지 영역 끝 -->
         </main> <!-- 주요 내용 끝 -->
-        <footer class="project-footer"><p>${escapeHtml(project.title)} · DEVFORGE Studio</p></footer> <!-- 하단 정보 -->
+        <footer class="project-footer"><p>${escapeHtml(project.title)} · Palettra Games</p></footer> <!-- 하단 정보 -->
     </div> <!-- 공개 프로젝트 루트 끝 -->
     <script type="module" src="/project-page.mjs"></script> <!-- 공개 페이지 기능 -->
     <script type="module" src="/release-notify.mjs"></script> <!-- 출시 알림 신청 -->

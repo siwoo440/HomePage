@@ -1,7 +1,7 @@
 ---
-# DEVFORGE 홈페이지
+# Palettra Games 홈페이지
 
-DEVFORGE 게임 개발 스튜디오 홈페이지 저장소입니다. 정적 공개 페이지와 Next.js 관리자·회원·API 화면을 함께 사용하며, Supabase 설정 없이도 데모 뉴스와 상품으로 로컬 화면을 확인할 수 있습니다.
+Palettra Games 게임 개발 스튜디오 홈페이지 저장소입니다. 정적 공개 페이지와 Next.js 관리자·회원·API 화면을 함께 사용하며, Supabase 설정 없이도 데모 뉴스와 상품으로 로컬 화면을 확인할 수 있습니다.
 
 이 저장소에는 홈페이지 소스와 ChatBot 홍보·바로가기만 포함합니다. Text-Play와 ChatBot 본체는 별도 저장소에서 관리합니다. 현재 ChatBot 이동 주소는 `http://localhost:3001/`이며, 배포 주소가 확정되면 `public/main.html`의 링크를 변경합니다.
 
@@ -115,7 +115,7 @@ pnpm check
 - 번역문은 AI 번역이며 사람 검수를 거치지 않았습니다. 약관과 개인정보처리방침은 한국어 원문을 기준으로 합니다.
 - 같은 주소에서 글자만 바꾸므로 성인 확인·관심 목록·화면 모드는 그대로 동작합니다. 선택한 언어는 이 브라우저(`devforge-language`)에만 저장됩니다.
 - 관리자 화면(`/admin`)과, 관리자·회원이 직접 쓴 뉴스·상품·댓글은 원문(한국어)으로 표시합니다. 시연 데이터와 날짜 표기는 영어로 바뀝니다.
-- 실제 SNS 해시태그(`#DEVFORGE…`)는 번역하지 않습니다.
+- 실제 SNS 해시태그(`#PalettraGames…`)는 번역하지 않습니다.
 
 한국어 문구를 바꾸거나 새 페이지를 추가하면 영어 사전(`public/i18n/en/`)도 함께 고쳐야 합니다. 다음 명령이 빠진 번역을 알려 줍니다. 자동 검사(`pnpm test`)도 같은 내용을 확인합니다.
 
@@ -277,7 +277,7 @@ Supabase의 **Authentication → URL Configuration**에서 개발 단계 주소�
 # Resend 메일 발송 키(서버 전용)
 RESEND_API_KEY=Resend-API-키
 # 보내는 주소
-MAIL_FROM=DEVFORGE <noreply@내-도메인>
+MAIL_FROM=Palettra Games <noreply@내-도메인>
 # 문의 접수 알림을 받을 운영자 이메일
 CONTACT_NOTIFY_EMAIL=운영자-이메일
 ```

@@ -337,7 +337,7 @@ async function updateSelection(gameId, updateUrl = true) // 선택 화면 갱신
 
     if (hashtag) // 해시태그 요소 확인
     { // 조건 시작
-        hashtag.textContent = selectedGame?.hashtag ?? "#DEVFORGE"; // 안전한 해시태그 표시
+        hashtag.textContent = selectedGame?.hashtag ?? "#PalettraGames"; // 안전한 해시태그 표시
     } // 조건 끝
 
     if (status) // 상태 안내 확인

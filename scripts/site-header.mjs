@@ -21,7 +21,7 @@ export function renderSiteHeader({ current = "", indent = "    ", subnav = null 
     return [ // 헤더 줄 목록
         `${indent}${SITE_HEADER_START}`, // 공통 헤더 시작
         `${indent}<nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root data-site-header> <!-- 공통 상단 메뉴 -->`, // 헤더 시작
-        `${indent}    <a href="/main.html" class="nav-logo">DEVFORGE</a> <!-- 메인 이동 로고 -->`, // 로고
+        `${indent}    <a href="/main.html" class="nav-logo">PALETTRA</a> <!-- 메인 이동 로고 -->`, // 로고
         `${indent}    <ul class="nav-menu"> <!-- 주요 메뉴 목록 -->`, // 메뉴 시작
         menu, // 메뉴 항목
         `${indent}    </ul> <!-- 주요 메뉴 목록 끝 -->`, // 메뉴 끝

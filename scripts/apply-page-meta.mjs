@@ -5,10 +5,10 @@ import { GAME_PROJECTS } from "../public/game-projects.mjs"; // 공개 프로젝
 
 export const PAGE_DESCRIPTIONS = Object.freeze( // 정적 페이지 검색 설명
 { // 목록 시작
-    "main.html": "인디 게임 스튜디오 DEVFORGE의 35개 게임 프로젝트, 개발 뉴스, 굿즈와 커뮤니티를 소개합니다.", // 메인
-    "goods.html": "DEVFORGE 게임 세계를 담은 공식 굿즈 목록과 판매 준비 상태를 안내합니다.", // 굿즈
-    "devlog.html": "DEVFORGE 프로젝트의 업데이트, 신기능, 데브로그와 버그 수정 소식을 모았습니다.", // 개발 뉴스
-    "roadmap.html": "DEVFORGE 공개 프로젝트 35개의 개발 단계를 대표·개발 중·기획·보류로 나눠 한눈에 보여 줍니다.", // 개발 로드맵
+    "main.html": "인디 게임 스튜디오 Palettra Games의 35개 게임 프로젝트, 개발 뉴스, 굿즈와 커뮤니티를 소개합니다.", // 메인
+    "goods.html": "Palettra Games 게임 세계를 담은 공식 굿즈 목록과 판매 준비 상태를 안내합니다.", // 굿즈
+    "devlog.html": "Palettra Games 프로젝트의 업데이트, 신기능, 데브로그와 버그 수정 소식을 모았습니다.", // 개발 뉴스
+    "roadmap.html": "Palettra Games 공개 프로젝트 35개의 개발 단계를 대표·개발 중·기획·보류로 나눠 한눈에 보여 줍니다.", // 개발 로드맵
     "project_c/ProjectC_Cards.html": "카오스폰즈의 카드 속성, 키워드, 더미 규칙과 포지션을 소개합니다.", // 프로젝트 C 카드
     "project_d/characters.html": "바스티온에 등장하는 캐릭터와 관계를 소개합니다.", // 프로젝트 D 캐릭터
     "project_d/factions.html": "바스티온의 세력과 거점 구도를 소개합니다.", // 프로젝트 D 세력
@@ -28,7 +28,7 @@ export function renderMetaTags({ title, description, indent = "    " }) // 공�
 { // 함수 시작
     return [ // 태그 줄 목록
         `${indent}<meta property="og:type" content="website"> <!-- 공유 형식 -->`, // 공유 형식
-        `${indent}<meta property="og:site_name" content="DEVFORGE"> <!-- 사이트 이름 -->`, // 사이트 이름
+        `${indent}<meta property="og:site_name" content="Palettra Games"> <!-- 사이트 이름 -->`, // 사이트 이름
         `${indent}<meta property="og:locale" content="ko_KR"> <!-- 공유 언어 -->`, // 공유 언어
         `${indent}<meta property="og:title" content="${escapeAttribute(title)}"> <!-- 공유 제목 -->`, // 공유 제목
         `${indent}<meta property="og:description" content="${escapeAttribute(description)}"> <!-- 공유 설명 -->`, // 공유 설명

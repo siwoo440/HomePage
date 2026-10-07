@@ -6,7 +6,7 @@ import styles from "../login/member-login.module.css"; // 회원 화면 공통 �
 
 export const metadata: Metadata = // 내 정보 문서 정보
 { // 문서 정보 시작
-    title: "내 정보 · DEVFORGE", // 브라우저 제목
+    title: "내 정보 · Palettra Games", // 브라우저 제목
     robots: { index: false }, // 검색 색인 제외
 }; // 문서 정보 끝
 

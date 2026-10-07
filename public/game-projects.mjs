@@ -25,7 +25,7 @@ function createProject(record) // 프로젝트 공개 정보 생성
         detailPath: `/project_${record.slug}/Project${stem}_Main.html`, // 상세 주소
         adultOnly: record.adultOnly ?? false, // 성인 여부
         layout: record.layout ?? "common", // 페이지 레이아웃
-        hashtag: `#DEVFORGEProject${stem}`, // 커뮤니티 해시태그
+        hashtag: `#PalettraGamesProject${stem}`, // 커뮤니티 해시태그
     }); // 객체 끝
 } // 함수 끝
 

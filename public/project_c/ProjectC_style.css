@@ -121,7 +121,7 @@ button
     color: var(--accent);       /* 호버 시 녹슨 오렌지로 변경 */
 }
 
-/* DEVFORGE 로고 */
+/* Palettra Games 로고 */
 .top-nav-logo
 {
     font-family: 'Orbitron', sans-serif; /* 로고 전용 폰트 */

@@ -12,7 +12,7 @@ interface UnsubscribePageProps // 수신 거부 화면 속성
 
 export const metadata: Metadata = // 수신 거부 문서 정보
 { // 문서 정보 시작
-    title: "출시 알림 수신 거부 · DEVFORGE", // 브라우저 제목
+    title: "출시 알림 수신 거부 · Palettra Games", // 브라우저 제목
     robots: { index: false }, // 검색 색인 제외
 }; // 문서 정보 끝
 

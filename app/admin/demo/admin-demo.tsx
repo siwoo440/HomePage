@@ -50,7 +50,7 @@ function ProductPreview({ preview, imageUrl }: { preview: ProductDemoPreview; im
             {imageUrl ? <img className="demo-preview-image" src={imageUrl} alt="선택한 상품 이미지 미리보기" /> : <div className="demo-preview-placeholder">이미지 없음</div>} {/* 상품 이미지 */}
             <div className="demo-preview-tags"><span>{product.category}</span>{product.badge !== "none" ? <span>{product.badge.toUpperCase()}</span> : null}</div> {/* 분류와 배지 */}
             <h3>{product.name}</h3> {/* 상품명 */}
-            <p className="demo-preview-summary">{product.gameName || "DEVFORGE"}</p> {/* 관련 게임 */}
+            <p className="demo-preview-summary">{product.gameName || "Palettra Games"}</p> {/* 관련 게임 */}
             {product.description ? <p className="demo-preview-content">{product.description}</p> : null} {/* 상품 설명 */}
             <p className="demo-preview-price">{product.originalPrice && product.originalPrice > product.price ? <s>{formatWon(product.originalPrice)}</s> : null} <strong>{formatWon(product.price)}</strong> · 재고 {product.stockQuantity.toLocaleString("ko-KR")}개</p> {/* 가격과 재고 */}
         </article> // 상품 미리보기 카드 끝

@@ -19,7 +19,7 @@ test("모든 공개 페이지는 검색 설명과 공유 미리보기 정보를 
     for (const file of listPublicHtml()) // 페이지 반복
     { // 반복 시작
         const html = fs.readFileSync(file, "utf8"); // 문서 읽기
-        for (const pattern of [/<meta name="description" content="[^"]{10,}">/, /property="og:title" content="[^"]+"/, /property="og:description" content="[^"]+"/, /property="og:type" content="website"/, /property="og:site_name" content="DEVFORGE"/]) // 필수 태그 반복
+        for (const pattern of [/<meta name="description" content="[^"]{10,}">/, /property="og:title" content="[^"]+"/, /property="og:description" content="[^"]+"/, /property="og:type" content="website"/, /property="og:site_name" content="Palettra Games"/]) // 필수 태그 반복
         { // 반복 시작
             assert.match(html, pattern, `${file} ${pattern}`); // 태그 존재 확인
         } // 반복 끝

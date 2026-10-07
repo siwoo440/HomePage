@@ -1,4 +1,4 @@
-/* Orbitron 폰트 로드 — DEVFORGE 로고에 사용한다. */
+/* Orbitron 폰트 로드 — Palettra Games 로고에 사용한다. */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
 
 :root /* 전체 문서에서 사용할 색상과 크기 값을 모아 둔다. */
@@ -70,7 +70,7 @@ button /* 모든 버튼의 기본 스타일을 설정한다. */
     gap: 48px; /* 링크 사이 간격을 기존 24px의 2배로 설정한다. */
 } /* 링크 묶음 스타일을 끝낸다. */
 
-/* DEVFORGE 로고 — 왼쪽에 고정된다. */
+/* Palettra Games 로고 — 왼쪽에 고정된다. */
 .top-nav-logo
 { /* 로고 스타일을 시작한다. */
     font-family: 'Orbitron', 'Segoe UI', sans-serif; /* 로고 전용 폰트를 설정한다. */

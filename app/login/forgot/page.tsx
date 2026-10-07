@@ -10,7 +10,7 @@ interface ForgotPasswordPageProps // 비밀번호 찾기 화면 속성
     searchParams: Promise<{ returnTo?: string }>; // 주소 검색 값
 } // 형식 끝
 
-export const metadata: Metadata = { title: "비밀번호 찾기 · DEVFORGE" }; // 브라우저 제목
+export const metadata: Metadata = { title: "비밀번호 찾기 · Palettra Games" }; // 브라우저 제목
 
 export default async function ForgotPasswordPage({ searchParams }: ForgotPasswordPageProps) // 비밀번호 찾기 화면
 { // 함수 시작

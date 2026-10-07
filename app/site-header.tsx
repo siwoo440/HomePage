@@ -53,7 +53,7 @@ export default function SiteHeader({ current = "" }: SiteHeaderProps) // 공통 
     return ( // 헤더 반환
         <> {/* 헤더 묶음 */}
             <nav className="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root="" data-site-header=""> {/* 공통 상단 메뉴 */}
-                <a href="/main.html" className="nav-logo">DEVFORGE</a> {/* 메인 이동 로고 */}
+                <a href="/main.html" className="nav-logo">PALETTRA</a> {/* 메인 이동 로고 */}
                 <ul className="nav-menu"> {/* 주요 메뉴 목록 */}
                     {MENU_ITEMS.map((item) => <li key={item.id}><a href={item.href} aria-current={item.id === current ? "page" : undefined}>{item.label}</a></li>)} {/* 메뉴 항목 */}
                 </ul> {/* 주요 메뉴 목록 끝 */}

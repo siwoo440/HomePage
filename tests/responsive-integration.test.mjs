@@ -46,7 +46,7 @@ test("공통 자원은 페이지 스타일 뒤와 개인정보 모듈 앞에 놓
 test("메인 페이지가 홈 로고와 문의하기 페이지 링크를 제공한다", () => // 메인 연결 테스트
 { // 테스트 시작
     const html = readPublicFile("main.html"); // 메인 HTML 읽기
-    assert.match(html, /<a href="\/main\.html" class="nav-logo">DEVFORGE<\/a>/); // 홈 로고 확인
+    assert.match(html, /<a href="\/main\.html" class="nav-logo">PALETTRA<\/a>/); // 홈 로고 확인
     assert.match(html, /href="\/contact\.html" class="btn-nav nav-contact-link"/); // 문의하기 페이지 링크 확인
     assert.doesNotMatch(html, /id="contact-modal"/); // 문의창 식별자 확인
 }); // 테스트 끝

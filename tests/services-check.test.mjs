@@ -6,7 +6,7 @@ import test from "node:test"; // 테스트 실행 도구
 import { checkServices, formatServicesReport, readMeasurementId, runServicesCheck } from "../scripts/check-services.mjs"; // 외부 서비스 점검 도구
 
 const SUPABASE = { NEXT_PUBLIC_SUPABASE_URL: "https://abcdefgh.supabase.co", NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_test_value", ADMIN_EMAIL: "admin@example.com" }; // 정상 Supabase 설정
-const MAIL = { RESEND_API_KEY: "re_test_value", MAIL_FROM: "DEVFORGE <noreply@devforge.example>", CONTACT_NOTIFY_EMAIL: "owner@example.com" }; // 정상 메일 설정
+const MAIL = { RESEND_API_KEY: "re_test_value", MAIL_FROM: "Palettra Games <noreply@devforge.example>", CONTACT_NOTIFY_EMAIL: "owner@example.com" }; // 정상 메일 설정
 const YOUTUBE_KEY = `AIza${"a".repeat(35)}`; // 형식이 맞는 시험 키
 const statusOf = (report, id) => report.services.find((service) => service.id === id).status; // 서비스 상태 조회
 
@@ -38,7 +38,7 @@ test("값을 넣으면 서비스별로 연결됨과 고칠 곳을 구분한다",
     const personal = checkServices({ ...MAIL, MAIL_FROM: "owner@Gmail.com" }); // 보내는 주소에 개인 메일 입력
     assert.equal(statusOf(personal, "mail"), "error"); // 개인 메일 주소는 발송 불가로 안내
     assert.match(personal.services[1].notes[0], /onboarding@resend\.dev 를 넣고/); // 고치는 방법 안내
-    assert.equal(statusOf(checkServices({ ...MAIL, MAIL_FROM: "DEVFORGE <owner@naver.com>" }), "mail"), "error"); // 이름을 붙인 개인 메일도 같은 안내
+    assert.equal(statusOf(checkServices({ ...MAIL, MAIL_FROM: "Palettra Games <owner@naver.com>" }), "mail"), "error"); // 이름을 붙인 개인 메일도 같은 안내
     assert.equal(statusOf(checkServices({ YOUTUBE_API_KEY: "wrong" }), "youtube"), "error"); // YouTube 키 형식 오류
     assert.equal(statusOf(checkServices({}, 'export const GA_MEASUREMENT_ID = "UA-123"; // 옛 형식'), "analytics"), "error"); // 측정 ID 형식 오류
     assert.equal(statusOf(checkServices({ NEXT_PUBLIC_SUPABASE_URL: "https://abcdefgh.supabase.co" }), "supabase"), "error"); // Supabase 일부만 입력

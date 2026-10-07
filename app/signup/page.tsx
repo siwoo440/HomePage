@@ -14,7 +14,7 @@ interface SignupPageProps // 가입 화면 속성
 
 export const dynamic = "force-dynamic"; // 요청별 설정 확인
 
-export const metadata: Metadata = { title: "회원가입 · DEVFORGE" }; // 브라우저 제목
+export const metadata: Metadata = { title: "회원가입 · Palettra Games" }; // 브라우저 제목
 
 export default async function SignupPage({ searchParams }: SignupPageProps) // 회원가입 화면
 { // 함수 시작
@@ -31,7 +31,7 @@ export default async function SignupPage({ searchParams }: SignupPageProps) // �
             <main className={styles.shell}> {/* 가입 전체 영역 */}
                 <div className={styles.layout}> {/* 소개·입력 두 열 배치 */}
                     <section className={styles.intro} aria-labelledby="signup-title"> {/* 가입 소개 영역 */}
-                        <p className={styles.eyebrow}>{"// JOIN DEVFORGE"}</p> {/* 영문 분류 */}
+                        <p className={styles.eyebrow}>{"// JOIN PALETTRA GAMES"}</p> {/* 영문 분류 */}
                         <h1 id="signup-title">회원가입</h1> {/* 화면 제목 */}
                         <p className={styles.description}>평소 쓰는 계정으로 바로 시작하거나 이메일로 가입할 수 있습니다. 가입하면 개발 뉴스에 댓글과 반응을 남길 수 있습니다.</p> {/* 화면 설명 */}
                         <ul className={styles.benefits}> {/* 가입 방식 안내 */}

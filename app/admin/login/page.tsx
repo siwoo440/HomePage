@@ -19,7 +19,7 @@ export default async function AdminLoginPage({ searchParams }: LoginPageProps) /
     return ( // 로그인 화면 반환
         <main className="admin-shell admin-login-shell"> {/* 로그인 전체 영역 */}
             <section className="admin-login-card" aria-labelledby="login-title"> {/* 로그인 카드 */}
-                <Link className="admin-brand" href="/main.html">DEVFORGE</Link> {/* 메인 이동 브랜드 */}
+                <Link className="admin-brand" href="/main.html">PALETTRA</Link> {/* 메인 이동 브랜드 */}
                 <p className="admin-eyebrow">{"// DEVELOPER ACCESS"}</p> {/* 관리자 영문 분류 */}
                 <h1 id="login-title">관리자 로그인</h1> {/* 로그인 제목 */}
                 <p className="admin-description">개발 뉴스 작성과 수정은 등록된 관리자 계정만 사용할 수 있습니다.</p> {/* 로그인 설명 */}

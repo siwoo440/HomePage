@@ -104,7 +104,7 @@ export default function MemberLoginForm({ mode, returnTo, settings }: MemberLogi
             <div className={styles.formStack}> {/* 시연 로그인 묶음 */}
                 <form className={styles.form} onSubmit={handleDemoSubmit}> {/* 시연 로그인 폼 */}
                     <label htmlFor="demo-nickname">화면에 표시할 닉네임</label> {/* 닉네임 이름 */}
-                    <input id="demo-nickname" value={nickname} onChange={(event) => setNickname(event.target.value)} maxLength={20} placeholder="DEVFORGE 팬" /> {/* 닉네임 입력 */}
+                    <input id="demo-nickname" value={nickname} onChange={(event) => setNickname(event.target.value)} maxLength={20} placeholder="Palettra Games 팬" /> {/* 닉네임 입력 */}
                     <button className={styles.primaryButton} type="submit">시연 계정으로 화면 확인</button> {/* 시연 로그인 버튼 */}
                 </form> {/* 시연 로그인 폼 끝 */}
                 <SocialLoginButtons mode={mode} providers={[]} returnTo={returnTo} /> {/* 간편 로그인 미리보기 */}

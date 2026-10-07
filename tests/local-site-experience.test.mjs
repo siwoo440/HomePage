@@ -136,10 +136,10 @@ test("커뮤니티 해시태그를 클립보드에 안전하게 복사한다", a
 { // 테스트 시작
     let copied = ""; // 복사 결과
     const clipboard = { writeText: async (value) => { copied = value; } }; // 클립보드 대역
-    assert.equal(await copyCommunityHashtag("#DEVFORGE", clipboard), true); // 복사 성공 확인
-    assert.equal(copied, "#DEVFORGE"); // 복사 내용 확인
+    assert.equal(await copyCommunityHashtag("#PalettraGames", clipboard), true); // 복사 성공 확인
+    assert.equal(copied, "#PalettraGames"); // 복사 내용 확인
     assert.equal(await copyCommunityHashtag("", clipboard), false); // 빈 값 거부 확인
-    assert.equal(await copyCommunityHashtag("#DEVFORGE", null), false); // 클립보드 없음 처리 확인
+    assert.equal(await copyCommunityHashtag("#PalettraGames", null), false); // 클립보드 없음 처리 확인
 }); // 테스트 끝
 
 test("메인 하단이 독립 약관과 개인정보 초안 페이지로 이동한다", () => // 법적 문서 링크 테스트

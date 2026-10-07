@@ -1,7 +1,7 @@
 ---
 # Claude 작업 인수인계
 
-이 문서는 다른 컴퓨터에서 Claude가 DEVFORGE 홈페이지 개발을 바로 이어가기 위한 전달 문서입니다. 작업 기준은 이 파일이 포함된 `origin/main` 최신 커밋입니다.
+이 문서는 다른 컴퓨터에서 Claude가 Palettra Games 홈페이지 개발을 바로 이어가기 위한 전달 문서입니다. 작업 기준은 이 파일이 포함된 `origin/main` 최신 커밋입니다.
 
 - 마지막 갱신: 2026년 10월 4일
 - 마지막 검증: 테스트 480개 통과, TypeScript·ESLint·Next.js 운영 빌드 통과
@@ -10,7 +10,7 @@
 ---
 ## Claude에게 전달할 시작 문구
 
-> GitHub의 `siwoo440/HomePage` 저장소에서 `main` 최신 커밋을 복제하고 DEVFORGE 홈페이지 개발을 이어서 진행해주세요. 먼저 `CLAUDE-HANDOFF.md`, `README.md`, `TRANSFER-GUIDE.md`, `docs/DEVELOPMENT-GUIDE.md`, `docs/DEVELOPMENT-NOTES.md`, `.env.example`을 읽어주세요. Node.js `22.13` 이상과 pnpm `11.19.0` 환경에서 `pnpm install --frozen-lockfile`과 `pnpm check`를 실행해 현재 상태를 확인한 뒤 `pnpm dev`로 `http://localhost:3000/main.html`을 열어주세요. 모든 답변은 한국어로 작성해주세요. 홈페이지 저장소만 작업 대상으로 사용하고 ChatBot과 Text-Play 소스는 별도 저장소로 유지해주세요. 기존 디자인과 동작을 보존하고, 외부 계정·API·비용·운영 상태는 추측하지 말고 확인이 필요한 항목으로 분리해주세요. 코드는 Allman 스타일을 지키고 각 코드 줄에 짧은 한글 명사형 주석을 작성해주세요. 한 작업 단위의 변경은 `pnpm check` 통과 후 하나의 커밋으로 모아 `main`에 푸시해주세요. 커밋 제목은 접두어 없는 한국어 한 줄, 본문은 `~추가`, `~변경`, `~수정` 형식의 목록으로 작성하고 Claude 공동 작성자(Co-Authored-By) 줄은 넣지 마세요.
+> GitHub의 `siwoo440/HomePage` 저장소에서 `main` 최신 커밋을 복제하고 Palettra Games 홈페이지 개발을 이어서 진행해주세요. 먼저 `CLAUDE-HANDOFF.md`, `README.md`, `TRANSFER-GUIDE.md`, `docs/DEVELOPMENT-GUIDE.md`, `docs/DEVELOPMENT-NOTES.md`, `.env.example`을 읽어주세요. Node.js `22.13` 이상과 pnpm `11.19.0` 환경에서 `pnpm install --frozen-lockfile`과 `pnpm check`를 실행해 현재 상태를 확인한 뒤 `pnpm dev`로 `http://localhost:3000/main.html`을 열어주세요. 모든 답변은 한국어로 작성해주세요. 홈페이지 저장소만 작업 대상으로 사용하고 ChatBot과 Text-Play 소스는 별도 저장소로 유지해주세요. 기존 디자인과 동작을 보존하고, 외부 계정·API·비용·운영 상태는 추측하지 말고 확인이 필요한 항목으로 분리해주세요. 코드는 Allman 스타일을 지키고 각 코드 줄에 짧은 한글 명사형 주석을 작성해주세요. 한 작업 단위의 변경은 `pnpm check` 통과 후 하나의 커밋으로 모아 `main`에 푸시해주세요. 커밋 제목은 접두어 없는 한국어 한 줄, 본문은 `~추가`, `~변경`, `~수정` 형식의 목록으로 작성하고 Claude 공동 작성자(Co-Authored-By) 줄은 넣지 마세요.
 
 ---
 ## 새 컴퓨터에서 첫 확인
@@ -35,7 +35,7 @@
 ---
 ## 저장소 범위
 
-- 포함: DEVFORGE 홈페이지, 35개 프로젝트 소개, 뉴스, 상품, 커뮤니티, 문의하기, 로그인·관리자 화면, API와 Supabase 연결 구조
+- 포함: Palettra Games 홈페이지, 35개 프로젝트 소개, 뉴스, 상품, 커뮤니티, 문의하기, 로그인·관리자 화면, API와 Supabase 연결 구조
 - 포함: 홈페이지 안의 ChatBot 홍보 화면과 외부 이동 링크
 - 제외: ChatBot 본체 소스와 전용 테스트
 - 제외: Text-Play 소스·기획·디자인 자료
@@ -155,6 +155,10 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 ---
 ## 구조상 꼭 알아야 할 부분
 
+- 회사 이름은 사업 계획서(1-A 스튜디오 브랜드명) 기준 `Palettra Games`입니다. 2026년 10월 7일 `DEVFORGE`에서 바꿨습니다. 본문·제목·검색 정보·메일은 `Palettra Games`, 헤더·하단·관리자 로고는 축약 워드마크 `PALETTRA`, 영문 대문자 분류 문구는 `PALETTRA GAMES`, 해시태그는 `#PalettraGames…`로 적습니다. 재발 방지 검사는 `tests/brand-name.test.mjs`입니다.
+  - 저장 키·쿠키·전역 변수·이미지 파일 이름(`devforge-color-mode`, `devforge_favorite_projects_v1`, `devforge-world.jpg` 등)은 방문자 저장 데이터와 연결을 유지하려고 그대로 두었습니다.
+  - `internal/project-archives/`, `docs/superpowers/`, 이미 적용한 Supabase 마이그레이션은 과거 기록이라 바꾸지 않았습니다. 마이그레이션이 데이터베이스에 넣은 임시 상품 이름(`DEVFORGE 로고 머그컵`, 뒤 마이그레이션에서 숨김)도 그대로입니다.
+  - 사업 계획서 기준으로 상표·도메인·공식 계정은 아직 확보 전이며, 외부 공개 전에 KIPRIS 상표 검색과 도메인·계정 가용성 확인이 필요합니다. 로고 이미지 원본은 저장소에 없어 헤더는 글자 로고를 쓰고, 파비콘과 머그컵 목업 이미지는 예전 그림 그대로입니다.
 - 공개 화면은 대부분 `public/`의 정적 HTML이며, Next.js 앱 라우터(`app/`)는 로그인·회원가입·비밀번호 재설정·뉴스 상세·성인 확인·관리자·404를 담당합니다.
 - 간편 로그인 지원 목록은 `lib/member/auth-providers.ts`입니다. 화면은 Supabase `/auth/v1/settings`에서 켜진 서비스만 표시하므로 서비스를 켜고 끌 때 코드를 고치지 않습니다. 목록에 없는 서비스(GitHub·Twitch·네이버 등)는 Supabase에서 켜도 표시하지 않습니다.
 - 공통 헤더 원본은 `scripts/site-header.mjs`입니다. 메뉴나 헤더 마크업을 바꾸면 `node scripts/apply-site-header.mjs`로 정적 페이지 전체(`<!-- site-header:start -->`~`end` 구간)에 다시 적용합니다. Next 화면은 `app/site-header.tsx`가 같은 구조를 그립니다. 테스트가 두 결과의 일치를 확인합니다.
@@ -180,7 +184,7 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 - 프로젝트 L "CV : 미정" 표기
 - 이용약관·개인정보처리방침 본문 확정
 - 문의 양식·출시 알림 신청으로 받은 이메일의 보관 기간(개인정보처리방침에 "운영 전에 확정"으로 표기)
-- 관리자 메뉴의 `DEVFORGE` 글자가 공통 헤더 로고와 겹쳐 보이므로 관리자 메뉴 쪽 표기를 바꿀지 여부
+- 관리자 메뉴의 `PALETTRA` 글자가 공통 헤더 로고와 겹쳐 보이므로 관리자 메뉴 쪽 표기를 바꿀지 여부
 
 ---
 ## 정리 후보
@@ -221,6 +225,7 @@ ChatBot과 Text-Play 폴더를 홈페이지 저장소에 복사하지 않습니�
 - 이용약관·개인정보처리방침·회원가입 필수 동의 문구 법률 검토
 - 영어 번역문 원어민·전문가 검수(현재 AI 번역)
 - 공식 도메인과 운영 배포
+- 회사 이름 변경에 따른 외부 서비스 표시 이름 확인: `.env.local`의 `MAIL_FROM` 보내는 이름, Google 로그인 동의 화면의 앱 이름, GA4 속성 이름, Supabase 프로젝트·이메일 템플릿 문구(홈페이지 코드 밖이라 바꾸지 못함)
 
 비밀 값은 Git에 기록하지 않습니다. `.env.example`을 기준으로 새 컴퓨터의 `.env.local`에 직접 설정합니다. Supabase `service_role` 키를 브라우저 공개 환경 변수에 넣지 않습니다. 성인 확인은 운영 환경에서 `AGE_GATE_SECRET`이 없으면 입력이 닫히고, 개발 환경에서는 개발용 비밀 값으로 동작합니다.
 

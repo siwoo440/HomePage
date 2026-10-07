@@ -31,6 +31,6 @@ export function createDemoItems(gameId, ageVerified = false) // 시연 콘텐츠
     const thumbnailUrl = isAdultCommunityGame(resolvedGameId) && !ageVerified ? "images/games/age-restricted.svg" : `images/games/${imageId}.png`; // 인증별 시연 이미지
     return COMMUNITY_PLATFORMS.map((platform) => // 플랫폼별 항목 변환
     { // 변환 시작
-        return { id: `demo-${platform.id}-${resolvedGameId}`, platform: platform.id, contentType: platform.contentType, gameId: resolvedGameId, title: `${gameLabel} · ${platform.headline}`, author: "DEVFORGE 시연 데이터", publishedAt: "연동 준비 중", url: "", thumbnailUrl, metrics: {}, description: platform.description, isDemo: true }; // 시연 항목 반환
+        return { id: `demo-${platform.id}-${resolvedGameId}`, platform: platform.id, contentType: platform.contentType, gameId: resolvedGameId, title: `${gameLabel} · ${platform.headline}`, author: "Palettra Games 시연 데이터", publishedAt: "연동 준비 중", url: "", thumbnailUrl, metrics: {}, description: platform.description, isDemo: true }; // 시연 항목 반환
     }); // 변환 끝
 } // 함수 끝

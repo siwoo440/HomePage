@@ -43,7 +43,7 @@ export async function sendNotifyConfirmation(value: NotifyInput, dependencies: C
         { // 조건 시작
             return "skipped"; // 발송 생략
         } // 조건 끝
-        const projectTitle = getGameProject(value.projectId)?.title ?? "DEVFORGE"; // 게임 이름
+        const projectTitle = getGameProject(value.projectId)?.title ?? "Palettra Games"; // 게임 이름
         const result = await (dependencies.send ?? sendMail)(sender, buildNotifyConfirmation({ email: value.email, projectTitle, token }, dependencies.siteUrl)); // 확인 메일 발송
         if (!result.ok) // 발송 실패 확인
         { // 조건 시작

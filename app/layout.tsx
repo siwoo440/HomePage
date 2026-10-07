@@ -4,16 +4,16 @@ import PageTranslator from "./page-translator"; // 영어 화면 번역 시작
 
 export const metadata: Metadata = // 문서 정보 시작
 { // 문서 정보 객체
-    title: "DEVFORGE", // 브라우저 제목
-    description: "DEVFORGE 프로젝트와 개발 뉴스를 소개하는 공식 사이트", // 검색 설명
+    title: "Palettra Games", // 브라우저 제목
+    description: "Palettra Games 프로젝트와 개발 뉴스를 소개하는 공식 사이트", // 검색 설명
     generator: "Next.js", // 생성 도구 정보
     openGraph: // 공유 미리보기 정보 시작
     { // 공유 미리보기 객체
         type: "website", // 공유 형식
-        siteName: "DEVFORGE", // 사이트 이름
+        siteName: "Palettra Games", // 사이트 이름
         locale: "ko_KR", // 공유 언어
-        title: "DEVFORGE", // 공유 제목
-        description: "DEVFORGE 프로젝트와 개발 뉴스를 소개하는 공식 사이트", // 공유 설명
+        title: "Palettra Games", // 공유 제목
+        description: "Palettra Games 프로젝트와 개발 뉴스를 소개하는 공식 사이트", // 공유 설명
     }, // 공유 미리보기 정보 끝
     icons: // 사이트 아이콘 시작
     { // 사이트 아이콘 객체

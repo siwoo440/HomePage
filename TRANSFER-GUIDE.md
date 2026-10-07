@@ -1,5 +1,5 @@
 ---
-# DEVFORGE 사이트 작업 인수인계
+# Palettra Games 사이트 작업 인수인계
 
 이 저장소는 2026-09-30 기준 `main` 최신 소스입니다. 설치 패키지·빌드 캐시·비밀 환경 변수는 포함하지 않았습니다. Claude에서 이어서 작업할 때는 `CLAUDE-HANDOFF.md`를 먼저 확인합니다.
 
@@ -110,7 +110,7 @@ pnpm build
 
 아래 내용을 새 컴퓨터의 개발 도구나 담당자에게 그대로 전달합니다.
 
-> GitHub의 `siwoo440/HomePage` 저장소에서 `main` 최신 커밋을 복제하고 DEVFORGE 웹사이트 개발을 이어서 진행해주세요. 먼저 `CLAUDE-HANDOFF.md`, `TRANSFER-GUIDE.md`, `README.md`, `.env.example`을 읽고 Node.js `>=22.13`, pnpm `11.19.0` 환경에서 `pnpm install --frozen-lockfile`, `pnpm check`로 현재 상태를 확인해주세요. 실제 메인 화면은 `public/main.html`이며 실행 주소는 `http://localhost:3000/main.html`입니다. 기존 디자인과 기능을 유지하고, 불확실한 설정이나 외부 서비스 상태는 추측하지 말고 확인이 필요하다고 밝혀주세요. Supabase와 YouTube API 등 비밀 값은 GitHub에 없으며 로컬 검사에는 필요하지 않습니다. 실제 연동 때 새 환경에서 별도로 설정해야 합니다. `ChatBot/`과 `Text-Play/`은 홈페이지 검사와 커밋에서 제외해주세요. 코드는 Allman 스타일과 각 줄의 짧은 한글 명사형 주석 규칙을 유지해주세요. 작업 전 기존 변경 사항을 확인하고, 완료 후 통합 검사·브라우저 데스크톱 및 모바일 검증 결과를 함께 보고해주세요.
+> GitHub의 `siwoo440/HomePage` 저장소에서 `main` 최신 커밋을 복제하고 Palettra Games 웹사이트 개발을 이어서 진행해주세요. 먼저 `CLAUDE-HANDOFF.md`, `TRANSFER-GUIDE.md`, `README.md`, `.env.example`을 읽고 Node.js `>=22.13`, pnpm `11.19.0` 환경에서 `pnpm install --frozen-lockfile`, `pnpm check`로 현재 상태를 확인해주세요. 실제 메인 화면은 `public/main.html`이며 실행 주소는 `http://localhost:3000/main.html`입니다. 기존 디자인과 기능을 유지하고, 불확실한 설정이나 외부 서비스 상태는 추측하지 말고 확인이 필요하다고 밝혀주세요. Supabase와 YouTube API 등 비밀 값은 GitHub에 없으며 로컬 검사에는 필요하지 않습니다. 실제 연동 때 새 환경에서 별도로 설정해야 합니다. `ChatBot/`과 `Text-Play/`은 홈페이지 검사와 커밋에서 제외해주세요. 코드는 Allman 스타일과 각 줄의 짧은 한글 명사형 주석 규칙을 유지해주세요. 작업 전 기존 변경 사항을 확인하고, 완료 후 통합 검사·브라우저 데스크톱 및 모바일 검증 결과를 함께 보고해주세요.
 
 ---
 ## 전달 패키지에서 제외한 항목

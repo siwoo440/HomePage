@@ -106,7 +106,7 @@ export function createProductCard(product) // 공개 상품 카드 생성
     info.className = "goods-info"; // 상품 정보 클래스
     info.append(textElement("div", "goods-category", String(product.category ?? "굿즈"))); // 상품 분류 추가
     info.append(textElement("div", "goods-name", String(product.name ?? "상품"))); // 상품명 추가
-    info.append(textElement("div", "goods-game", String(product.gameName ?? "DEVFORGE"))); // 관련 게임 추가
+    info.append(textElement("div", "goods-game", String(product.gameName ?? "Palettra Games"))); // 관련 게임 추가
     info.append(textElement("p", "goods-description", String(product.description ?? ""))); // 상품 설명 추가
     const priceRow = document.createElement("div"); // 가격 영역 생성
     priceRow.className = "goods-price-row"; // 가격 영역 클래스

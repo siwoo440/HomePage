@@ -14,7 +14,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) // 공�
         <html lang="ko"> {/* 한국어 문서 */}
             <body style={{ margin: 0, minHeight: "100dvh", display: "grid", placeItems: "center", padding: "24px", boxSizing: "border-box", background: "#F7FBFF", color: "#172A49", fontFamily: "system-ui, sans-serif" }}> {/* 단독 안내 본문 */}
                 <main style={{ maxWidth: "520px", textAlign: "center" }}> {/* 안내 영역 */}
-                    <p style={{ fontFamily: "Consolas, monospace", letterSpacing: "0.18em", color: "#7768F8" }}>DEVFORGE</p> {/* 브랜드 표시 */}
+                    <p style={{ fontFamily: "Consolas, monospace", letterSpacing: "0.18em", color: "#7768F8" }}>PALETTRA</p> {/* 브랜드 표시 */}
                     <h1>사이트를 불러오지 못했습니다</h1> {/* 화면 제목 */}
                     <p>일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요. (Something went wrong. Please try again.)</p> {/* 화면 설명 */}
                     {error.digest ? <p>오류 번호: {error.digest}</p> : null} {/* 문의용 오류 번호 */}

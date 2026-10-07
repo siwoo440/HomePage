@@ -159,7 +159,7 @@ export function initializeResponsiveNavigation(root = document, view = window) /
 
     const drawerHeader = createElement(root, "div", "responsive-nav-drawer-header", "drawer-header"); // 패널 머리 생성
     const drawerTitle = createElement(root, "strong", "responsive-nav-drawer-title", "drawer-title"); // 패널 제목 생성
-    drawerTitle.textContent = "DEVFORGE"; // 브랜드 이름 설정
+    drawerTitle.textContent = "Palettra Games"; // 브랜드 이름 설정
     const closeButton = createElement(root, "button", "responsive-nav-close", "drawer-control"); // 닫기 버튼 생성
     closeButton.type = "button"; // 버튼 형식 설정
     closeButton.textContent = "닫기"; // 닫기 문구 설정

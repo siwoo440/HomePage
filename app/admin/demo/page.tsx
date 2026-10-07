@@ -17,7 +17,7 @@ export const dynamic = "force-dynamic"; // 요청별 동적 화면
 
 export const metadata: Metadata = // 데모 문서 정보
 { // 문서 정보 시작
-    title: "관리자 데모 모드 · DEVFORGE", // 브라우저 제목
+    title: "관리자 데모 모드 · Palettra Games", // 브라우저 제목
     robots: { index: false }, // 검색 색인 제외
 }; // 문서 정보 끝
 
@@ -35,7 +35,7 @@ export default async function AdminDemoPage({ searchParams }: AdminDemoPageProps
     return ( // 데모 화면 반환
         <main className="admin-shell"> {/* 관리자 전체 영역 */}
             <header className="admin-header"> {/* 데모 상단 메뉴 */}
-                <Link className="admin-brand" href="/main.html">DEVFORGE</Link> {/* 메인 이동 브랜드 */}
+                <Link className="admin-brand" href="/main.html">PALETTRA</Link> {/* 메인 이동 브랜드 */}
                 <nav className="admin-nav" aria-label="데모 메뉴"> {/* 데모 이동 메뉴 */}
                     <Link href="/admin/demo?form=news" aria-current={form === "news" ? "page" : undefined}>뉴스 폼</Link> {/* 뉴스 폼 이동 */}
                     <Link href="/admin/demo?form=products" aria-current={form === "products" ? "page" : undefined}>상품 폼</Link> {/* 상품 폼 이동 */}

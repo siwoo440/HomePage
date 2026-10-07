@@ -5,7 +5,7 @@ import SiteHeader from "../../site-header"; // 공통 상단 헤더
 import ResetPasswordForm from "./reset-password-form"; // 새 비밀번호 폼
 import styles from "../member-login.module.css"; // 로그인 화면 스타일
 
-export const metadata: Metadata = { title: "새 비밀번호 설정 · DEVFORGE" }; // 브라우저 제목
+export const metadata: Metadata = { title: "새 비밀번호 설정 · Palettra Games" }; // 브라우저 제목
 
 export const dynamic = "force-dynamic"; // 요청별 세션 확인
 
