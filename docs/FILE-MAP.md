@@ -322,6 +322,7 @@ css-styling/
 | `public/game-catalog.css` | 검색창, 장르와 상태 필터 |
 | `public/goods.css` | 상품 목록과 상태 버튼 |
 | `public/roadmap.css` | 개발 로드맵 요약·필터·단계 카드 |
+| `public/atelier-verse.css` | Atelier \| Verse 소개의 햇살 작업실 테마 토큰(`--av-*`)과 종이 카드·모눈·콘셉트 이미지 배치 |
 | `public/release-notify.css` | 출시 알림 카드·입력·동의·결과 안내(모든 게임 소개 디자인에서 같은 모양) |
 | `public/devlog.css` | 개발 뉴스 카드, 검색 칸·필터·조건 칩(굿즈·커뮤니티·로드맵 공통 바탕 포함) |
 | `public/community.css` | 커뮤니티 카드와 플랫폼 화면 |
@@ -431,6 +432,7 @@ css-styling/
 - `demo-content.test.mjs`: 시연 굿즈·시연 뉴스에 임의 가격, 가짜 할인, 판매 유도 배지, 지어낸 수치가 없는지와 시연 표시
 - `release-notify.test.mjs`: 출시 알림 대상 판정, 화면·서버 문구 일치, 접수 순서, 저장 함수와 집계, 표 권한, 35개 페이지 적용
 - `roadmap.test.mjs`: 로드맵 단계 분류, 장르 필터·주소 저장, 문서 구조와 메뉴·사이트맵 연결
+- `atelier-verse.test.mjs`: Atelier | Verse 소개의 등록, 기획 단계 안내, 콘셉트 이미지, 이름 표기, 단계 구조와 테마 글자 대비
 
 ---
 ### 개인정보와 분석
@@ -550,6 +552,7 @@ Mate | Verse 본체(ChatBot 저장소)는 별도 저장소를 유지하고, Atel
 | 회원가입·간편 로그인 | `lib/member/auth-providers.ts` | `app/signup/`, `app/login/social-login-buttons.tsx`, `lib/member/signup.ts`, `app/auth/` |
 | 개발 뉴스 검색·필터 | `public/devlog.mjs` | `public/devlog.html`, `public/devlog.css`, `public/playful-lab-theme.css` |
 | 개발 로드맵 | `public/roadmap.mjs` | `public/roadmap.html`, `public/roadmap.css`, `public/game-projects.mjs` |
+| Atelier \| Verse 소개 | `public/atelier-verse.html` | `public/atelier-verse.css`, `public/images/atelier-verse/`(콘셉트 이미지), `scripts/verse-services.mjs`(이름), `tests/atelier-verse.test.mjs` |
 | 문의 양식·문의함 | `lib/contact/domain.ts` | `public/contact-form.mjs`, `app/api/contact/route.ts`, `lib/contact/inbox.ts`, `app/admin/contact/`, `202610040001_contact_messages.sql` |
 | 출시 알림 신청 | `lib/notify/domain.ts` | `public/release-notify.mjs`, `public/release-notify.css`, `app/api/notify/`, `lib/notify/store.ts`, `app/notify/unsubscribe/`, `app/admin/notify/`, `202610040003_release_notifications.sql` |
 | 댓글·신고 관리 | `app/admin/comments/` | `lib/comments/moderation.ts`, `202610010001_member_signup_moderation.sql` |

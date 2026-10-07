@@ -13,6 +13,7 @@ export const STATIC_HEADER_PAGES = Object.freeze( // 공통 헤더 적용 정적
     Object.freeze({ file: "community.html", current: "community", offset: false }), // 커뮤니티
     Object.freeze({ file: "contact.html", current: "contact", offset: true }), // 문의하기
     Object.freeze({ file: "roadmap.html", current: "", offset: false }), // 개발 로드맵
+    Object.freeze({ file: "atelier-verse.html", current: "", offset: false }), // Atelier | Verse 소개
     Object.freeze({ file: "terms.html", current: "", offset: true }), // 이용약관
     Object.freeze({ file: "privacy.html", current: "", offset: true }), // 개인정보처리방침
     Object.freeze({ file: "project_b/ProjectB_Main.html", current: "games", offset: true, subnav: { title: "PROJECT B", label: "프로젝트 B 페이지 메뉴" } }), // 프로젝트 B

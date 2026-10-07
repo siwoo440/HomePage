@@ -1,0 +1,194 @@
+<!DOCTYPE html> <!-- HTML5 문서 -->
+<html lang="ko"> <!-- 한국어 문서 -->
+<head> <!-- 문서 정보 시작 -->
+    <meta charset="UTF-8"> <!-- 한글 인코딩 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
+    <title>Atelier | Verse · Palettra Games</title> <!-- 브라우저 제목 -->
+    <meta name="description" content="3D 공간에서 맵을 만들고 꾸며 사람들을 초대하는 VR 샌드박스 서비스의 기획 방향과 개발 단계를 소개합니다. 지금은 기획 단계입니다."> <!-- 검색 설명 -->
+    <meta property="og:type" content="website"> <!-- 공유 형식 -->
+    <meta property="og:site_name" content="Palettra Games"> <!-- 사이트 이름 -->
+    <meta property="og:locale" content="ko_KR"> <!-- 공유 언어 -->
+    <meta property="og:title" content="Atelier | Verse · Palettra Games"> <!-- 공유 제목 -->
+    <meta property="og:description" content="3D 공간에서 맵을 만들고 꾸며 사람들을 초대하는 VR 샌드박스 서비스의 기획 방향과 개발 단계를 소개합니다. 지금은 기획 단계입니다."> <!-- 공유 설명 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet"> <!-- 로고 글꼴 -->
+    <link rel="stylesheet" href="devlog.css"> <!-- 공통 페이지 스타일 -->
+    <link rel="stylesheet" href="atelier-verse.css"> <!-- 서비스 소개 전용 스타일 -->
+    <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
+    <link rel="stylesheet" href="/responsive-shell.css"> <!-- 공통 반응형 스타일 -->
+    <link rel="stylesheet" href="/playful-lab-theme.css"> <!-- 플레이풀 랩 공통 테마 -->
+    <script src="/i18n-bootstrap.js"></script> <!-- 언어 선택 준비 -->
+</head> <!-- 문서 정보 끝 -->
+<body data-responsive-page="atelier-verse" data-theme="playful-lab"> <!-- 햇살 작업실 테마 서비스 소개 본문 -->
+    <!-- site-header:start -->
+    <nav class="navbar" id="navbar" aria-label="주요 메뉴" data-responsive-nav-root data-site-header> <!-- 공통 상단 메뉴 -->
+        <a href="/main.html" class="nav-logo">PALETTRA</a> <!-- 메인 이동 로고 -->
+        <ul class="nav-menu"> <!-- 주요 메뉴 목록 -->
+            <li><a href="/main.html#games">게임</a></li> <!-- 게임 메뉴 -->
+            <li><a href="/goods.html">굿즈</a></li> <!-- 굿즈 메뉴 -->
+            <li><a href="/devlog.html">개발 뉴스</a></li> <!-- 개발 뉴스 메뉴 -->
+            <li><a href="/community.html">커뮤니티</a></li> <!-- 커뮤니티 메뉴 -->
+        </ul> <!-- 주요 메뉴 목록 끝 -->
+        <div class="nav-actions"> <!-- 상단 작업 묶음 -->
+            <a href="/contact.html" class="btn-nav nav-contact-link">문의하기</a> <!-- 문의하기 페이지 이동 -->
+            <a href="/login" class="btn-nav member-login-link" data-member-action data-analytics-event="login_start" data-analytics-destination="member-login">로그인</a> <!-- 회원 로그인 이동 -->
+        </div> <!-- 상단 작업 묶음 끝 -->
+    </nav> <!-- 공통 상단 메뉴 끝 -->
+    <!-- site-header:end -->
+    <div class="page-shell"> <!-- 전체 너비 영역 -->
+        <header class="av-hero"> <!-- 상단 소개 시작 -->
+            <div class="av-hero-copy"> <!-- 소개 문구 영역 -->
+                <p class="av-eyebrow">// <span translate="no">Atelier | Verse</span> · VR SANDBOX</p> <!-- 서비스 분류 -->
+                <p class="av-tape" data-av-status="planning">기획 단계</p> <!-- 현재 상태 이름표 -->
+                <h1 class="av-title"> <!-- 페이지 제목 -->
+                    <span class="av-title-line">나만의 공간을 만들고</span> <!-- 제목 첫 줄 -->
+                    <span class="av-title-line av-title-accent">함께 머무르다</span> <!-- 제목 둘째 줄 -->
+                </h1> <!-- 페이지 제목 끝 -->
+                <p class="av-lead">3D 공간에서 자신의 맵을 만들고 꾸민 뒤 다른 사람을 초대해 함께 머무는 VR 샌드박스 서비스입니다.</p> <!-- 서비스 설명 -->
+                <p class="av-notice">지금은 기획 단계이며 아직 이용할 수 없습니다. 서비스 이름은 가칭이며 바뀔 수 있습니다.</p> <!-- 상태 안내 -->
+                <div class="av-actions"> <!-- 행동 영역 -->
+                    <a class="av-button av-button-primary" href="#av-stages">개발 단계 보기</a> <!-- 개발 단계 이동 -->
+                    <a class="av-button" href="/contact.html">의견 보내기</a> <!-- 문의하기 이동 -->
+                    <span class="av-button av-button-disabled" aria-disabled="true">입장하기 · 준비 중</span> <!-- 접속 주소 확정 전 비활성 버튼 -->
+                </div> <!-- 행동 영역 끝 -->
+            </div> <!-- 소개 문구 영역 끝 -->
+            <div class="av-hero-art"> <!-- 소개 그림 영역 -->
+                <figure class="av-frame"> <!-- 캔버스 액자 -->
+                    <div class="av-frame-sheet"> <!-- 모눈 종이 -->
+                        <img class="av-frame-image" src="/images/atelier-verse/hero.webp" alt="모눈 종이 위에 블록으로 지은 집과 정원, 놓이려는 블록, 걸어 들어오는 종이 인형을 그린 콘셉트 이미지" width="1280" height="853" decoding="async"> <!-- 대표 콘셉트 이미지 -->
+                    </div> <!-- 모눈 종이 끝 -->
+                    <figcaption class="av-frame-caption">서비스 화면이 아닌 콘셉트 이미지입니다.</figcaption> <!-- 그림 설명 -->
+                </figure> <!-- 캔버스 액자 끝 -->
+            </div> <!-- 소개 그림 영역 끝 -->
+        </header> <!-- 상단 소개 끝 -->
+        <main class="av-main"> <!-- 주요 내용 시작 -->
+            <section class="av-section" aria-labelledby="av-features"> <!-- 계획 기능 구역 -->
+                <div class="av-section-heading"> <!-- 구역 제목 영역 -->
+                    <h2 class="av-section-title" id="av-features">계획 중인 기능</h2> <!-- 구역 제목 -->
+                    <p class="av-section-note">아래 내용은 계획이며 개발 과정에서 바뀔 수 있습니다.</p> <!-- 계획 안내 -->
+                    <p class="av-section-note">그림은 모두 콘셉트 이미지이며 실제 서비스 화면이 아닙니다.</p> <!-- 콘셉트 이미지 안내 -->
+                </div> <!-- 구역 제목 영역 끝 -->
+                <div class="av-feature-grid"> <!-- 기능 카드 격자 -->
+                    <article class="av-card" data-av-tone="gold"> <!-- 만들기 카드 -->
+                        <img class="av-card-image" src="/images/atelier-verse/create.webp" alt="손이 골드색 블록을 모눈 위에 내려놓는 콘셉트 이미지" width="640" height="640" loading="lazy" decoding="async"> <!-- 만들기 콘셉트 이미지 -->
+                        <span class="av-chip" aria-hidden="true">01</span> <!-- 카드 순번 -->
+                        <h3 class="av-card-title">만들기</h3> <!-- 카드 제목 -->
+                        <p class="av-card-text">부품을 놓아 나만의 맵을 만들고 꾸밉니다.</p> <!-- 카드 설명 -->
+                        <p class="av-card-plan">코드 없이 조건과 행동을 골라 움직임을 넣는 방식을 계획하고 있습니다.</p> <!-- 카드 계획 -->
+                    </article> <!-- 만들기 카드 끝 -->
+                    <article class="av-card" data-av-tone="blue"> <!-- 공유하기 카드 -->
+                        <img class="av-card-image" src="/images/atelier-verse/share.webp" alt="블록으로 만든 의자와 나무와 집이 선반에 놓여 있고 그중 하나를 건네는 콘셉트 이미지" width="640" height="640" loading="lazy" decoding="async"> <!-- 공유하기 콘셉트 이미지 -->
+                        <span class="av-chip" aria-hidden="true">02</span> <!-- 카드 순번 -->
+                        <h3 class="av-card-title">공유하기</h3> <!-- 카드 제목 -->
+                        <p class="av-card-text">부품 여러 개를 묶어 아이템으로 저장하고 다른 사람과 나눕니다.</p> <!-- 카드 설명 -->
+                        <p class="av-card-plan">다른 사람의 아이템을 가져와 고쳐 쓸 수 있게 할 계획입니다.</p> <!-- 카드 계획 -->
+                    </article> <!-- 공유하기 카드 끝 -->
+                    <article class="av-card" data-av-tone="clay"> <!-- 함께 머물기 카드 -->
+                        <img class="av-card-image" src="/images/atelier-verse/together.webp" alt="블록으로 지은 카페에 종이 인형 네 명이 모여 있는 콘셉트 이미지" width="640" height="640" loading="lazy" decoding="async"> <!-- 함께 머물기 콘셉트 이미지 -->
+                        <span class="av-chip" aria-hidden="true">03</span> <!-- 카드 순번 -->
+                        <h3 class="av-card-title">함께 머물기</h3> <!-- 카드 제목 -->
+                        <p class="av-card-text">링크 하나로 친구를 내 맵에 초대합니다.</p> <!-- 카드 설명 -->
+                        <p class="av-card-plan">같은 공간에서 이야기하고 놀 수 있게 할 계획입니다.</p> <!-- 카드 계획 -->
+                    </article> <!-- 함께 머물기 카드 끝 -->
+                    <article class="av-card" data-av-tone="gold"> <!-- 소식 받기 카드 -->
+                        <img class="av-card-image" src="/images/atelier-verse/updates.webp" alt="작업실 창문으로 종이비행기가 날아 들어오는 콘셉트 이미지" width="640" height="640" loading="lazy" decoding="async"> <!-- 소식 받기 콘셉트 이미지 -->
+                        <span class="av-chip" aria-hidden="true">04</span> <!-- 카드 순번 -->
+                        <h3 class="av-card-title">소식 받기</h3> <!-- 카드 제목 -->
+                        <p class="av-card-text">친구와 팔로우한 제작자의 새 소식을 웹과 앱에서 받습니다.</p> <!-- 카드 설명 -->
+                        <p class="av-card-plan">새 맵이 공개되면 알림에서 바로 찾아갈 수 있게 할 계획입니다.</p> <!-- 카드 계획 -->
+                    </article> <!-- 소식 받기 카드 끝 -->
+                </div> <!-- 기능 카드 격자 끝 -->
+            </section> <!-- 계획 기능 구역 끝 -->
+            <section class="av-section" aria-labelledby="av-stages"> <!-- 개발 단계 구역 -->
+                <div class="av-section-heading"> <!-- 구역 제목 영역 -->
+                    <h2 class="av-section-title" id="av-stages">개발 단계</h2> <!-- 구역 제목 -->
+                    <p class="av-section-note">확정된 일정은 아직 없으며, 단계가 바뀌면 개발 뉴스에서 먼저 알립니다.</p> <!-- 일정 안내 -->
+                </div> <!-- 구역 제목 영역 끝 -->
+                <ol class="av-stage-list"> <!-- 단계 목록 -->
+                    <li class="av-stage" data-av-stage="planning" aria-current="step"> <!-- 기획 단계 -->
+                        <span class="av-stage-mark">지금</span> <!-- 현재 단계 표시 -->
+                        <h3 class="av-stage-title">기획</h3> <!-- 단계 이름 -->
+                        <p class="av-stage-text">서비스 방향과 핵심 규칙을 정하고 있습니다.</p> <!-- 단계 설명 -->
+                    </li> <!-- 기획 단계 끝 -->
+                    <li class="av-stage" data-av-stage="1"> <!-- 첫째 단계 -->
+                        <span class="av-stage-mark">01</span> <!-- 단계 순번 -->
+                        <h3 class="av-stage-title">만들고 들어가기</h3> <!-- 단계 이름 -->
+                        <p class="av-stage-text">부품 배치 에디터, 맵 저장, 링크 입장, 이동과 채팅</p> <!-- 단계 설명 -->
+                    </li> <!-- 첫째 단계 끝 -->
+                    <li class="av-stage" data-av-stage="2"> <!-- 둘째 단계 -->
+                        <span class="av-stage-mark">02</span> <!-- 단계 순번 -->
+                        <h3 class="av-stage-title">나누고 소식 받기</h3> <!-- 단계 이름 -->
+                        <p class="av-stage-text">아이템 공유, 맵 목록과 검색, 제작자 팔로우와 소식, 신고</p> <!-- 단계 설명 -->
+                    </li> <!-- 둘째 단계 끝 -->
+                    <li class="av-stage" data-av-stage="3"> <!-- 셋째 단계 -->
+                        <span class="av-stage-mark">03</span> <!-- 단계 순번 -->
+                        <h3 class="av-stage-title">움직임 넣기</h3> <!-- 단계 이름 -->
+                        <p class="av-stage-text">조건과 행동으로 만드는 동작 규칙, 직접 만든 3D 모델 올리기</p> <!-- 단계 설명 -->
+                    </li> <!-- 셋째 단계 끝 -->
+                    <li class="av-stage" data-av-stage="4"> <!-- 넷째 단계 -->
+                        <span class="av-stage-mark">04</span> <!-- 단계 순번 -->
+                        <h3 class="av-stage-title">함께 놀기</h3> <!-- 단계 이름 -->
+                        <p class="av-stage-text">게임 모드 만들기, 아바타 꾸미기, 음성 대화, 친구와 알림 앱</p> <!-- 단계 설명 -->
+                    </li> <!-- 넷째 단계 끝 -->
+                    <li class="av-stage" data-av-stage="5"> <!-- 다섯째 단계 -->
+                        <span class="av-stage-mark">05</span> <!-- 단계 순번 -->
+                        <h3 class="av-stage-title">넓히기</h3> <!-- 단계 이름 -->
+                        <p class="av-stage-text">자유 스크립트, 제작자 보상</p> <!-- 단계 설명 -->
+                    </li> <!-- 다섯째 단계 끝 -->
+                </ol> <!-- 단계 목록 끝 -->
+                <p class="av-footnote">VR 헤드셋 지원 시점과 방식은 검토하고 있습니다.</p> <!-- 기기 지원 안내 -->
+            </section> <!-- 개발 단계 구역 끝 -->
+            <section class="av-section" aria-labelledby="av-join"> <!-- 소식과 참여 구역 -->
+                <div class="av-section-heading"> <!-- 구역 제목 영역 -->
+                    <h2 class="av-section-title" id="av-join">소식과 참여</h2> <!-- 구역 제목 -->
+                </div> <!-- 구역 제목 영역 끝 -->
+                <div class="av-join-grid"> <!-- 참여 카드 격자 -->
+                    <article class="av-card av-card-link"> <!-- 개발 소식 카드 -->
+                        <h3 class="av-card-title">개발 소식</h3> <!-- 카드 제목 -->
+                        <p class="av-card-text">진행 상황은 개발 뉴스에서 먼저 알립니다.</p> <!-- 카드 설명 -->
+                        <a class="av-link" href="/devlog.html">개발 뉴스</a> <!-- 개발 뉴스 이동 -->
+                    </article> <!-- 개발 소식 카드 끝 -->
+                    <article class="av-card av-card-link"> <!-- 의견 카드 -->
+                        <h3 class="av-card-title">의견 보내기</h3> <!-- 카드 제목 -->
+                        <p class="av-card-text">바라는 기능이나 궁금한 점을 문의하기로 보내 주세요.</p> <!-- 카드 설명 -->
+                        <a class="av-link" href="/contact.html">문의하기</a> <!-- 문의하기 이동 -->
+                    </article> <!-- 의견 카드 끝 -->
+                    <article class="av-card av-card-link"> <!-- 출시 알림 카드 -->
+                        <h3 class="av-card-title">출시 알림</h3> <!-- 카드 제목 -->
+                        <p class="av-card-text">출시 알림 신청은 준비하고 있습니다.</p> <!-- 카드 설명 -->
+                        <span class="av-tag">준비 중</span> <!-- 준비 상태 표시 -->
+                    </article> <!-- 출시 알림 카드 끝 -->
+                </div> <!-- 참여 카드 격자 끝 -->
+            </section> <!-- 소식과 참여 구역 끝 -->
+            <section class="av-section" aria-labelledby="av-faq"> <!-- 질문 구역 -->
+                <div class="av-section-heading"> <!-- 구역 제목 영역 -->
+                    <h2 class="av-section-title" id="av-faq">자주 묻는 질문</h2> <!-- 구역 제목 -->
+                </div> <!-- 구역 제목 영역 끝 -->
+                <div class="av-faq-list"> <!-- 질문 목록 -->
+                    <details class="av-faq"> <!-- 이용 가능 여부 질문 -->
+                        <summary>지금 이용할 수 있나요?</summary> <!-- 질문 -->
+                        <p>아직 이용할 수 없습니다. 기획 단계이며 공개 시점은 정해지지 않았습니다.</p> <!-- 답변 -->
+                    </details> <!-- 이용 가능 여부 질문 끝 -->
+                    <details class="av-faq"> <!-- 지원 기기 질문 -->
+                        <summary>어떤 기기에서 이용하나요?</summary> <!-- 질문 -->
+                        <p>PC 브라우저를 먼저 지원할 계획입니다. VR 헤드셋 지원 시점과 방식은 검토하고 있습니다.</p> <!-- 답변 -->
+                    </details> <!-- 지원 기기 질문 끝 -->
+                    <details class="av-faq"> <!-- 요금 질문 -->
+                        <summary>요금은 어떻게 되나요?</summary> <!-- 질문 -->
+                        <p>아직 정해지지 않았습니다. 정해지면 이 페이지와 개발 뉴스에서 알립니다.</p> <!-- 답변 -->
+                    </details> <!-- 요금 질문 끝 -->
+                    <details class="av-faq"> <!-- 자매 서비스 질문 -->
+                        <summary>같은 계열의 다른 서비스가 있나요?</summary> <!-- 질문 -->
+                        <p>같은 스튜디오가 만드는 자매 서비스가 있습니다. 이 서비스는 공간 만들기를, 자매 서비스는 캐릭터 대화를 다룹니다.</p> <!-- 답변 -->
+                        <p>자매 서비스 이름 <span translate="no">Mate | Verse</span></p> <!-- 자매 서비스 이름 -->
+                    </details> <!-- 자매 서비스 질문 끝 -->
+                </div> <!-- 질문 목록 끝 -->
+            </section> <!-- 질문 구역 끝 -->
+        </main> <!-- 주요 내용 끝 -->
+        <footer class="av-footer"><span translate="no">Atelier | Verse · Palettra Games</span><a href="/main.html">메인 페이지로</a></footer> <!-- 하단 정보 -->
+    </div> <!-- 전체 너비 영역 끝 -->
+    <script type="module" src="member-session.mjs"></script> <!-- 회원 상태 연결 -->
+    <script type="module" src="/responsive-nav.mjs"></script> <!-- 공통 반응형 메뉴 -->
+    <script type="module" src="/privacy-consent.mjs"></script> <!-- 개인정보 동의 연결 -->
+    <script type="module" src="/site-analytics.mjs"></script> <!-- 동의 기반 분석 연결 -->
+</body> <!-- 화면 내용 끝 -->
+</html> <!-- HTML 문서 끝 -->

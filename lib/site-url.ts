@@ -30,6 +30,7 @@ export const PUBLIC_STATIC_PATHS = Object.freeze( // 검색 노출 공개 페이
     "/community.html", // 커뮤니티
     "/contact.html", // 문의하기
     "/roadmap.html", // 개발 로드맵
+    "/atelier-verse.html", // Atelier | Verse 소개
     "/terms.html", // 이용약관
     "/privacy.html", // 개인정보처리방침
     "/project_c/ProjectC_Cards.html", // 카오스폰즈 카드

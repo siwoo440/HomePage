@@ -1,0 +1,559 @@
+[data-responsive-page="atelier-verse"] /* 햇살 작업실 테마 범위 */
+{ /* 토큰 시작 */
+    --av-canvas: #FBF6EC; /* 캔버스 아이보리 바탕 */
+    --av-surface: #F3EBDB; /* 작업대 보조 바탕 */
+    --av-paper: #FFFDF8; /* 종이 카드 */
+    --av-ink: #1D2740; /* 잉크 네이비 글자 */
+    --av-muted: #566078; /* 연필 회색 보조 글자 */
+    --av-line: #C2B49A; /* 종이 가장자리 경계선 */
+    --av-line-strong: #8E7F63; /* 연필 선 강한 경계선 */
+    --av-gold: #F7A71D; /* 골드 주 강조 */
+    --av-blue: #025EE7; /* 블루 구조 강조 */
+    --av-clay: #B8440F; /* 테라코타 재료 강조 */
+    --av-on-gold: #1D2740; /* 골드 위 글자 */
+    --av-on-blue: #FFFDF8; /* 블루 위 글자 */
+    --av-on-clay: #FFFDF8; /* 테라코타 위 글자 */
+    --av-shadow: #1D2740; /* 어긋난 그림자 색 */
+    --av-marker: color-mix(in srgb, var(--av-gold) 62%, transparent); /* 제목 형광펜 색 */
+    --av-radius-small: 0.5rem; /* 작은 모서리 */
+    --av-radius: 0.875rem; /* 기본 모서리 */
+    --av-duration: 200ms; /* 기본 전환 시간 */
+} /* 토큰 끝 */
+
+[data-responsive-page="atelier-verse"][data-color-mode="dark"] /* 밤의 작업실 테마 범위 */
+{ /* 다크 토큰 시작 */
+    --av-canvas: #101728; /* 다크 바탕 */
+    --av-surface: #162036; /* 다크 보조 바탕 */
+    --av-paper: #1C2842; /* 다크 카드 */
+    --av-ink: #F4EEE1; /* 다크 글자 */
+    --av-muted: #B3B9C8; /* 다크 보조 글자 */
+    --av-line: #33415E; /* 다크 경계선 */
+    --av-line-strong: #6F82AB; /* 다크 강한 경계선 */
+    --av-blue: #8FB0FF; /* 다크 블루 강조 */
+    --av-clay: #F0907A; /* 다크 테라코타 강조 */
+    --av-on-blue: #101728; /* 다크 블루 위 글자 */
+    --av-on-clay: #101728; /* 다크 테라코타 위 글자 */
+    --av-shadow: #05080F; /* 다크 어긋난 그림자 색 */
+    --av-marker: color-mix(in srgb, var(--av-gold) 34%, transparent); /* 다크 제목 형광펜 색 */
+} /* 다크 토큰 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="atelier-verse"] /* 페이지 바탕 */
+{ /* 바탕 시작 */
+    background: var(--av-canvas); /* 캔버스 바탕색 */
+    color: var(--av-ink); /* 기본 글자색 */
+} /* 바탕 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="atelier-verse"] .page-shell /* 본문 영역 바탕 */
+{ /* 본문 바탕 시작 */
+    background: transparent; /* 페이지 바탕 그대로 사용 */
+    color: var(--av-ink); /* 본문 글자색 */
+} /* 본문 바탕 끝 */
+
+[data-theme="playful-lab"][data-responsive-page="atelier-verse"] .page-shell :focus-visible /* 본문 키보드 초점 */
+{ /* 초점 시작 */
+    outline: 0.18rem solid var(--av-blue); /* 초점 외곽선 */
+    outline-offset: 0.2rem; /* 초점 간격 */
+} /* 초점 끝 */
+
+.av-hero /* 상단 소개 */
+{ /* 소개 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: minmax(0, 1fr); /* 한 열 배치 */
+    gap: clamp(1.75rem, 5vw, 3.5rem); /* 문구와 그림 간격 */
+    align-items: center; /* 세로 가운데 정렬 */
+    padding: clamp(2.5rem, 7vw, 5rem) 0 clamp(2.25rem, 6vw, 4rem); /* 소개 위아래 여백 */
+} /* 소개 끝 */
+
+.av-eyebrow /* 서비스 분류 */
+{ /* 분류 시작 */
+    margin: 0 0 0.9rem; /* 아래 여백 */
+    color: var(--av-blue); /* 분류 글자색 */
+    font-family: Consolas, monospace; /* 고정폭 글꼴 */
+    font-size: 0.92rem; /* 분류 글자 크기 */
+    font-weight: 700; /* 분류 굵기 */
+    letter-spacing: 0.12em; /* 분류 글자 간격 */
+} /* 분류 끝 */
+
+.av-tape /* 마스킹 테이프 이름표 */
+{ /* 이름표 시작 */
+    display: inline-block; /* 글자 폭 배치 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 0.3rem 0.95rem; /* 이름표 안쪽 여백 */
+    border-radius: 0.125rem; /* 테이프 모서리 */
+    background: color-mix(in srgb, var(--av-gold) 38%, var(--av-paper)); /* 테이프 색 */
+    color: var(--av-ink); /* 이름표 글자색 */
+    font-size: 0.92rem; /* 이름표 글자 크기 */
+    font-weight: 700; /* 이름표 굵기 */
+    transform: rotate(-2deg); /* 살짝 기울임 */
+} /* 이름표 끝 */
+
+.av-title /* 페이지 제목 */
+{ /* 제목 시작 */
+    margin: 1rem 0 1.15rem; /* 제목 위아래 여백 */
+    font-size: clamp(2rem, 5.2vw, 3.4rem); /* 반응형 제목 크기 */
+    line-height: 1.14; /* 제목 줄 간격 */
+    letter-spacing: -0.03em; /* 제목 글자 간격 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+} /* 제목 끝 */
+
+.av-title-line /* 제목 한 줄 */
+{ /* 제목 줄 시작 */
+    display: block; /* 줄 단위 배치 */
+    width: fit-content; /* 글자 폭 맞춤 */
+    max-width: 100%; /* 화면 넘침 방지 */
+    color: var(--av-ink); /* 제목 글자색 */
+} /* 제목 줄 끝 */
+
+.av-title-accent /* 제목 강조 줄 */
+{ /* 강조 줄 시작 */
+    background: linear-gradient(transparent 62%, var(--av-marker) 62%); /* 형광펜 밑줄 */
+} /* 강조 줄 끝 */
+
+.av-lead /* 서비스 설명 */
+{ /* 설명 시작 */
+    max-width: 36rem; /* 읽기 너비 */
+    margin: 0 0 0.9rem; /* 아래 여백 */
+    color: var(--av-ink); /* 설명 글자색 */
+    font-size: 1.12rem; /* 설명 글자 크기 */
+    text-wrap: pretty; /* 마지막 줄 한 단어 방지 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+} /* 설명 끝 */
+
+.av-notice /* 상태 안내 */
+{ /* 안내 시작 */
+    max-width: 36rem; /* 읽기 너비 */
+    margin: 0 0 1.5rem; /* 아래 여백 */
+    padding-left: 0.8rem; /* 표시선과 간격 */
+    border-left: 0.25rem solid var(--av-clay); /* 안내 표시선 */
+    color: var(--av-muted); /* 안내 글자색 */
+    font-size: 0.96rem; /* 안내 글자 크기 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+} /* 안내 끝 */
+
+.av-actions /* 행동 영역 */
+{ /* 행동 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 0.75rem; /* 버튼 간격 */
+} /* 행동 끝 */
+
+.av-button /* 종이 버튼 */
+{ /* 버튼 시작 */
+    display: inline-flex; /* 가운데 정렬 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    min-height: 2.75rem; /* 누르는 영역 높이 */
+    padding: 0.55rem 1.15rem; /* 버튼 안쪽 여백 */
+    border: 0.125rem solid var(--av-ink); /* 잉크색 외곽선 */
+    border-radius: var(--av-radius-small); /* 둥근 사각 모서리 */
+    background: var(--av-paper); /* 종이 배경 */
+    box-shadow: 0.2rem 0.2rem 0 var(--av-shadow); /* 어긋난 단색 그림자 */
+    color: var(--av-ink); /* 버튼 글자색 */
+    font-weight: 700; /* 버튼 굵기 */
+    transition: transform var(--av-duration), box-shadow var(--av-duration); /* 버튼 전환 */
+} /* 버튼 끝 */
+
+a.av-button:is(:hover, :focus-visible) /* 버튼 반응 */
+{ /* 반응 시작 */
+    box-shadow: 0.32rem 0.32rem 0 var(--av-shadow); /* 그림자 확대 */
+    transform: translate(-0.12rem, -0.12rem); /* 살짝 들림 */
+} /* 반응 끝 */
+
+.av-button-primary /* 핵심 버튼 */
+{ /* 핵심 버튼 시작 */
+    background: var(--av-gold); /* 골드 채움 */
+    color: var(--av-on-gold); /* 골드 위 글자색 */
+} /* 핵심 버튼 끝 */
+
+.av-button-disabled /* 준비 중 버튼 */
+{ /* 비활성 버튼 시작 */
+    border: 0.125rem dashed var(--av-line-strong); /* 점선 외곽선 */
+    background: transparent; /* 배경 없음 */
+    box-shadow: none; /* 그림자 없음 */
+    color: var(--av-muted); /* 비활성 글자색 */
+    cursor: not-allowed; /* 선택 불가 표시 */
+} /* 비활성 버튼 끝 */
+
+.av-frame /* 캔버스 액자 */
+{ /* 액자 시작 */
+    position: relative; /* 테이프 기준 위치 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 0.9rem 0.9rem 0.75rem; /* 액자 안쪽 여백 */
+    border: 0.125rem solid var(--av-ink); /* 잉크색 외곽선 */
+    border-radius: var(--av-radius); /* 액자 모서리 */
+    background: var(--av-paper); /* 종이 배경 */
+    box-shadow: 0.45rem 0.45rem 0 var(--av-shadow); /* 어긋난 단색 그림자 */
+} /* 액자 끝 */
+
+.av-frame::before, .av-frame::after /* 액자 마스킹 테이프 */
+{ /* 테이프 시작 */
+    content: ""; /* 장식 요소 */
+    position: absolute; /* 액자 기준 배치 */
+    top: -0.85rem; /* 액자 위로 걸침 */
+    width: 5.5rem; /* 테이프 길이 */
+    height: 1.6rem; /* 테이프 폭 */
+    border-radius: 0.125rem; /* 테이프 모서리 */
+    background: color-mix(in srgb, var(--av-gold) 58%, transparent); /* 반투명 테이프 색 */
+} /* 테이프 끝 */
+
+.av-frame::before /* 왼쪽 테이프 */
+{ /* 왼쪽 테이프 시작 */
+    left: 1.25rem; /* 왼쪽 위치 */
+    transform: rotate(-5deg); /* 왼쪽 기울임 */
+} /* 왼쪽 테이프 끝 */
+
+.av-frame::after /* 오른쪽 테이프 */
+{ /* 오른쪽 테이프 시작 */
+    right: 1.25rem; /* 오른쪽 위치 */
+    transform: rotate(4deg); /* 오른쪽 기울임 */
+} /* 오른쪽 테이프 끝 */
+
+.av-frame-sheet /* 모눈 종이 */
+{ /* 모눈 시작 */
+    overflow: hidden; /* 그림 넘침 숨김 */
+    border: 0.0625rem solid var(--av-line); /* 종이 가장자리 */
+    border-radius: var(--av-radius-small); /* 종이 모서리 */
+    background-color: var(--av-canvas); /* 종이 바탕색 */
+    background-image: linear-gradient(color-mix(in srgb, var(--av-blue) 13%, transparent) 0.0625rem, transparent 0.0625rem), linear-gradient(90deg, color-mix(in srgb, var(--av-blue) 13%, transparent) 0.0625rem, transparent 0.0625rem); /* 설계도 모눈 */
+    background-size: 1.5rem 1.5rem; /* 모눈 한 칸 크기 */
+} /* 모눈 끝 */
+
+.av-frame-image /* 대표 콘셉트 이미지 */
+{ /* 대표 이미지 시작 */
+    display: block; /* 아래 틈 제거 */
+    width: 100%; /* 액자 너비 맞춤 */
+    height: auto; /* 비율 유지 */
+} /* 대표 이미지 끝 */
+
+.av-frame-caption /* 그림 설명 */
+{ /* 그림 설명 시작 */
+    margin-top: 0.55rem; /* 그림과 간격 */
+    color: var(--av-muted); /* 설명 글자색 */
+    font-size: 0.84rem; /* 설명 글자 크기 */
+    text-align: right; /* 오른쪽 정렬 */
+} /* 그림 설명 끝 */
+
+.av-main /* 주요 내용 */
+{ /* 주요 내용 시작 */
+    display: grid; /* 구역 세로 배치 */
+    gap: clamp(2.75rem, 7vw, 4.75rem); /* 구역 간격 */
+} /* 주요 내용 끝 */
+
+.av-section-heading /* 구역 제목 영역 */
+{ /* 제목 영역 시작 */
+    margin-bottom: 1.25rem; /* 내용과 간격 */
+} /* 제목 영역 끝 */
+
+.av-section-title /* 구역 제목 */
+{ /* 구역 제목 시작 */
+    display: flex; /* 색 견본과 가로 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 0.65rem; /* 견본과 글자 간격 */
+    margin: 0 0 0.4rem; /* 아래 여백 */
+    color: var(--av-ink); /* 제목 글자색 */
+    font-size: clamp(1.5rem, 3.4vw, 2.1rem); /* 반응형 제목 크기 */
+    letter-spacing: -0.02em; /* 제목 글자 간격 */
+} /* 구역 제목 끝 */
+
+.av-section-title::before /* 제목 물감 견본 */
+{ /* 견본 시작 */
+    content: ""; /* 장식 요소 */
+    flex: none; /* 크기 고정 */
+    width: 0.95rem; /* 견본 너비 */
+    height: 0.95rem; /* 견본 높이 */
+    border: 0.125rem solid var(--av-ink); /* 잉크색 외곽선 */
+    border-radius: 0.2rem; /* 견본 모서리 */
+    background: var(--av-gold); /* 골드 채움 */
+    transform: rotate(8deg); /* 살짝 기울임 */
+} /* 견본 끝 */
+
+.av-section-note /* 구역 안내 */
+{ /* 구역 안내 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--av-muted); /* 안내 글자색 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+} /* 구역 안내 끝 */
+
+.av-feature-grid, .av-join-grid /* 카드 격자 */
+{ /* 격자 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); /* 화면 폭에 맞춘 열 수 */
+    gap: 1.1rem; /* 카드 간격 */
+} /* 격자 끝 */
+
+.av-card /* 종이 카드 */
+{ /* 카드 시작 */
+    --av-tone: var(--av-gold); /* 카드 강조색 */
+    --av-tone-ink: var(--av-on-gold); /* 강조색 위 글자색 */
+    padding: 1.25rem 1.25rem 1.15rem; /* 카드 안쪽 여백 */
+    border: 0.0625rem solid var(--av-line-strong); /* 연필 선 외곽선 */
+    border-radius: var(--av-radius); /* 카드 모서리 */
+    background: var(--av-paper); /* 종이 배경 */
+    box-shadow: 0.3rem 0.3rem 0 color-mix(in srgb, var(--av-shadow) 16%, transparent); /* 옅은 어긋난 그림자 */
+} /* 카드 끝 */
+
+.av-card[data-av-tone="blue"] /* 블루 카드 */
+{ /* 블루 카드 시작 */
+    --av-tone: var(--av-blue); /* 블루 강조색 */
+    --av-tone-ink: var(--av-on-blue); /* 블루 위 글자색 */
+} /* 블루 카드 끝 */
+
+.av-card[data-av-tone="clay"] /* 테라코타 카드 */
+{ /* 테라코타 카드 시작 */
+    --av-tone: var(--av-clay); /* 테라코타 강조색 */
+    --av-tone-ink: var(--av-on-clay); /* 테라코타 위 글자색 */
+} /* 테라코타 카드 끝 */
+
+.av-card-image /* 카드 콘셉트 이미지 */
+{ /* 카드 이미지 시작 */
+    display: block; /* 아래 틈 제거 */
+    width: 100%; /* 카드 너비 맞춤 */
+    height: auto; /* 비율 유지 */
+    margin-bottom: 1rem; /* 순번과 간격 */
+    border: 0.0625rem solid var(--av-line); /* 종이 가장자리 */
+    border-radius: var(--av-radius-small); /* 이미지 모서리 */
+} /* 카드 이미지 끝 */
+
+.av-chip /* 카드 순번 견본 */
+{ /* 순번 시작 */
+    display: inline-flex; /* 가운데 정렬 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    min-width: 2.4rem; /* 견본 최소 너비 */
+    height: 1.75rem; /* 견본 높이 */
+    padding: 0 0.5rem; /* 좌우 여백 */
+    border: 0.125rem solid var(--av-ink); /* 잉크색 외곽선 */
+    border-radius: 0.35rem; /* 견본 모서리 */
+    background: var(--av-tone); /* 강조색 채움 */
+    color: var(--av-tone-ink); /* 강조색 위 글자색 */
+    font-family: Consolas, monospace; /* 고정폭 글꼴 */
+    font-size: 0.86rem; /* 순번 글자 크기 */
+    font-weight: 700; /* 순번 굵기 */
+    transform: rotate(-3deg); /* 살짝 기울임 */
+} /* 순번 끝 */
+
+.av-card-title /* 카드 제목 */
+{ /* 카드 제목 시작 */
+    margin: 0.85rem 0 0.4rem; /* 제목 위아래 여백 */
+    color: var(--av-ink); /* 제목 글자색 */
+    font-size: 1.2rem; /* 제목 글자 크기 */
+} /* 카드 제목 끝 */
+
+.av-card-link .av-card-title /* 참여 카드 제목 */
+{ /* 참여 카드 제목 시작 */
+    margin-top: 0; /* 위 여백 제거 */
+} /* 참여 카드 제목 끝 */
+
+.av-card-text /* 카드 설명 */
+{ /* 카드 설명 시작 */
+    margin: 0 0 0.5rem; /* 아래 여백 */
+    color: var(--av-ink); /* 설명 글자색 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+} /* 카드 설명 끝 */
+
+.av-card-plan /* 카드 계획 */
+{ /* 카드 계획 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--av-muted); /* 계획 글자색 */
+    font-size: 0.94rem; /* 계획 글자 크기 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+} /* 카드 계획 끝 */
+
+.av-link /* 본문 링크 */
+{ /* 링크 시작 */
+    display: inline-flex; /* 누르는 영역 확보 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    min-height: 2.75rem; /* 누르는 영역 높이 */
+    color: var(--av-blue); /* 링크 글자색 */
+    font-weight: 700; /* 링크 굵기 */
+    text-decoration: underline; /* 밑줄 표시 */
+    text-underline-offset: 0.22em; /* 밑줄 간격 */
+} /* 링크 끝 */
+
+.av-link:is(:hover, :focus-visible) /* 링크 반응 */
+{ /* 링크 반응 시작 */
+    text-decoration-thickness: 0.14em; /* 굵은 밑줄 */
+} /* 링크 반응 끝 */
+
+.av-tag /* 준비 상태 표시 */
+{ /* 표시 시작 */
+    display: inline-flex; /* 글자 폭 배치 */
+    margin-top: 0.45rem; /* 설명과 간격 */
+    padding: 0.15rem 0.6rem; /* 표시 안쪽 여백 */
+    border: 0.0625rem dashed var(--av-line-strong); /* 점선 외곽선 */
+    border-radius: 0.35rem; /* 표시 모서리 */
+    color: var(--av-muted); /* 표시 글자색 */
+    font-size: 0.88rem; /* 표시 글자 크기 */
+    font-weight: 700; /* 표시 굵기 */
+} /* 표시 끝 */
+
+.av-stage-list /* 단계 목록 */
+{ /* 목록 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 0.75rem; /* 단계 간격 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 0; /* 기본 들여쓰기 제거 */
+    list-style: none; /* 기본 번호 제거 */
+} /* 목록 끝 */
+
+.av-stage /* 단계 한 줄 */
+{ /* 단계 시작 */
+    display: grid; /* 격자 배치 */
+    grid-template-columns: 5.25rem minmax(0, 1fr); /* 순번과 내용 열 */
+    gap: 0.15rem 1rem; /* 줄과 열 간격 */
+    align-items: start; /* 위쪽 정렬 */
+    padding: 0.95rem 1.1rem; /* 단계 안쪽 여백 */
+    border: 0.0625rem solid var(--av-line-strong); /* 연필 선 외곽선 */
+    border-radius: var(--av-radius); /* 단계 모서리 */
+    background: var(--av-paper); /* 종이 배경 */
+} /* 단계 끝 */
+
+.av-stage[aria-current="step"] /* 현재 단계 */
+{ /* 현재 단계 시작 */
+    border: 0.125rem solid var(--av-ink); /* 잉크색 외곽선 */
+    box-shadow: 0.3rem 0.3rem 0 var(--av-shadow); /* 어긋난 단색 그림자 */
+} /* 현재 단계 끝 */
+
+.av-stage-mark /* 단계 순번 */
+{ /* 단계 순번 시작 */
+    grid-row: 1 / span 2; /* 두 줄 높이 사용 */
+    align-self: center; /* 세로 가운데 정렬 */
+    justify-self: start; /* 왼쪽 정렬 */
+    min-width: 4.2rem; /* 순번 최소 너비 */
+    padding: 0.2rem 0.6rem; /* 순번 안쪽 여백 */
+    border: 0.125rem solid var(--av-ink); /* 잉크색 외곽선 */
+    border-radius: 0.35rem; /* 순번 모서리 */
+    background: var(--av-surface); /* 작업대 배경 */
+    color: var(--av-ink); /* 순번 글자색 */
+    font-size: 0.9rem; /* 순번 글자 크기 */
+    font-weight: 700; /* 순번 굵기 */
+    text-align: center; /* 가운데 정렬 */
+} /* 단계 순번 끝 */
+
+.av-stage[aria-current="step"] .av-stage-mark /* 현재 단계 순번 */
+{ /* 현재 순번 시작 */
+    background: var(--av-gold); /* 골드 채움 */
+    color: var(--av-on-gold); /* 골드 위 글자색 */
+} /* 현재 순번 끝 */
+
+.av-stage-title /* 단계 이름 */
+{ /* 단계 이름 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--av-ink); /* 이름 글자색 */
+    font-size: 1.08rem; /* 이름 글자 크기 */
+} /* 단계 이름 끝 */
+
+.av-stage-text /* 단계 설명 */
+{ /* 단계 설명 시작 */
+    grid-column: 2; /* 내용 열 배치 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--av-muted); /* 설명 글자색 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+} /* 단계 설명 끝 */
+
+.av-footnote /* 구역 덧붙임 */
+{ /* 덧붙임 시작 */
+    margin: 1rem 0 0; /* 위 여백 */
+    color: var(--av-muted); /* 덧붙임 글자색 */
+    font-size: 0.94rem; /* 덧붙임 글자 크기 */
+} /* 덧붙임 끝 */
+
+.av-faq-list /* 질문 목록 */
+{ /* 질문 목록 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 0.6rem; /* 질문 간격 */
+} /* 질문 목록 끝 */
+
+.av-faq /* 질문 한 개 */
+{ /* 질문 시작 */
+    border: 0.0625rem solid var(--av-line-strong); /* 연필 선 외곽선 */
+    border-radius: var(--av-radius-small); /* 질문 모서리 */
+    background: var(--av-paper); /* 종이 배경 */
+} /* 질문 끝 */
+
+.av-faq summary /* 질문 제목 */
+{ /* 질문 제목 시작 */
+    min-height: 2.75rem; /* 누르는 영역 높이 */
+    padding: 0.85rem 1.1rem; /* 질문 안쪽 여백 */
+    color: var(--av-ink); /* 질문 글자색 */
+    font-weight: 700; /* 질문 굵기 */
+    cursor: pointer; /* 선택 가능 표시 */
+} /* 질문 제목 끝 */
+
+.av-faq p /* 답변 */
+{ /* 답변 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    padding: 0 1.1rem 1rem; /* 답변 안쪽 여백 */
+    color: var(--av-muted); /* 답변 글자색 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+} /* 답변 끝 */
+
+.av-footer /* 하단 정보 */
+{ /* 하단 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 양쪽 정렬 */
+    gap: 0.75rem 1.25rem; /* 요소 간격 */
+    margin-top: clamp(2.75rem, 7vw, 4.5rem); /* 위 여백 */
+    padding: 1.5rem 0 2.5rem; /* 하단 안쪽 여백 */
+    border-top: 0.0625rem solid var(--av-line); /* 하단 구분선 */
+    color: var(--av-muted); /* 하단 글자색 */
+    font-family: Consolas, monospace; /* 고정폭 글꼴 */
+    font-size: 0.92rem; /* 하단 글자 크기 */
+} /* 하단 끝 */
+
+.av-footer a /* 하단 링크 */
+{ /* 하단 링크 시작 */
+    display: inline-flex; /* 누르는 영역 확보 배치 */
+    align-items: center; /* 세로 가운데 정렬 */
+    min-height: 2.75rem; /* 누르는 영역 높이 */
+    color: var(--av-blue); /* 링크 글자색 */
+    text-decoration: underline; /* 밑줄 표시 */
+    text-underline-offset: 0.22em; /* 밑줄 간격 */
+} /* 하단 링크 끝 */
+
+@media (min-width: 960px) /* 넓은 화면 */
+{ /* 넓은 화면 시작 */
+    .av-hero /* 넓은 화면 상단 소개 */
+    { /* 소개 시작 */
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); /* 문구와 그림 두 열 */
+    } /* 소개 끝 */
+} /* 넓은 화면 끝 */
+
+@media (max-width: 520px) /* 좁은 화면 */
+{ /* 좁은 화면 시작 */
+    .av-stage /* 좁은 화면 단계 */
+    { /* 단계 시작 */
+        grid-template-columns: minmax(0, 1fr); /* 한 열 배치 */
+    } /* 단계 끝 */
+
+    .av-stage-mark /* 좁은 화면 단계 순번 */
+    { /* 순번 시작 */
+        grid-row: auto; /* 한 줄 높이 사용 */
+        margin-bottom: 0.35rem; /* 이름과 간격 */
+    } /* 순번 끝 */
+
+    .av-stage-text /* 좁은 화면 단계 설명 */
+    { /* 설명 시작 */
+        grid-column: 1; /* 첫 열 배치 */
+    } /* 설명 끝 */
+
+    .av-button /* 좁은 화면 버튼 */
+    { /* 버튼 시작 */
+        flex: 1 1 100%; /* 한 줄 전체 사용 */
+    } /* 버튼 끝 */
+} /* 좁은 화면 끝 */
+
+@media (prefers-reduced-motion: reduce) /* 움직임 줄이기 */
+{ /* 움직임 줄이기 시작 */
+    .av-button /* 전환 없는 버튼 */
+    { /* 버튼 시작 */
+        transition: none; /* 전환 제거 */
+    } /* 버튼 끝 */
+
+    a.av-button:is(:hover, :focus-visible) /* 이동 없는 버튼 반응 */
+    { /* 반응 시작 */
+        transform: none; /* 이동 제거 */
+    } /* 반응 끝 */
+} /* 움직임 줄이기 끝 */
