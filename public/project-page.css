@@ -155,7 +155,7 @@ h1 /* 페이지 제목 */
 .project-meta dt /* 상태 이름 */
 { /* 규칙 시작 */
     color: var(--project-muted); /* 상태 이름색 */
-    font-size: 0.72rem; /* 상태 이름 크기 */
+    font-size: 0.75rem; /* 상태 이름 크기 */
 } /* 규칙 끝 */
 
 .project-meta dd /* 상태 값 */

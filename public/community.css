@@ -202,7 +202,7 @@
     background: rgba(255, 138, 76, 0.12); /* 주황 배경 */
     color: #ffb188; /* 주황 글자색 */
     font-family: Consolas, monospace; /* 코드 글꼴 */
-    font-size: 0.72rem; /* 배지 크기 */
+    font-size: 0.75rem; /* 배지 크기 */
     font-weight: 700; /* 배지 굵기 */
 } /* 배지 끝 */
 .featured-visual .demo-badge /* 이미지 위 시연 배지 */
@@ -371,7 +371,7 @@
     margin: 0 0 3px; /* 아래 여백 */
     color: var(--platform-accent); /* 플랫폼 강조색 */
     font-family: Consolas, monospace; /* 코드 글꼴 */
-    font-size: 0.7rem; /* 분류 크기 */
+    font-size: 0.75rem; /* 분류 크기 */
     letter-spacing: 0.12em; /* 글자 간격 */
 } /* 분류 끝 */
 .platform-heading h2 /* 플랫폼 제목 */
@@ -385,7 +385,7 @@
     border: 1px solid var(--platform-border); /* 플랫폼 테두리 */
     border-radius: 999px; /* 둥근 배지 */
     color: var(--platform-accent); /* 플랫폼 글자색 */
-    font-size: 0.74rem; /* 상태 크기 */
+    font-size: 0.75rem; /* 상태 크기 */
     white-space: nowrap; /* 줄바꿈 차단 */
 } /* 상태 끝 */
 .platform-grid /* 플랫폼 내용 격자 */
@@ -405,7 +405,7 @@
 .card-label /* 카드 분류 */
 { /* 분류 시작 */
     color: var(--platform-accent); /* 플랫폼 강조색 */
-    font-size: 0.73rem; /* 분류 크기 */
+    font-size: 0.75rem; /* 분류 크기 */
     font-weight: 700; /* 분류 굵기 */
     letter-spacing: 0.08em; /* 글자 간격 */
 } /* 분류 끝 */

@@ -287,7 +287,7 @@ button
 
 .game-meta-label
 {
-    font-size: 0.62rem;
+    font-size: 0.75rem;
     color: var(--accent);       /* 녹슨 오렌지 레이블 */
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -361,7 +361,7 @@ button
 
 .flag-lang
 {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: var(--muted);
     letter-spacing: 1px;
 }
@@ -444,7 +444,7 @@ button
     border-radius: var(--radius);
     color: #0e0b09;
     background: var(--accent);  /* 녹슨 오렌지 배지 */
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -822,7 +822,7 @@ button
 
 .world-slide-number
 {
-    font-size: 0.62rem;
+    font-size: 0.75rem;
     color: var(--slide-color, #c46a2d);
     letter-spacing: 4px;
     text-transform: uppercase;
@@ -937,7 +937,7 @@ button
 
 .usp-num
 {
-    font-size: 0.62rem;
+    font-size: 0.75rem;
     color: var(--accent);
     letter-spacing: 3px;
     margin-bottom: 0.4rem;
@@ -1000,7 +1000,7 @@ button
 
 .attr-icon  { font-size: 2.2rem; display: block; margin-bottom: 0.8rem; }
 .attr-name  { font-size: 0.95rem; font-weight: 700; color: var(--attr-color); margin-bottom: 0.3rem; letter-spacing: 2px; }
-.attr-en    { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.9rem; }
+.attr-en    { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.9rem; }
 .attr-desc  { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
 
 /* 등급/전투 규칙 테이블 */
@@ -1017,7 +1017,7 @@ button
     background: rgba(196,106,45,0.1);
     border: 1px solid var(--line);
     color: var(--accent);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     text-align: left;
@@ -1042,7 +1042,7 @@ button
     display: inline-block;
     padding: 0.12rem 0.55rem;
     border-radius: var(--radius);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 1px;
 }
@@ -1073,7 +1073,7 @@ button
 
 .keyword-name { font-size: 0.86rem; font-weight: 700; color: var(--accent); margin-bottom: 0.4rem; }
 .keyword-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.7; }
-.keyword-note { font-size: 0.7rem; color: var(--accent2); margin-top: 0.4rem; font-style: italic; }
+.keyword-note { font-size: 0.75rem; color: var(--accent2); margin-top: 0.4rem; font-style: italic; }
 
 /* 더미 카드 */
 .pile-grid

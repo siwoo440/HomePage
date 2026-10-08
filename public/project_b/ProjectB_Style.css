@@ -225,7 +225,7 @@ main /* 주요 콘텐츠 너비를 설정한다. */
     margin: 0 0 8px; /* 라벨 아래 여백을 설정한다. */
     color: var(--sage); /* 라벨 색상을 세이지로 설정한다. */
     font-family: 'Cinzel', sans-serif; /* 라벨 글꼴을 설정한다. */
-    font-size: 11px; /* 라벨 글자 크기를 설정한다. */
+    font-size: 12px; /* 라벨 글자 크기를 설정한다. */
     letter-spacing: 0.2em; /* 라벨 글자 간격을 넓힌다. */
 } /* 카드 라벨 블록을 끝낸다. */
 
@@ -853,7 +853,7 @@ main /* 주요 콘텐츠 너비를 설정한다. */
     display: inline-flex; /* 배지를 내용 크기에 맞춘다. */
     padding: 3px 9px; /* 배지 안쪽 여백을 설정한다. */
     border-radius: 4px; /* 배지 모서리를 약간 둥글게 만든다. */
-    font-size: 11px; /* 배지 글자 크기를 설정한다. */
+    font-size: 12px; /* 배지 글자 크기를 설정한다. */
     font-weight: 700; /* 배지 글자를 굵게 만든다. */
     color: #ffffff; /* 배지 글자를 흰색으로 설정한다. */
     letter-spacing: 0.04em; /* 배지 글자 간격을 설정한다. */

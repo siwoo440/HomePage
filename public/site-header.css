@@ -281,7 +281,7 @@ nav.site-subnav[data-site-subnav] .site-subnav-title /* 보조 메뉴 페이지 
     margin-right: 8px; /* 오른쪽 간격 */
     color: var(--sh-violet); /* 강조 글자색 */
     font-family: "Orbitron", sans-serif; /* 제목 글꼴 */
-    font-size: 0.72rem; /* 제목 크기 */
+    font-size: 0.75rem; /* 제목 크기 */
     font-weight: 700; /* 제목 굵기 */
     letter-spacing: 0.18em; /* 제목 간격 */
     text-transform: none; /* 이름 대소문자 유지 */

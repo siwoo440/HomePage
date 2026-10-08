@@ -476,7 +476,7 @@ button /* 버튼 기본 스타일을 설정한다. */
     left: 22px; /* 왼쪽 위치 */
     color: rgba(246, 200, 99, 0.72); /* 흐린 금색 글자 */
     font-family: "Orbitron", sans-serif; /* 제목 글꼴 */
-    font-size: 11px; /* 작은 글자 크기 */
+    font-size: 12px; /* 작은 글자 크기 */
     letter-spacing: 0.22em; /* 넓은 글자 간격 */
 } /* 규칙 끝 */
 .companion-image-initial /* 이미지 대체 이니셜 */

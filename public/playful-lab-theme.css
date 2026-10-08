@@ -287,7 +287,7 @@
 
 [data-theme="playful-lab"][data-responsive-page="main"] .community-name /* 메인 커뮤니티 유동 제목 */
 { /* 제목 시작 */
-    font-size: clamp(0.7rem, 0.55rem + 0.3vw, 0.8rem); /* 화면별 제목 크기 */
+    font-size: clamp(0.75rem, 0.55rem + 0.3vw, 0.8rem); /* 화면별 제목 크기 */
     letter-spacing: 0.04em; /* 제목 자간 */
     line-height: 1.4; /* 한글·영문 제목 높이 통일 */
     word-break: keep-all; /* 단어 중간 줄바꿈 방지 */
@@ -295,7 +295,7 @@
 
 [data-theme="playful-lab"][data-responsive-page="main"] .community-desc /* 메인 커뮤니티 유동 설명 */
 { /* 설명 시작 */
-    font-size: clamp(0.7rem, 0.6rem + 0.25vw, 0.78rem); /* 화면별 설명 크기 */
+    font-size: clamp(0.75rem, 0.6rem + 0.25vw, 0.78rem); /* 화면별 설명 크기 */
     line-height: 1.55; /* 항목 줄 간격 */
 } /* 설명 끝 */
 

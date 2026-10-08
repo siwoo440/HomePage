@@ -82,7 +82,7 @@ a.goods-card:hover .goods-image /* 구매 카드 이미지 선택 */
     top: 12px; /* 위쪽 위치 */
     padding: 5px 9px; /* 배지 여백 */
     font-family: Consolas, monospace; /* 기술 글꼴 */
-    font-size: 0.67rem; /* 배지 글자 크기 */
+    font-size: 0.75rem; /* 배지 글자 크기 */
     font-weight: 800; /* 배지 굵기 */
     letter-spacing: 0.08em; /* 배지 글자 간격 */
 } /* 상태 배지 끝 */

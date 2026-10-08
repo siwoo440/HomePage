@@ -224,3 +224,28 @@ test("공통 형식 게임 소개는 한글을 단어 단위로 줄바꿈한다"
     assert.match(mainRule, /word-break: keep-all;/); // 단어 중간 줄바꿈 방지
     assert.match(mainRule, /overflow-wrap: break-word;/); // 긴 문자열 넘침 방지
 }); // 테스트 끝
+
+test("공통 화면과 게임 소개의 글자 크기는 12px보다 작지 않다", () => // 최소 글자 크기 검사
+{ // 테스트 시작
+    const targets = listPublicHtml().filter((file) => !file.includes("device-preview") && !file.includes("project_eta")); // 검사할 HTML(개발 도구와 프로젝트 η 제외)
+    const walkCss = (directory) => fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => entry.isDirectory() ? walkCss(path.join(directory, entry.name)) : entry.name.endsWith(".css") ? [path.join(directory, entry.name)] : []); // 스타일 파일 목록
+    const cssFiles = [...walkCss("public"), ...walkCss("app")].filter((file) => !file.includes("device-preview") && !file.includes("project_eta")); // 검사할 스타일 파일
+    const tooSmall = (value) => // 12px 미만 크기 판정
+    { // 함수 시작
+        const first = value.trim().replace(/^clamp\(/, "").split(",")[0].trim(); // 단순 크기 또는 가변 크기의 최소값
+        const match = first.match(/^(\d*\.?\d+)(rem|px)(\s*!important)?$/); // 길이 값 해석
+        return match ? (match[2] === "rem" ? Number(match[1]) * 16 : Number(match[1])) < 12 && Number(match[1]) !== 0 : false; // 12px 미만 여부
+    }; // 함수 끝
+    const found = []; // 작은 글자 선언 목록
+    for (const file of [...targets, ...cssFiles]) // 파일 반복
+    { // 반복 시작
+        for (const match of fs.readFileSync(file, "utf8").matchAll(/font-size:\s*([^;}{]+)[;}]/g)) // 글자 크기 선언 반복
+        { // 반복 시작
+            if (tooSmall(match[1])) // 작은 크기 확인
+            { // 조건 시작
+                found.push(`${file}: ${match[1].trim()}`); // 위치 기록
+            } // 조건 끝
+        } // 반복 끝
+    } // 반복 끝
+    assert.deepEqual(found, []); // 12px 미만 선언 없음
+}); // 테스트 끝

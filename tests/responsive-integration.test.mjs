@@ -101,7 +101,7 @@ test("메인 상세 이동 버튼은 모든 화면에서 작게 오른쪽 정렬
     } // 반복 종료
     assert.match(buttonRule, /min-height:\s*34px/); // 작은 버튼 높이 확인
     assert.match(buttonRule, /margin-left:\s*auto/); // 오른쪽 자동 여백 확인
-    assert.match(buttonRule, /font-size:\s*0\.72rem/); // 작은 글자 크기 확인
+    assert.match(buttonRule, /font-size:\s*0\.75rem/); // 작은 글자 크기 확인(읽을 수 있는 최소 12px)
     assert.equal(mobileRules.length, 2); // 모바일 규칙 수 확인
     for (const mobileRule of mobileRules) // 모바일 규칙 반복
     { // 반복 시작

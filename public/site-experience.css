@@ -310,7 +310,7 @@ select:focus-visible /* 키보드 선택 초점 */
 { /* 규칙 시작 */
     color: #a9b7c9; /* 머리말 색상 */
     flex-basis: 100%; /* 특징 위 한 줄 사용 */
-    font-size: 0.74rem; /* 머리말 크기 */
+    font-size: 0.75rem; /* 머리말 크기 */
     font-weight: 700; /* 머리말 굵기 */
     letter-spacing: 0.04em; /* 머리말 간격 */
 } /* 규칙 끝 */
@@ -318,7 +318,7 @@ select:focus-visible /* 키보드 선택 초점 */
 .hero-local-notice /* 서비스 상태 안내 */
 { /* 규칙 시작 */
     color: #7f90a6; /* 안내 색상 */
-    font-size: 0.72rem; /* 안내 크기 */
+    font-size: 0.75rem; /* 안내 크기 */
     margin-top: 0.85rem; /* 위쪽 간격 */
     word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
 } /* 규칙 끝 */
