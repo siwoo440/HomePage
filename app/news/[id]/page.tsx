@@ -59,7 +59,8 @@ export async function generateMetadata({ params }: NewsDetailPageProps): Promise
         return { title: "개발 뉴스 · Palettra Games" }; // 기본 제목 반환
     } // 조건 끝
     const title = `${post.title} · Palettra Games`; // 글 제목을 넣은 브라우저 제목
-    return { title, description: post.summary, openGraph: { title, description: post.summary, type: "article" } }; // 제목과 요약 반환
+    const images = post.coverImageUrl ? [post.coverImageUrl] : undefined; // 대표 이미지가 있으면 공유 이미지로 사용
+    return { title, description: post.summary, openGraph: { title, description: post.summary, type: "article", images }, twitter: { card: images ? "summary_large_image" : "summary" } }; // 제목·요약·공유 이미지 반환
 } // 함수 끝
 
 export default async function NewsDetailPage({ params }: NewsDetailPageProps) // 공개 뉴스 상세 화면

@@ -3,7 +3,7 @@ import path from "node:path"; // 경로 처리 도구
 import { fileURLToPath } from "node:url"; // 모듈 주소 변환 도구
 import { GAME_PROJECTS, getGenreLabel } from "../public/game-projects.mjs"; // 프로젝트 공개 데이터와 장르 이름
 import { renderSiteHeader } from "./site-header.mjs"; // 공통 상단 헤더 생성
-import { renderMetaTags } from "./apply-page-meta.mjs"; // 공유 미리보기 태그 생성
+import { renderMetaTags, resolveShareImage } from "./apply-page-meta.mjs"; // 공유 미리보기 태그 생성과 공유 이미지 조회
 
 function escapeHtml(value) // HTML 특수 문자 처리
 { // 함수 시작
@@ -61,7 +61,7 @@ export function renderProjectHtml(project) // 프로젝트 공개 HTML 생성
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
     <meta name="description" content="${escapeHtml(project.tagline)}"> <!-- 검색 설명 -->
     <title>${escapeHtml(project.title)} · Palettra Games</title> <!-- 브라우저 제목 -->
-${renderMetaTags({ title: `${project.title} · Palettra Games`, description: project.tagline })}
+${renderMetaTags({ title: `${project.title} · Palettra Games`, description: project.tagline, image: resolveShareImage(project.detailPath.slice(1)) })}
     <link rel="stylesheet" href="/project-page.css"> <!-- 공개 소개 스타일 -->
     <link rel="stylesheet" href="/device-preview-control.css"> <!-- 기기 선택 스타일 -->
     <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->

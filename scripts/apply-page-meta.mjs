@@ -25,7 +25,32 @@ function decodeAttribute(value) // 속성 값 복원
     return String(value).replaceAll("&quot;", '"').replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&amp;", "&"); // 원래 문구 반환
 } // 함수 끝
 
-export function renderMetaTags({ title, description, indent = "    " }) // 공유 미리보기 태그 생성
+export const SHARE_IMAGE_BASE_URL = ""; // 공식 도메인이 정해지면 https://도메인 을 넣고 pnpm pages:apply 실행(비어 있으면 사이트 안 경로로 적음)
+export const SHARE_IMAGE_WIDTH = 1200; // 공유 미리보기 이미지 너비
+export const SHARE_IMAGE_HEIGHT = 630; // 공유 미리보기 이미지 높이
+
+export function resolveShareImage(file, baseUrl = SHARE_IMAGE_BASE_URL) // 페이지에 쓸 공유 미리보기 이미지 주소 조회
+{ // 함수 시작
+    const directory = `/${file.replaceAll("\\", "/").split("/")[0]}/`; // 페이지가 들어 있는 폴더
+    const project = GAME_PROJECTS.find((candidate) => candidate.detailPath.startsWith(directory)); // 그 폴더의 게임 프로젝트
+    if (!project || project.adultOnly) // 게임 소개가 아니거나 성인 게임인지 확인
+    { // 조건 시작
+        return null; // 공유 미리보기 이미지 없음
+    } // 조건 끝
+    return `${baseUrl.trim().replace(/\/+$/, "")}/images/share/${project.id}.jpg`; // 게임별 공유 미리보기 주소
+} // 함수 끝
+
+export function renderShareImageTags({ image, indent = "    " }) // 공유 미리보기 이미지 태그 생성
+{ // 함수 시작
+    return [ // 태그 줄 목록
+        `${indent}<meta property="og:image" content="${escapeAttribute(image)}"> <!-- 공유 이미지 -->`, // 공유 이미지
+        `${indent}<meta property="og:image:width" content="${SHARE_IMAGE_WIDTH}"> <!-- 공유 이미지 너비 -->`, // 공유 이미지 너비
+        `${indent}<meta property="og:image:height" content="${SHARE_IMAGE_HEIGHT}"> <!-- 공유 이미지 높이 -->`, // 공유 이미지 높이
+        `${indent}<meta name="twitter:card" content="summary_large_image"> <!-- 큰 미리보기 형식 -->`, // 큰 미리보기 형식
+    ].join("\n"); // 태그 문자열 반환
+} // 함수 끝
+
+export function renderMetaTags({ title, description, image = null, indent = "    " }) // 공유 미리보기 태그 생성
 { // 함수 시작
     return [ // 태그 줄 목록
         `${indent}<meta property="og:type" content="website"> <!-- 공유 형식 -->`, // 공유 형식
@@ -33,7 +58,20 @@ export function renderMetaTags({ title, description, indent = "    " }) // 공�
         `${indent}<meta property="og:locale" content="ko_KR"> <!-- 공유 언어 -->`, // 공유 언어
         `${indent}<meta property="og:title" content="${escapeAttribute(title)}"> <!-- 공유 제목 -->`, // 공유 제목
         `${indent}<meta property="og:description" content="${escapeAttribute(description)}"> <!-- 공유 설명 -->`, // 공유 설명
+        ...(image ? [renderShareImageTags({ image, indent })] : []), // 공유 이미지(있는 페이지만)
     ].join("\n"); // 태그 문자열 반환
+} // 함수 끝
+
+function applyShareImage(source, file, indent) // 문서의 공유 이미지 태그를 현재 기준으로 맞춤
+{ // 함수 시작
+    const image = resolveShareImage(file); // 이 페이지의 공유 이미지
+    const cleaned = source.replace(/^[ \t]*<meta (?:property="og:image(?::width|:height)?"|name="twitter:card")[^\n]*\n/gm, ""); // 예전 공유 이미지 태그 제거
+    if (!image) // 공유 이미지 없음 확인
+    { // 조건 시작
+        return cleaned; // 태그 없이 반환
+    } // 조건 끝
+    const anchor = cleaned.match(/^[ \t]*<meta property="og:description"[^\n]*$/m); // 공유 설명 줄
+    return anchor ? cleaned.replace(anchor[0], `${anchor[0]}\n${renderShareImageTags({ image, indent })}`) : cleaned; // 공유 설명 뒤에 이미지 태그 추가
 } // 함수 끝
 
 function describeProjectFile(file) // 프로젝트 페이지 설명 조회
@@ -64,12 +102,13 @@ export function applyPageMeta(html, file) // 문서에 검색·공유 정보 적
     { // 조건 시작
         insert += renderMetaTags({ title, description, indent }) + "\n"; // 공유 태그 추가
     } // 조건 끝
-    if (!insert) // 추가 없음 확인
+    if (insert) // 추가할 태그 확인
     { // 조건 시작
-        return html; // 변경 없음
+        source = source.replace(titleMatch[0], `${titleMatch[0]}\n${insert.trimEnd()}`); // 제목 뒤 태그 추가
     } // 조건 끝
-    source = source.replace(titleMatch[0], `${titleMatch[0]}\n${insert.trimEnd()}`); // 제목 뒤 태그 추가
-    return source.replace(/\n/g, eol); // 원래 줄바꿈 복원
+    source = applyShareImage(source, file, indent); // 공유 이미지 태그 맞춤
+    const result = source.replace(/\n/g, eol); // 원래 줄바꿈 복원
+    return result === html ? html : result; // 바뀐 것이 없으면 원문 그대로 반환
 } // 함수 끝
 
 export function listMetaTargetPages(root = "public") // 적용 대상 페이지 목록

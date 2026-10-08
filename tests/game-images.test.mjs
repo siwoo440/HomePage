@@ -51,3 +51,35 @@ test("성인 게임의 대표 이미지는 새 주소로도 연령 확인 뒤에
     const mainHtml = fs.readFileSync("public/main.html", "utf8"); // 메인 화면 원문
     assert.doesNotMatch(mainHtml, /images\/games\/project-[a-z]+\.png/); // 메인 화면에 예전 주소 없음
 }); // 테스트 끝
+
+test("성인 게임을 뺀 게임마다 공유 미리보기 이미지가 있고 게임 소개 화면이 그 주소를 쓴다", async () => // 공유 미리보기 검사
+{ // 테스트 시작
+    const { GAME_SHARE_HEIGHT, GAME_SHARE_MAX_BYTES, GAME_SHARE_OUTPUT_DIR, GAME_SHARE_WIDTH, isShareImageTarget } = await import("../scripts/optimize-game-images.mjs"); // 공유 미리보기 설정
+    const { SHARE_IMAGE_BASE_URL, SHARE_IMAGE_HEIGHT, SHARE_IMAGE_WIDTH, applyPageMeta, resolveShareImage } = await import("../scripts/apply-page-meta.mjs"); // 공유 태그 도구
+    assert.deepEqual([GAME_SHARE_WIDTH, GAME_SHARE_HEIGHT], [SHARE_IMAGE_WIDTH, SHARE_IMAGE_HEIGHT]); // 이미지 크기와 태그 값 일치
+    assert.equal(SHARE_IMAGE_BASE_URL === "" || /^https:\/\/[^/]+$/.test(SHARE_IMAGE_BASE_URL), true); // 비어 있거나 https 도메인만 허용
+    const shareNames = fs.readdirSync(path.join(process.cwd(), GAME_SHARE_OUTPUT_DIR)); // 공유 미리보기 폴더 파일
+    for (const project of GAME_PROJECTS) // 프로젝트 반복
+    { // 반복 시작
+        const file = project.detailPath.slice(1); // 게임 소개 화면 경로
+        const html = fs.readFileSync(path.join("public", file), "utf8"); // 게임 소개 원문
+        if (project.adultOnly) // 성인 게임 확인
+        { // 조건 시작
+            assert.equal(isShareImageTarget(`${project.id}.png`), false); // 변환 대상 아님
+            assert.equal(shareNames.includes(`${project.id}.jpg`), false, `${project.id} 공유 이미지가 있으면 안 됨`); // 공유 미리보기 파일 없음
+            assert.equal(resolveShareImage(file), null); // 공유 이미지 주소 없음
+            assert.doesNotMatch(html, /og:image|twitter:card/); // 공유 이미지 태그 없음
+            continue; // 다음 프로젝트
+        } // 조건 끝
+        const content = fs.readFileSync(path.join(process.cwd(), GAME_SHARE_OUTPUT_DIR, `${project.id}.jpg`)); // 공유 미리보기 내용
+        assert.deepEqual([content[0], content[1]], [0xff, 0xd8], `${project.id} JPG 서명`); // JPG 형식 확인
+        assert.ok(content.length <= GAME_SHARE_MAX_BYTES, `${project.id} 공유 이미지 용량 초과`); // 용량 한도 확인
+        assert.ok(html.includes(`<meta property="og:image" content="${resolveShareImage(file)}">`), `${project.id} 공유 이미지 태그 누락`); // 화면의 공유 이미지 주소
+        assert.ok(html.includes('<meta name="twitter:card" content="summary_large_image">'), `${project.id} 큰 미리보기 형식 누락`); // 큰 미리보기 형식
+        assert.equal(applyPageMeta(html, file), html, `${project.id} 공유 태그를 다시 적용하면 달라짐`); // 다시 적용해도 그대로
+    } // 반복 끝
+    assert.equal(resolveShareImage("project_c/ProjectC_Cards.html"), "/images/share/project-c.jpg"); // 추가 화면은 같은 게임의 이미지 사용
+    assert.equal(resolveShareImage("project_a/ProjectA_Main.html", "https://example.com/"), "https://example.com/images/share/project-a.jpg"); // 도메인을 넣으면 절대 주소
+    assert.equal(resolveShareImage("main.html"), null); // 일반 페이지는 공유 이미지 없음
+    assert.equal(shareNames.length, GAME_PROJECTS.filter((project) => !project.adultOnly).length); // 남는 파일 없음
+}); // 테스트 끝

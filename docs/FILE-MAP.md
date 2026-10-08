@@ -341,6 +341,7 @@ css-styling/
 | 위치 | 내용 | 관리 규칙 |
 | --- | --- | --- |
 | `public/images/games/` | 프로젝트 대표 이미지(1280×720 WebP)와 성인 제한 안전 이미지 | 원본 PNG는 `internal/game-image-originals/`에 두고 `pnpm images:games`로 다시 만들기 |
+| `public/images/share/` | 게임 소개를 공유할 때 보이는 미리보기 이미지(1200×630 JPG, 성인 게임 제외 32장) | `pnpm images:games`로 함께 만들기, 주소는 `scripts/apply-page-meta.mjs`가 적용 |
 | `public/images/goods/` | 개발용 상품 WebP 목업 | 판매 전 실제 사진으로 교체 |
 | `public/images/states/` | 로딩·시연·빈 결과·오류 상태 SVG | 스크립트와 외부 자원 없는 저장소 내부 벡터 유지 |
 | `public/project_*/` | 35개 공개 프로젝트 페이지와 전용 자산 | 공통 생성 페이지와 특화 페이지 구분 |
@@ -373,11 +374,11 @@ css-styling/
 | `scripts/generate-project-pages.mjs` | `node scripts/generate-project-pages.mjs` | 공통 프로젝트 페이지 재생성 |
 | `scripts/site-header.mjs` | 다른 도구가 불러 씀 | 공통 헤더 원본(메뉴 목록과 마크업) |
 | `scripts/apply-site-header.mjs` | `node scripts/apply-site-header.mjs` | 등록된 정적 페이지에 공통 헤더 적용 |
-| `scripts/apply-page-meta.mjs` | `node scripts/apply-page-meta.mjs` | 검색 설명과 공유 미리보기 태그 적용 |
+| `scripts/apply-page-meta.mjs` | `node scripts/apply-page-meta.mjs` | 검색 설명과 공유 미리보기 태그 적용(게임 소개에는 공유 이미지 주소 포함, 도메인이 정해지면 `SHARE_IMAGE_BASE_URL`에 넣고 다시 적용) |
 | `scripts/apply-static-pages.mjs` | `pnpm pages:apply`, `pnpm pages:check` | 공통 헤더·검색 설명·번역 준비·게임 소개의 출시 알림 스크립트·메인 캐러셀의 서비스 홍보 화면을 한 번에 적용하거나 빠진 페이지 확인 |
 | `scripts/verse-services.mjs` | 다른 도구가 불러 씀 | Verse 계열 서비스(Mate | Verse, Atelier | Verse) 이름·주소·문구 목록과 캐러셀 홍보 화면 마크업 |
 | `scripts/archive-project-pages.mjs` | `node scripts/archive-project-pages.mjs` | 변경 전 프로젝트 HTML을 내부 보관소로 복사 |
-| `scripts/optimize-game-images.mjs` | `pnpm images:games` | `internal/game-image-originals/`의 게임 원본 PNG를 화면용 WebP(1280×720, 한 장 300KB 이하)로 변환 |
+| `scripts/optimize-game-images.mjs` | `pnpm images:games` | `internal/game-image-originals/`의 게임 원본 PNG를 화면용 WebP(1280×720, 한 장 300KB 이하)와 공유 미리보기 JPG(1200×630, 한 장 200KB 이하)로 변환 |
 | `scripts/check-supabase-env.mjs` | `pnpm supabase:check` | `.env.local`의 Supabase 주소·공개 키·관리자 이메일 형식과 비밀 키 노출 점검 |
 | `scripts/check-services.mjs` | `pnpm services:check` | Supabase·메일·YouTube·GA4의 연결 상태, 형식 오류, 서버 전용 키 노출과 다음에 할 일 안내 |
 | `scripts/build-supabase-setup.mjs` | `pnpm supabase:sql` | 마이그레이션을 적용 순서대로 묶어 새 프로젝트에 한 번에 붙여 넣을 `supabase/.temp/setup-all.sql` 생성(전부 성공할 때만 적용) |
