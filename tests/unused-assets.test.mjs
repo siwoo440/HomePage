@@ -73,3 +73,22 @@ test("공통 헤더로 대체된 예전 프로젝트 메뉴 지원 코드가 남
     } // 반복 끝
     assert.doesNotMatch(readPublicFile("project_eta/ProjectEta_Style.css"), /\.(eta-nav|eta-brand|nav-cta)\b/); // 에타 예전 헤더 제거 확인
 }); // 테스트 끝
+
+test("쓰는 곳이 없던 템플릿 잔여 파일과 의존성이 남아 있지 않다", () => // 템플릿 잔여물 검사
+{ // 테스트 시작
+    for (const leftover of ["placeholder-logo.png", "placeholder-logo.svg", "placeholder-user.jpg", "placeholder.jpg", "project_d/README.txt"]) // 지운 공개 파일 반복
+    { // 반복 시작
+        assert.equal(fs.existsSync(path.join(PUBLIC_ROOT, leftover)), false, `${leftover} 다시 추가됨`); // 재등장 여부 확인
+    } // 반복 끝
+    assert.equal(fs.existsSync(path.join(PUBLIC_ROOT, "placeholder.svg")), true); // 상품 이미지 대체 그림은 유지
+    assert.match(readPublicFile("goods-card.mjs"), /"\/placeholder\.svg"/); // 대체 그림을 쓰는 곳 확인
+    assert.equal(fs.existsSync("scripts/optimize_goods_images.py"), false); // 원본이 없어 다시 쓸 수 없는 변환 도구 제거 확인
+    const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8")); // 패키지 설정
+    for (const name of ["@vercel/analytics", "shadcn", "tw-animate-css"]) // 지운 의존성 반복
+    { // 반복 시작
+        assert.equal(name in { ...packageJson.dependencies, ...packageJson.devDependencies }, false, `${name} 다시 추가됨`); // 의존성 재등장 여부 확인
+    } // 반복 끝
+    const globalsCss = fs.readFileSync("app/globals.css", "utf8"); // Next 화면 전역 스타일
+    assert.doesNotMatch(globalsCss, /tw-animate-css|shadcn|--sidebar|--chart-|\.dark\b/); // 쓰지 않는 템플릿 값 제거 확인
+    assert.match(globalsCss, /@import 'tailwindcss';/); // 기본 초기화 스타일 유지 확인
+}); // 테스트 끝

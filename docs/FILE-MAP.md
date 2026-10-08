@@ -52,7 +52,7 @@ css-styling/
 | --- | --- |
 | `app/layout.tsx` | 전체 HTML 레이아웃, 공통 테마·개인정보 동의·분석 모듈 연결 |
 | `app/page.tsx` | 루트 경로를 `/main.html`로 이동 |
-| `app/globals.css` | Next.js 화면의 전역 기본 스타일 |
+| `app/globals.css` | Next.js 화면의 전역 기본 스타일(Tailwind 기본 초기화와 바탕·글자·경계선 기본값만 사용) |
 | `app/site-header.tsx` | Next 화면용 공통 헤더(정적 페이지와 같은 메뉴, 반응형 메뉴 스크립트 연결) |
 | `app/not-found.tsx` | 없는 페이지(404) 안내 |
 | `app/error.tsx` | 화면 오류 안내와 다시 시도 |
@@ -345,7 +345,7 @@ css-styling/
 | `public/images/states/` | 로딩·시연·빈 결과·오류 상태 SVG | 스크립트와 외부 자원 없는 저장소 내부 벡터 유지 |
 | `public/project_*/` | 35개 공개 프로젝트 페이지와 전용 자산 | 공통 생성 페이지와 특화 페이지 구분 |
 | `public/icon*`, `public/apple-icon.png` | 브라우저와 앱 아이콘 | 라이트·다크 배경 확인 |
-| `public/placeholder*` | 이미지 누락 시 대체 자산 | 운영 이미지와 혼동 금지 |
+| `public/placeholder.svg` | 상품 이미지가 없을 때 쓰는 대체 그림 | 운영 이미지와 혼동 금지 |
 
 ---
 ## 6. `supabase/migrations/` 데이터베이스
@@ -377,7 +377,6 @@ css-styling/
 | `scripts/apply-static-pages.mjs` | `pnpm pages:apply`, `pnpm pages:check` | 공통 헤더·검색 설명·번역 준비·게임 소개의 출시 알림 스크립트·메인 캐러셀의 서비스 홍보 화면을 한 번에 적용하거나 빠진 페이지 확인 |
 | `scripts/verse-services.mjs` | 다른 도구가 불러 씀 | Verse 계열 서비스(Mate | Verse, Atelier | Verse) 이름·주소·문구 목록과 캐러셀 홍보 화면 마크업 |
 | `scripts/archive-project-pages.mjs` | `node scripts/archive-project-pages.mjs` | 변경 전 프로젝트 HTML을 내부 보관소로 복사 |
-| `scripts/optimize_goods_images.py` | Python 환경에서 직접 실행 | 상품 원본 이미지 최적화 |
 | `scripts/optimize-game-images.mjs` | `pnpm images:games` | `internal/game-image-originals/`의 게임 원본 PNG를 화면용 WebP(1280×720, 한 장 300KB 이하)로 변환 |
 | `scripts/check-supabase-env.mjs` | `pnpm supabase:check` | `.env.local`의 Supabase 주소·공개 키·관리자 이메일 형식과 비밀 키 노출 점검 |
 | `scripts/check-services.mjs` | `pnpm services:check` | Supabase·메일·YouTube·GA4의 연결 상태, 형식 오류, 서버 전용 키 노출과 다음에 할 일 안내 |
