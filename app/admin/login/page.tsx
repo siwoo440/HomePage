@@ -1,3 +1,4 @@
+import type { Metadata } from "next"; // 문서 정보 형식
 import Link from "next/link"; // 내부 이동 링크
 import { isSupabaseConfigured } from "@/lib/supabase/config"; // 설정 여부 판정
 import LoginForm from "./login-form"; // 로그인 입력 화면
@@ -7,6 +8,8 @@ interface LoginPageProps // 로그인 화면 속성
 { // 형식 시작
     searchParams: Promise<Record<string, string | string[] | undefined>>; // 주소 검색 값
 } // 형식 끝
+
+export const metadata: Metadata = { title: "관리자 로그인 · Palettra Games" }; // 브라우저 제목
 
 export default async function AdminLoginPage({ searchParams }: LoginPageProps) // 관리자 로그인 화면
 { // 함수 시작

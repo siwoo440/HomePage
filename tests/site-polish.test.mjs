@@ -194,3 +194,33 @@ test("관리자 화면도 공통 상단 헤더를 쓰고 고정 헤더 높이만
     assert.match(css, /\.admin-shell \/\* 관리자 전체 영역 \*\/\s*\{[^}]*padding-top: 70px;/); // 관리자 내용 위치 확인
     assert.match(css, /\.admin-login-shell \/\* 로그인 전체 영역 \*\/\s*\{[^}]*padding-top: calc\(70px \+ 48px\);/); // 관리자 로그인 위치 확인
 }); // 테스트 끝
+
+test("게임 소개와 Next 화면의 제목은 페이지 이름과 회사 이름을 함께 쓴다", () => // 페이지 제목 형식 검사
+{ // 테스트 시작
+    const gameFiles = fs.readdirSync("public", { withFileTypes: true }).filter((entry) => entry.isDirectory() && entry.name.startsWith("project_")).flatMap((entry) => fs.readdirSync(path.join("public", entry.name)).filter((name) => name.endsWith(".html")).map((name) => path.join("public", entry.name, name))); // 게임 소개 화면 목록
+    assert.equal(gameFiles.length, 38); // 첫 화면 35개와 추가 화면 3개
+    for (const file of gameFiles) // 게임 소개 화면 반복
+    { // 반복 시작
+        const html = fs.readFileSync(file, "utf8"); // 화면 원문
+        const title = html.match(/<title>([^<]+)<\/title>/)?.[1] ?? ""; // 브라우저 제목
+        assert.match(title, /^.+ · Palettra Games$/, `${file} 제목 형식`); // 이름과 회사 이름 형식
+        assert.doesNotMatch(title, /\| 게임 소개|^Project /, `${file} 예전 제목 형식`); // 예전 형식 재발 방지
+        assert.ok(html.includes(`property="og:title" content="${title}"`), `${file} 공유 제목 불일치`); // 공유 제목과 일치
+    } // 반복 끝
+    for (const [file, title] of [["app/login/page.tsx", "로그인"], ["app/age-verification/page.tsx", "성인 확인"], ["app/admin/login/page.tsx", "관리자 로그인"]]) // 고정 제목 화면 반복
+    { // 반복 시작
+        assert.ok(fs.readFileSync(file, "utf8").includes(`export const metadata: Metadata = { title: "${title} · Palettra Games" };`), `${file} 제목 누락`); // 페이지별 제목 확인
+    } // 반복 끝
+    const newsPage = fs.readFileSync("app/news/[id]/page.tsx", "utf8"); // 뉴스 상세 원문
+    assert.match(newsPage, /export async function generateMetadata/); // 글마다 제목 정보 생성
+    assert.match(newsPage, /const title = `\$\{post\.title\} · Palettra Games`;/); // 글 제목을 넣은 브라우저 제목
+    assert.match(newsPage, /const loadNewsPost = cache\(/); // 제목 정보와 화면이 같은 조회 결과 사용
+}); // 테스트 끝
+
+test("공통 형식 게임 소개는 한글을 단어 단위로 줄바꿈한다", () => // 줄바꿈 규칙 검사
+{ // 테스트 시작
+    const css = fs.readFileSync("public/project-page.css", "utf8"); // 공통 게임 소개 스타일
+    const mainRule = css.match(/\nmain \/\* 주요 내용 \*\/\s*\{[^}]+\}/)?.[0] ?? ""; // 본문 영역 규칙
+    assert.match(mainRule, /word-break: keep-all;/); // 단어 중간 줄바꿈 방지
+    assert.match(mainRule, /overflow-wrap: break-word;/); // 긴 문자열 넘침 방지
+}); // 테스트 끝

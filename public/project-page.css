@@ -44,7 +44,9 @@ main /* 주요 내용 */
 { /* 규칙 시작 */
     margin: 0 auto; /* 가운데 배치 */
     max-width: 1320px; /* 최대 너비 */
+    overflow-wrap: break-word; /* 긴 문자열은 넘칠 때만 줄바꿈 */
     padding: 4.5rem 5vw; /* 내용 여백 */
+    word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
 } /* 규칙 끝 */
 
 .project-hero /* 대표 소개 */

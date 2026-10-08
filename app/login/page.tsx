@@ -1,3 +1,4 @@
+import type { Metadata } from "next"; // 문서 정보 형식
 import Link from "next/link"; // 내부 이동 링크
 import { FALLBACK_AUTH_SETTINGS, fetchAuthSettings } from "@/lib/member/auth-providers"; // 인증 설정 조회
 import { getMemberMode, sanitizeMemberReturnTo } from "@/lib/member/config"; // 회원 설정 도구
@@ -18,6 +19,7 @@ const AUTH_NOTICES: Record<string, string> = // 인증 결과 안내
 }; // 안내 끝
 
 export const dynamic = "force-dynamic"; // 요청별 설정 확인
+export const metadata: Metadata = { title: "로그인 · Palettra Games" }; // 브라우저 제목
 
 export default async function MemberLoginPage({ searchParams }: MemberLoginPageProps) // 회원 로그인 화면
 { // 함수 시작

@@ -60,8 +60,8 @@ export function renderProjectHtml(project) // 프로젝트 공개 HTML 생성
     <meta charset="UTF-8"> <!-- 한글 인코딩 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
     <meta name="description" content="${escapeHtml(project.tagline)}"> <!-- 검색 설명 -->
-    <title>${escapeHtml(project.title)} | 게임 소개</title> <!-- 브라우저 제목 -->
-${renderMetaTags({ title: `${project.title} | 게임 소개`, description: project.tagline })}
+    <title>${escapeHtml(project.title)} · Palettra Games</title> <!-- 브라우저 제목 -->
+${renderMetaTags({ title: `${project.title} · Palettra Games`, description: project.tagline })}
     <link rel="stylesheet" href="/project-page.css"> <!-- 공개 소개 스타일 -->
     <link rel="stylesheet" href="/device-preview-control.css"> <!-- 기기 선택 스타일 -->
     <link rel="stylesheet" href="/site-header.css"> <!-- 공통 상단 헤더 스타일 -->
