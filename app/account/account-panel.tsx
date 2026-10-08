@@ -3,24 +3,28 @@
 import Link from "next/link"; // 내부 이동 링크
 import { useEffect, useRef, useState, type FormEvent } from "react"; // 화면 상태 도구
 import { AccountError, deleteMyComment, deleteOwnAccount, isDeleteConfirmed, listMyComments, type MyComment } from "@/lib/member/account"; // 내 정보 처리 도구
+import type { SocialProviderId } from "@/lib/member/auth-providers"; // 간편 로그인 식별자
 import type { MemberMode } from "@/lib/member/config"; // 회원 모드 형식
+import type { AccountUser } from "@/lib/member/connections"; // 계정 연결 회원 형식
 import { createDemoMemberProfile, MEMBER_DEMO_STORAGE_KEY, parseDemoMemberProfile } from "@/lib/member/demo-session"; // 시연 회원 도구
 import { ensureMemberProfile, validateNickname } from "@/lib/member/profile"; // 회원 프로필 도구
 import { createBrowserSupabaseClient } from "@/lib/supabase/client"; // 브라우저 인증 도구
 import MemberNicknameForm from "../login/member-nickname-form"; // 실제 닉네임 입력
+import AccountConnections from "./account-connections"; // 계정 정보·로그인 연동·연결된 서비스
 import styles from "../login/member-login.module.css"; // 회원 화면 공통 스타일
 import accountStyles from "./account.module.css"; // 내 정보 전용 스타일
 
 interface AccountPanelProps // 내 정보 영역 속성
 { // 형식 시작
     mode: MemberMode; // 회원 모드
+    providers: SocialProviderId[]; // 켜진 간편 로그인
 } // 형식 끝
 
 type PanelState = // 내 정보 상태
     | { status: "checking" } // 확인 중
     | { status: "signed-out" } // 로그아웃 상태
     | { status: "deleted" } // 탈퇴 완료
-    | { status: "signed-in"; userId: string | null; email: string | null; nickname: string | null; profileError: boolean }; // 로그인 상태
+    | { status: "signed-in"; userId: string | null; user: AccountUser | null; nickname: string | null; profileError: boolean }; // 로그인 상태
 
 type CommentsState = // 내 댓글 상태
     | { status: "idle" | "loading" } // 대기·조회 중
@@ -45,7 +49,7 @@ function formatDate(value: string): string // 작성 시각 표시
     return new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)); // 날짜 문구 반환
 } // 함수 끝
 
-export default function AccountPanel({ mode }: AccountPanelProps) // 내 정보 관리 영역
+export default function AccountPanel({ mode, providers }: AccountPanelProps) // 내 정보 관리 영역
 { // 함수 시작
     const [state, setState] = useState<PanelState>({ status: "checking" }); // 내 정보 상태
     const [comments, setComments] = useState<CommentsState>({ status: "idle" }); // 내 댓글 상태
@@ -65,7 +69,7 @@ export default function AccountPanel({ mode }: AccountPanelProps) // 내 정보 
             if (mode === "demo") // 시연 모드 확인
             { // 조건 시작
                 const nickname = readDemoNickname(); // 시연 닉네임
-                return nickname ? { status: "signed-in", userId: null, email: null, nickname, profileError: false } : { status: "signed-out" }; // 시연 상태 반환
+                return nickname ? { status: "signed-in", userId: null, user: null, nickname, profileError: false } : { status: "signed-out" }; // 시연 상태 반환
             } // 조건 끝
             try // 실제 세션 조회 시도
             { // 시도 시작
@@ -76,7 +80,7 @@ export default function AccountPanel({ mode }: AccountPanelProps) // 내 정보 
                     return { status: "signed-out" }; // 로그아웃 상태 반환
                 } // 조건 끝
                 const profile = await ensureMemberProfile(supabase, user).catch(() => undefined); // 프로필 조회
-                return { status: "signed-in", userId: user.id, email: user.email ?? null, nickname: profile?.nickname ?? null, profileError: profile === undefined }; // 로그인 상태 반환
+                return { status: "signed-in", userId: user.id, user, nickname: profile?.nickname ?? null, profileError: profile === undefined }; // 로그인 상태 반환
             } // 시도 끝
             catch // 조회 실패 처리
             { // 오류 처리 시작
@@ -146,7 +150,7 @@ export default function AccountPanel({ mode }: AccountPanelProps) // 내 정보 
         try // 저장 시도
         { // 시도 시작
             window.sessionStorage.setItem(MEMBER_DEMO_STORAGE_KEY, JSON.stringify(createDemoMemberProfile(checked.value))); // 시연 닉네임 저장
-            setState({ status: "signed-in", userId: null, email: null, nickname: checked.value, profileError: false }); // 상태 갱신
+            setState({ status: "signed-in", userId: null, user: null, nickname: checked.value, profileError: false }); // 상태 갱신
             announce("시연 닉네임을 바꿨습니다."); // 완료 안내
         } // 시도 끝
         catch // 저장 실패 처리
@@ -245,7 +249,6 @@ export default function AccountPanel({ mode }: AccountPanelProps) // 내 정보 
             <section className={styles.account} aria-labelledby="account-profile-title"> {/* 프로필 영역 */}
                 <h2 id="account-profile-title">닉네임</h2> {/* 프로필 제목 */}
                 <p className={styles.accountName}>{state.nickname ?? "닉네임 없음"}</p> {/* 현재 닉네임 */}
-                {state.email ? <p className={styles.description}>로그인 이메일: {state.email} (본인에게만 보입니다)</p> : null} {/* 본인 이메일 */}
                 {state.profileError ? <p className={styles.error} role="alert">회원 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p> : null} {/* 조회 실패 */}
                 {mode === "supabase" && state.userId && !state.profileError ? <MemberNicknameForm userId={state.userId} nickname={state.nickname} requireConsent={!state.nickname} onSaved={(nickname) => setState({ ...state, nickname })} /> : null} {/* 실제 닉네임 변경 */}
                 {mode === "demo" ? ( // 시연 닉네임 변경
@@ -256,6 +259,8 @@ export default function AccountPanel({ mode }: AccountPanelProps) // 내 정보 
                     </form> // 시연 닉네임 폼 끝
                 ) : null} {/* 시연 닉네임 변경 끝 */}
             </section> {/* 프로필 영역 끝 */}
+
+            <AccountConnections mode={mode} user={state.user} nickname={state.nickname} providers={providers} onUserChange={(user) => setState({ ...state, user })} announce={announce} /> {/* 계정 정보·로그인 연동·연결된 서비스 */}
 
             <section className={styles.account} aria-labelledby="account-comments-title"> {/* 내 댓글 영역 */}
                 <h2 id="account-comments-title">내 댓글</h2> {/* 댓글 제목 */}
@@ -279,6 +284,7 @@ export default function AccountPanel({ mode }: AccountPanelProps) // 내 정보 
             <section className={`${styles.account} ${accountStyles.danger}`} aria-labelledby="account-delete-title"> {/* 탈퇴 영역 */}
                 <h2 id="account-delete-title">회원 탈퇴</h2> {/* 탈퇴 제목 */}
                 <p className={styles.description}>탈퇴하면 계정, 프로필, 댓글(달린 답글 포함), 반응, 신고 기록, 첨부 이미지가 바로 삭제되며 복구할 수 없습니다.</p> {/* 탈퇴 설명 */}
+                <p className={styles.description}>이 계정으로 이용한 다른 서비스에 저장된 내용은 함께 지워지지 않습니다. 필요하면 그 서비스에서 먼저 지워 주세요.</p> {/* 다른 서비스 내용 안내 */}
                 <form className={styles.form} onSubmit={(event) => void handleDeleteAccount(event)} noValidate> {/* 탈퇴 폼 */}
                     <label htmlFor="account-delete-confirm">{"확인을 위해 \"탈퇴\"를 입력해 주세요"}</label> {/* 확인 입력 이름 */}
                     <input id="account-delete-confirm" name="confirm" value={confirmText} autoComplete="off" onChange={(event) => setConfirmText(event.target.value)} /> {/* 확인 입력 */}

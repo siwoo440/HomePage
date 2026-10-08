@@ -17,8 +17,6 @@
     "로그인하러 가기": "Go to login",
     "닉네임": "Nickname",
     "닉네임 없음": "No nickname",
-    "로그인 이메일:": "Login email:",
-    "(본인에게만 보입니다)": "(visible only to you)",
     "회원 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.": "Couldn't load member info. Please try again shortly.",
     "새 닉네임": "New nickname",
     "닉네임 바꾸기": "Change nickname",
@@ -33,7 +31,6 @@
     "탈퇴 처리 중…": "Deleting account…",
     "내 정보 · Palettra Games": "My account · Palettra Games",
     "내 정보": "My account",
-    "닉네임을 바꾸고, 내가 쓴 댓글을 확인하거나 지우고, 회원 탈퇴를 할 수 있습니다.": "Change your nickname, review or delete your comments, or delete your account.",
     "댓글에 표시되는 이름입니다. 1~20자로 바꿀 수 있습니다.": "The name shown on your comments. It can be 1–20 characters.",
     "최근 댓글 50개를 보여 줍니다. 관리자가 숨긴 댓글도 본인에게는 보입니다.": "Shows your 50 most recent comments. Comments hidden by an admin are still visible to you.",
     "탈퇴하면 프로필·댓글·반응·신고 기록과 첨부 이미지가 바로 삭제되며 되돌릴 수 없습니다.": "Deleting your account immediately removes your profile, comments, reactions, reports, and attached images. This can't be undone.",
@@ -318,7 +315,84 @@
     "아래 버튼을 누르면 출시 알림 신청이 완료됩니다. 신청하신 적이 없다면 이 화면을 닫으시면 됩니다. 확인하지 않은 주소로는 출시 소식을 보내지 않습니다.": "Press the button below to complete your release notice sign-up. If you did not sign up, just close this page. We do not send release news to addresses that have not been confirmed.",
     "신청 확인": "Confirm sign-up",
     "출시 알림 신청 확인하기": "Confirm release notice sign-up",
-    "신청이 확인되었습니다.": "Your sign-up is confirmed."
+    "신청이 확인되었습니다.": "Your sign-up is confirmed.",
+    "지금 이용 중": "In use now",
+    "연결됨": "Connected",
+    "연결 가능": "Available",
+    "로그인을 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.": "Couldn't link the sign-in method. Please try again shortly.",
+    "로그인 연결을 해제할까요? 해제한 뒤에는 이 방법으로 로그인할 수 없습니다.": "Unlink this sign-in method? You won't be able to sign in with it afterward.",
+    "로그인 연결을 해제했습니다.": "Sign-in method unlinked.",
+    "로그인 연결을 해제하지 못했습니다.": "Couldn't unlink the sign-in method.",
+    "연결을 해제할까요? 그 서비스에서 이 계정으로 다시 로그인하려면 허용을 다시 해야 합니다. 서비스 안에 저장된 내용은 지워지지 않습니다.": "Disconnect? You'll need to allow access again to sign in to that service with this account. Content saved in the service is not deleted.",
+    "서비스 연결을 해제했습니다.": "Service disconnected.",
+    "서비스 연결을 해제하지 못했습니다. 잠시 후 다시 시도해 주세요.": "Couldn't disconnect the service. Please try again shortly.",
+    "계정 기본 정보": "Account details",
+    "이메일 없음": "No email",
+    "이메일 인증": "Email verification",
+    "완료": "Done",
+    "하지 않음": "Not done",
+    "가입일": "Joined",
+    "알 수 없음": "Unknown",
+    "마지막 로그인": "Last sign-in",
+    "시연 모드에는 실제 계정이 없어 보여 줄 정보가 없습니다.": "Demo mode has no real account, so there is nothing to show.",
+    "이메일과 로그인 기록은 본인에게만 보입니다.": "Your email and sign-in history are visible only to you.",
+    "로그인 연동": "Sign-in methods",
+    "이 계정에 연결된 로그인 방법입니다. 간편 로그인을 연결해 두면 어느 방법으로 로그인해도 같은 계정으로 들어옵니다.": "These sign-in methods are linked to this account. Once you link a social login, any of them signs you in to the same account.",
+    "시연 모드에서는 로그인을 연결할 수 없습니다. 서버를 연결하면 켜 둔 간편 로그인이 여기에 표시됩니다.": "Sign-in methods can't be linked in demo mode. Once the server is connected, the enabled social logins appear here.",
+    "연결일": "Linked",
+    "해제 중…": "Removing…",
+    "연결 해제": "Disconnect",
+    "연결할 수 있는 로그인": "Sign-in methods you can link",
+    "연결하기": "Link",
+    "연결된 서비스": "Connected services",
+    "이 계정으로 로그인하는 서비스입니다. 서비스마다 내용은 따로 보관하고, 로그인만 이 계정으로 합니다.": "These services sign in with this account. Each service keeps its own content; only sign-in uses this account.",
+    "연결된 서비스를 불러오고 있습니다…": "Loading connected services…",
+    "다른 서비스에서 이 계정으로 로그인하는 기능은 준비 중입니다. 준비되면 연결한 서비스와 이용 기록이 여기에 표시됩니다.": "Signing in to other services with this account is being prepared. Once ready, connected services and usage history will appear here.",
+    "처음 이용": "First used",
+    "마지막 이용": "Last used",
+    "이동": "Open",
+    "닉네임과 로그인 방법, 이 계정으로 이용하는 서비스를 확인하고, 내가 쓴 댓글을 지우거나 회원 탈퇴를 할 수 있습니다.": "Review your nickname, sign-in methods and the services that use this account, delete your comments, or delete your account.",
+    "이 계정에 연결된 로그인 방법을 보고 간편 로그인을 연결하거나 해제합니다.": "See the sign-in methods linked to this account and link or unlink social logins.",
+    "이 계정으로 로그인하는 서비스와 이용 기록을 보고 연결을 해제할 수 있습니다.": "See the services that sign in with this account and their usage history, and disconnect them.",
+    "요청이 올바르지 않거나 시간이 지났습니다. 이용하려던 서비스에서 다시 시도해 주세요.": "This request is invalid or has expired. Please try again from the service you were using.",
+    "요청을 확인하고 있습니다…": "Checking the request…",
+    "서비스로 이동하고 있습니다…": "Returning to the service…",
+    "로그인을 진행할 수 없습니다": "Sign-in can't continue",
+    "서버가 연결되지 않은 시연 모드에서는 다른 서비스 로그인을 진행할 수 없습니다.": "Signing in to other services is unavailable in demo mode, where no server is connected.",
+    "먼저 로그인해 주세요": "Please sign in first",
+    "가입을 마무리해 주세요": "Please finish signing up",
+    "Palettra Games 계정으로 로그인하면 이 화면으로 돌아옵니다.": "After you sign in with your Palettra Games account, you'll return to this screen.",
+    "닉네임과 약관 동의를 마치면 이 화면으로 돌아옵니다.": "After you set a nickname and agree to the terms, you'll return to this screen.",
+    "닉네임 정하러 가기": "Set a nickname",
+    "로그인 허용 확인": "Confirm sign-in",
+    "이 서비스가 내 Palettra Games 계정으로 로그인하려고 합니다.": "This service wants to sign in with your Palettra Games account.",
+    "로그인할 계정": "Account",
+    "돌아갈 주소": "Returns to",
+    "서비스가 받는 정보": "Information the service receives",
+    "이메일 주소": "Email address",
+    "허용하고 계속": "Allow and continue",
+    "허용하지 않음": "Don't allow",
+    "계정으로 로그인 · Palettra Games": "Sign in with your account · Palettra Games",
+    "계정으로 로그인": "Sign in with your account",
+    "Palettra Games 계정 하나로 다른 서비스에 로그인합니다. 서비스가 받는 정보를 확인한 뒤 허용해 주세요.": "Sign in to other services with a single Palettra Games account. Review what the service receives, then allow it.",
+    "비밀번호는 넘기지 않습니다": "Your password is never shared",
+    "서비스는 아래에 표시된 정보만 받고, 비밀번호는 받지 않습니다.": "The service receives only the information shown below, never your password.",
+    "언제든 해제할 수 있습니다": "You can disconnect anytime",
+    "내 정보의 연결된 서비스에서 허용을 취소할 수 있습니다.": "You can withdraw access under Connected services in My account.",
+    "현재 서버가 연결되지 않은 시연 모드라 이 화면은 동작하지 않습니다.": "This screen doesn't work in demo mode, where no server is connected.",
+    "로그인 연결 기능이 아직 켜져 있지 않습니다.": "Linking sign-in methods isn't enabled yet.",
+    "이 로그인은 이미 다른 계정에 연결되어 있습니다.": "This sign-in method is already linked to another account.",
+    "로그인 방법이 하나뿐이면 연결을 해제할 수 없습니다.": "You can't unlink your only sign-in method.",
+    "연결된 로그인을 찾을 수 없습니다.": "Couldn't find the linked sign-in method.",
+    "이메일·비밀번호": "Email and password",
+    "회원 확인용 식별 번호": "An ID number that identifies your account",
+    "프로필 정보(이름과 사진)": "Profile information (name and photo)",
+    "전화번호": "Phone number",
+    "다른 서비스에서 이 계정으로 로그인하는 기능이 아직 준비되지 않았습니다.": "Signing in to other services with this account isn't ready yet.",
+    "이름 없는 앱": "Unnamed app",
+    "이용 상품": "Plan",
+    "성인 확인": "Adult verification",
+    "이 계정으로 이용한 다른 서비스에 저장된 내용은 함께 지워지지 않습니다. 필요하면 그 서비스에서 먼저 지워 주세요.": "Content saved in other services you used with this account is not deleted with it. If needed, delete it in those services first."
   },
   "patterns": [
     {
@@ -370,6 +444,35 @@
     {
       "ko": "링크 {0}개(허용 {1}개)",
       "en": "{0} links ({1} allowed)"
+    },
+    {
+      "ko": "{0} 로그인 연결을 해제할까요? 해제한 뒤에는 이 방법으로 로그인할 수 없습니다.",
+      "en": "Unlink {0}? You won't be able to sign in with it afterward."
+    },
+    {
+      "ko": "{0} 연결을 해제할까요? 그 서비스에서 이 계정으로 다시 로그인하려면 허용을 다시 해야 합니다. 서비스 안에 저장된 내용은 지워지지 않습니다.",
+      "en": "Disconnect {0}? You'll need to allow access again to sign in to that service with this account. Content saved in the service is not deleted.",
+      "keep": true
+    },
+    {
+      "ko": "연결일 {0}",
+      "en": "Linked {0}"
+    },
+    {
+      "ko": "{0} 연결하기",
+      "en": "Link {0}"
+    },
+    {
+      "ko": "가입일 {0}",
+      "en": "Joined {0}"
+    },
+    {
+      "ko": "처음 이용 {0}",
+      "en": "First used {0}"
+    },
+    {
+      "ko": "마지막 이용 {0}",
+      "en": "Last used {0}"
     }
   ]
 }

@@ -89,3 +89,165 @@
 { /* 영역 시작 */
     border-color: color-mix(in srgb, var(--pl-danger) 55%, var(--pl-border)); /* 경고 경계선 */
 } /* 영역 끝 */
+
+.facts, .summary /* 계정 정보·서비스 요약 목록 */
+{ /* 목록 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 8px; /* 줄 간격 */
+    margin: 4px 0 0; /* 위쪽 여백 */
+} /* 목록 끝 */
+
+.facts > div, .summary > div /* 정보 한 줄 */
+{ /* 한 줄 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 4px 12px; /* 이름과 값 간격 */
+    min-width: 0; /* 축소 허용 */
+} /* 한 줄 끝 */
+
+.facts dt, .summary dt /* 정보 이름 */
+{ /* 이름 시작 */
+    flex: none; /* 크기 고정 */
+    min-width: 6.5rem; /* 이름 너비 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    font-size: 0.9rem; /* 이름 글자 크기 */
+} /* 이름 끝 */
+
+.facts dd, .summary dd /* 정보 값 */
+{ /* 값 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-ink); /* 주요 글자색 */
+    font-weight: 700; /* 값 굵기 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+} /* 값 끝 */
+
+.summary /* 서비스 요약 목록 */
+{ /* 요약 시작 */
+    padding-top: 6px; /* 위쪽 여백 */
+    border-top: 1px dashed var(--pl-border); /* 점선 구분 */
+} /* 요약 끝 */
+
+.rows /* 로그인·서비스 목록 */
+{ /* 목록 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 10px; /* 항목 간격 */
+    margin: 4px 0 0; /* 위쪽 여백 */
+    padding: 0; /* 기본 여백 제거 */
+    list-style: none; /* 목록 기호 제거 */
+} /* 목록 끝 */
+
+.row /* 로그인·서비스 항목 */
+{ /* 항목 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    align-items: center; /* 세로 가운데 */
+    justify-content: space-between; /* 양끝 정렬 */
+    gap: 10px 16px; /* 내부 간격 */
+    padding: 12px 14px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border); /* 항목 경계선 */
+    border-radius: var(--pl-radius-small); /* 항목 모서리 */
+    min-width: 0; /* 축소 허용 */
+} /* 항목 끝 */
+
+.rowText /* 항목 글 묶음 */
+{ /* 글 묶음 시작 */
+    display: grid; /* 세로 배치 */
+    flex: 1 1 14rem; /* 남은 너비 채움 */
+    gap: 3px; /* 줄 간격 */
+    min-width: 0; /* 축소 허용 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    font-size: 0.9rem; /* 보조 글자 크기 */
+    overflow-wrap: anywhere; /* 긴 문구 줄바꿈 */
+} /* 글 묶음 끝 */
+
+.rowText strong /* 항목 이름 */
+{ /* 이름 시작 */
+    color: var(--pl-ink); /* 주요 글자색 */
+    font-size: 1rem; /* 이름 글자 크기 */
+} /* 이름 끝 */
+
+.rowActions /* 항목 버튼 묶음 */
+{ /* 버튼 묶음 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 8px; /* 버튼 간격 */
+} /* 버튼 묶음 끝 */
+
+.state /* 연결 상태 표시 */
+{ /* 상태 시작 */
+    justify-self: start; /* 왼쪽 정렬 */
+    padding: 2px 10px; /* 안쪽 여백 */
+    border: 1px solid var(--pl-border-strong); /* 상태 경계선 */
+    border-radius: 999px; /* 알약 모양 */
+    color: var(--pl-ink); /* 주요 글자색 */
+    font-size: 0.82rem; /* 상태 글자 크기 */
+    font-weight: 700; /* 상태 굵기 */
+} /* 상태 끝 */
+
+.state[data-state="current"], .state[data-state="connected"] /* 이용 중·연결됨 상태 */
+{ /* 연결 상태 시작 */
+    border-color: var(--pl-success); /* 완료 경계선 */
+    background: color-mix(in srgb, var(--pl-success) 14%, var(--pl-canvas)); /* 완료 배경 */
+} /* 연결 상태 끝 */
+
+.state[data-state="available"] /* 연결 가능 상태 */
+{ /* 연결 가능 시작 */
+    border-color: var(--pl-violet); /* 강조 경계선 */
+    background: color-mix(in srgb, var(--pl-violet) 12%, var(--pl-canvas)); /* 강조 배경 */
+} /* 연결 가능 끝 */
+
+.state[data-state="preparing"] /* 준비 중 상태 */
+{ /* 준비 중 시작 */
+    border-style: dashed; /* 점선 경계선 */
+    color: var(--pl-muted); /* 보조 글자색 */
+} /* 준비 중 끝 */
+
+.linkable /* 연결할 수 있는 로그인 영역 */
+{ /* 영역 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 10px; /* 내부 간격 */
+    margin-top: 6px; /* 위쪽 여백 */
+} /* 영역 끝 */
+
+.linkable h3 /* 연결 버튼 제목 */
+{ /* 제목 시작 */
+    margin: 0; /* 기본 여백 제거 */
+    color: var(--pl-muted); /* 보조 글자색 */
+    font-size: 0.9rem; /* 제목 글자 크기 */
+} /* 제목 끝 */
+
+.linkButton /* 서비스 이동 버튼 */
+{ /* 버튼 시작 */
+    display: inline-flex; /* 가운데 배치 */
+    align-items: center; /* 세로 가운데 */
+    min-height: 44px; /* 터치 높이 */
+    padding: 0 16px; /* 좌우 여백 */
+    border: 1px solid var(--pl-border-strong); /* 버튼 경계선 */
+    border-radius: var(--pl-radius-small); /* 버튼 모서리 */
+    color: var(--pl-ink); /* 주요 글자색 */
+    font-weight: 700; /* 버튼 굵기 */
+    text-decoration: none; /* 밑줄 제거 */
+} /* 버튼 끝 */
+
+.linkButton:focus-visible /* 이동 버튼 초점 */
+{ /* 초점 시작 */
+    outline: var(--pl-focus-ring); /* 공통 초점 외곽선 */
+    outline-offset: 3px; /* 외곽선 간격 */
+} /* 초점 끝 */
+
+.consentActions /* 로그인 허용 버튼 묶음 */
+{ /* 버튼 묶음 시작 */
+    display: flex; /* 가로 배치 */
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: 10px; /* 버튼 간격 */
+    margin-top: 8px; /* 위쪽 여백 */
+} /* 버튼 묶음 끝 */
+
+.consentList /* 넘겨주는 정보 목록 */
+{ /* 목록 시작 */
+    display: grid; /* 세로 배치 */
+    gap: 6px; /* 줄 간격 */
+    margin: 0; /* 기본 여백 제거 */
+    padding-left: 1.2rem; /* 목록 들여쓰기 */
+    color: var(--pl-ink); /* 주요 글자색 */
+} /* 목록 끝 */

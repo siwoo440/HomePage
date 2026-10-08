@@ -152,7 +152,8 @@ Next.js 서버
 | --- | --- | --- |
 | `/` | `app/page.tsx` | `/main.html`로 이동 |
 | `/login` | `app/login/` | 회원 로그인과 간편 로그인 |
-| `/account` | `app/account/` | 닉네임 변경, 내 댓글 확인·삭제, 회원 탈퇴 |
+| `/account` | `app/account/` | 닉네임 변경, 계정 기본 정보, 로그인 연동, 연결된 서비스, 내 댓글 확인·삭제, 회원 탈퇴 |
+| `/oauth/consent` | `app/oauth/consent/` | 다른 서비스가 이 계정으로 로그인할 때의 허용 확인(통합 계정) |
 | `/login/forgot` | `app/login/forgot/` | 비밀번호 재설정 메일 요청 |
 | `/login/reset` | `app/login/reset/` | 메일 링크로 새 비밀번호 저장 |
 | `/signup` | `app/signup/` | 이메일 회원가입과 간편 가입 |
@@ -305,6 +306,8 @@ Supabase 설정이 있으면 같은 계약의 `lib/comments/supabase-service.ts`
 실제 모드 댓글 작성에는 회원 닉네임이 필요합니다. 닉네임이 없으면 댓글 영역이 로그인 화면의 닉네임 설정으로 안내합니다. `202609120001_member_comments.sql`은 이 흐름의 데이터 구조와 접근 정책을 제공하며, 연결 후 실제 동작은 README의 회원과 댓글 확인 순서로 점검합니다.
 
 회원가입은 `/signup`에서 이메일·비밀번호(영문·숫자 8자 이상, 72바이트 이하)·닉네임과 필수 동의(만 14세 이상·이용약관·개인정보)를 받습니다. 입력 규칙과 인증 오류 안내는 `lib/member/signup.ts`에 있습니다. 가입 때 닉네임과 동의 시각은 인증 메타데이터로 보내고, 첫 로그인 때 `ensureMemberProfile`이 프로필을 만듭니다. 간편 로그인은 `lib/member/auth-providers.ts`의 지원 목록(카카오·Google·Apple·Discord·X·Facebook) 가운데 Supabase에서 켠 서비스만 `/auth/v1/settings`로 읽어 표시합니다. 간편 로그인 회원은 서비스가 넘겨준 이름을 공개하지 않고, 첫 로그인 때 닉네임과 필수 동의를 직접 저장합니다. 비밀번호 찾기는 계정 존재 여부와 관계없이 같은 안내를 보여 주며, `/login/reset`은 메일 링크로 만든 세션에서만 새 비밀번호를 저장합니다.
+
+통합 계정은 홈페이지 계정 하나로 Mate | Verse 같은 다른 서비스에 로그인하는 기능입니다. 서비스마다 Supabase 프로젝트는 따로 두고, 홈페이지 프로젝트가 로그인 제공자(Supabase OAuth 2.1 서버)가 됩니다. 다른 서비스가 로그인을 요청하면 Supabase가 `/oauth/consent`로 보내고, `lib/member/oauth-consent.ts`가 요청 번호 형식을 확인한 뒤 서비스 이름·돌아갈 주소·받는 정보를 읽어 허용 또는 거부를 전달합니다. 로그인하지 않았거나 닉네임·약관 동의 전이면 `/login`을 거쳐 같은 화면으로 돌아옵니다. 내 정보(`/account`)의 `app/account/account-connections.tsx`는 계정 기본 정보(이메일, 이메일 인증, 가입일, 마지막 로그인), 로그인 연동(`lib/member/connections.ts`: 연결된 로그인 방법 목록, 간편 로그인 연결·해제. 이메일 로그인과 마지막 로그인 방법은 해제하지 않음), 연결된 서비스(`lib/member/services.ts`: `scripts/verse-services.mjs`의 서비스 목록에 로그인 허용 기록과 `member_service_links` 이용 기록을 합쳐 지금 이용 중·연결됨·연결 가능·준비 중으로 표시)를 보여 줍니다. 서비스가 알려 준 요약은 닉네임·이용 상품·성인 확인 세 항목만 표시합니다. 설정 전이거나 조회에 실패하면 서비스 목록을 "준비 중"으로만 보여 줍니다. 구조와 설정 순서는 `docs/UNIFIED-ACCOUNT.md`에 있으며, 실제 프로젝트에서는 아직 확인하지 않았습니다.
 
 관리자 댓글 관리는 `/admin/comments`에서 신고 대기·숨긴 댓글·최근 댓글을 나눠 보고 숨김·다시 공개·신고 기각·삭제를 처리합니다. 처리 규칙과 데모·Supabase 서비스는 `lib/comments/moderation.ts`에 있으며, 서버 작업(`app/admin/comments/actions.ts`)이 관리자를 다시 확인한 뒤 댓글 상태·대기 신고·첨부 이미지를 바꾸고 `moderation_actions`에 관리자 ID와 메모를 남깁니다.
 
@@ -495,8 +498,9 @@ devforge_privacy_consent_v1
 7. `supabase/migrations/202610040002_comment_limits.sql`
 8. `supabase/migrations/202610040003_release_notifications.sql`
 9. `supabase/migrations/202610040004_hide_demo_products.sql`
+10. `supabase/migrations/202610080001_account_services.sql`
 
-첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다. 다섯 번째 파일은 로그인 회원이 본인 계정만 지우는 `delete_own_account` 함수를 만듭니다(관리자 계정과 남은 댓글 이미지가 있으면 거부). 여섯 번째 파일은 문의 양식 접수 테이블 `contact_messages`를 만듭니다. 누구나 대기 상태 문의만 추가할 수 있고, 조회와 처리는 관리자만 할 수 있습니다. 일곱 번째 파일은 댓글 작성 제한 트리거(`enforce_comment_limits`)와 관리자만 고칠 수 있는 금칙어 표(`comment_banned_words`)를 만듭니다. 여덟 번째 파일은 출시 알림 신청 표(`release_notifications`)와 신청·수신 거부·집계 함수를 만듭니다. 아홉 번째 파일은 두 번째 파일이 넣은 임시 상품 여덟 개를 숨김 상태로 바꿉니다. 임의 가격·할인·배지가 공개 화면에 나오지 않게 하기 위한 것으로, 상품은 관리자 화면에 남아 실제 내용으로 고친 뒤 다시 공개할 수 있습니다. 공개 상품이 없으면 공개 화면은 "시연" 표시가 붙은 목업 카드를 보여 줍니다.
+첫 번째 파일은 뉴스와 뉴스 이미지 정책, 두 번째 파일은 상품과 상품 이미지 정책, 세 번째 파일은 회원 프로필·댓글·반응·신고·관리 기록과 댓글 이미지 정책을 만듭니다. 네 번째 파일은 가입 동의 시각 열을 더하고 공개 프로필 조회에서 동의 열을 숨기며, 댓글 공개 상태와 신고 처리 상태를 관리자만 바꾸도록 제한합니다. 다섯 번째 파일은 로그인 회원이 본인 계정만 지우는 `delete_own_account` 함수를 만듭니다(관리자 계정과 남은 댓글 이미지가 있으면 거부). 여섯 번째 파일은 문의 양식 접수 테이블 `contact_messages`를 만듭니다. 누구나 대기 상태 문의만 추가할 수 있고, 조회와 처리는 관리자만 할 수 있습니다. 일곱 번째 파일은 댓글 작성 제한 트리거(`enforce_comment_limits`)와 관리자만 고칠 수 있는 금칙어 표(`comment_banned_words`)를 만듭니다. 여덟 번째 파일은 출시 알림 신청 표(`release_notifications`)와 신청·수신 거부·집계 함수를 만듭니다. 아홉 번째 파일은 두 번째 파일이 넣은 임시 상품 여덟 개를 숨김 상태로 바꿉니다. 임의 가격·할인·배지가 공개 화면에 나오지 않게 하기 위한 것으로, 상품은 관리자 화면에 남아 실제 내용으로 고친 뒤 다시 공개할 수 있습니다. 공개 상품이 없으면 공개 화면은 "시연" 표시가 붙은 목업 카드를 보여 줍니다. 열 번째 파일은 통합 계정의 서비스 목록(`account_services`)과 서비스 연결 기록(`member_service_links`), 서비스가 이용 기록을 남기는 함수(`record_service_use`)를 만들고, 다른 서비스의 로그인으로는 회원 탈퇴를 할 수 없게 탈퇴 함수를 고칩니다.
 
 마이그레이션을 고치거나 추가하면 `tests/supabase-migrations.test.mjs`가 시험용 PostgreSQL(개발 전용 의존성 `@electric-sql/pglite`)에 여덟 개를 순서대로 실행하고, 역할(`anon`·`authenticated`·`service_role`)을 바꿔 가며 권한과 제한 동작을 확인합니다. Supabase가 기본으로 주는 역할, `auth.users`·`auth.uid()`·`auth.jwt()`, `storage.buckets`·`storage.objects`·`storage.foldername()`, 기본 권한은 검사 파일 안에서 흉내 냅니다. 새 마이그레이션이 Supabase의 다른 기능을 쓰면 그 부분도 함께 흉내 내야 합니다.
 
@@ -545,7 +549,7 @@ pnpm check
 | --- | --- | --- |
 | 관리자 | `tests/admin-*.test.mjs` | 권한, 뉴스·상품 설정, 검증과 화면 |
 | 연령 제한 | `tests/age-gate*.test.mjs` | API, 쿠키, 프록시와 UI |
-| 회원·댓글 | `tests/member-*.test.mjs`, `tests/comment-*.test.mjs`, `tests/auth-providers.test.mjs` | 세션, 가입·간편 로그인·비밀번호 재설정, 마이그레이션, 댓글 규칙·로컬·Supabase 서비스·관리자 처리·화면 연결 |
+| 회원·댓글 | `tests/member-*.test.mjs`, `tests/comment-*.test.mjs`, `tests/auth-providers.test.mjs` | 세션, 가입·간편 로그인·비밀번호 재설정, 로그인 연동·연결된 서비스·로그인 허용(통합 계정), 마이그레이션, 댓글 규칙·로컬·Supabase 서비스·관리자 처리·화면 연결 |
 | 개인정보·분석 | `tests/privacy-consent.test.mjs`, `tests/site-analytics.test.mjs` | 동의 전 차단과 이벤트 제한 |
 | 공개 페이지 | `tests/site-integrity.test.mjs`, `tests/website-content.test.mjs` | 링크, 문서 구조와 콘텐츠 |
 | 게임 프로젝트 | `tests/game-*.test.mjs`, `tests/project-*.test.mjs` | 프로젝트 데이터와 공개 페이지 |

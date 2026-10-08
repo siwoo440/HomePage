@@ -55,6 +55,7 @@ const asAnon = (run) => as("anon", null, run); // 비로그인 방문자
 const asMember = (id, run) => as("authenticated", { sub: id, role: "authenticated", app_metadata: {} }, run); // 로그인 회원
 const asAdmin = (run) => as("authenticated", { sub: ADMIN, role: "authenticated", app_metadata: { role: "admin" } }, run); // 관리자
 const asService = (run) => as("service_role", { role: "service_role" }, run); // 서버 전용 키
+const asClient = (id, clientId, run) => as("authenticated", { sub: id, role: "authenticated", app_metadata: {}, client_id: clientId }, run); // 다른 서비스에서 통합 계정으로 로그인한 회원
 const blocked = (run, pattern) => assert.rejects(run, (error) => pattern.test(error.message) || assert.fail(`다른 오류: ${error.message}`)); // 막혀야 하는 동작 확인
 const addComment = (id, content, parent = null) => asMember(id, () => db.query("insert into public.news_comments (news_id, parent_id, author_id, content) values ($1, $2, $3, $4) returning id", [newsId, parent, id, content])); // 댓글 작성
 const agePast = () => db.exec("update public.news_comments set created_at = now() - interval '40 seconds' where created_at > now() - interval '35 seconds'"); // 방금 쓴 댓글을 40초 전으로 옮김
@@ -122,7 +123,7 @@ test("댓글은 본인 이름으로만 쓰고 데이터베이스가 작성 제�
 
 test("임시 상품은 공개 목록에 나오지 않고 관리자 화면에만 남는다", async () => // 임시 상품 숨김 검사
 { // 테스트 시작
-    assert.equal(SUPABASE_MIGRATIONS.at(-1), "202610040004_hide_demo_products.sql"); // 임시 상품 숨김이 마지막 순서
+    assert.ok(SUPABASE_MIGRATIONS.indexOf("202610040004_hide_demo_products.sql") > SUPABASE_MIGRATIONS.indexOf("202609110001_admin_products.sql")); // 임시 상품 숨김은 상품 표를 만든 뒤 순서
     assert.equal((await asAnon(() => db.query("select id from public.products"))).rows.length, 0); // 방문자에게 임시 상품이 안 보임
     const hidden = (await asAdmin(() => db.query("select publication_status, price, badge from public.products"))).rows; // 관리자가 보는 상품
     assert.equal(hidden.length, 8); // 임시 상품 여덟 개는 지우지 않고 보관
@@ -188,6 +189,28 @@ test("회원 탈퇴는 본인 계정만 지우고 연결된 기록도 함께 지
     assert.equal(Number((await db.query("select count(*) as members from auth.users")).rows[0].members), 2); // 다른 계정은 그대로
 }); // 테스트 끝
 
+test("서비스 연결 기록은 등록된 서비스의 로그인으로만 쓰고 본인만 읽으며 탈퇴는 홈페이지 로그인으로만 한다", async () => // 통합 계정 권한 검사
+{ // 테스트 시작
+    await db.query("update public.account_services set oauth_client_id = 'client-mate' where id = 'mate-verse'"); // OAuth 클라이언트 등록(SQL Editor에서 하는 일)
+    await blocked(() => asMember(MEMBER, () => db.query("select public.record_service_use('{}'::jsonb)")), /UNKNOWN_SERVICE/); // 홈페이지 로그인으로는 기록 불가
+    await blocked(() => asClient(MEMBER, "client-other", () => db.query("select public.record_service_use('{}'::jsonb)")), /UNKNOWN_SERVICE/); // 등록하지 않은 앱 거부
+    await blocked(() => asAnon(() => db.query("select public.record_service_use('{}'::jsonb)")), /permission denied/); // 비로그인 실행 차단
+    await asClient(MEMBER, "client-mate", () => db.query("select public.record_service_use($1::jsonb)", [JSON.stringify({ nickname: "모과" })])); // 첫 이용 기록
+    await asClient(MEMBER, "client-mate", () => db.query("select public.record_service_use($1::jsonb)", [JSON.stringify({ nickname: "모과2" })])); // 다시 이용
+    const own = await asMember(MEMBER, () => db.query("select service_id, summary ->> 'nickname' as nickname, last_used_at >= first_used_at as ordered from public.member_service_links")); // 본인 기록 조회
+    assert.deepEqual(own.rows, [{ service_id: "mate-verse", nickname: "모과2", ordered: true }]); // 한 줄로 갱신 확인
+    assert.equal((await asClient(MEMBER, "client-mate", () => db.query("select 1 from public.member_service_links"))).rows.length, 1); // 서비스 로그인은 자기 서비스 기록 조회
+    assert.equal((await asClient(MEMBER, "client-other", () => db.query("select 1 from public.member_service_links"))).rows.length, 0); // 다른 앱은 기록 조회 불가
+    assert.equal((await asAdmin(() => db.query("select 1 from public.member_service_links"))).rows.length, 0); // 다른 계정은 조회 불가
+    await blocked(() => asMember(MEMBER, () => db.query("insert into public.member_service_links (member_id, service_id) values ($1, 'atelier-verse')", [MEMBER])), /permission denied/); // 직접 쓰기 차단
+    await blocked(() => asClient(MEMBER, "client-mate", () => db.query("select public.record_service_use($1::jsonb)", [JSON.stringify({ note: "가".repeat(3000) })])), /check constraint/); // 너무 큰 요약 거부
+    await blocked(() => asClient(MEMBER, "client-mate", () => db.query("select public.delete_own_account()")), /HOMEPAGE_ONLY/); // 서비스 로그인으로는 탈퇴 불가
+    assert.equal((await asClient(MEMBER, "client-mate", () => db.query("delete from public.member_service_links returning service_id"))).rows.length, 0); // 서비스 로그인은 기록 삭제 불가
+    assert.deepEqual((await asMember(MEMBER, () => db.query("select id from public.account_services order by id"))).rows.map((row) => row.id), ["atelier-verse", "mate-verse"]); // 서비스 목록 조회
+    await blocked(() => asMember(MEMBER, () => db.query("update public.account_services set oauth_client_id = 'x' where id = 'mate-verse'")), /permission denied/); // 회원은 등록 변경 불가
+    assert.equal((await asMember(MEMBER, () => db.query("delete from public.member_service_links returning service_id"))).rows.length, 1); // 홈페이지 로그인으로 기록 삭제
+}); // 테스트 끝
+
 test("한 번에 붙여 넣는 설정 파일은 모든 마이그레이션을 순서대로 담고 오류가 나면 아무것도 적용하지 않는다", async () => // 묶음 파일 검사
 { // 테스트 시작
     const sql = buildSupabaseSetupSql(); // 묶은 설정 SQL
@@ -204,7 +227,7 @@ test("한 번에 붙여 넣는 설정 파일은 모든 마이그레이션을 순
     { // 시도 시작
         await fresh.exec(SUPABASE_STUB); // Supabase 기본 구조 준비
         await fresh.exec(sql); // 묶음 파일 한 번 실행
-        assert.equal(Number((await fresh.query(tables)).rows[0].tables), 10); // 표 열 개 생성 확인
+        assert.equal(Number((await fresh.query(tables)).rows[0].tables), 12); // 표 열두 개 생성 확인
     } // 시도 끝
     finally // 정리
     { // 정리 시작

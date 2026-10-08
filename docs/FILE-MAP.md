@@ -128,6 +128,9 @@ css-styling/
 | `app/auth/confirm/route.ts` | 이메일 인증·비밀번호 재설정 메일 링크 확인 |
 | `app/account/page.tsx` | 내 정보 페이지(검색 제외) |
 | `app/account/account-panel.tsx` | 닉네임 변경, 내 댓글 확인·삭제, 회원 탈퇴(시연·Supabase 모드) |
+| `app/account/account-connections.tsx` | 계정 기본 정보, 로그인 연동(간편 로그인 연결·해제), 연결된 서비스와 연결 해제 |
+| `app/oauth/consent/page.tsx` | 다른 서비스 로그인 허용 페이지(검색 제외) |
+| `app/oauth/consent/consent-panel.tsx` | 로그인·가입 마무리 확인, 서비스 이름과 받는 정보 표시, 허용·거부 |
 | `app/account/account.module.css` | 내 정보 전용 스타일 |
 
 ---
@@ -187,6 +190,9 @@ css-styling/
 | `lib/member/auth-providers.ts` | 간편 로그인 지원 목록(카카오·Google·Apple·Discord·X·Facebook)과 Supabase 인증 설정 조회 |
 | `lib/member/signup.ts` | 이메일·비밀번호·필수 동의 검증과 인증 오류 안내 문구 |
 | `lib/member/account.ts` | 내 댓글 조회·삭제, 댓글 이미지 정리와 회원 탈퇴 요청 |
+| `lib/member/connections.ts` | 계정 기본 정보 읽기, 연결된 로그인 방법 목록, 간편 로그인 연결·해제와 오류 안내 |
+| `lib/member/services.ts` | 통합 계정의 서비스 목록 구성(로그인 허용 기록·이용 기록 합치기), 서비스 요약 읽기, 연결 해제 |
+| `lib/member/oauth-consent.ts` | 로그인 허용 요청 번호 확인, 요청 정보 설명, 허용·거부 전달과 오류 안내 |
 | `lib/site-url.ts` | 공개 사이트 주소(`SITE_URL`·Vercel 주소)와 검색 노출·제외 경로 |
 | `lib/comments/domain.ts` | 댓글, 이미지, 반응과 신고 규칙 |
 | `lib/comments/service.ts` | 댓글 저장소 공통 계약과 오류 형식 |
@@ -355,6 +361,7 @@ css-styling/
 | `202610040002_comment_limits.sql` | 댓글 작성 제한 트리거, 관리자 전용 금칙어 표, 회원별 최근 댓글 색인 |
 | `202610040003_release_notifications.sql` | 출시 알림 신청 표(관리자만 조회), 신청·수신 거부·게임별 집계 함수 |
 | `202610040004_hide_demo_products.sql` | 두 번째 파일이 넣은 임시 상품을 숨김 상태로 변경(공개 화면에 임의 가격·할인·배지가 나오지 않게 함) |
+| `202610080001_account_services.sql` | 통합 계정의 서비스 목록과 서비스 연결 기록(본인만 조회, 쓰기는 등록된 서비스의 로그인으로 함수 호출), 다른 서비스 로그인의 회원 탈퇴 차단 |
 
 파일명 앞 숫자는 적용 순서입니다. 운영에 적용한 SQL 파일을 고치는 대신 새로운 번호의 마이그레이션을 추가합니다.
 
@@ -428,6 +435,7 @@ css-styling/
 - `member-auth-pages.test.mjs`: 가입·간편 로그인·비밀번호 재설정·댓글 관리 화면 연결
 - `member-signup-moderation-migration.test.mjs`: 동의 기록과 관리자 전용 처리 SQL
 - `account.test.mjs`: 내 댓글·탈퇴 처리, 탈퇴 SQL, 검색엔진 파일과 오류 화면
+- `member-connections.test.mjs`: 계정 기본 정보, 로그인 연동·해제 규칙, 연결된 서비스 상태, 로그인 허용 처리와 화면 연결
 - `contact.test.mjs`: 문의 검증, 화면·서버 문구 일치, 접수 순서, 문의함 처리와 문의 테이블 권한
 - `demo-content.test.mjs`: 시연 굿즈·시연 뉴스에 임의 가격, 가짜 할인, 판매 유도 배지, 지어낸 수치가 없는지와 시연 표시
 - `release-notify.test.mjs`: 출시 알림 대상 판정, 화면·서버 문구 일치, 접수 순서, 저장 함수와 집계, 표 권한, 35개 페이지 적용
@@ -509,6 +517,7 @@ css-styling/
 | `docs/DEVELOPMENT-NOTES.md` | 로컬·외부 API·유료 작업 분류와 우선순위 |
 | `docs/ROADMAP.md` | 단계별 개발 방향과 현재 진행 단계 |
 | `docs/EXTERNAL-SERVICES.md` | 외부 계정·유료 서비스의 비용과 제약 |
+| `docs/UNIFIED-ACCOUNT.md` | 통합 계정의 구조, Supabase 설정 순서, 서비스가 지킬 약속 |
 | `docs/SUPABASE-GUIDE.md` | Supabase 사용 범위, 키·비밀번호 구분, 표별 권한, 실제 프로젝트 점검 결과, 보안 위험과 대비책, 사고 대응, 남은 약점 |
 | `docs/FILE-MAP.md` | 현재 파일과 폴더의 역할 지도 |
 | `docs/superpowers/specs/` | 승인된 기능 설계와 동작 기준 |

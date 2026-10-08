@@ -29,6 +29,7 @@ pnpm check
 - [`docs/ROADMAP.md`](docs/ROADMAP.md): 단계별 개발 방향과 현재 진행 단계
 - [`docs/FILE-MAP.md`](docs/FILE-MAP.md): 폴더와 주요 파일의 역할
 - [`docs/EXTERNAL-SERVICES.md`](docs/EXTERNAL-SERVICES.md): 외부 계정·유료 서비스의 비용과 제약(2026년 10월 1일 조사)
+- [`docs/UNIFIED-ACCOUNT.md`](docs/UNIFIED-ACCOUNT.md): 홈페이지 계정 하나로 다른 서비스에 로그인하는 통합 계정의 구조, 설정 순서와 서비스가 지킬 약속
 - [`docs/SUPABASE-GUIDE.md`](docs/SUPABASE-GUIDE.md): Supabase가 하는 일, 키와 비밀번호 구분, 저장하는 정보와 권한, 해킹·유출·스팸·데이터 손실 대비책과 사고 대응
 - [`CLAUDE-HANDOFF.md`](CLAUDE-HANDOFF.md): 다른 컴퓨터에서 Claude로 이어서 작업할 때 전달할 시작 문구와 확인 기준
 - [`TRANSFER-GUIDE.md`](TRANSFER-GUIDE.md): 기존 인수인계 정보
@@ -178,16 +179,17 @@ pnpm services:check
 9. `supabase/migrations/202610040002_comment_limits.sql` 전체 실행(댓글 작성 제한과 금칙어 표)
 10. `supabase/migrations/202610040003_release_notifications.sql` 전체 실행(출시 알림 신청과 수신 거부)
 11. `supabase/migrations/202610040004_hide_demo_products.sql` 전체 실행(두 번째 파일이 넣은 임시 상품을 공개 목록에서 숨김)
-12. **Authentication → Users**에서 관리자 계정 생성
+12. `supabase/migrations/202610080001_account_services.sql` 전체 실행(통합 계정의 서비스 목록과 서비스 연결 기록, 다른 서비스 로그인의 회원 탈퇴 차단)
+13. **Authentication → Users**에서 관리자 계정 생성
 
-새 프로젝트라면 아홉 파일을 하나로 묶은 파일을 만들어 한 번에 실행할 수 있습니다. 아래 명령이 `supabase/.temp/setup-all.sql`(저장소에 올라가지 않음)을 만들며, SQL Editor에 전체를 붙여 넣고 한 번 실행하면 됩니다. 중간에 오류가 나면 아무것도 적용되지 않습니다. 이미 일부를 적용한 프로젝트에는 쓰지 않습니다.
+새 프로젝트라면 열 파일을 하나로 묶은 파일을 만들어 한 번에 실행할 수 있습니다. 아래 명령이 `supabase/.temp/setup-all.sql`(저장소에 올라가지 않음)을 만들며, SQL Editor에 전체를 붙여 넣고 한 번 실행하면 됩니다. 중간에 오류가 나면 아무것도 적용되지 않습니다. 이미 일부를 적용한 프로젝트에는 쓰지 않습니다.
 
 ```powershell
 # 한 번에 붙여 넣을 데이터베이스 설정 파일 만들기
 pnpm supabase:sql
 ```
 
-아홉 파일은 반드시 위 순서대로 실행합니다. 뒤 파일이 앞 파일의 뉴스·댓글 테이블과 관리자 판정 함수를 사용합니다.
+열 파일은 반드시 위 순서대로 실행합니다. 뒤 파일이 앞 파일의 뉴스·댓글 테이블과 관리자 판정 함수를 사용합니다.
 
 관리자 이메일과 비밀번호는 저장소 파일에 기록하지 않습니다.
 
@@ -260,6 +262,18 @@ Supabase의 **Authentication → URL Configuration**에서 개발 단계 주소�
 - 카카오는 이메일 동의 항목 설정이 필요할 수 있으므로 Supabase 카카오 안내를 함께 확인합니다.
 - 공개 전 각 서비스의 로그인 버튼 디자인 지침(색·문구·로고)을 확인합니다. 현재 버튼은 서비스 색과 글자만 사용합니다.
 - 간편 로그인으로 처음 들어온 회원은 닉네임과 필수 동의(만 14세 이상·이용약관·개인정보)를 받은 뒤 댓글을 쓸 수 있습니다. 서비스가 넘겨준 실명은 자동으로 공개하지 않습니다.
+
+### 통합 계정 켜기(다른 서비스에서 이 계정으로 로그인)
+
+홈페이지 계정 하나로 Mate | Verse 같은 다른 서비스에 로그인하게 하는 기능입니다. 서비스마다 Supabase 프로젝트는 따로 두고 로그인만 홈페이지 계정으로 합니다. 코드와 데이터베이스 정의는 준비되어 있고, 아래 설정을 하기 전에는 내 정보의 "연결된 서비스"가 "준비 중"으로만 표시됩니다.
+
+1. 위 12번 파일(`202610080001_account_services.sql`)을 실행합니다.
+2. **Authentication → Sign In / Providers**에서 "Allow manual linking"을 켭니다(내 정보의 간편 로그인 연결용).
+3. **Project Settings → JWT Keys**에서 서명 방식을 비대칭 키로 바꿉니다.
+4. **Authentication → OAuth Server**를 켜고 Authorization Path에 `/oauth/consent`를 넣습니다.
+5. **Authentication → OAuth Apps**에서 서비스를 클라이언트로 등록하고, 받은 클라이언트 식별자를 `account_services` 표에 넣습니다.
+
+서비스 쪽 설정, SQL 예시, 확인 순서는 [`docs/UNIFIED-ACCOUNT.md`](docs/UNIFIED-ACCOUNT.md)에 있습니다. 직접 만든 서비스만 클라이언트로 등록합니다. 실제 프로젝트에서의 동작은 아직 확인하지 않았습니다.
 
 ### 이메일 인증·비밀번호 재설정 메일(권장)
 
@@ -349,7 +363,7 @@ Production, Preview, Development 환경 가운데 실제로 사용할 환경을 
 3. 공개 뉴스 상세 화면에서 댓글·답글·이미지 첨부·반응·신고 확인
 4. 공개 페이지 상단 회원 버튼에 닉네임이 표시되는지 확인
 5. `/login/forgot`에서 비밀번호 재설정 메일을 받고 링크로 들어온 `/login/reset`에서 새 비밀번호 저장
-6. `/account`(로그인 화면의 "내 정보 관리")에서 닉네임 변경, 내 댓글 확인·삭제, 회원 탈퇴 확인. 탈퇴는 확인 칸에 `탈퇴` 또는 `DELETE`를 입력해야 실행되며 프로필·댓글·반응·신고 기록과 첨부 이미지를 바로 지웁니다. 관리자 계정은 이 화면에서 탈퇴할 수 없습니다.
+6. `/account`(로그인 화면의 "내 정보 관리")에서 닉네임 변경, 계정 기본 정보·로그인 연동·연결된 서비스 확인, 내 댓글 확인·삭제, 회원 탈퇴 확인. 탈퇴는 확인 칸에 `탈퇴` 또는 `DELETE`를 입력해야 실행되며 프로필·댓글·반응·신고 기록과 첨부 이미지를 바로 지웁니다. 관리자 계정은 이 화면에서 탈퇴할 수 없습니다.
 
 이메일 가입 회원은 가입 때 입력한 닉네임과 동의 시각으로 첫 로그인 때 프로필이 자동으로 만들어집니다. 동의 시각은 공개 프로필 조회에서 보이지 않습니다. 댓글 이미지는 회원별 폴더(`comment-images/회원-ID/`)에 저장되며 JPG·PNG·WebP·GIF 5MB 이하만 허용됩니다. 같은 회원은 같은 댓글을 한 번만 신고할 수 있습니다. 시연 뉴스(`/news/demo-…`)는 연결 후에도 시연 댓글을 사용합니다.
 
