@@ -340,7 +340,7 @@ css-styling/
 
 | 위치 | 내용 | 관리 규칙 |
 | --- | --- | --- |
-| `public/images/games/` | 프로젝트 대표 이미지와 이미지 프롬프트 JSON | 프로젝트 식별자와 경로 일치 확인 |
+| `public/images/games/` | 프로젝트 대표 이미지(1280×720 WebP)와 성인 제한 안전 이미지 | 원본 PNG는 `internal/game-image-originals/`에 두고 `pnpm images:games`로 다시 만들기 |
 | `public/images/goods/` | 개발용 상품 WebP 목업 | 판매 전 실제 사진으로 교체 |
 | `public/images/states/` | 로딩·시연·빈 결과·오류 상태 SVG | 스크립트와 외부 자원 없는 저장소 내부 벡터 유지 |
 | `public/project_*/` | 35개 공개 프로젝트 페이지와 전용 자산 | 공통 생성 페이지와 특화 페이지 구분 |
@@ -378,6 +378,7 @@ css-styling/
 | `scripts/verse-services.mjs` | 다른 도구가 불러 씀 | Verse 계열 서비스(Mate | Verse, Atelier | Verse) 이름·주소·문구 목록과 캐러셀 홍보 화면 마크업 |
 | `scripts/archive-project-pages.mjs` | `node scripts/archive-project-pages.mjs` | 변경 전 프로젝트 HTML을 내부 보관소로 복사 |
 | `scripts/optimize_goods_images.py` | Python 환경에서 직접 실행 | 상품 원본 이미지 최적화 |
+| `scripts/optimize-game-images.mjs` | `pnpm images:games` | `internal/game-image-originals/`의 게임 원본 PNG를 화면용 WebP(1280×720, 한 장 300KB 이하)로 변환 |
 | `scripts/check-supabase-env.mjs` | `pnpm supabase:check` | `.env.local`의 Supabase 주소·공개 키·관리자 이메일 형식과 비밀 키 노출 점검 |
 | `scripts/check-services.mjs` | `pnpm services:check` | Supabase·메일·YouTube·GA4의 연결 상태, 형식 오류, 서버 전용 키 노출과 다음에 할 일 안내 |
 | `scripts/build-supabase-setup.mjs` | `pnpm supabase:sql` | 마이그레이션을 적용 순서대로 묶어 새 프로젝트에 한 번에 붙여 넣을 `supabase/.temp/setup-all.sql` 생성(전부 성공할 때만 적용) |
@@ -388,7 +389,7 @@ css-styling/
 ---
 ## 8. `internal/` 비배포 자료
 
-`internal/project-archives/`에는 35개 프로젝트의 변경 전 원본 HTML이 보관됩니다. Next.js의 `public/` 폴더가 아니므로 웹 경로로 직접 서비스되지 않습니다.
+`internal/project-archives/`에는 35개 프로젝트의 변경 전 원본 HTML이 보관됩니다. `internal/game-image-originals/`에는 게임 대표 이미지의 원본 PNG 35장(1672×941, 합계 약 83MB)과 이미지 프롬프트 JSON 두 개가 있습니다. Next.js의 `public/` 폴더가 아니므로 웹 경로로 직접 서비스되지 않습니다.
 
 다만 저장소가 공개 상태라면 Git 웹 화면에서 내용을 볼 수 있습니다. 비밀 기획, 개인 정보, 라이선스 제한 자료는 `internal/`에도 넣지 않고 별도 비공개 저장소를 사용합니다.
 
@@ -494,6 +495,7 @@ css-styling/
 ### 상품, 뉴스와 커뮤니티
 
 - `goods-assets.test.mjs`: 상품 이미지 자산
+- `game-images.test.mjs`: 게임 대표 이미지의 형식·용량, 원본 보관 위치, 성인 게임 이미지 보호 경로
 - `goods-page.test.mjs`: 공개 상품 화면
 - `product-status.test.mjs`: 판매·재고 상태 계산
 - `products-api.test.mjs`: 상품 공개 API
@@ -547,7 +549,7 @@ Mate | Verse 본체(ChatBot 저장소)는 별도 저장소를 유지하고, Atel
 | --- | --- | --- |
 | 메인 슬라이드 | `public/hero-carousel.mjs` | `public/main.html`, `public/site-experience.css`, `public/playful-lab-theme.css` |
 | Mate | Verse·Atelier | Verse 링크 | `scripts/verse-services.mjs` | `pnpm pages:apply`, `public/main.html`, `tests/verse-services.test.mjs` |
-| 게임 추가 | `public/game-projects.mjs` | `public/images/games/`, 생성 스크립트 |
+| 게임 추가 | `public/game-projects.mjs` | `internal/game-image-originals/`(원본), `pnpm images:games`, `public/images/games/`, 생성 스크립트 |
 | 관심·최근 목록 | `public/site-experience.mjs` | `public/site-experience.css` |
 | 공통 색상·외곽선 | `public/playful-lab-theme.css` | 각 페이지 전용 CSS |
 | 모바일 메뉴 | `public/responsive-nav.mjs` | `public/responsive-shell.css` |

@@ -11,8 +11,8 @@ test("성인 게임과 보호 경로를 정확히 판정한다", () => // 보호
     assert.equal(isAdultGameId("project-a"), false); // 일반 프로젝트 확인
     assert.equal(isProtectedAdultPath("/project_h/ProjectH_Main.html"), true); // H 상세 경로 확인
     assert.equal(isProtectedAdultPath("/project_u/assets/cover.png"), true); // U 내부 자료 확인
-    assert.equal(isProtectedAdultPath("/images/games/project-v.png"), true); // V 대표 이미지 확인
-    assert.equal(isProtectedAdultPath("/images/games/project-a.png"), false); // 일반 대표 이미지 확인
+    assert.equal(isProtectedAdultPath("/images/games/project-v.webp"), true); // V 대표 이미지 확인
+    assert.equal(isProtectedAdultPath("/images/games/project-a.webp"), false); // 일반 대표 이미지 확인
     assert.equal(isProtectedAdultPath("/project_hacker/index.html"), false); // 비슷한 경로 오탐 방지
 }); // 테스트 끝
 

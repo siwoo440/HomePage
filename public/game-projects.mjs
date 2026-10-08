@@ -21,7 +21,7 @@ function createProject(record) // 프로젝트 공개 정보 생성
         publicationStatus: record.publicationStatus ?? "planning", // 공개 상태
         summary: record.summary ?? record.tagline, // 공개 요약
         features: Object.freeze([...(record.features ?? [])]), // 핵심 특징
-        heroImage: `/images/games/project-${record.slug}.png`, // 대표 이미지
+        heroImage: `/images/games/project-${record.slug}.webp`, // 대표 이미지
         detailPath: `/project_${record.slug}/Project${stem}_Main.html`, // 상세 주소
         adultOnly: record.adultOnly ?? false, // 성인 여부
         layout: record.layout ?? "common", // 페이지 레이아웃
@@ -187,7 +187,7 @@ export function validateGameProjects(projects) // 프로젝트 공개 정보 검
         { // 조건 시작
             errors.push(`${label}: 상세 주소 오류`); // 상세 주소 오류 추가
         } // 조건 끝
-        if (typeof project?.heroImage !== "string" || !project.heroImage.startsWith("/images/games/") || !project.heroImage.endsWith(".png")) // 이미지 주소 확인
+        if (typeof project?.heroImage !== "string" || !project.heroImage.startsWith("/images/games/") || !project.heroImage.endsWith(".webp")) // 이미지 주소 확인
         { // 조건 시작
             errors.push(`${label}: 대표 이미지 주소 오류`); // 이미지 오류 추가
         } // 조건 끝

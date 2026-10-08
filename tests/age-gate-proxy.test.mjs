@@ -12,7 +12,7 @@ test("일반 경로는 성인 인증 검사 대상이 아니다", async () => //
 test("인증되지 않은 직접 성인 경로는 차단한다", async () => // 직접 접근 차단 검증
 { // 테스트 시작
     assert.equal(await getAdultAccessDecision("/project_h/ProjectH_Main.html", undefined, 1001, "test-secret"), "denied"); // 상세 페이지 차단
-    assert.equal(await getAdultAccessDecision("/images/games/project-u.png", undefined, 1001, "test-secret"), "denied"); // 대표 이미지 차단
+    assert.equal(await getAdultAccessDecision("/images/games/project-u.webp", undefined, 1001, "test-secret"), "denied"); // 대표 이미지 차단
     assert.equal(await getAdultAccessDecision("/project_v/assets/scene.jpg", undefined, 1001, null), "denied"); // 설정 누락 차단
 }); // 테스트 끝
 

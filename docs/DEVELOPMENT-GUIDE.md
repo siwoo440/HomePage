@@ -566,7 +566,7 @@ ESLint와 `eslint-config-next` 버전은 `package.json`에 고정되어 있으�
 ### 게임 정보 수정
 
 1. `public/game-projects.mjs`의 프로젝트 데이터 수정
-2. 대표 이미지와 상세 페이지 경로 확인
+2. 대표 이미지와 상세 페이지 경로 확인(이미지를 바꾸면 원본 PNG를 `internal/game-image-originals/`에 넣고 `pnpm images:games` 실행)
 3. 공통 페이지라면 `node scripts/generate-project-pages.mjs` 실행
 4. 게임·프로젝트 관련 테스트 실행
 5. 전체 테스트와 빌드 실행

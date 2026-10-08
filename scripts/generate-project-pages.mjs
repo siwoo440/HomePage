@@ -74,7 +74,7 @@ ${siteHeader}
         <main> <!-- 주요 내용 시작 -->
             <section class="project-hero"> <!-- 대표 소개 영역 -->
                 <div class="project-hero-media"> <!-- 대표 이미지 영역 -->
-                    <img src="${escapeHtml(project.heroImage)}" alt="${escapeHtml(project.title)} 대표 콘셉트 이미지" data-project-hero-image> <!-- 대표 이미지 -->
+                    <img src="${escapeHtml(project.heroImage)}" alt="${escapeHtml(project.title)} 대표 콘셉트 이미지" width="1280" height="720" decoding="async" data-project-hero-image> <!-- 대표 이미지 -->
                     <div class="project-image-fallback" data-project-image-fallback hidden aria-label="${escapeHtml(project.title)} 이미지 준비 중"><strong>${escapeHtml(project.symbol)}</strong><span>IMAGE COMING SOON</span></div> <!-- 이미지 대체 영역 -->
                 </div> <!-- 대표 이미지 영역 끝 -->
                 <div class="project-hero-copy"> <!-- 대표 문구 영역 -->

@@ -12,8 +12,8 @@ test("메인 성인 카드의 초기 이미지 요청은 안전한 모자이크�
     for (const card of adultCards) // 성인 카드 순회
     { // 반복 시작
         assert.match(card, /src="images\/games\/age-restricted\.svg"/); // 모자이크 요청 확인
-        assert.doesNotMatch(card, /src="images\/games\/project-(h|u|v)\.png/); // 원본 요청 차단 확인
-        assert.match(card, /data-adult-image="images\/games\/project-(h|u|v)\.png\?v=20260909-2"/); // 확인 뒤 주소 보관
+        assert.doesNotMatch(card, /src="images\/games\/project-(h|u|v)\.webp/); // 원본 요청 차단 확인
+        assert.match(card, /data-adult-image="images\/games\/project-(h|u|v)\.webp\?v=20261008-1"/); // 확인 뒤 주소 보관
     } // 반복 끝
 }); // 테스트 끝
 
@@ -40,7 +40,7 @@ test("인증된 경우에만 성인 카드 원본 이미지를 적용한다", ()
     const classes = new Set(["is-age-locked"]); // 카드 클래스 저장소
     const image = // 이미지 모형 시작
     { // 이미지 모형 객체
-        values: { src: "images/games/age-restricted.svg", "data-adult-image": "images/games/project-h.png?v=20260909-2", "data-adult-alt": "프로젝트 H 게임 콘셉트 이미지" }, // 이미지 속성 저장소
+        values: { src: "images/games/age-restricted.svg", "data-adult-image": "images/games/project-h.webp?v=20261008-1", "data-adult-alt": "프로젝트 H 게임 콘셉트 이미지" }, // 이미지 속성 저장소
         getAttribute(name) { return this.values[name] ?? null; }, // 속성 읽기
         setAttribute(name, value) { this.values[name] = value; }, // 속성 쓰기
     }; // 이미지 모형 끝
@@ -54,7 +54,7 @@ test("인증된 경우에만 성인 카드 원본 이미지를 적용한다", ()
     assert.equal(image.values.src, "images/games/age-restricted.svg"); // 모자이크 유지 확인
     assert.equal(classes.has("is-age-locked"), true); // 잠금 표시 확인
     applyAdultVisibility(true, root); // 인증 상태 적용
-    assert.equal(image.values.src, "images/games/project-h.png?v=20260909-2"); // 원본 적용 확인
+    assert.equal(image.values.src, "images/games/project-h.webp?v=20261008-1"); // 원본 적용 확인
     assert.equal(image.values.alt, "프로젝트 H 게임 콘셉트 이미지"); // 원본 설명 적용 확인
     assert.equal(classes.has("is-age-locked"), false); // 잠금 해제 확인
 }); // 테스트 끝
@@ -64,6 +64,6 @@ test("커뮤니티 성인 게임은 인증 전 모든 시연 이미지를 모자
     assert.equal(isAdultCommunityGame("project-h"), true); // 프로젝트 H 성인 판정
     assert.equal(isAdultCommunityGame("project-a"), false); // 프로젝트 A 일반 판정
     assert.ok(createDemoItems("project-h", false).every((item) => item.thumbnailUrl === "images/games/age-restricted.svg")); // 미인증 모자이크 확인
-    assert.ok(createDemoItems("project-h", true).every((item) => item.thumbnailUrl === "images/games/project-h.png")); // 인증 원본 확인
-    assert.ok(createDemoItems("project-a", false).every((item) => item.thumbnailUrl === "images/games/project-a.png")); // 일반 이미지 유지 확인
+    assert.ok(createDemoItems("project-h", true).every((item) => item.thumbnailUrl === "images/games/project-h.webp")); // 인증 원본 확인
+    assert.ok(createDemoItems("project-a", false).every((item) => item.thumbnailUrl === "images/games/project-a.webp")); // 일반 이미지 유지 확인
 }); // 테스트 끝

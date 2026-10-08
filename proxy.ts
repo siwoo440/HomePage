@@ -32,8 +32,8 @@ export const config = // 프록시 설정 시작
         "/project_h/:path*", // 프로젝트 H 보호
         "/project_u/:path*", // 프로젝트 U 보호
         "/project_v/:path*", // 프로젝트 V 보호
-        "/images/games/project-h.png", // 프로젝트 H 대표 이미지 보호
-        "/images/games/project-u.png", // 프로젝트 U 대표 이미지 보호
-        "/images/games/project-v.png", // 프로젝트 V 대표 이미지 보호
+        "/images/games/project-h.webp", // 프로젝트 H 대표 이미지 보호
+        "/images/games/project-u.webp", // 프로젝트 U 대표 이미지 보호
+        "/images/games/project-v.webp", // 프로젝트 V 대표 이미지 보호
     ], // 경로 배열 끝
 }; // 프록시 설정 끝

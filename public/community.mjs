@@ -160,7 +160,7 @@ function renderFeatured(item) // 대표 콘텐츠 렌더링
         return; // 안전한 렌더링 중단
     } // 조건 끝
 
-    image.src = item.thumbnailUrl ?? "images/games/project-a.png"; // 대표 이미지 연결
+    image.src = item.thumbnailUrl ?? "images/games/project-a.webp"; // 대표 이미지 연결
     image.alt = `${item.title} 썸네일`; // 대표 이미지 설명
     badge.textContent = item.isDemo ? "시연 화면" : item.contentType === "live" ? "LIVE" : item.contentType === "short_candidate" ? "쇼츠 후보" : "최신 영상"; // 대표 상태 표시
     title.textContent = item.title; // 안전한 대표 제목 삽입

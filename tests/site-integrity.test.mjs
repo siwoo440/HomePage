@@ -43,7 +43,7 @@ test("공통 공개 상세 페이지가 소개 정보와 복귀 링크를 제공
         const detailHtml = await readFile(detailPath, "utf8"); // 상세 문서 읽기
         assert.match(detailHtml, /href="\/main\.html#games"/, `프로젝트 ${project.symbol} 복귀 링크 누락`); // 메인 복귀 링크 검증
         assert.match(detailHtml, /href="\/project-page\.css"/, `프로젝트 ${project.symbol} 공개 스타일 누락`); // 공개 스타일 연결 검증
-        assert.match(detailHtml, new RegExp(`images/games/project-${project.slug}\\.png`), `프로젝트 ${project.symbol} 대표 이미지 누락`); // 대표 이미지 검증
+        assert.match(detailHtml, new RegExp(`images/games/project-${project.slug}\\.webp`), `프로젝트 ${project.symbol} 대표 이미지 누락`); // 대표 이미지 검증
         assert.match(detailHtml, new RegExp(project.status), `프로젝트 ${project.symbol} 상태 누락`); // 상태 정보 검증
         assert.match(detailHtml, /data-public-project-page/, `프로젝트 ${project.symbol} 공개 루트 누락`); // 공개 루트 검증
         assert.doesNotMatch(detailHtml, /기획서|기획 초안|메인 아카이브|기획 준비 중/, `프로젝트 ${project.symbol} 내부 문구 노출`); // 내부 문구 제거 검증

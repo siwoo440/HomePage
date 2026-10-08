@@ -20,7 +20,8 @@
     "supabase:sql": "node scripts/build-supabase-setup.mjs",
     "i18n:check": "node scripts/i18n-extract.mjs --strict",
     "pages:apply": "node scripts/apply-static-pages.mjs",
-    "pages:check": "node scripts/apply-static-pages.mjs --check"
+    "pages:check": "node scripts/apply-static-pages.mjs --check",
+    "images:games": "node scripts/optimize-game-images.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
@@ -41,6 +42,7 @@
     "eslint": "9.39.5",
     "eslint-config-next": "16.2.6",
     "postcss": "^8.5",
+    "sharp": "0.34.5",
     "tailwindcss": "^4.2.0",
     "typescript": "5.7.3"
   }

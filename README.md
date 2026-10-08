@@ -467,6 +467,8 @@ node --test tests/local-site-experience.test.mjs tests/responsive-integration.te
 
 `public` 폴더의 프로젝트 페이지는 방문자에게 공개할 게임 소개 정보만 제공합니다. 29개 공통 소개 페이지와 전용 디자인을 유지하는 6개 특화 페이지를 합쳐 총 35개 프로젝트 페이지를 운영합니다.
 
+게임 대표 이미지는 `public/images/games`의 1280×720 WebP(한 장 300KB 이하)를 씁니다. 원본 PNG는 `internal/game-image-originals`에 두며, 원본을 바꾼 뒤 `pnpm images:games`를 실행하면 화면용 이미지를 다시 만듭니다.
+
 변경 전 기획 HTML은 `internal/project-archives`에 원본 형태로 보존합니다. `internal` 폴더는 웹 배포 대상이 아니지만, 공개 GitHub 저장소에서는 파일을 직접 열람할 수 있습니다. 실제 기밀 자료와 외부 공개가 금지된 문서는 비공개 저장소로 옮겨야 합니다.
 
 공통 소개 페이지를 공개 데이터에서 다시 생성하는 명령은 다음과 같습니다.
