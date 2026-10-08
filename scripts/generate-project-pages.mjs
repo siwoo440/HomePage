@@ -59,6 +59,8 @@ export function renderProjectHtml(project) // 프로젝트 공개 HTML 생성
 <head> <!-- 문서 정보 시작 -->
     <meta charset="UTF-8"> <!-- 한글 인코딩 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 반응형 화면 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- 글꼴 목록 서버 미리 연결 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- 글꼴 파일 서버 미리 연결 -->
     <meta name="description" content="${escapeHtml(project.tagline)}"> <!-- 검색 설명 -->
     <title>${escapeHtml(project.title)} · Palettra Games</title> <!-- 브라우저 제목 -->
 ${renderMetaTags({ title: `${project.title} · Palettra Games`, description: project.tagline, image: resolveShareImage(project.detailPath.slice(1)) })}
@@ -74,7 +76,7 @@ ${siteHeader}
         <main> <!-- 주요 내용 시작 -->
             <section class="project-hero"> <!-- 대표 소개 영역 -->
                 <div class="project-hero-media"> <!-- 대표 이미지 영역 -->
-                    <img src="${escapeHtml(project.heroImage)}" alt="${escapeHtml(project.title)} 대표 콘셉트 이미지" width="1280" height="720" decoding="async" data-project-hero-image> <!-- 대표 이미지 -->
+                    <img src="${escapeHtml(project.heroImage)}" alt="${escapeHtml(project.title)} 대표 콘셉트 이미지" width="1280" height="720" decoding="async" fetchpriority="high" data-project-hero-image> <!-- 대표 이미지 -->
                     <div class="project-image-fallback" data-project-image-fallback hidden aria-label="${escapeHtml(project.title)} 이미지 준비 중"><strong>${escapeHtml(project.symbol)}</strong><span>IMAGE COMING SOON</span></div> <!-- 이미지 대체 영역 -->
                 </div> <!-- 대표 이미지 영역 끝 -->
                 <div class="project-hero-copy"> <!-- 대표 문구 영역 -->

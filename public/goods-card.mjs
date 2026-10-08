@@ -94,6 +94,10 @@ export function createProductCard(product) // 공개 상품 카드 생성
     image.className = "goods-image"; // 상품 이미지 클래스
     image.src = typeof product.imageUrl === "string" && product.imageUrl ? product.imageUrl : "/placeholder.svg"; // 상품 이미지 주소
     image.alt = getProductImageAlt(product); // 등록 상품 이미지 설명
+    image.width = 960; // 화면 밀림을 줄이는 기준 너비
+    image.height = 720; // 화면 밀림을 줄이는 기준 높이
+    image.loading = "lazy"; // 화면 가까이 왔을 때 불러오기
+    image.decoding = "async"; // 그리기 지연 없이 해석
     thumb.append(image); // 이미지 추가
 
     if (product.badge && product.badge !== "none") // 상품 배지 확인

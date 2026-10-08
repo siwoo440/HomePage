@@ -33,7 +33,7 @@ css-styling/
 | --- | --- | --- |
 | `.env.example` | 필요한 환경 변수 이름 안내 | 실제 값이나 비밀 키를 넣지 않기 |
 | `.gitignore` | Git 제외 규칙 | 소스 파일이 실수로 제외되지 않는지 확인 |
-| `next.config.mjs` | Next.js 이미지와 개발 출처 설정 | 빌드와 이미지 동작 확인 |
+| `next.config.mjs` | Next.js 이미지와 개발 출처 설정, `/images` 아래 이미지의 브라우저 보관 기간(성인 게임 이미지는 보관 안 함) | 빌드와 이미지 동작 확인, 성인 게임이 바뀌면 `ADULT_IMAGE_SOURCE`도 함께 수정 |
 | `next-env.d.ts` | Next.js TypeScript 선언 | 직접 편집하지 않기 |
 | `package.json` | 스크립트와 의존성 | 잠금 파일 함께 갱신 |
 | `pnpm-lock.yaml` | 설치 버전 고정 | 수동 편집하지 않기 |
@@ -375,7 +375,7 @@ css-styling/
 | `scripts/site-header.mjs` | 다른 도구가 불러 씀 | 공통 헤더 원본(메뉴 목록과 마크업) |
 | `scripts/apply-site-header.mjs` | `node scripts/apply-site-header.mjs` | 등록된 정적 페이지에 공통 헤더 적용 |
 | `scripts/apply-page-meta.mjs` | `node scripts/apply-page-meta.mjs` | 검색 설명과 공유 미리보기 태그 적용(게임 소개에는 공유 이미지 주소 포함, 도메인이 정해지면 `SHARE_IMAGE_BASE_URL`에 넣고 다시 적용) |
-| `scripts/apply-static-pages.mjs` | `pnpm pages:apply`, `pnpm pages:check` | 공통 헤더·검색 설명·번역 준비·게임 소개의 출시 알림 스크립트·메인 캐러셀의 서비스 홍보 화면을 한 번에 적용하거나 빠진 페이지 확인 |
+| `scripts/apply-static-pages.mjs` | `pnpm pages:apply`, `pnpm pages:check` | 공통 헤더·검색 설명·글꼴 서버 미리 연결·번역 준비·게임 소개의 출시 알림 스크립트·메인 캐러셀의 서비스 홍보 화면을 한 번에 적용하거나 빠진 페이지 확인 |
 | `scripts/verse-services.mjs` | 다른 도구가 불러 씀 | Verse 계열 서비스(Mate | Verse, Atelier | Verse) 이름·주소·문구 목록과 캐러셀 홍보 화면 마크업 |
 | `scripts/archive-project-pages.mjs` | `node scripts/archive-project-pages.mjs` | 변경 전 프로젝트 HTML을 내부 보관소로 복사 |
 | `scripts/optimize-game-images.mjs` | `pnpm images:games` | `internal/game-image-originals/`의 게임 원본 PNG를 화면용 WebP(1280×720, 한 장 300KB 이하)와 공유 미리보기 JPG(1200×630, 한 장 200KB 이하)로 변환 |
@@ -496,6 +496,7 @@ css-styling/
 
 - `goods-assets.test.mjs`: 상품 이미지 자산
 - `game-images.test.mjs`: 게임 대표 이미지의 형식·용량, 원본 보관 위치, 성인 게임 이미지 보호 경로
+- `page-speed.test.mjs`: 글꼴 서버 미리 연결, 대표 이미지 우선 요청, 굿즈 이미지 크기 지정·늦게 받기, 이미지 보관 규칙
 - `goods-page.test.mjs`: 공개 상품 화면
 - `product-status.test.mjs`: 판매·재고 상태 계산
 - `products-api.test.mjs`: 상품 공개 API

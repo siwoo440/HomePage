@@ -24,7 +24,20 @@ export function applyI18nBootstrap(html) // 번역 준비 스크립트 적용
     return `${html.slice(0, lineStart)}    ${I18N_BOOTSTRAP_TAG}${eol}${html.slice(lineStart)}`; // 머리 끝 앞에 삽입
 } // 함수 끝
 
-export const RELEASE_NOTIFY_TAG = '<script type="module" src="/release-notify.mjs"></script> <!-- 출시 알림 신청 -->'; // 출시 알림 스크립트 줄
+export const FONT_PRECONNECT_TAGS = Object.freeze(['<link rel="preconnect" href="https://fonts.googleapis.com"> <!-- 글꼴 목록 서버 미리 연결 -->', '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- 글꼴 파일 서버 미리 연결 -->']); // 글꼴 서버 미리 연결 줄
+
+export function applyFontPreconnect(html) // 글꼴 서버 미리 연결 적용
+{ // 함수 시작
+    const viewport = html.match(/^([ \t]*)<meta name="viewport"[^\r\n]*/m); // 화면 크기 설정 줄
+    if (html.includes('rel="preconnect" href="https://fonts.googleapis.com"') || !viewport) // 이미 적용·기준 줄 없음 확인
+    { // 조건 시작
+        return html; // 변경 없음
+    } // 조건 끝
+    const eol = html.includes("\r\n") ? "\r\n" : "\n"; // 기존 줄바꿈 형식
+    return html.replace(viewport[0], `${viewport[0]}${eol}${FONT_PRECONNECT_TAGS.map((tag) => viewport[1] + tag).join(eol)}`); // 화면 크기 설정 뒤에 삽입
+} // 함수 끝
+
+export const RELEASE_NOTIFY_TAG ='<script type="module" src="/release-notify.mjs"></script> <!-- 출시 알림 신청 -->'; // 출시 알림 스크립트 줄
 export const RELEASE_NOTIFY_PAGES = Object.freeze(GAME_PROJECTS.map((project) => project.detailPath.slice(1))); // 게임 소개 첫 화면 목록
 
 export function applyReleaseNotify(html, file) // 게임 소개 첫 화면에 출시 알림 스크립트 적용
@@ -43,7 +56,7 @@ export function applyStaticPage(html, file) // 페이지 하나에 공통 요소
 { // 함수 시작
     const headerPage = STATIC_HEADER_PAGES.find((page) => page.file === file); // 공통 헤더 등록 정보
     const withHeader = headerPage ? applySiteHeader(html, headerPage) : html; // 공통 헤더 적용
-    return applyVerseServices(applyReleaseNotify(applyI18nBootstrap(applyPageMeta(withHeader, file)), file), file); // 검색 설명·번역 준비·출시 알림·서비스 홍보 화면 적용
+    return applyVerseServices(applyReleaseNotify(applyI18nBootstrap(applyFontPreconnect(applyPageMeta(withHeader, file))), file), file); // 검색 설명·글꼴 미리 연결·번역 준비·출시 알림·서비스 홍보 화면 적용
 } // 함수 끝
 
 export function findStaticPageChanges(root = "public") // 적용이 필요한 페이지 찾기

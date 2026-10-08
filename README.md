@@ -469,6 +469,8 @@ node --test tests/local-site-experience.test.mjs tests/responsive-integration.te
 
 게임 대표 이미지는 `public/images/games`의 1280×720 WebP(한 장 300KB 이하)를 씁니다. 원본 PNG는 `internal/game-image-originals`에 두며, 원본을 바꾼 뒤 `pnpm images:games`를 실행하면 화면용 이미지와 공유 미리보기 이미지(`public/images/share`, 1200×630 JPG, 성인 게임 제외)를 다시 만듭니다. 공유 미리보기 주소는 지금 사이트 안 경로로 적혀 있으므로, 공식 도메인이 정해지면 `scripts/apply-page-meta.mjs`의 `SHARE_IMAGE_BASE_URL`에 `https://도메인`을 넣고 `pnpm pages:apply`와 `node scripts/generate-project-pages.mjs`를 실행해 절대 주소로 바꿉니다. 메인·굿즈 같은 일반 페이지의 공유 이미지는 브랜드 이미지가 준비된 뒤 넣습니다.
 
+`/images` 아래 이미지는 브라우저가 하루 동안 보관합니다(`next.config.mjs`). 같은 주소로 그림만 바꾸면 방문자에게 최대 하루 동안 예전 그림이 보일 수 있으므로, 바로 바뀌어야 하면 주소 뒤의 `?v=날짜` 값을 함께 올립니다. 성인 게임 이미지는 연령 확인 결과가 남지 않도록 보관하지 않습니다.
+
 변경 전 기획 HTML은 `internal/project-archives`에 원본 형태로 보존합니다. `internal` 폴더는 웹 배포 대상이 아니지만, 공개 GitHub 저장소에서는 파일을 직접 열람할 수 있습니다. 실제 기밀 자료와 외부 공개가 금지된 문서는 비공개 저장소로 옮겨야 합니다.
 
 공통 소개 페이지를 공개 데이터에서 다시 생성하는 명령은 다음과 같습니다.

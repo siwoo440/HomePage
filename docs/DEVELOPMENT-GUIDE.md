@@ -598,7 +598,7 @@ ESLint와 `eslint-config-next` 버전은 `package.json`에 고정되어 있으�
 
 1. `public/`에 HTML 추가(공통 메뉴 기준 요소 `data-responsive-nav-root`와 `/responsive-nav.mjs`, 반응형 셸, 개인정보 동의, 테마 파일 연결)
 2. `scripts/apply-site-header.mjs`의 `STATIC_HEADER_PAGES`에 페이지 등록, 필요하면 `scripts/apply-page-meta.mjs`의 `PAGE_DESCRIPTIONS`에 검색 설명 추가
-3. `pnpm pages:apply` 실행 — 공통 헤더, 검색 설명·공유 정보, 번역 준비 스크립트, 메인 캐러셀의 서비스 홍보 화면을 한 번에 적용합니다. `pnpm pages:check`는 빠진 페이지만 알려 줍니다.
+3. `pnpm pages:apply` 실행 — 공통 헤더, 검색 설명·공유 정보, 글꼴 서버 미리 연결, 번역 준비 스크립트, 메인 캐러셀의 서비스 홍보 화면을 한 번에 적용합니다. `pnpm pages:check`는 빠진 페이지만 알려 줍니다.
 4. `lib/site-url.ts`의 `PUBLIC_STATIC_PATHS`(사이트맵) 또는 `CRAWL_BLOCKED_PATHS`(검색 제외)에 주소 추가
 5. 한국어 문구의 영어 번역을 `public/i18n/en/site.json`에 추가하고 `pnpm i18n:check` 확인
 6. 필요한 전용 CSS와 MJS 추가, 사이트 링크와 키보드 접근 확인

@@ -49,7 +49,7 @@ export const viewport: Viewport = // 화면 정보 시작
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) // 전체 문서 틀
 { // 함수 시작
     return ( // 전체 문서 반환
-        /* 한국어 문서와 공통 테마 */ <html lang="ko" data-theme="playful-lab" suppressHydrationWarning><head><script src="/color-mode-bootstrap.js"></script><script src="/i18n-bootstrap.js" data-i18n-page="next"></script><link rel="stylesheet" href="/site-header.css" /><link rel="stylesheet" href="/responsive-shell.css" /><link rel="stylesheet" href="/playful-lab-theme.css" /></head><body className="font-sans antialiased">
+        /* 한국어 문서와 공통 테마 */ <html lang="ko" data-theme="playful-lab" suppressHydrationWarning><head><script src="/color-mode-bootstrap.js"></script><script src="/i18n-bootstrap.js" data-i18n-page="next"></script><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /><link rel="stylesheet" href="/site-header.css" /><link rel="stylesheet" href="/responsive-shell.css" /><link rel="stylesheet" href="/playful-lab-theme.css" /></head><body className="font-sans antialiased">
                 {children} {/* 현재 페이지 내용 */}
                 <PageTranslator /> {/* 연결 뒤 영어 화면 번역 */}
                 <script type="module" src="/privacy-consent.mjs"></script> {/* 개인정보 동의 연결 */}
